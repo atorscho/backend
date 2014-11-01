@@ -1,6 +1,11 @@
 {
     "name": "atorscho/backend",
-    "description": "",
+    "description": "Backend Package for Laravel Framework.",
+	"version": "0.0.1",
+	"type": "project",
+	"keywords": ["laravel", "backend", "admin", "cp", "control panel", "administration"],
+	"homepage": "http://alextorscho.com",
+	"license": "MIT",
     "authors": [
         {
             "name": "Alex Torscho",
