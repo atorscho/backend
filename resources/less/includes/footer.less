@@ -1,0 +1,20 @@
+// Load variables and functions
+@import "../master-variables";
+@import "../master-mixins";
+
+// ----------------------------
+
+#footer {
+	color:      @footerText;
+	padding:    20px 0;
+	text-align: center;
+
+	a {
+		color:           @footerTextAnchor;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

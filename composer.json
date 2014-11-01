@@ -1,0 +1,23 @@
+{
+    "name": "atorscho/backend",
+    "description": "",
+    "authors": [
+        {
+            "name": "Alex Torscho",
+            "email": "contact@alextorscho.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Atorscho\\Backend\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

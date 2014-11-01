@@ -1,0 +1,97 @@
+// Load variables and functions
+@import "../master-variables";
+@import "../master-mixins";
+
+// ----------------------------
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background:             @bodyBackground;
+	color:                  @textColor;
+	font:                   @fontSizeBase @fontFamilyBase;
+	line-height:            @lineHeightBase;
+	-webkit-font-smoothing: antialiased;
+}
+
+// Remove outline from elements (mostly webkit)
+*:active, *:focus {
+	outline: none !important;
+}
+
+// Links
+a {
+	color: @linkColor;
+
+	&:hover {
+		color: @linkColorHover;
+	}
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+	color:       @headingsColor;
+	font-family: @headingsFontFamily;
+	font-weight: @headingsFontWeight;
+
+	small {
+		font-weight: @headingsFontWeight;
+	}
+}
+h1, h2, h3 {
+	margin: 10px 0;
+}
+
+.bootstrap .btn:focus {
+	outline: 0 !important;
+	outline: 5px auto -webkit-focus-ring-color !important;
+}
+
+// Common Classes
+// ===================================
+// Anchor with a border-bottom in place of text-decoration
+.link {
+	border-bottom: 1px solid fade(#000, 10%);
+	text-decoration: none;
+
+	&:hover {
+		border-color: @brandPrimary;
+		text-decoration: none;
+	}
+
+	&.big {
+		display: inline-block;
+		padding: 4px 6px;
+	}
+}
+
+// Handle text (a.k.a. slug)
+.handle {
+	font-family: @fontFamilyMonospace;
+}
+
+// Used for elements with [data-href] attribute
+[data-href] {
+	cursor: pointer;
+	transition: all 250ms ease;
+
+	&:hover {
+		background: @brandPrimary !important;
+		color: #fff !important;
+		text-shadow: 0 1px darken(@brandPrimary, 7%) !important;
+
+		> * {
+			color: #fff !important;
+		}
+	}
+}
+
+// Widths
+.width-50  { width: 50px  !important; }
+.width-80  { width: 80px  !important; }
+.width-100 { width: 100px !important; }
+.width-140 { width: 140px !important; }
+.width-180 { width: 180px !important; }
+.width-240 { width: 240px !important; }

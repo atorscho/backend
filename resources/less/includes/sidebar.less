@@ -1,0 +1,48 @@
+// Load variables and functions
+@import "../master-variables";
+@import "../master-mixins";
+
+// ----------------------------
+
+// todo - --> master-variables
+.sidebar {
+	border-right: 1px solid @fadeBlack7;
+	position:     relative;
+
+	.nav {
+		margin-bottom: 20px;
+
+		> li {
+			> a {
+				color: @textColor;
+			}
+
+			&:hover {
+				> a {
+					background: @fadeBlack3;
+					box-shadow: 1px 0 @brandPrimary;
+				}
+			}
+			&.active, &:active {
+				> a {
+					background:  @brandPrimary;
+					box-shadow:  1px 0 darken(@brandPrimary, 10%);
+					color:       #fff;
+					text-shadow: 0 1px darken(@brandPrimary, 7%);
+				}
+			}
+
+			// Radius
+			&:first-of-type {
+				> a {
+					.border-radius-top-left();
+				}
+			}
+			&:last-of-type {
+				> a {
+					.border-radius-bottom-left();
+				}
+			}
+		}
+	}
+}

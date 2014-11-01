@@ -1,0 +1,183 @@
+// Load variables and functions
+@import "../master-variables";
+@import "../master-mixins";
+
+// ----------------------------
+
+// Component Boxes
+// ===================================
+.com-boxes {
+	.display();
+	.flex-wrap(wrap);
+	.justify-content(space-between);
+	margin-right: -@comBoxMargin;
+
+	.box {
+		.border-radius(@comBoxRadius);
+		.square(@comBoxSize);
+		background:    @comBoxBg;
+		box-shadow:    @dropShadow3;
+		color:         @comBoxText;
+		font-size:     50px;
+		line-height:   @comBoxSize + 10;
+		margin-right:  @comBoxMargin;
+		margin-bottom: @comBoxMargin;
+		text-align:    center;
+		transition:    all 250ms ease;
+
+		&:hover {
+			background:  @comBoxTextHover;
+			color:       #fff;
+			text-shadow: 0 1px darken(@comBoxTextHover, 10%);
+		}
+	}
+}
+
+// Drop Box
+// ===================================
+.drop {
+	position: relative;
+
+	&.active > a {
+		background: @dropBg !important;
+	}
+
+	.drop-box {
+		.border-radius-bottom();
+		background: @dropBg;
+		box-shadow: 0 2px 5px fade(#000, 5%);
+		color:      @dropText;
+		display:    none;
+		left:       0;
+		padding:    6px 10px;
+		position:   absolute;
+		top:        100%;
+		width:      @dropWidth;
+		z-index:    200;
+
+		.title {
+			border-bottom: 1px solid @dropTitleBorder;
+			font-weight:   bold;
+			margin:        -6px -10px 10px;
+			padding:       6px 10px;
+		}
+
+		a {
+			color: @dropText !important;
+		}
+
+		> ul {
+			list-style: none;
+			margin:     -6px -10px;
+			padding:    0 0 4px;
+
+			li {
+				a {
+					display:         block;
+					padding:         4px 10px;
+					text-decoration: none;
+
+					&:hover {
+						background: @dropLiItemBgHover;
+					}
+				}
+			}
+		}
+	}
+
+	&.right {
+		.drop-box {
+			left:  auto;
+			right: 0;
+		}
+	}
+}
+
+// Bloks
+// ===================================
+.blok {
+	.border-radius();
+	background:    @blokBg;
+	box-shadow:    @dropShadow3;
+	margin-bottom: 20px;
+	padding:       @blokPadding;
+
+	// Components
+	.title {
+		border:              0 solid @blokTitleBorder;
+		border-bottom-width: 1px;
+		margin:              -@blokPadding -@blokPadding @blokPadding;
+		padding:             (@blokPadding + 5) @blokPadding @blokPadding;
+
+		h1, h2, h3, h4, h5, h6 {
+			color:     @blokTitleColor;
+			font-size: 22px;
+			margin:    0;
+			padding:   0;
+		}
+	}
+	.title ~ .title {
+		border-top-width: 1px;
+		margin-top:       10px;
+	}
+	.navmenu {
+		ul {
+			list-style: none;
+			margin:     0;
+			padding:    0;
+
+			li {
+				a {
+					color:           @blokNavMenuText;
+					display:         block;
+					padding:         5px 8px;
+					text-decoration: none;
+
+					&:hover {
+						background: @blokNavMenuBgHover;
+					}
+				}
+			}
+		}
+	}
+}
+
+.blok + .blok {
+	margin-top: 20px;
+}
+
+// Lists
+// ===================================
+.list {
+	list-style: none;
+	margin:     0;
+	padding:    0;
+
+	li {
+		padding: 5px 8px;
+
+		&:nth-last-of-type(even) {
+			background: fade(#000, 2%);
+		}
+	}
+
+	&.menu {
+		li {
+			&:nth-last-of-type(even) {
+				background: none;
+			}
+
+			a {
+				color:           @listText;
+				display:         block;
+				margin:          -5px -8px;
+				padding:         5px 8px;
+				text-decoration: none;
+
+				&:hover {
+					background: @listBgHover;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,15 @@
+// Load variables and functions
+@import "../master-variables";
+@import "../master-mixins";
+
+// ----------------------------
+
+#flex-wrapper {
+	.display();
+	.flex-direction(column);
+	min-height: 100%;
+
+	#page-wrapper {
+		.flex(1 0);
+	}
+}

@@ -1,0 +1,253 @@
+// Load variables and functions
+@import "../master-variables";
+@import "../master-mixins";
+
+// ----------------------------
+
+// Breadcrumb
+// ===================================
+.breadcrumb {
+	.border-radius(0);
+	background: @breadcrumb;
+	padding:    10px 0;
+}
+
+// Buttons
+// ===================================
+.btn {
+	@padding: 20px;
+	.border-radius();
+	padding-right:   @padding;
+	padding-left:    @padding;
+	position:        relative;
+	text-decoration: none !important;
+
+	.fa-stack { text-shadow: none !important; }
+
+	// Sizes
+	&.btn-xs {
+		font-size:     @fontSizeBase - 2;
+		padding-right: @padding - 15;
+		padding-left:  @padding - 15;
+	}
+	&.btn-sm {
+		font-size:     @fontSizeBase - 1;
+		padding-right: @padding - 10;
+		padding-left:  @padding - 10;
+	}
+	&.btn-lg {
+		font-size:     @fontSizeBase + 4;
+		padding-right: @padding + 10;
+		padding-left:  @padding + 10;
+	}
+
+	// Color Variants
+	&.btn-default {
+		.variants-btn(#fafafa, @textColor);
+		.vertical(#fcfcfc, darken(#fcfcfc, 2%));
+		border-color: darken(#fcfcfc, 7%);
+		box-shadow:   inset 0 1px fade(#fff, 15%);
+		text-shadow:  0 1px #fff;
+
+		&:hover, &:focus {
+			.vertical(lighten(#fcfcfc, 3%), darken(#fcfcfc, 2%));
+		}
+		&:active {
+			box-shadow: inset 0 1px 3px @fadeBlack7;
+		}
+	}
+	&.btn-primary { .variants-btn(@brandPrimary); }
+	&.btn-success { .variants-btn(@brandSuccess); }
+	&.btn-info    { .variants-btn(@brandInfo); }
+	&.btn-warning { .variants-btn(@brandWarning); }
+	&.btn-danger  { .variants-btn(@brandDanger); }
+	&.btn-link    { color: @brandPrimary; }
+}
+
+.open {
+	// Color Variants
+	> .dropdown-toggle.btn-default {
+		.variants-btn(#fafafa, @textColor);
+		.vertical(#fcfcfc, darken(#fcfcfc, 2%));
+		border-color: darken(#fcfcfc, 7%);
+		box-shadow:   inset 0 1px 3px @fadeBlack7;
+		text-shadow:  0 1px #fff;
+	}
+	> .dropdown-toggle.btn-primary { .variants-btn(@brandPrimary); box-shadow: inset 0 1px 3px fade(#000, 15%); }
+	> .dropdown-toggle.btn-success { .variants-btn(@brandSuccess); box-shadow: inset 0 1px 3px fade(#000, 15%); }
+	> .dropdown-toggle.btn-info    { .variants-btn(@brandInfo); box-shadow: inset 0 1px 3px fade(#000, 15%); }
+	> .dropdown-toggle.btn-warning { .variants-btn(@brandWarning); box-shadow: inset 0 1px 3px fade(#000, 15%); }
+	> .dropdown-toggle.btn-danger  { .variants-btn(@brandDanger); box-shadow: inset 0 1px 3px fade(#000, 15%); }
+	> .dropdown-toggle.btn-link    { color: @brandPrimary; box-shadow: inset 0 1px 3px fade(#000, 15%); }
+}
+
+.bootstrap-select {
+	width: 100% !important;
+}
+
+// Dropdown Menus
+// ===================================
+.dropdown-menu {
+	.border-radius();
+	border-color: @fadeBlack3;
+	box-shadow:   @dropShadow7;
+
+	li {
+		a {
+			&:hover {
+				background: @fadeBlack3;
+			}
+		}
+	}
+}
+
+// Forms
+// ===================================
+.form-control {
+	.border-radius();
+	border-color: @formControlBorder;
+	box-shadow:   inset 0 1px 6px fade(#000, 5%);
+
+	&:focus {
+		border-color: @formControlBorderFocus;
+		box-shadow:   inset 0 1px 6px fade(@brandPrimary, 15%);
+	}
+}
+.form-group {
+	margin: 10px 0 0;
+}
+label {
+	cursor: pointer;
+}
+
+// Nav
+// ===================================
+.nav-tabs, .nav-tabs.nav-justified {
+	border-bottom: none;
+
+	li {
+		a {
+			.border-radius(0);
+			.border-radius-top();
+			border: none;
+			color:  @textColor;
+
+			&:hover {
+				background: @fadeBlack3;
+			}
+		}
+
+		&.active {
+			a {
+				background: #fff;
+				border:     none;
+				box-shadow: @dropShadow3;
+				color:      @brandPrimary;
+
+				&:hover, &:focus {
+					background: #fff;
+					border:     none;
+					color:      @brandPrimary;
+				}
+			}
+		}
+	}
+
+	& + .tab-content {
+		background: #fff;
+		box-shadow: @dropShadow3;
+		position:   relative;
+	}
+}
+
+.nav-pills {
+	li {
+		a {
+			.border-radius();
+			color: @textColor;
+
+			&:hover {
+				background: @fadeBlack3;
+			}
+		}
+
+		&.active {
+			a {
+				background:  @brandPrimary;
+				color:       #fff;
+				text-shadow: 0 1px darken(@brandPrimary, 5%);
+
+				&:hover, &:focus {
+					background: @brandPrimary;
+					color:      #fff;
+				}
+			}
+		}
+	}
+}
+
+.tab-content {
+	padding: 10px;
+}
+
+// Page Header
+// ===================================
+.page-header {
+	margin:  0 0 20px;
+	padding: 0 0 15px;
+
+	h1, h2, h3 {
+		color:   @pageHeaderText;
+		margin:  0;
+		padding: 0;
+	}
+}
+
+// Small
+// ===================================
+small {
+	color: @smallText !important;
+}
+
+// Table
+// ===================================
+.table {
+	margin-bottom: 0 !important;
+
+	thead {
+		tr {
+			th, td {
+				border-color: @brandPrimary !important;
+			}
+		}
+	}
+
+	tfoot {
+		tr {
+			th, td {
+				border-top: 2px solid @brandPrimary !important;
+			}
+		}
+	}
+
+	tr {
+		th, td {
+			border-color:   @fadeBlack3 !important;
+			vertical-align: middle !important;
+		}
+
+		&:first-of-type {
+			th, td {
+				border-top: none;
+			}
+		}
+	}
+}
+
+// Texts
+// ===================================
+.text-primary { color: @brandPrimary; }
+.text-success { color: @brandSuccess; }
+.text-info 	  { color: @brandInfo; }
+.text-warning { color: @brandWarning; }
+.text-danger  { color: @brandDanger; }
