@@ -1,35 +1,51 @@
 # Database
 List of components:
 
-- [ ] Users
-- [ ] User Fields (User fields)
-- [ ] Groups
-- [ ] Permissions
+- [x] Users
+- [x] User Fields (User fields)
+- [x] Groups
+- [x] Permissions
+- [x] Configurations
 - [ ] Menus **to be reviewed**
 - [ ] Categories
 - [ ] Articles
 - [ ] Pages
 - [ ] Forums & Categories
 - [ ] Topics & Posts
-- [ ] Configurations
 
-## Users & Group Users
+## Users & Groups
 `users`
 
-- id
-- username
-- email
-- password
+- id:increments
+- username:string:unique
+- email:string:unique
+- password:string(60)
 - remember_token
-- first_name
-- last_name
 - created_at
 - updated_at
 
-`groups`
+`usermeta`
 
-- id
-- name
-- slug
+- id:increments
+- user_id:integer:unsigned
+- name:string
+- handle:string
+- value:string
 - created_at
 - updated_at
+
+`groups`, `permissions`
+
+- id:increments
+- name:string
+- handle:string
+
+## Options (Settings)
+`options`
+
+- id:increments
+- type:enum(option, group)
+- name:string
+- handle:string
+- value:string
+- default:string
