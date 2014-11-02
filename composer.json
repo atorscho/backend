@@ -22,6 +22,10 @@
             "src/models",
             "src/seeds"
         ],
+		"files": [
+			"src/helpers/misc.php",
+			"src/helpers/outputs.php"
+		],
         "psr-0": {
             "Atorscho\\Backend\\": "src/"
         }

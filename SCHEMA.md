@@ -21,6 +21,8 @@ List of components:
 - email:string:unique
 - password:string(60)
 - remember_token
+- avatar:string
+- gender:enum(none, male, female)
 - created_at
 - updated_at
 
@@ -44,7 +46,6 @@ List of components:
 `options`
 
 - id:increments
-- type:enum(Option, OptGroup)
 - name:string
 - handle:string
 - value:string:nullable

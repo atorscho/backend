@@ -19,6 +19,8 @@ class BackendServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('atorscho/backend');
+
+		require __DIR__ . '/../../routes.php';
 	}
 
 	/**
