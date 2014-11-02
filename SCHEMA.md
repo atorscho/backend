@@ -44,8 +44,9 @@ List of components:
 `options`
 
 - id:increments
-- type:enum(option, group)
+- type:enum(Option, OptGroup)
 - name:string
 - handle:string
-- value:string
-- default:string
+- value:string:nullable
+- default:string:nullable
+- description:text:nullable
