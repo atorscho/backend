@@ -1,4 +1,6 @@
 <?php
 
-//Route::get('/admin', ['as' => 'admin.index', 'uses' => 'Atorscho\Backend\BackendController@index']);
+// ADMIN
+// ===================================
+Route::get('/admin', ['as' => 'admin.index', 'uses' => 'Atorscho\Backend\BackendController@index']);
 

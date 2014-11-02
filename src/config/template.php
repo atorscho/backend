@@ -10,8 +10,8 @@ return array(
 	| Paths to different assets folders.
 	|
 	*/
-	'assetsCss' => 'workbench/atorscho/backend/public/assets/css/',
-	'assetsJs'  => 'workbench/atorscho/backend/public/assets/js/',
+	'assetsCss' => 'packages/atorscho/backend/assets/css/',
+	'assetsJs'  => 'packages/atorscho/backend/assets/js/',
 
 	/*
 	|--------------------------------------------------------------------------

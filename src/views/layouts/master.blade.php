@@ -1,21 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ Lang::getLocale() }}">
 <head>
 	<!-- Meta Information
 	==================================================== -->
 	<meta charset="utf-8" />
+	<meta name="author" content="{{ $options->owner }}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<title>Verge</title>
 
 	<!-- Stylesheets
 	==================================================== -->
-<!--	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />-->
-<!--	<link rel="stylesheet" href="assets/css/bootstrap-select.min.css" />-->
-<!--	<link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css" />-->
-<!--	<link rel="stylesheet" href="assets/css/font-awesome.min.css" />-->
-<!--	<link rel="stylesheet/less" type="text/less" href="resources/less/master.less" />-->
-
+	@foreach($template->stylesheets as $css)
+		{{ HTML::style($template->assetsCss . $css . '.min.css') }}
+	@endforeach
 </head>
 <body>
 
@@ -26,22 +24,15 @@
 		<div class="container">
 			<!-- Logo -->
 			<div id="logo">
-				<a href="index.php">
-					Verge
-					<span>Admin</span>
+				<a href="{{ route('admin.index')}}">
+					{{{ $options->siteName }}}
+					<span>{{{ $options->slogan }}}</span>
 				</a>
 			</div>
 			<!-- / Logo -->
 
 			<!-- Primary Menu -->
-			<!-- todo - focus for menu items -->
-			<nav id="primary">
-				<ul>
-					<li class="active"><a href="users.php">Users & Groups</a></li>
-					<li><a href="#">Forums</a></li>
-					<li><a href="#">Pages</a></li>
-				</ul>
-			</nav>
+			@include('backend::partials.navmenu')
 			<!-- / Primary Menu -->
 
 			<!-- Secondary Menu -->
@@ -96,6 +87,8 @@
 	<div id="page-wrapper">
 		<div class="container">
 
+			@yield('content')
+
 		</div> <!-- end .container -->
 	</div> <!-- end #page-wrapper -->
 	<!-- / BODY -->
@@ -112,12 +105,9 @@
 
 <!-- Scripts: put in footer for better performance
 ==================================================== -->
-<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
-<!--<script src="assets/js/bootstrap.min.js"></script>-->
-<!--<script src="assets/js/moment.min.js"></script>-->
-<!--<script src="assets/js/bootstrap-select.min.js"></script>-->
-<!--<script src="assets/js/bootstrap-datetimepicker.min.js"></script>-->
-<!--<script src="assets/js/less.min.js"></script>-->
-<!--<script src="assets/js/brand.js"></script>-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+@foreach($template->scripts as $js)
+	{{ HTML::script($template->assetsJs . $js . '.js') }}
+@endforeach
 </body>
 </html>

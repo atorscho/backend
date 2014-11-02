@@ -18,15 +18,15 @@ class OptionTableSeeder extends Seeder {
 			[
 				'name'        => 'Site Name',
 				'handle'      => 'siteName',
-				'value'       => 'Backend',
-				'default'     => 'Backend',
+				'value'       => 'Verge',
+				'default'     => 'Verge',
 				'description' => 'Will be used in "title" tag and headings.'
 			],
 			[
 				'name'        => 'Slogan',
 				'handle'      => 'slogan',
-				'value'       => 'Admin Control Panel',
-				'default'     => 'Admin Control Panel',
+				'value'       => 'Admin',
+				'default'     => 'Admin',
 				'description' => 'Some short description of the site.'
 			],
 			[

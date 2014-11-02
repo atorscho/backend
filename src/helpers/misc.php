@@ -16,7 +16,7 @@ if ( !function_exists('toObjects') )
 		{
 			$object->$key = $value;
 			if ( is_array($value) )
-				$object->$key = $value;
+				$object->$key = toObjects($value);
 		}
 
 		return $object;
