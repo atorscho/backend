@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		$this->call('OptionsSeeder');
+		$this->call('SettingsSeeder');
 	}
 
 }

@@ -18,13 +18,13 @@ class BaseController extends Controller {
 			]
 		];
 
-		$options = new \stdClass;
-		foreach ( Option::all() as $option )
-			$options->{$option->handle} = $option->value;
+		$settings = new \stdClass;
+		foreach ( Setting::all() as $setting )
+			$settings->{$setting->handle} = $setting->value;
 
 		View::share('navmenu', toObjects($navmenu));
 		View::share('template', toObjects(Config::get('backend::template')));
-		View::share('options', $options);
+		View::share('settings', $settings);
 	}
 
 	/**

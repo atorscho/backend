@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateOptionsTable extends Migration {
+class CreateSettingsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,10 @@ class CreateOptionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('options', function(Blueprint $table)
+		Schema::create('settings', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('optgroup_id')->unsigned();
+			$table->integer('settings_group_id')->unsigned();
 			$table->string('name');
 			$table->string('handle')->unique();
 			$table->string('value');
@@ -32,7 +32,7 @@ class CreateOptionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('options');
+		Schema::drop('settings');
 	}
 
 }

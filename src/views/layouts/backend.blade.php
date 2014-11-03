@@ -4,11 +4,11 @@
 	<!-- Meta Information
 	==================================================== -->
 	<meta charset="utf-8" />
-	<meta name="author" content="{{ $options->owner }}" />
+	<meta name="author" content="{{ $settings->owner }}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<?php // todo - translate ?>
-	<title>{{{ $title }}} {{{ $options->titleSep }}} Backend {{{ $options->titleSep }}} {{{ $options->siteName }}}</title>
+	<title>{{{ $title }}} {{{ $settings->titleSep }}} Backend {{{ $settings->titleSep }}} {{{ $settings->siteName }}}</title>
 
 	<!-- Stylesheets
 	==================================================== -->
@@ -26,8 +26,8 @@
 			<!-- Logo -->
 			<div id="logo">
 				<a href="{{ route('admin.index')}}">
-					{{{ $options->siteName }}}
-					<span>{{{ $options->slogan }}}</span>
+					{{{ $settings->siteName }}}
+					<span>{{{ $settings->slogan }}}</span>
 				</a>
 			</div>
 			<!-- / Logo -->
@@ -70,7 +70,7 @@
 	<!-- FOOTER -->
 	<footer id="footer">
 		<div class="container">
-			&copy; {{{ $options->established }}} {{{ $options->siteName }}} &bull; {{ $options->copyright }} &bull; Designed by <a href="//alextorscho.com">Alex Torscho</a>
+			&copy; {{{ $settings->established }}} {{{ $settings->siteName }}} &bull; {{ $settings->copyright }} &bull; Designed by <a href="//alextorscho.com">Alex Torscho</a>
 		</div>
 	</footer>
 	<!-- / FOOTER -->
