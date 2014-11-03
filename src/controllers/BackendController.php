@@ -1,6 +1,7 @@
 <?php namespace Atorscho\Backend;
 
 use View;
+use Atorscho\Crumbs\Facades\Crumbs;
 
 // todo - translate
 
