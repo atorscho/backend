@@ -11,12 +11,14 @@ class SettingController extends BaseController {
 
 	public function index()
 	{
+		$settingsgroups = SettingsGroup::all();
+
 		$title = 'Settings';
 		Crumbs::add(route('admin.settings'), $title);
 
 		$this->layout->title   = $title;
 		$this->layout->desc    = 'Site configurations and options';
-		$this->layout->content = View::make('backend::settings.index');
+		$this->layout->content = View::make('backend::settings.index', compact('settingsgroups'));
 	}
 
 }
