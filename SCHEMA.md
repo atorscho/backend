@@ -31,7 +31,7 @@ List of components:
 - id:increments
 - user_id:integer:unsigned
 - name:string
-- handle:string
+- handle:string:unique
 - value:string
 - created_at
 - updated_at
@@ -40,14 +40,20 @@ List of components:
 
 - id:increments
 - name:string
-- handle:string
+- handle:string:unique
 
 ## Options (Settings)
 `options`
 
 - id:increments
 - name:string
-- handle:string
+- handle:string:unique
 - value:string:nullable
 - default:string:nullable
 - description:text:nullable
+
+`optgroups`
+
+- id:increments
+- name:string
+- handle:string:unique

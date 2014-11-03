@@ -7,7 +7,8 @@
 	<meta name="author" content="{{ $options->owner }}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<title>Verge</title>
+	<?php // todo - translate ?>
+	<title>{{{ $title }}} {{{ $options->titleSep }}} Backend {{{ $options->titleSep }}} {{{ $options->siteName }}}</title>
 
 	<!-- Stylesheets
 	==================================================== -->
@@ -32,52 +33,11 @@
 			<!-- / Logo -->
 
 			<!-- Primary Menu -->
-			@include('backend::partials.navmenu')
+			@include('backend::partials.primaryMenu')
 			<!-- / Primary Menu -->
 
 			<!-- Secondary Menu -->
-			<div id="secondary">
-				<ul>
-					<li class="drop right">
-						<a href="#"><i class="fa fa-fw fa-bell"></i><i class="fa fa-angle-down"></i></a>
-
-						<div class="drop-box">
-							<div class="title">Recent Notifications</div>
-
-							<ul>
-								<li><a href="#">Item 1</a></li>
-								<li><a href="#">Item 2</a></li>
-								<li><a href="#">Item 3</a></li>
-								<li><a href="#">Item 4</a></li>
-							</ul>
-						</div>
-					</li>
-					<li class="drop right">
-						<a href="#"><i class="fa fa-fw fa-envelope"></i><i class="fa fa-angle-down"></i></a>
-
-						<div class="drop-box">
-							<div class="title">Inbox</div>
-
-							<ul>
-								<li><a href="#">Message 1</a></li>
-								<li><a href="#">Message 2</a></li>
-								<li><a href="#">Message 3</a></li>
-								<li><a href="#">Message 4</a></li>
-							</ul>
-						</div>
-					</li>
-					<li class="drop right">
-						<a href="#"><i class="fa fa-fw fa-user"></i><i class="fa fa-angle-down"></i></a>
-
-						<div class="drop-box">
-							Another box
-						</div>
-					</li>
-					<li><a href="#"><i class="fa fa-fw fa-cog"></i></a></li>
-					<li><a href="#"><i class="fa fa-fw fa-home"></i></a></li>
-					<li><a href="#"><i class="fa fa-fw fa-sign-out"></i></a></li>
-				</ul>
-			</div>
+			@include('backend::partials.secondaryMenu')
 			<!-- / Secondary Menu -->
 		</div> <!-- end .container -->
 	</header>
@@ -86,6 +46,22 @@
 	<!-- BODY -->
 	<div id="page-wrapper">
 		<div class="container">
+
+			<!-- Breadcrumbs -->
+        	<ol class="breadcrumb">
+        		<li class="active">Dashboard</li>
+        	</ol>
+        	<!-- / Breadcrumbs -->
+
+        	<div class="page-header">
+        		<h1>
+        			{{{ $title }}}
+
+        			@if(isset($desc))
+        			    <small>{{{ $desc }}}</small>
+        			@endif
+        		</h1>
+        	</div>
 
 			@yield('content')
 
@@ -96,7 +72,7 @@
 	<!-- FOOTER -->
 	<footer id="footer">
 		<div class="container">
-			&copy; 2014 Verge &bull; All rights reserved &bull; Designed by <a href="//alextorscho.com">Alex Torscho</a>
+			&copy; {{{ $options->established }}} {{{ $options->siteName }}} &bull; {{ $options->copyright }} &bull; Designed by <a href="//alextorscho.com">Alex Torscho</a>
 		</div>
 	</footer>
 	<!-- / FOOTER -->

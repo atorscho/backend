@@ -1,9 +1,10 @@
 <?php
 
+use Atorscho\Backend\OptGroup;
 use Atorscho\Backend\Option;
 use Illuminate\Database\Seeder;
 
-class OptionTableSeeder extends Seeder {
+class OptionsSeeder extends Seeder {
 
 	/**
 	 * Run the database seeds.
@@ -14,8 +15,28 @@ class OptionTableSeeder extends Seeder {
 	{
 		Option::truncate();
 
-		$seeds = [
+		$optgroups = [
 			[
+				'name'   => 'General Settings',
+				'handle' => 'general'
+			],
+			[
+				'name'   => 'User Settings',
+				'handle' => 'users'
+			],
+			[
+				'name'   => 'Template Settings',
+				'handle' => 'template'
+			],
+			[
+				'name'   => 'File System',
+				'handle' => 'files'
+			]
+		];
+
+		$options = [
+			[
+				'optgroup_id' => 1,
 				'name'        => 'Site Name',
 				'handle'      => 'siteName',
 				'value'       => 'Verge',
@@ -23,6 +44,7 @@ class OptionTableSeeder extends Seeder {
 				'description' => 'Will be used in "title" tag and headings.'
 			],
 			[
+				'optgroup_id' => 1,
 				'name'        => 'Slogan',
 				'handle'      => 'slogan',
 				'value'       => 'Admin',
@@ -30,6 +52,7 @@ class OptionTableSeeder extends Seeder {
 				'description' => 'Some short description of the site.'
 			],
 			[
+				'optgroup_id' => 1,
 				'name'        => 'Established',
 				'handle'      => 'established',
 				'value'       => '2014',
@@ -37,6 +60,7 @@ class OptionTableSeeder extends Seeder {
 				'description' => 'Year the site was established.'
 			],
 			[
+				'optgroup_id' => 1,
 				'name'        => 'Owner',
 				'handle'      => 'owner',
 				'value'       => 'Alex Torscho',
@@ -44,6 +68,7 @@ class OptionTableSeeder extends Seeder {
 				'description' => 'Name of the site creator.'
 			],
 			[
+				'optgroup_id' => 1,
 				'name'        => 'Copyright',
 				'handle'      => 'copyright',
 				'value'       => 'All rights reserved',
@@ -51,6 +76,7 @@ class OptionTableSeeder extends Seeder {
 				'description' => 'Your custom copyright text that is displayed in site footer.'
 			],
 			[
+				'optgroup_id' => 1,
 				'name'        => 'Date Format',
 				'handle'      => 'dateFormat',
 				'value'       => 'M d Y',
@@ -58,6 +84,7 @@ class OptionTableSeeder extends Seeder {
 				'description' => 'Specify your prefered date format. See <a href="http://php.net/manual/en/function.date.php">PHP Documentation</a>.'
 			],
 			[
+				'optgroup_id' => 1,
 				'name'        => 'DateTime Format',
 				'handle'      => 'dateTimeFormat',
 				'value'       => 'M d Y, H:i',
@@ -65,6 +92,7 @@ class OptionTableSeeder extends Seeder {
 				'description' => 'Specify your prefered datetime format. See <a href="http://php.net/manual/en/function.date.php">PHP Documentation</a>.'
 			],
 			[
+				'optgroup_id' => 2,
 				'name'        => 'Default Group',
 				'handle'      => 'defaultGroup',
 				'value'       => '1',
@@ -72,6 +100,7 @@ class OptionTableSeeder extends Seeder {
 				'description' => 'The default group for new registered users.'
 			],
 			[
+				'optgroup_id' => 3,
 				'name'        => 'Title Separator',
 				'handle'      => 'titleSep',
 				'value'       => ' | ',
@@ -79,6 +108,7 @@ class OptionTableSeeder extends Seeder {
 				'description' => 'The separator that is used in "title" tag and headings.'
 			],
 			[
+				'optgroup_id' => 4,
 				'name'        => 'Images Folder',
 				'handle'      => 'folderImg',
 				'value'       => 'images/',
@@ -86,6 +116,7 @@ class OptionTableSeeder extends Seeder {
 				'description' => 'Main folder for uploaded images.'
 			],
 			[
+				'optgroup_id' => 4,
 				'name'        => 'Avatars Folder',
 				'handle'      => 'folderAvatars',
 				'value'       => 'images/avatars/',
@@ -94,9 +125,18 @@ class OptionTableSeeder extends Seeder {
 			]
 		];
 
-		foreach ( $seeds as $seed )
+		foreach ( $optgroups as $seed )
+		{
+			$optgroup         = new OptGroup;
+			$optgroup->name   = $seed['name'];
+			$optgroup->handle = $seed['handle'];
+			$optgroup->save();
+		}
+
+		foreach ( $options as $seed )
 		{
 			$option              = new Option;
+			$option->optgroup_id = $seed['optgroup_id'];
 			$option->name        = $seed['name'];
 			$option->handle      = $seed['handle'];
 			$option->value       = $seed['value'];
