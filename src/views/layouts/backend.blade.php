@@ -48,9 +48,7 @@
 		<div class="container">
 
 			<!-- Breadcrumbs -->
-        	<ol class="breadcrumb">
-        		<li class="active">Dashboard</li>
-        	</ol>
+        	{{ Crumbs::render() }}
         	<!-- / Breadcrumbs -->
 
         	<div class="page-header">
