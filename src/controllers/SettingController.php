@@ -16,8 +16,8 @@ class SettingController extends BaseController {
 	public function index()
 	{
 		$groups = SettingsGroup::with('settings')->get();
-
 		$title = 'Settings';
+
 		Crumbs::add(route('admin.settings'), $title);
 
 		$this->layout->title   = $title;

@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-9">
 			<div class="com-boxes">
-				<a class="box groups tip" href="users.php" title="Users and Roles Management">
+				<a class="box groups tip" href="users.php" title="Users and Groups">
 					<i class="fa fa-fw fa-group"></i>
 				</a>
 				<a class="box pages tip" href="#" title="Pages">
@@ -14,22 +14,7 @@
 				<a class="box menus tip" href="#" title="Menu Manager">
 					<i class="fa fa-fw fa-navicon"></i>
 				</a>
-				<a class="box settings tip" href="#" title="Settings">
-					<i class="fa fa-fw fa-cogs"></i>
-				</a>
-				<a class="box groups tip" href="#" title="Languages">
-					<i class="fa fa-fw fa-language"></i>
-				</a>
-				<a class="box pages tip" href="#" title="Categories">
-					<i class="fa fa-fw fa-folder-open"></i>
-				</a>
-				<a class="box forums tip" href="#" title="Tickets">
-					<i class="fa fa-fw fa-ticket"></i>
-				</a>
-				<a class="box menus tip" href="#" title="Menu Manager">
-					<i class="fa fa-fw fa-navicon"></i>
-				</a>
-				<a class="box settings tip" href="#" title="Settings">
+				<a class="box settings tip" href="{{{ route('admin.settings') }}}" title="Settings">
 					<i class="fa fa-fw fa-cogs"></i>
 				</a>
 			</div>

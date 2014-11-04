@@ -1,7 +1,7 @@
 <?php
 
-use Atorscho\Backend\SettingsGroup;
-use Atorscho\Backend\Setting;
+use Atorscho\Backend\Models\SettingsGroup;
+use Atorscho\Backend\Models\Setting;
 use Illuminate\Database\Seeder;
 
 class SettingsSeeder extends Seeder {
@@ -13,8 +13,6 @@ class SettingsSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		Setting::truncate();
-
 		$settings_groups = [
 			[
 				'name'   => 'General Settings',

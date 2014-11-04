@@ -25,6 +25,21 @@ if ( !function_exists('toObjects') )
 	}
 }
 
+if ( !function_exists('getSetting') )
+{
+	/**
+	 * Get option by its handle.
+	 *
+	 * @param $handle
+	 *
+	 * @return \Illuminate\Database\Eloquent\Model|null|static
+	 */
+	function getSetting( $handle )
+	{
+		return Option::where('handle', $handle)->first()->value;
+	}
+}
+
 if ( !function_exists('index') )
 {
 	/**
@@ -37,20 +52,5 @@ if ( !function_exists('index') )
 		static $tab = 0;
 		$tab++;
 		return $tab;
-	}
-}
-
-if ( !function_exists('getOption') )
-{
-	/**
-	 * Get option by its handle.
-	 *
-	 * @param $handle
-	 *
-	 * @return \Illuminate\Database\Eloquent\Model|null|static
-	 */
-	function getOption( $handle )
-	{
-		return Option::where('handle', $handle)->first()->value;
 	}
 }

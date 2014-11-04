@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['namespace' => 'Atorscho\Backend', 'prefix'    => 'admin'], function ()
+Route::group(['namespace' => 'Atorscho\Backend', 'prefix' => 'admin'], function ()
 {
 	// ADMIN
 	// ===================================
@@ -21,4 +21,3 @@ Route::group(['namespace' => 'Atorscho\Backend', 'prefix'    => 'admin'], functi
 		'uses'   => 'SettingController@update'
 	]);
 });
-

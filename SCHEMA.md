@@ -21,7 +21,9 @@ List of components:
 - email:string:unique
 - password:string(60)
 - remember_token
-- avatar:string
+- avatar:string:nullable
+- first_name:string:nullable
+- last_name:string:nullable
 - gender:enum(none, male, female)
 - created_at
 - updated_at

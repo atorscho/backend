@@ -21,7 +21,7 @@ class CreateSettingsGroupsTable extends Migration {
 
 		Schema::table('settings', function (Blueprint $table)
 		{
-			$table->foreign('settings_group_id')->references('id')->on('settings_groups')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('settings_group_id')->references('id')->on('settings_groups')->onDelete('cascade');
 		});
 	}
 
