@@ -1,4 +1,4 @@
-<?php namespace Atorscho\Backend;
+<?php namespace Atorscho\Backend\Models;
 
 class BaseModel extends \Eloquent {
 

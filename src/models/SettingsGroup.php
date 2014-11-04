@@ -1,16 +1,14 @@
-<?php namespace Atorscho\Backend;
+<?php namespace Atorscho\Backend\Models;
 
 class SettingsGroup extends BaseModel {
-
-	protected $table = 'settings_groups';
 
 	protected $fillable = [];
 
 	public $timestamps = false;
 
-	public function options()
+	public function settings()
 	{
-		return $this->hasMany('Setting');
+		return $this->hasMany('Atorscho\Backend\Models\Setting');
 	}
 
 }

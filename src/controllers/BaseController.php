@@ -3,6 +3,7 @@
 use Config;
 use Controller;
 use View;
+use Atorscho\Backend\Models\Setting;
 
 class BaseController extends Controller {
 

@@ -1,10 +1,23 @@
 <?php
 
-// ADMIN
-// ===================================
-Route::get('/admin', ['as' => 'admin.index', 'uses' => 'Atorscho\Backend\BackendController@index']);
+Route::group(['before' => 'csrf', 'namespace' => 'Atorscho\Backend', 'prefix' => 'admin'], function ()
+{
+	// ADMIN
+	// ===================================
+	Route::get('/', [
+		'as' => 'admin.index',
+		'uses' => 'BackendController@index'
+	]);
 
-// Settings
-// ===================================
-Route::get('/admin/settings', ['as' => 'admin.settings', 'uses' => 'Atorscho\Backend\SettingController@index']);
-Route::put('/admin/settings', ['as' => 'admin.settings.update', 'uses' => 'Atorscho\Backend\SettingController@update']);
+	// Settings
+	// ===================================
+	Route::get('/settings', [
+		'as' => 'admin.settings',
+		'uses' => 'SettingController@index'
+	]);
+	Route::put('/settings', [
+		'as' => 'admin.settings.update',
+		'uses' => 'SettingController@update'
+	]);
+});
+

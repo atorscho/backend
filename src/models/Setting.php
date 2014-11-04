@@ -1,4 +1,4 @@
-<?php namespace Atorscho\Backend;
+<?php namespace Atorscho\Backend\Models;
 
 class Setting extends BaseModel {
 
@@ -8,7 +8,7 @@ class Setting extends BaseModel {
 
 	public function group()
 	{
-		return $this->belongsTo('SettingsGroup');
+		return $this->belongsTo('Atorscho\Backend\Models\SettingsGroup', 'settings_group_id');
 	}
 
 }
