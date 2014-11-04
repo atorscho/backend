@@ -61,6 +61,8 @@
         		</h1>
         	</div>
 
+        	{{ flash() }}
+
 			@yield('content')
 
 		</div> <!-- end .container -->

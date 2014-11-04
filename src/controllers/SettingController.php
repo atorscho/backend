@@ -1,6 +1,8 @@
 <?php namespace Atorscho\Backend;
 
+use Atorscho\Backend\Models\Setting;
 use Atorscho\Backend\Models\SettingsGroup;
+use Redirect;
 use View;
 use Input;
 use Atorscho\Crumbs\Facades\Crumbs;
@@ -25,10 +27,16 @@ class SettingController extends BaseController {
 
 	public function update()
 	{
-		foreach ( Input::all as $input )
+		foreach ( Setting::all() as $setting )
 		{
-
+			if ( $setting->value != Input::get($setting->handle) )
+			{
+				$setting->value = Input::get($setting->handle);
+				$setting->save();
+			}
 		}
+
+		return Redirect::route('admin.settings')->with('success', 'Updated');
 	}
 
 }
