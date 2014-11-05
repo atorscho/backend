@@ -2,17 +2,18 @@
 @section('content')
 	{{ Form::open(['route' => 'admin.login.post']) }}
 		<div class="form-group">
-			{{ Form::label('username') }}
+			{{ Form::label('username') }} {{ $errors->first('username', '<span class="text-danger">:message</span>') }}
 			{{ Form::text('username', null, [
 				'class' => 'form-control',
 				'placeholder' => 'Username',
+				'autofocus' => 'true',
 				'tabindex' => index()
 			]) }}
 		</div>
 
 		<div class="form-group">
-			{{ Form::label('password') }}
-			{{ Form::text('password', null, [
+			{{ Form::label('password') }} {{ $errors->first('password', '<span class="text-danger">:message</span>') }}
+			{{ Form::password('password', [
 				'class' => 'form-control',
 				'placeholder' => 'Password',
 				'tabindex' => index()

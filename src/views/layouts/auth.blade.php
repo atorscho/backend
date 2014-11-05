@@ -27,6 +27,8 @@
 			<h1>{{{ $title }}}</h1>
 		</div>
 
+		{{ flash() }}
+
 		<div class="content">
 			@yield('content')
 		</div>
