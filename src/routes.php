@@ -1,12 +1,27 @@
 <?php
 
-Route::group(['namespace' => 'Atorscho\Backend', 'prefix' => 'admin'], function ()
+Route::group([
+	'namespace' => 'Atorscho\Backend',
+	'prefix'    => 'admin'
+], function ()
 {
 	// ADMIN
 	// ===================================
 	Route::get('/', [
 		'as'   => 'admin.index',
 		'uses' => 'BackendController@index'
+	]);
+	Route::get('/login', [
+		'as'   => 'admin.login',
+		'uses' => 'BackendController@login'
+	]);
+	Route::post('/login', [
+		'as'   => 'admin.login.post',
+		'uses' => 'BackendController@loginPost'
+	]);
+	Route::get('/logout', [
+		'as' => 'admin.logout',
+		'uses' => 'BackendController@logout'
 	]);
 
 	// Settings

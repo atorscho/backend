@@ -31,7 +31,11 @@ class BackendServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app['backend.backend.extract'] = $this->app->share(function ($app)
+		{
+			return new Commands\BackendCreateAdminCommand;
+		});
+		$this->commands('backend.backend.extract');
 	}
 
 	/**
