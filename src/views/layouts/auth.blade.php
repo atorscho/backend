@@ -15,59 +15,22 @@
 	@foreach($template->stylesheets as $css)
 		{{ HTML::style($template->assetsCss . $css . '.min.css') }}
 	@endforeach
+	<?php // todo - remove ?>
+	<link rel="stylesheet/less" href="{{ asset('packages/atorscho/backend/assets/less/' . 'master.less') }}"/>
 </head>
-<body>
+<body id="page-auth">
 
 <div id="flex-wrapper">
 
-	<!-- HEADER -->
-	<header id="header">
-		<div class="container">
-			<!-- Logo -->
-			<div id="logo">
-				<a href="{{ route('admin.index')}}">
-					{{{ $settings->siteName }}}
-					<span>{{{ $settings->slogan }}}</span>
-				</a>
-			</div>
-			<!-- / Logo -->
+	<div class="wrap">
+		<div class="page-header">
+			<h1>{{{ $title }}}</h1>
+		</div>
 
-			<!-- Primary Menu -->
-			@include('backend::partials.primaryMenu')
-			<!-- / Primary Menu -->
-
-			<!-- Secondary Menu -->
-			@include('backend::partials.secondaryMenu')
-			<!-- / Secondary Menu -->
-		</div> <!-- end .container -->
-	</header>
-	<!-- / HEADER -->
-
-	<!-- BODY -->
-	<div id="page-wrapper">
-		<div class="container">
-
-			<!-- Breadcrumbs -->
-        	{{ Crumbs::render() }}
-        	<!-- / Breadcrumbs -->
-
-        	<div class="page-header">
-        		<h1>
-        			{{{ $title }}}
-
-        			@if(isset($desc))
-        			    <small>{{{ $desc }}}</small>
-        			@endif
-        		</h1>
-        	</div>
-
-        	{{ flash() }}
-
+		<div class="content">
 			@yield('content')
-
-		</div> <!-- end .container -->
-	</div> <!-- end #page-wrapper -->
-	<!-- / BODY -->
+		</div>
+	</div>
 
 	<!-- FOOTER -->
 	<footer id="footer">

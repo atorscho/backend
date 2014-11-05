@@ -15,6 +15,8 @@
 	@foreach($template->stylesheets as $css)
 		{{ HTML::style($template->assetsCss . $css . '.min.css') }}
 	@endforeach
+	<?php // todo - remove ?>
+	<link rel="stylesheet/less" href="{{ asset('packages/atorscho/backend/assets/less/' . 'master.less') }}"/>
 </head>
 <body>
 

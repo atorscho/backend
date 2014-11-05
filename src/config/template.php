@@ -27,15 +27,15 @@ return array(
 		'bootstrap-datetimepicker',
 		'bootstrap-select',
 		'font-awesome',
-		'master'
+//		'master' todo - bring back the master.css
 	],
 	'scripts' => [
 		'moment',
 		'bootstrap',
 		'bootstrap-datetimepicker',
 		'bootstrap-select',
-		'angular',
-		'angular-resource',
+//		'angular',
+//		'angular-resource',
 		'less',
 		'brand'
 	]

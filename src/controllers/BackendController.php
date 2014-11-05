@@ -18,10 +18,15 @@ class BackendController extends BaseController {
 
 	public function login()
 	{
-		$this->layout          = 'backend::layouts.auth';
+		$this->layout          = View::make('backend::layouts.auth');
 		$this->layout->title   = 'Backend Dashboard';
 		$this->layout->desc    = 'Admin Cotrol Panel';
-		$this->layout->content = View::make('backend::admin.llogin');
+		$this->layout->content = View::make('backend::admin.login');
+	}
+
+	public function loginPost()
+	{
+
 	}
 
 	public function logout()
