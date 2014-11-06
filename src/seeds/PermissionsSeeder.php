@@ -12,6 +12,8 @@ class PermissionsSeeder extends Seeder {
 	 */
 	public function run()
 	{
+		DB::table('group_permission')->truncate();
+
 		// Members - 1
 		// Moderators - 2
 		// Supermods - 3

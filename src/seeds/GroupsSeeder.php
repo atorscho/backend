@@ -13,6 +13,9 @@ class GroupsSeeder extends Seeder {
 	 */
 	public function run()
 	{
+		Group::truncate();
+		Permission::truncate();
+
 		$groups = [
 			[
 				'name'   => 'Members',
