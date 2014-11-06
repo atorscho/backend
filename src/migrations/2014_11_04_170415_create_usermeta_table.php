@@ -15,13 +15,8 @@ class CreateUsermetaTable extends Migration {
 		Schema::create('usermeta', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id')->unsigned();
 			$table->string('name');
 			$table->string('handle')->unique();
-			$table->string('value');
-			$table->timestamps();
-
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 

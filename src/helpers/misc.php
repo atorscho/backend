@@ -1,6 +1,6 @@
 <?php
 
-use Atorscho\Backend\Option;
+use Atorscho\Backend\Models\Setting;
 
 if ( !function_exists('toObjects') )
 {
@@ -36,7 +36,7 @@ if ( !function_exists('getSetting') )
 	 */
 	function getSetting( $handle )
 	{
-		return Option::where('handle', $handle)->first()->value;
+		return Setting::where('handle', $handle)->first()->value;
 	}
 }
 

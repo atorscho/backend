@@ -24,17 +24,7 @@ List of components:
 - avatar:string:nullable
 - first_name:string:nullable
 - last_name:string:nullable
-- gender:enum(none, male, female)
-- created_at
-- updated_at
-
-`usermeta`
-
-- id:increments
-- user_id:integer:unsigned
-- name:string
-- handle:string:unique
-- value:string
+- gender:enum(N, M, F)
 - created_at
 - updated_at
 
@@ -43,19 +33,28 @@ List of components:
 - id:increments
 - name:string
 - handle:string:unique
+- prefix:string
+- suffix:string
 
-## Options (Settings)
-`options`
+`usermeta`                      `meta_user`
+
+- id:increments                 - id:increments
+- name:string                   - meta_id -> usermeta(id)
+- handle:string:unique          - user_id -> users(id)
+
+## Settings
+`settings_groups`
 
 - id:increments
 - name:string
 - handle:string:unique
-- value:string:nullable
-- default:string:nullable
-- description:text:nullable
 
-`optgroups`
+`settings`
 
 - id:increments
+- group_id:integer:unsigned
 - name:string
 - handle:string:unique
+- value:string
+- default:string
+- description:text

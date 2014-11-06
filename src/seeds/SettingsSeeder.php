@@ -130,12 +130,12 @@ class SettingsSeeder extends Seeder {
 			foreach ( $seedGroup['settings'] as $seedSetting )
 			{
 				$setting = Setting::create([
-					'settings_group_id' => $settingsGroup->id,
-					'name'              => $seedSetting['name'],
-					'handle'            => $seedSetting['handle'],
-					'value'             => $seedSetting['value'],
-					'default'           => $seedSetting['default'],
-					'description'       => $seedSetting['description']
+					'group_id'    => $settingsGroup->id,
+					'name'        => $seedSetting['name'],
+					'handle'      => $seedSetting['handle'],
+					'value'       => $seedSetting['value'],
+					'default'     => $seedSetting['default'],
+					'description' => $seedSetting['description']
 				]);
 			}
 		}

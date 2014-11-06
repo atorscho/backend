@@ -18,11 +18,6 @@ class CreateSettingsGroupsTable extends Migration {
 			$table->string('name');
 			$table->string('handle')->unique();
 		});
-
-		Schema::table('settings', function (Blueprint $table)
-		{
-			$table->foreign('settings_group_id')->references('id')->on('settings_groups')->onDelete('cascade');
-		});
 	}
 
 
@@ -33,11 +28,6 @@ class CreateSettingsGroupsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('settings', function ( Blueprint $table )
-		{
-			$table->dropForeign('settings_settings_group_foreign');
-		});
-
 		Schema::drop('settings_groups');
 	}
 

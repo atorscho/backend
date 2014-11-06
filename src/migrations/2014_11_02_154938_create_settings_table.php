@@ -15,12 +15,14 @@ class CreateSettingsTable extends Migration {
 		Schema::create('settings', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('settings_group_id')->unsigned();
+			$table->integer('group_id')->unsigned();
 			$table->string('name');
 			$table->string('handle')->unique();
 			$table->string('value');
 			$table->string('default');
-			$table->text('description')->nullable();
+			$table->text('description');
+
+			$table->foreign('group_id')->references('id')->on('settings_groups')->onDelete('cascade');
 		});
 	}
 
