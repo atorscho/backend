@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-9">
 			<div class="com-boxes">
-				<a class="box groups tip" href="users.php" title="Users and Groups">
+				<a class="box groups tip" href="{{{ route('admin..users.index') }}}" title="Users and Groups">
 					<i class="fa fa-fw fa-group"></i>
 				</a>
 				<a class="box pages tip" href="#" title="Pages">

@@ -1,4 +1,4 @@
-<?php namespace Atorscho\Backend;
+<?php namespace Atorscho\Backend\Controllers;
 
 use Atorscho\Backend\Models\Setting;
 use Atorscho\Backend\Models\SettingsGroup;

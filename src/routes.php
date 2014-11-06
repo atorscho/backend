@@ -4,7 +4,7 @@
 Route::when('admin*', 'admin.auth');
 
 Route::group([
-	'namespace' => 'Atorscho\Backend',
+	'namespace' => 'Atorscho\Backend\Controllers',
 	'prefix'    => 'admin'
 ], function ()
 {
@@ -38,4 +38,8 @@ Route::group([
 		'before' => 'csrf',
 		'uses'   => 'SettingController@update'
 	]);
+
+	// Users
+	// ===================================
+	Route::resource('/users', 'UserController');
 });

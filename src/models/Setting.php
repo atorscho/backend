@@ -8,7 +8,7 @@ class Setting extends BaseModel {
 
 	public function group()
 	{
-		return $this->belongsTo('Atorscho\Backend\Models\SettingsGroup', 'settings_group_id');
+		return $this->belongsTo('Atorscho\Backend\Models\SettingsGroup');
 	}
 
 }

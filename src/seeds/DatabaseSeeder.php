@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder {
 		$this->call('SettingsSeeder');
 		$this->call('GroupsSeeder');
 		$this->call('PermissionsSeeder');
-		$this->call('UsermetaTableSeeder');
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 	}

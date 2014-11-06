@@ -8,7 +8,7 @@ class SettingsGroup extends BaseModel {
 
 	public function settings()
 	{
-		return $this->hasMany('Atorscho\Backend\Models\Setting');
+		return $this->hasMany('Atorscho\Backend\Models\Setting', 'group_id');
 	}
 
 }
