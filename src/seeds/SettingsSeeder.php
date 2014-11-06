@@ -122,21 +122,21 @@ class SettingsSeeder extends Seeder {
 
 		foreach ( $groups as $seedGroup )
 		{
-			$settingsGroup         = new SettingsGroup;
-			$settingsGroup->name   = $seedGroup['name'];
-			$settingsGroup->handle = $seedGroup['handle'];
-			$settingsGroup->save();
+			$settingsGroup = SettingsGroup::create([
+				'name'   => $seedGroup['name'],
+				'handle' => $seedGroup['handle']
+			]);
 
 			foreach ( $seedGroup['settings'] as $seedSetting )
 			{
-				$setting                    = new Setting;
-				$setting->settings_group_id = $settingsGroup->id;
-				$setting->name              = $seedSetting['name'];
-				$setting->handle            = $seedSetting['handle'];
-				$setting->value             = $seedSetting['value'];
-				$setting->default           = $seedSetting['default'];
-				$setting->description       = $seedSetting['description'];
-				$setting->save();
+				$setting = Setting::create([
+					'settings_group_id' => $settingsGroup->id,
+					'name'              => $seedSetting['name'],
+					'handle'            => $seedSetting['handle'],
+					'value'             => $seedSetting['value'],
+					'default'           => $seedSetting['default'],
+					'description'       => $seedSetting['description']
+				]);
 			}
 		}
 	}
