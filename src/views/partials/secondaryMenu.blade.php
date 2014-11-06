@@ -1,3 +1,4 @@
+<?php // todo - translate ?>
 <div id="secondary">
 	<ul>
 		<li class="drop right">
@@ -31,8 +32,10 @@
 		<li class="drop right">
 			<a href="#"><i class="fa fa-fw fa-user"></i><i class="fa fa-angle-down"></i></a>
 
-			<div class="drop-box">
-				Another box
+			<div class="drop-box show">
+				<div class="text-danger">
+					<img class="img-thumbnail img-responsive" src="{{ asset('packages/atorscho/backend/assets/img/misc/noavatar.png') }}" alt="User Avatar" width="80" />
+				</div>
 			</div>
 		</li>
 		<li><a href="#"><i class="fa fa-fw fa-cog"></i></a></li>

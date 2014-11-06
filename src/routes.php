@@ -1,5 +1,8 @@
 <?php
 
+// Filters
+Route::when('admin*', 'admin.auth');
+
 Route::group([
 	'namespace' => 'Atorscho\Backend',
 	'prefix'    => 'admin'

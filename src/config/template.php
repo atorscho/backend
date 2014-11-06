@@ -11,6 +11,7 @@ return array(
 	|
 	*/
 	'assetsCss' => 'packages/atorscho/backend/assets/css/',
+	'assetsImg' => 'packages/atorscho/backend/assets/img/',
 	'assetsJs'  => 'packages/atorscho/backend/assets/js/',
 
 	/*
