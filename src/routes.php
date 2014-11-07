@@ -19,11 +19,12 @@ Route::group([
 		'uses' => 'BackendController@login'
 	]);
 	Route::post('/login', [
-		'as'   => 'admin.login.post',
-		'uses' => 'BackendController@loginPost'
+		'as'     => 'admin.login.post',
+		'before' => 'csrf',
+		'uses'   => 'BackendController@loginPost'
 	]);
 	Route::get('/logout', [
-		'as' => 'admin.logout',
+		'as'   => 'admin.logout',
 		'uses' => 'BackendController@logout'
 	]);
 
@@ -41,7 +42,7 @@ Route::group([
 
 	// Users & Groups & Permissions
 	// ===================================
-	Route::resource('users', 'UserController', ['except' => 'show']);
+	Route::resource('users', 'UserController', [ 'except' => 'show' ]);
 	Route::resource('groups', 'GroupController');
-//	Route::resource('users/permissions', 'PermissionController');
+	//Route::resource('users/permissions', 'PermissionController');
 });

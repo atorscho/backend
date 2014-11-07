@@ -1,14 +1,26 @@
 <?php namespace Atorscho\Backend\Controllers;
 
+use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\User;
 use Atorscho\Crumbs\Facades\Crumbs;
+use Input;
+use Redirect;
+use Validator;
 use View;
 
 // todo - translate
 
+// todo - CREATE PHPUNIT TESTS!!!!!!!!!
+
 class UserController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->beforeFilter('csrf', [ 'on' => 'post' ]);
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -36,13 +48,23 @@ class UserController extends BaseController {
 	 */
 	public function create()
 	{
-		$title   = 'New User';
+		$title  = 'New User';
+
+		// Get an array of groups: id such as a key, group name such as a key value
+		$groups = array_pluck(Group::all(), 'name', 'id');
+		unset( $groups[5] );
+
+		$gender = [
+			'N' => 'Unknown',
+			'M' => 'Male',
+			'F' => 'Female'
+		];
 
 		Crumbs::add(route('admin.users.index'), 'User Management');
 		Crumbs::add(route('admin.users.create'), $title);
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::users.create');
+		$this->layout->content = View::make('backend::users.create', compact('groups', 'gender'));
 	}
 
 
@@ -53,7 +75,19 @@ class UserController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		$validator = Validator::make(Input::all(), [
+			'username'   => 'required|max:20',
+			'email'      => 'required|email|max:40',
+			'password'   => 'required|confirmed',
+			'birthday'   => 'date',
+			'gender'     => 'in:N,M,F',
+			'registered' => 'date'
+		]);
+
+		if ( $validator->fails() )
+			return Redirect::back()->withErrors($validator)->withInput();
+
+
 	}
 
 

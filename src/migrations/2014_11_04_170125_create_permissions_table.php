@@ -21,7 +21,6 @@ class CreatePermissionsTable extends Migration {
 
 		Schema::create('group_permission', function ( Blueprint $table )
 		{
-			$table->increments('id');
 			$table->integer('group_id')->unsigned();
 			$table->integer('permission_id')->unsigned();
 
@@ -31,7 +30,6 @@ class CreatePermissionsTable extends Migration {
 
 		Schema::create('permission_user', function ( Blueprint $table )
 		{
-			$table->increments('id');
 			$table->integer('permission_id')->unsigned();
 			$table->integer('user_id')->unsigned();
 

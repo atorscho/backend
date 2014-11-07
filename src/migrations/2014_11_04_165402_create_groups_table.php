@@ -23,7 +23,6 @@ class CreateGroupsTable extends Migration {
 
 		Schema::create('group_user', function ( Blueprint $table )
 		{
-			$table->increments('id');
 			$table->integer('group_id')->unsigned();
 			$table->integer('user_id')->unsigned();
 
