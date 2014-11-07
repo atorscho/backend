@@ -26,7 +26,8 @@
         ],
 		"files": [
 			"src/helpers/misc.php",
-			"src/helpers/outputs.php"
+			"src/helpers/outputs.php",
+			"src/helpers/users.php"
 		],
         "psr-0": {
             "Atorscho\\Backend\\": "src/"

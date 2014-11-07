@@ -26,7 +26,7 @@ class GroupsSeeder extends Seeder {
 				'handle' => 'moderators'
 			],
 			[
-				'name'   => 'Super-moderators',
+				'name'   => 'Super-Moderators',
 				'handle' => 'supermods'
 			],
 			[
@@ -34,7 +34,7 @@ class GroupsSeeder extends Seeder {
 				'handle' => 'admins'
 			],
 			[
-				'name'   => 'Super-administrators',
+				'name'   => 'Super-Administrators',
 				'handle' => 'superadmins'
 			]
 		];

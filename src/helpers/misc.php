@@ -56,7 +56,7 @@ if ( !function_exists('index') )
 	}
 }
 
-if ( !function_exists('getDate') )
+if ( !function_exists('getDateFormat') )
 {
 	/**
 	 * Returns a formatted Date string,
@@ -66,13 +66,13 @@ if ( !function_exists('getDate') )
 	 *
 	 * @return bool|string
 	 */
-	function getDate( $date )
+	function getDateFormat( $date )
 	{
 		return date(getSetting('dateFormat'), strtotime($date));
 	}
 }
 
-if ( !function_exists('getDateTime') )
+if ( !function_exists('getDateTimeFormat') )
 {
 	/**
 	 * Returns a formatted Date string,
@@ -82,7 +82,7 @@ if ( !function_exists('getDateTime') )
 	 *
 	 * @return bool|string
 	 */
-	function getDateTime( $dateTime )
+	function getDateTimeFormat( $dateTime )
 	{
 		return date(getSetting('dateTimeFormat'), strtotime($dateTime));
 	}

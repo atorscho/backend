@@ -4,7 +4,13 @@
 	<div class="blok">
 		<div class="row">
 			<div class="col-md-3">
-				@include('backend::partials._users_sidebar')
+				<aside class="sidebar">
+                	@include('backend::partials._users_sidebar')
+
+                	<div class="text-center">
+                		<a class="btn btn-primary" href="{{{ route('admin.users.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> New User</a>
+                	</div>
+                </aside>
 			</div>
 			<div class="col-md-9">
 				<table class="table table-striped">
@@ -34,12 +40,12 @@
 						<tr>
 							<td>{{ $i++ }}</td>
 							<td data-href="#">{{ $user->username }}</td>
-							<td>Members</td>
-							<td>{{ getDate($user->created_at->toDateString()) }}</td>
+							<td>{{ groupsAnchorList($user) }}</td>
+							<td>{{ getDateTimeFormat($user->created_at) }}</td>
 							<td class="text-center">{{ $user->id }}</td>
 							<td class="text-center">
-								<div class="btn-group bbtn-group-justified">
-									<a class="btn btn-sm btn-default" href="mailto:{{ HTML::email('a@a.com') }}" title="Send an email">
+								<div class="btn-group">
+									<a class="btn btn-sm btn-default" href="mailto:{{ HTML::email($user->email) }}" title="Send an email">
 										<i class="fa fa-envelope-o"></i>
 									</a>
 									<?php // todo - show links to user's social profiles ?>
@@ -58,7 +64,7 @@
 									<ul class="dropdown-menu pull-right" role="menu">
 										<li class="dropdown-header">Manage User</li>
 										<li><a href="#"><i class="fa fa-fw fa-edit"></i> Edit</a></li>
-										<li><a href="#"><i class="fa fa-fw fa-times"></i> Delete</a></li>
+										<li><a href="#"><i class="fa fa-fw fa-times-circle-o"></i> Delete</a></li>
 										<li class="dropdown-header">User's Content</li>
 										<li><a href="#"><i class="fa fa-fw fa-file-text"></i> Posts</a></li>
 										<li><a href="#"><i class="fa fa-fw fa-tags"></i> Tickets</a></li>

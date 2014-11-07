@@ -39,7 +39,9 @@ Route::group([
 		'uses'   => 'SettingController@update'
 	]);
 
-	// Users
+	// Users & Groups & Permissions
 	// ===================================
-	Route::resource('users', 'UserController');
+	Route::resource('users', 'UserController', ['except' => 'show']);
+	Route::resource('groups', 'GroupController');
+//	Route::resource('users/permissions', 'PermissionController');
 });
