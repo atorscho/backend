@@ -51,6 +51,39 @@ if ( !function_exists('index') )
 	{
 		static $tab = 0;
 		$tab++;
+
 		return $tab;
+	}
+}
+
+if ( !function_exists('getDate') )
+{
+	/**
+	 * Returns a formatted Date string,
+	 * respecting the value passed in Backend Settings.
+	 *
+	 * @param $date
+	 *
+	 * @return bool|string
+	 */
+	function getDate( $date )
+	{
+		return date(getSetting('dateFormat'), strtotime($date));
+	}
+}
+
+if ( !function_exists('getDateTime') )
+{
+	/**
+	 * Returns a formatted Date string,
+	 * respecting the value passed in Backend Settings.
+	 *
+	 * @param string $dateTime
+	 *
+	 * @return bool|string
+	 */
+	function getDateTime( $dateTime )
+	{
+		return date(getSetting('dateTimeFormat'), strtotime($dateTime));
 	}
 }

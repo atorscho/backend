@@ -35,11 +35,11 @@
 			<!-- / Logo -->
 
 			<!-- Primary Menu -->
-			@include('backend::partials.primaryMenu')
+			@include('backend::partials._primaryMenu')
 			<!-- / Primary Menu -->
 
 			<!-- Secondary Menu -->
-			@include('backend::partials.secondaryMenu')
+			@include('backend::partials._secondaryMenu')
 			<!-- / Secondary Menu -->
 		</div> <!-- end .container -->
 	</header>

@@ -1,6 +1,7 @@
 <?php namespace Atorscho\Backend\Controllers;
 
 use Atorscho\Backend\Models\User;
+use Atorscho\Crumbs\Facades\Crumbs;
 use View;
 
 // todo - translate
@@ -16,10 +17,15 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		$users = User::all();
+		$title = 'User Management';
+		$perPage = 10;
+		$users = User::with('groups')->paginate($perPage);
 
-		$this->layout->title = 'Users';
-		$this->layout->content = View::make('backend::users.index');
+		Crumbs::add(route('admin.users.index'), $title);
+
+		$this->layout->title = $title;
+		$this->layout->desc  = 'List of all users and their info';
+		$this->layout->content = View::make('backend::users.index', compact('users', 'perPage'));
 	}
 
 
