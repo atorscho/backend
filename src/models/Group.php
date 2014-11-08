@@ -39,4 +39,34 @@ class Group extends BaseModel {
 		return $this->users()->count();
 	}
 
+
+	/**
+	 * Format group's name according to its prefix and suffix styles.
+	 *
+	 * @return string
+	 */
+	public function getNameFormattedAttribute()
+	{
+		$prefix = $this->prefix ?: '';
+		$suffix = $this->suffix ?: '';
+
+		return $prefix . $this->name . $suffix;
+	}
+
+
+	/**
+	 * If handle has not been specified,
+	 * use title to create it.
+	 * Otherwise use the specified one.
+	 *
+	 * @param $value
+	 */
+	public function setHandleAttribute( $value )
+	{
+		if ( $value )
+			$this->attributes['handle'] = \Str::slug($value);
+		else
+			$this->attributes['handle'] = \Str::slug($this->name);
+	}
+
 }

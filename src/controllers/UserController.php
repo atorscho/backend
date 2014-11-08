@@ -13,6 +13,8 @@ use View;
 // todo - CREATE PHPUNIT TESTS!!!!!!!!!
 // todo - forgotten password
 
+// todo - let add to user his own permissions
+
 class UserController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';

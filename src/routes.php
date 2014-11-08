@@ -53,6 +53,7 @@ Route::group([
 
 	// Users & Groups & Permissions
 	// ===================================
+	// todo - remove 'show'
 	Route::resource('users', 'UserController');
 	Route::resource('groups', 'GroupController');
 	//Route::resource('users/permissions', 'PermissionController');

@@ -38,7 +38,7 @@
                     @foreach($groups as $group)
                         <tr>
                             <td>{{ index() }}</td>
-                            <td>{{{ $group->name }}}</td>
+                            <td>{{ $group->name_formatted }}</td>
                             <td class="handle">{{{ $group->handle }}}</td>
                             <td class="text-center" data-href="#">
                                 <span class="text-primary">{{{ $group->users_count }}}</span>

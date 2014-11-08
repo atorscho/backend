@@ -127,7 +127,7 @@
 		<div class="form-group">
 			{{ Form::label('groups') }}
 			{{ $errors->first('groups', '<span class="text-danger">:message</span>') }}
-			{{ Form::select('groups[]', $groups, (isset($usergroups) ? $usergroups : null), [
+			{{ Form::select('groups[]', $groups, isset($usergroups) ? $usergroups : null, [
 				'class'    => 'select',
 				'title'    => 'Choose user groups',
 				'multiple' => 'multiple',

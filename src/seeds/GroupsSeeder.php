@@ -23,19 +23,27 @@ class GroupsSeeder extends Seeder {
 			],
 			[
 				'name'   => 'Moderators',
-				'handle' => 'moderators'
+				'handle' => 'moderators',
+				'prefix' => '<span style="font-weight: bold; color: #333f4a;">',
+				'suffix' => '</span>'
 			],
 			[
 				'name'   => 'Super-Moderators',
-				'handle' => 'supermods'
+				'handle' => 'supermods',
+				'prefix' => '<span style="font-weight: bold; color: #5cb85c;">',
+				'suffix' => '</span>'
 			],
 			[
 				'name'   => 'Administrators',
-				'handle' => 'admins'
+				'handle' => 'admins',
+				'prefix' => '<span style="font-weight: bold; color: #f40;">',
+				'suffix' => '</span>'
 			],
 			[
 				'name'   => 'Super-Administrators',
-				'handle' => 'superadmins'
+				'handle' => 'superadmins',
+				'prefix' => '<span style="font-weight: bold; color: #e26c5c;">',
+				'suffix' => '</span>'
 			]
 		];
 
