@@ -2,6 +2,7 @@
 
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
+use Atorscho\Backend\Models\User;
 use Atorscho\Crumbs\Facades\Crumbs;
 use Input;
 use Redirect;
@@ -84,11 +85,11 @@ class GroupController extends BaseController {
 	 * Display the specified resource.
 	 * GET /group/{id}
 	 *
-	 * @param  int $id
+	 * @param  Group $group
 	 *
 	 * @return Response
 	 */
-	public function show( $id )
+	public function show( Group $group )
 	{
 		//
 	}
@@ -97,39 +98,77 @@ class GroupController extends BaseController {
 	 * Show the form for editing the specified resource.
 	 * GET /group/{id}/edit
 	 *
-	 * @param  int $id
+	 * @param  Group $group
 	 *
 	 * @return Response
 	 */
-	public function edit( $id )
+	public function edit( Group $group )
 	{
-		//
+		$title = 'Edit';
+
+		// Get an array of permissions: id such as a key, permission name such as a key value
+		$permissions = Permission::lists('name', 'id');
+		// Populate the selectbox
+		$groupperms = $group->permissions()->lists('id');
+
+		Crumbs::add(route('admin.groups.index'), 'Group Management');
+		Crumbs::add(route('admin.groups.show', $group->id), $group->name);
+		Crumbs::add(route('admin.groups.edit', $group->id), $title);
+
+		$this->layout->title   = $title;
+		$this->layout->content = View::make('backend::groups.edit', compact('group', 'permissions', 'groupperms'));
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 * PUT /group/{id}
 	 *
-	 * @param  int $id
+	 * @param  Group $group
 	 *
 	 * @return Response
 	 */
-	public function update( $id )
+	public function update( Group $group )
 	{
-		//
+		$validator = Validator::make(Input::all(), $this->rules);
+
+		if ( $validator->fails() )
+			return Redirect::back()->withErrors($validator)->withInput();
+
+		$group->name   = Input::get('name');
+		$group->handle = Input::get('handle');
+		$group->prefix = Input::get('prefix');
+		$group->suffix = Input::get('suffix');
+		$group->save();
+		$group->permissions()->sync(Input::get('permissions'));
+
+		if ( Input::get('submit') == 'save_new' )
+			return Redirect::route('admin.groups.create')->with('success', 'Group has been created.');
+		else
+			return Redirect::route('admin.groups.index')->with('success', 'Group has been updated.');
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 * DELETE /group/{id}
 	 *
-	 * @param  int $id
+	 * @param  Group $group
 	 *
 	 * @return Response
 	 */
-	public function destroy( $id )
+	public function destroy( Group $group )
 	{
-		//
+		// Add all group's users to the default group
+		foreach ( $group->users as $user )
+		{
+			// Apply this to the users that are only in one group
+			if ($user->groups->count() == 1)
+				$user->groups()->sync([ getSetting('defaultGroup') => getSetting('defaultGroup') ]);
+		}
+
+		// Now delete that group
+		$group->delete();
+
+		return Redirect::route('admin.groups.index')->with('success', 'Group has been deleted.');
 	}
 
 }

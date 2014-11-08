@@ -13,6 +13,13 @@ Route::bind('users', function ( $value )
 	else
 		return \Atorscho\Backend\Models\User::whereUsername($value)->first();
 });
+Route::bind('groups', function ( $value )
+{
+	if ( is_numeric($value) )
+		return \Atorscho\Backend\Models\Group::find($value);
+	else
+		return \Atorscho\Backend\Models\Group::whereHandle($value)->first();
+});
 
 Route::group([
 	'namespace' => 'Atorscho\Backend\Controllers',

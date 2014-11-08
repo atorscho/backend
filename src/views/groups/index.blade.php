@@ -45,23 +45,16 @@
                             </td>
                             <td class="text-center">{{{ $group->id }}}</td>
                             <td class="text-center">
+                                {{ Form::open(['route' => ['admin.groups.destroy', $group->id], 'method' => 'DELETE']) }}
                                 <div class="btn-group">
-                                    <a class="btn btn-sm btn-primary" href="#" title="See group's permissions">
-                                        <i class="fa fa-key"></i>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('admin.groups.edit', $group->id) }}">
+                                        <i class="fa fa-edit"></i>
                                     </a>
-                                    <a class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-caret-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li class="dropdown-header">Manage Group</li>
-                                        <li><a href="#"><i class="fa fa-fw fa-edit"></i> Edit</a></li>
-                                        <li class="disabled">
-                                            <button disabled>
-                                                <i class="fa fa-fw fa-times"></i> Delete
-                                            </button>
-                                        </li>
-                                    </ul>
+                                    <button class="btn btn-sm btn-primary" {{ in_array($group->id, range(1, 5)) ? 'disabled="disabled"' : '' }}>
+                                        <i class="fa fa-fw fa-times"></i>
+                                    </button>
                                 </div>
+                                {{ Form::close() }}
                             </td>
                         </tr>
                     @endforeach
