@@ -179,7 +179,8 @@ class UserController extends BaseController {
 	 */
 	public function destroy( User $user )
 	{
-		$user->delete();
+		if ($user != 1)
+			$user->delete();
 
 		return Redirect::route('admin.users.index')->with('success', 'User has been deactivated.');
 	}

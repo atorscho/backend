@@ -6,6 +6,8 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+// todo - formatted username
+
 class User extends BaseModel implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait, SoftDeletingTrait;

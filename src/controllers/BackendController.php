@@ -1,5 +1,6 @@
 <?php namespace Atorscho\Backend\Controllers;
 
+use Atorscho\Backend\Models\User;
 use Auth;
 use Input;
 use Redirect;
@@ -14,9 +15,12 @@ class BackendController extends BaseController {
 
 	public function index()
 	{
+		$users = User::orderBy('id', 'desc')->take(5)->get();
+		$userCount = User::all()->count();
+
 		$this->layout->title   = 'Backend Dashboard';
 		$this->layout->desc    = 'Admin Cotrol Panel';
-		$this->layout->content = View::make('backend::admin.index');
+		$this->layout->content = View::make('backend::admin.index', compact('users', 'userCount'));
 	}
 
 	public function login()

@@ -1,3 +1,4 @@
+<?php // todo - translate ?>
 @section('content')
 	<div class="row">
 		<div class="col-md-9">
@@ -26,7 +27,8 @@
 					<h3>Statistics</h3>
 				</header>
 				<ul class="list">
-					<li>New Users <span class="badge pull-right">48</span></li>
+					<?php // todo - stats ?>
+					<li>New Users <span class="badge pull-right">{{{ $userCount }}}</span></li>
 					<li>New Posts <span class="badge pull-right">15</span></li>
 					<li>New Tickets <span class="badge pull-right">4</span></li>
 				</ul>
@@ -36,7 +38,7 @@
 				</header>
 				<div class="navmenu">
 					<ul>
-						<li><a href="#">New User</a></li>
+						<li>{{ link_to_route('admin.users.create', 'New User') }}</li>
 						<li><a href="#">New Page</a></li>
 						<li><a href="#">New Menu</a></li>
 					</ul>
@@ -76,11 +78,12 @@
 			<div class="tab-content">
 				<div class="tab-pane active" id="users">
 					<ul class="list">
-						<li><a href="#">User #1</a> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">User #2</a> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">User #3</a> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">User #4</a> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">User #5</a> <span class="label label-default pull-right">Oct 29 2014</span></li>
+						@foreach($users as $user)
+							<li>
+								{{ link_to_route('admin.users.edit', $user->username, [$user->id]) }}
+								<span class="label label-default pull-right">{{ getDateTimeFormat($user->created_at) }}</span>
+							</li>
+						@endforeach
 					</ul>
 				</div>
 				<div class="tab-pane" id="posts">
