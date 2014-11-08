@@ -3,7 +3,6 @@
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\User;
 use Atorscho\Crumbs\Facades\Crumbs;
-use Hash;
 use Input;
 use Redirect;
 use Validator;
@@ -12,13 +11,13 @@ use View;
 // todo - translate
 
 // todo - CREATE PHPUNIT TESTS!!!!!!!!!
+// todo - forgotten password
 
 class UserController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';
 
 	protected $rules = [
-		'password'   => 'confirmed',
 		'birthday'   => 'date',
 		'gender'     => 'in:N,M,F',
 		'groups'     => 'required',
@@ -39,7 +38,7 @@ class UserController extends BaseController {
 	public function index()
 	{
 		$title   = 'User Management';
-		$perPage = 10;
+		$perPage = getSetting('usersPerPage');
 		$users   = User::with('groups')->paginate($perPage);
 
 		Crumbs::add(route('admin.users.index'), $title);
@@ -88,7 +87,7 @@ class UserController extends BaseController {
 		$rules             = $this->rules;
 		$rules['username'] = 'required|max:20|unique:users';
 		$rules['email']    = 'required|email|max:40|unique:users';
-		$rules['password'] .= 'required';
+		$rules['password'] = 'required|confirmed';
 
 		$validator = Validator::make(Input::all(), $rules);
 
@@ -144,7 +143,10 @@ class UserController extends BaseController {
 	 */
 	public function update( User $user )
 	{
-		$validator = Validator::make(Input::all(), $this->rules);
+		$rules = $this->rules;
+		if ( Input::has('password') )
+			$rules['password'] = 'confirmed';
+		$validator = Validator::make(Input::all(), $rules);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
@@ -170,13 +172,15 @@ class UserController extends BaseController {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int $id
+	 * @param  User $user
 	 *
 	 * @return Response
 	 */
-	public function destroy( $id )
+	public function destroy( User $user )
 	{
-		//
+		$user->delete();
+
+		return Redirect::route('admin.users.index')->with('success', 'User has been deactivated.');
 	}
 
 
