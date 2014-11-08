@@ -1,7 +1,18 @@
 <?php
 
+// todo - move bindings to separate file
+
 // Filters
 Route::when('admin*', 'admin.auth');
+
+// Bindings
+Route::bind('users', function ( $value )
+{
+	if ( is_numeric($value) )
+		return \Atorscho\Backend\Models\User::find($value);
+	else
+		return \Atorscho\Backend\Models\User::whereUsername($value)->first();
+});
 
 Route::group([
 	'namespace' => 'Atorscho\Backend\Controllers',
@@ -42,7 +53,7 @@ Route::group([
 
 	// Users & Groups & Permissions
 	// ===================================
-	Route::resource('users', 'UserController', [ 'except' => 'show' ]);
+	Route::resource('users', 'UserController'); // , [ 'except' => 'show' ]
 	Route::resource('groups', 'GroupController');
 	//Route::resource('users/permissions', 'PermissionController');
 });

@@ -64,7 +64,7 @@
 									<ul class="dropdown-menu pull-right" role="menu">
 										<li class="dropdown-header">Manage User</li>
 										<li><a href="#"><i class="fa fa-fw fa-edit"></i> Edit</a></li>
-										<li><a href="#"><i class="fa fa-fw fa-times-circle-o"></i> Delete</a></li>
+										<li><a href="#"><i class="fa fa-fw fa-times-circle-o"></i> Disactivate</a></li>
 										<li class="dropdown-header">User's Content</li>
 										<li><a href="#"><i class="fa fa-fw fa-file-text"></i> Posts</a></li>
 										<li><a href="#"><i class="fa fa-fw fa-tags"></i> Tickets</a></li>

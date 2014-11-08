@@ -36,7 +36,12 @@ if ( !function_exists('getSetting') )
 	 */
 	function getSetting( $handle )
 	{
-		return Setting::where('handle', $handle)->first()->value;
+		$setting = Setting::where('handle', $handle)->first();
+
+		if ( !$setting )
+			return false;
+
+		return $setting->value;
 	}
 }
 

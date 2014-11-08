@@ -103,13 +103,29 @@ class UserController extends BaseController {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int $id
+	 * @param User $user
 	 *
-	 * @return Response
+	 * @return User
 	 */
-	public function edit( $id )
+	public function edit( User $user )
 	{
-		//
+		$title = 'Edit';
+
+		// Get an array of groups: id such as a key, group name such as a key value
+		$groups = array_pluck(Group::all(), 'name', 'id');
+
+		$gender = [
+			'N' => 'Unknown',
+			'M' => 'Male',
+			'F' => 'Female'
+		];
+
+		Crumbs::add(route('admin.users.index'), 'User Management');
+		Crumbs::add(route('admin.users.show', $user->username), $user->username);
+		Crumbs::add(route('admin.users.edit', $user->id), $title);
+
+		$this->layout->title   = $title;
+		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'gender'));
 	}
 
 

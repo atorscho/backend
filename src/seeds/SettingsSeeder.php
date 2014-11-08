@@ -102,6 +102,13 @@ class SettingsSeeder extends Seeder {
 						'value'       => ' » ',
 						'default'     => ' » ',
 						'description' => 'The separator that is used in "title" tag and headings.'
+					],
+					[
+						'name'        => 'Breadcrumbs Home',
+						'handle'      => 'crumbsHome',
+						'value'       => 'Dashboard',
+						'default'     => 'Dashboard',
+						'description' => 'Title of the first item in breadcrumbs.'
 					]
 				]
 			],
