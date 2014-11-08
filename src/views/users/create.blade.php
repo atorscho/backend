@@ -1,4 +1,3 @@
-<?php // todo - translate ?>
 @section('content')
 	<div class="row">
 		{{ Form::open(['route' => 'admin.users.store']) }}

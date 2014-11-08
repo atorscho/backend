@@ -17,6 +17,14 @@ class UserController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';
 
+	protected $rules = [
+		'password'   => 'confirmed',
+		'birthday'   => 'date',
+		'gender'     => 'in:N,M,F',
+		'groups'     => 'required',
+		'registered' => 'date'
+	];
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -77,15 +85,12 @@ class UserController extends BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make(Input::all(), [
-			'username'   => 'required|max:20|unique:users',
-			'email'      => 'required|email|max:40|unique:users',
-			'password'   => 'required|confirmed',
-			'birthday'   => 'date',
-			'gender'     => 'in:N,M,F',
-			'groups'     => 'required',
-			'registered' => 'date'
-		]);
+		$rules             = $this->rules;
+		$rules['username'] = 'required|max:20|unique:users';
+		$rules['email']    = 'required|email|max:40|unique:users';
+		$rules['password'] .= 'required';
+
+		$validator = Validator::make(Input::all(), $rules);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
@@ -94,7 +99,7 @@ class UserController extends BaseController {
 		$user->groups()->sync(Input::get('groups'));
 
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::back()->with('success', 'User has been created.');
+			return Redirect::route('admin.users.create')->with('success', 'User has been created.');
 		else
 			return Redirect::route('admin.users.index')->with('success', 'User has been created.');
 	}
@@ -112,7 +117,7 @@ class UserController extends BaseController {
 		$title = 'Edit';
 
 		// Get an array of groups: id such as a key, group name such as a key value
-		$groups = Group::lists('name', 'id');
+		$groups     = Group::lists('name', 'id');
 		$usergroups = $user->groups()->lists('id');
 
 		$gender = [
@@ -133,13 +138,32 @@ class UserController extends BaseController {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int $id
+	 * @param  User $user
 	 *
 	 * @return Response
 	 */
-	public function update( $id )
+	public function update( User $user )
 	{
-		//
+		$validator = Validator::make(Input::all(), $this->rules);
+
+		if ( $validator->fails() )
+			return Redirect::back()->withErrors($validator)->withInput();
+
+		if ( Input::has('password') )
+			$user->password = Input::get('password');
+		$user->first_name = Input::get('first_name');
+		$user->last_name  = Input::get('last_name');
+		if ( Input::has('birthday') )
+			$user->birthday = Input::get('birthday');
+		$user->gender     = Input::get('gender');
+		$user->created_at = Input::get('created_at');
+		$user->save();
+		$user->groups()->sync(Input::get('groups'));
+
+		if ( Input::get('submit') == 'save_new' )
+			return Redirect::route('admin.users.create')->with('success', 'User has been created.');
+		else
+			return Redirect::route('admin.users.index')->with('success', 'User has been updated.');
 	}
 
 

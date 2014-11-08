@@ -39,7 +39,7 @@
 					@foreach($users as $user)
 						<tr>
 							<td>{{ $i++ }}</td>
-							<td data-href="#">{{ $user->username }}</td>
+							<td data-href="{{ route('admin.users.edit', $user->id) }}">{{ $user->username }}</td>
 							<td>{{ $user->groupsAnchorList() }}</td>
 							<td>{{ getDateTimeFormat($user->created_at) }}</td>
 							<td class="text-center">{{ $user->id }}</td>
@@ -63,7 +63,11 @@
 									</a>
 									<ul class="dropdown-menu pull-right" role="menu">
 										<li class="dropdown-header">Manage User</li>
-										<li><a href="#"><i class="fa fa-fw fa-edit"></i> Edit</a></li>
+										<li>
+											<a href="{{ route('admin.users.edit', $user->id) }}">
+												<i class="fa fa-fw fa-edit"></i> Edit
+											</a>
+										</li>
 										<li><a href="#"><i class="fa fa-fw fa-times-circle-o"></i> Disactivate</a></li>
 										<li class="dropdown-header">User's Content</li>
 										<li><a href="#"><i class="fa fa-fw fa-file-text"></i> Posts</a></li>

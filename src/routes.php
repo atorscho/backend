@@ -53,7 +53,7 @@ Route::group([
 
 	// Users & Groups & Permissions
 	// ===================================
-	Route::resource('users', 'UserController'); // , [ 'except' => 'show' ]
+	Route::resource('users', 'UserController');
 	Route::resource('groups', 'GroupController');
 	//Route::resource('users/permissions', 'PermissionController');
 });
