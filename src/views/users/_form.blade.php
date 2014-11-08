@@ -99,7 +99,7 @@
                     {{ Form::label('gender') }}
                     {{ $errors->first('gender', '<span class="text-danger">:message</span>') }}
                     {{ Form::select('gender', $gender, null, [
-                        'class' => 'selectt',
+                        'class' => 'select',
                         'title' => 'Who are you?',
                         'tabindex' => index()
                     ]) }}
@@ -127,8 +127,8 @@
 		<div class="form-group">
 			{{ Form::label('groups') }}
 			{{ $errors->first('groups', '<span class="text-danger">:message</span>') }}
-			{{ Form::select('groups[]', $groups, null, [
-				'class'    => 'selectt',
+			{{ Form::select('groups[]', $groups, (isset($usergroups) ? $usergroups : null), [
+				'class'    => 'select',
 				'title'    => 'Choose user groups',
 				'multiple' => 'multiple',
 				'tabindex' => index()

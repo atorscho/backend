@@ -52,7 +52,7 @@ class UserController extends BaseController {
 		$title = 'New User';
 
 		// Get an array of groups: id such as a key, group name such as a key value
-		$groups = array_pluck(Group::all(), 'name', 'id');
+		$groups = Group::lists('name', 'id');
 		// Remove Super-Administrators from the array
 		unset( $groups[5] );
 
@@ -112,7 +112,8 @@ class UserController extends BaseController {
 		$title = 'Edit';
 
 		// Get an array of groups: id such as a key, group name such as a key value
-		$groups = array_pluck(Group::all(), 'name', 'id');
+		$groups = Group::lists('name', 'id');
+		$usergroups = $user->groups()->lists('id');
 
 		$gender = [
 			'N' => 'Unknown',
@@ -125,7 +126,7 @@ class UserController extends BaseController {
 		Crumbs::add(route('admin.users.edit', $user->id), $title);
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'gender'));
+		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'usergroups', 'gender'));
 	}
 
 
