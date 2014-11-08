@@ -49,10 +49,11 @@ class UserController extends BaseController {
 	 */
 	public function create()
 	{
-		$title  = 'New User';
+		$title = 'New User';
 
 		// Get an array of groups: id such as a key, group name such as a key value
 		$groups = array_pluck(Group::all(), 'name', 'id');
+		// Remove Super-Administrators from the array
 		unset( $groups[5] );
 
 		$gender = [
@@ -77,18 +78,25 @@ class UserController extends BaseController {
 	public function store()
 	{
 		$validator = Validator::make(Input::all(), [
-			'username'   => 'required|max:20',
-			'email'      => 'required|email|max:40',
+			'username'   => 'required|max:20|unique:users',
+			'email'      => 'required|email|max:40|unique:users',
 			'password'   => 'required|confirmed',
 			'birthday'   => 'date',
 			'gender'     => 'in:N,M,F',
+			'groups'     => 'required',
 			'registered' => 'date'
 		]);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
-		$user = new User;
+		$user = User::create(Input::except('groups'));
+		$user->groups()->sync(Input::get('groups'));
+
+		if ( Input::get('submit') == 'save_new' )
+			return Redirect::back()->with('success', 'User has been created.');
+		else
+			return Redirect::route('admin.users.index')->with('success', 'User has been created.');
 	}
 
 

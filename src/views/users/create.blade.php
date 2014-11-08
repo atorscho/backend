@@ -133,12 +133,16 @@
 
 				<div class="text-center">
 					<div class="btn-group">
-						{{ Form::submit('Save', [
+						{{ Form::button('Save', [
+							'type'  => 'submit',
 							'class' => 'btn btn-primary',
+							'name'  => 'submit',
 							'value' => 'save'
 						]) }}
-						{{ Form::submit('Save & New', [
+						{{ Form::button('Save & New', [
+							'type'  => 'submit',
 							'class' => 'btn btn-primary',
+							'name'  => 'submit',
 							'value' => 'save_new'
 						]) }}
 						<a class="btn btn-default" href="{{ route('admin.users.index') }}"><i class="fa fa-times-circle"></i></a>

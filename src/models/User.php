@@ -23,7 +23,8 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		'first_name',
 		'last_name',
 		'birthday',
-		'gender'
+		'gender',
+		'created_at'
 	];
 
 	/**
@@ -36,6 +37,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		'remember_token'
 	];
 
+
 	/**
 	 * Return user's groups.
 	 *
@@ -45,6 +47,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	{
 		return $this->belongsToMany('Atorscho\Backend\Models\Group');
 	}
+
 
 	/**
 	 * Return user's permissions that he gets from groups and
@@ -56,6 +59,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	{
 		return $this->belongsToMany('Atorscho\Backend\Models\Permission');
 	}
+
 
 	/**
 	 * Return user's full name.
@@ -74,6 +78,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 			return false;
 	}
 
+
 	/**
 	 * Automatically hash user password.
 	 *
@@ -83,6 +88,29 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	{
 		$this->attributes['password'] = \Hash::make($value);
 	}
+
+
+	/**
+	 * Ensure that the saved format is SQL Date.
+	 *
+	 * @param $value
+	 */
+	public function setBirthdayAttribute( $value )
+	{
+		$this->attributes['birthday'] = date('Y-m-d', strtotime($value));
+	}
+
+
+	/**
+	 * Ensure that the saved format is SQL Datetime.
+	 *
+	 * @param $value
+	 */
+	public function setCreatedAtAttribute( $value )
+	{
+		$this->attributes['created_at'] = date('Y-m-d H:i:s', $value ? strtotime($value) : time());
+	}
+
 
 	/**
 	 * The same as $user->groups->implode('name', ', '),
@@ -101,6 +129,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 
 		return implode(', ', $list);
 	}
+
 
 	/**
 	 * Check whether user has specific permission.
@@ -138,6 +167,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		return false;
 	}
 
+
 	/**
 	 * Chech whether user is in specified group.
 	 * You may specify group handle or an array of group handles.
@@ -159,15 +189,18 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		return false;
 	}
 
+
 	public function getRememberToken()
 	{
 		return $this->remember_token;
 	}
 
+
 	public function setRememberToken( $value )
 	{
 		$this->remember_token = $value;
 	}
+
 
 	public function getRememberTokenName()
 	{
