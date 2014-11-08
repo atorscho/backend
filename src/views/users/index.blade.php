@@ -37,7 +37,6 @@
 					<tbody>
 					<?php $i = ($perPage * ((Input::get('page') ? Input::get('page') : 1) - 1)) + 1; ?>
 					@foreach($users as $user)
-						<?php var_dump($user->in('superadmins')) ?>
 						<tr>
 							<td>{{ $i++ }}</td>
 							<td data-href="#">{{ $user->username }}</td>

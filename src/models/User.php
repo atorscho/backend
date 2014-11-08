@@ -104,7 +104,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 
 	/**
 	 * Check whether user has specific permission.
-	 * Specify permission slug.
+	 * Specify permission handle.
 	 *
 	 * @param $can_perm
 	 *
@@ -118,7 +118,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 			// Iterate through all role's permissions
 			foreach ( Group::find($group->id)->permissions as $permission )
 			{
-				if ( $permission->slug == $can_perm )
+				if ( $permission->handle == $can_perm )
 					return true;
 			}
 		}
@@ -130,7 +130,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 			{
 				if ( is_numeric($can_perm) && $permission->id == $can_perm )
 					return true;
-				else if ( $permission->slug == $can_perm )
+				else if ( $permission->handle == $can_perm )
 					return true;
 			}
 		}
@@ -140,7 +140,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 
 	/**
 	 * Chech whether user is in specified group.
-	 * You may specify group slug or an array of group slugs.
+	 * You may specify group handle or an array of group handles.
 	 *
 	 * @param $in_group
 	 *
@@ -148,23 +148,30 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	 */
 	public function in( $in_group )
 	{
-		/*if ( is_array($in_group) )
-		{
-			foreach ( $in_group as $each_slug )
-			{
-				return $this->in($each_slug);
-			}
-		}*/
-
 		foreach ( $this->groups as $group )
 		{
 			if ( is_numeric($in_group) && $group->id == $in_group )
 				return true;
-			else if ( $group->slug == $in_group )
+			else if ( $group->handle == $in_group )
 				return true;
 		}
 
 		return false;
+	}
+
+	public function getRememberToken()
+	{
+		return $this->remember_token;
+	}
+
+	public function setRememberToken( $value )
+	{
+		$this->remember_token = $value;
+	}
+
+	public function getRememberTokenName()
+	{
+		return 'remember_token';
 	}
 
 }
