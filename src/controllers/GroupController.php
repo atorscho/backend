@@ -1,6 +1,6 @@
 <?php namespace Atorscho\Backend\Controllers;
 
-use Atorscho\Backend\Models\User;
+use Atorscho\Backend\Models\Group;
 use Atorscho\Crumbs\Facades\Crumbs;
 use View;
 
@@ -18,15 +18,14 @@ class GroupController extends BaseController {
 	 */
 	public function index()
 	{
-		$title = 'User Management';
-		$perPage = getSetting('usersPerPage');
-		$users = User::with('groups')->paginate($perPage);
+		$title  = 'Group Management';
+		$groups = Group::all();
 
-		Crumbs::add(route('admin.users.index'), $title);
+		Crumbs::add(route('admin.groups.index'), $title);
 
-		$this->layout->title = $title;
-		$this->layout->desc  = 'List of all users and their info';
-		$this->layout->content = View::make('backend::users.index', compact('users', 'perPage'));
+		$this->layout->title   = $title;
+		$this->layout->desc    = 'All user groups, their members and permissions';
+		$this->layout->content = View::make('backend::groups.index', compact('groups'));
 	}
 
 	/**
@@ -55,10 +54,11 @@ class GroupController extends BaseController {
 	 * Display the specified resource.
 	 * GET /group/{id}
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 *
 	 * @return Response
 	 */
-	public function show($id)
+	public function show( $id )
 	{
 		//
 	}
@@ -67,10 +67,11 @@ class GroupController extends BaseController {
 	 * Show the form for editing the specified resource.
 	 * GET /group/{id}/edit
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 *
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit( $id )
 	{
 		//
 	}
@@ -79,10 +80,11 @@ class GroupController extends BaseController {
 	 * Update the specified resource in storage.
 	 * PUT /group/{id}
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 *
 	 * @return Response
 	 */
-	public function update($id)
+	public function update( $id )
 	{
 		//
 	}
@@ -91,10 +93,11 @@ class GroupController extends BaseController {
 	 * Remove the specified resource from storage.
 	 * DELETE /group/{id}
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 *
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy( $id )
 	{
 		//
 	}

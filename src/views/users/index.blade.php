@@ -36,13 +36,13 @@
 						</tr>
 						</tfoot>
 						<tbody>
-						<?php $i = ($perPage * ((Input::get('page') ? Input::get('page') : 1) - 1)) + 1; ?>
+						<?php $i = ($users->count() * ((Input::get('page') ? Input::get('page') : 1) - 1)) + 1; ?>
 						@foreach($users as $user)
 							<tr>
-								<td>{{ $i++ }}</td>
-								<td data-href="{{ route('admin.users.edit', $user->id) }}">{{ $user->username }}</td>
+								<td>{{{ $i++ }}}</td>
+								<td data-href="{{{ route('admin.users.edit', $user->id) }}}">{{{ $user->username }}}</td>
 								<td>{{ $user->groupsAnchorList() }}</td>
-								<td>{{ getDateTimeFormat($user->created_at) }}</td>
+								<td>{{{ getDateTimeFormat($user->created_at) }}}</td>
 								<td class="text-center">{{ $user->id }}</td>
 								<td class="text-center">
 									{{ Form::open(['route' => ['admin.users.destroy', $user->id], 'method' => 'DELETE']) }}
@@ -63,7 +63,7 @@
 											<a class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
 												<i class="fa fa-caret-down"></i>
 											</a>
-											<ul class="dropdown-menu pull-right" role="menu">
+											<ul class="dropdown-menu pull-right">
 												<li class="dropdown-header">Manage User</li>
 												<li>
 													<a href="{{ route('admin.users.edit', $user->id) }}">
