@@ -1,17 +1,170 @@
 <?php namespace Atorscho\Backend\Models;
 
-class User extends BaseModel {
+use Illuminate\Auth\UserTrait;
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\Reminders\RemindableTrait;
+use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-	protected $fillable = ['avatar', 'first_name', 'last_name', 'gender'];
+class User extends BaseModel implements UserInterface, RemindableInterface {
 
+	use UserTrait, RemindableTrait, SoftDeletingTrait;
+
+	/**
+	 * Protection from mass assignment.
+	 *
+	 * @var array.
+	 */
+	protected $fillable = [
+		'username',
+		'email',
+		'password',
+		'avatar',
+		'first_name',
+		'last_name',
+		'birthday',
+		'gender'
+	];
+
+	/**
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	protected $hidden = [
+		'password',
+		'remember_token'
+	];
+
+	/**
+	 * Return user's groups.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
 	public function groups()
 	{
 		return $this->belongsToMany('Atorscho\Backend\Models\Group');
 	}
 
+	/**
+	 * Return user's permissions that he gets from groups and
+	 * from its own permissions.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
 	public function permissions()
 	{
 		return $this->belongsToMany('Atorscho\Backend\Models\Permission');
+	}
+
+	/**
+	 * Return user's full name.
+	 *
+	 * @return bool|string
+	 */
+	public function getFullNameAttribute()
+	{
+		if ( $this->first_name && $this->last_name )
+			return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+		elseif ( $this->first_name )
+			return ucfirst($this->first_name);
+		elseif ( $this->last_name )
+			return ucfirst($this->last_name);
+		else
+			return false;
+	}
+
+	/**
+	 * Automatically hash user password.
+	 *
+	 * @param $value
+	 */
+	public function setPasswordAttribute( $value )
+	{
+		$this->attributes['password'] = \Hash::make($value);
+	}
+
+	/**
+	 * The same as $user->groups->implode('name', ', '),
+	 * but with links to group show routes.
+	 *
+	 * @return string
+	 */
+	public function groupsAnchorList()
+	{
+		$list = array();
+
+		foreach ( $this->groups as $group )
+		{
+			$list[] = sprintf('<a href="%s">%s</a>', route('admin.groups.show', $group->id), $group->name);
+		}
+
+		return implode(', ', $list);
+	}
+
+	/**
+	 * Check whether user has specific permission.
+	 * Specify permission slug.
+	 *
+	 * @param $can_perm
+	 *
+	 * @return bool
+	 */
+	public function can( $can_perm )
+	{
+		// First check for user's group permissions
+		foreach ( $this->groups as $group )
+		{
+			// Iterate through all role's permissions
+			foreach ( Group::find($group->id)->permissions as $permission )
+			{
+				if ( $permission->slug == $can_perm )
+					return true;
+			}
+		}
+
+		// Now check for user's own permissions
+		if ( $this->permissions->toArray() )
+		{
+			foreach ( $this->permissions as $permission )
+			{
+				if ( is_numeric($can_perm) && $permission->id == $can_perm )
+					return true;
+				else if ( $permission->slug == $can_perm )
+					return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Chech whether user is in specified group.
+	 * You may specify group slug or an array of group slugs.
+	 *
+	 * @param $in_group
+	 *
+	 * @return bool
+	 */
+	public function in( $in_group )
+	{
+		/*if ( is_array($in_group) )
+		{
+			foreach ( $in_group as $each_slug )
+			{
+				return $this->in($each_slug);
+			}
+		}*/
+
+		foreach ( $this->groups as $group )
+		{
+			if ( is_numeric($in_group) && $group->id == $in_group )
+				return true;
+			else if ( $group->slug == $in_group )
+				return true;
+		}
+
+		return false;
 	}
 
 }

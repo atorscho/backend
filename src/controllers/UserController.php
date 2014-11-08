@@ -3,6 +3,7 @@
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\User;
 use Atorscho\Crumbs\Facades\Crumbs;
+use Hash;
 use Input;
 use Redirect;
 use Validator;
@@ -87,7 +88,7 @@ class UserController extends BaseController {
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
-
+		$user = new User;
 	}
 
 

@@ -37,10 +37,11 @@
 					<tbody>
 					<?php $i = ($perPage * ((Input::get('page') ? Input::get('page') : 1) - 1)) + 1; ?>
 					@foreach($users as $user)
+						<?php var_dump($user->in('superadmins')) ?>
 						<tr>
 							<td>{{ $i++ }}</td>
 							<td data-href="#">{{ $user->username }}</td>
-							<td>{{ groupsAnchorList($user) }}</td>
+							<td>{{ $user->groupsAnchorList() }}</td>
 							<td>{{ getDateTimeFormat($user->created_at) }}</td>
 							<td class="text-center">{{ $user->id }}</td>
 							<td class="text-center">

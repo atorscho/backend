@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration {
 			$table->date('birthday');
 			$table->enum('gender', ['N', 'M', 'F'])->default('N');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

@@ -82,6 +82,13 @@ class SettingsSeeder extends Seeder {
 						'value'       => '1',
 						'default'     => '1',
 						'description' => 'The default group for new registered users.'
+					],
+					[
+						'name'        => 'Users Per Page',
+						'handle'      => 'usersPerPage',
+						'value'       => '10',
+						'default'     => '10',
+						'description' => 'How many users to show on index page.'
 					]
 				]
 			],
