@@ -9,5 +9,35 @@
 #page-wrapper {
 	background: @pageBg;
 	box-shadow: 0 0 5px fade(#000, 50%);
-	padding: 10px 0 20px;
+	padding:    10px 0 20px;
+}
+
+// Auth
+// ===================================
+body#page-auth {
+	// Flex
+	#flex-wrapper {
+		.justify-content(center);
+	}
+
+	.wrap {
+		.border-radius();
+		background: @pageAuthBg;
+		margin:     @pageMargin auto;
+		max-width:  @pageAuthWidthMax;
+		width:      @pageAuthWidth;
+
+		.page-header {
+			margin:  20px 0 0;
+			padding: 0 20px 10px;
+		}
+
+		.alert {
+			margin: 20px 20px 0 !important;
+		}
+
+		.content {
+			padding: 10px;
+		}
+	}
 }
