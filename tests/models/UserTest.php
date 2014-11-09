@@ -7,27 +7,12 @@ class UserTest extends TestCase {
 	public function setUp()
 	{
 		parent::setUp();
-		Eloquent::unguard();
+//		Eloquent::unguard();
 		$this->prepareDb();
-	}
-
-	public function truncate()
-	{
-		DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-		// Empty 'users' table
-		User::truncate();
-
-		// Empty 'group_user' table
-		DB::table('group_user')->truncate();
-
-		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 	}
 
 	public function testCanCreateUser()
 	{
-		$this->truncate();
-
 		$user = User::create([
 			'username'   => 'Alexxali',
 			'email'      => 'contact@alextorscho.com',
@@ -111,7 +96,12 @@ class UserTest extends TestCase {
 
 	public function testUserIsNotInGroup()
 	{
-		$user = User::find(2);
+		$user = User::create([
+			'username' => 'User 2',
+			'email' => 'user2@example.com',
+			'password' => 'user2pass'
+		]);
+		$user->groups()->attach(1);
 
 		$this->assertFalse($user->in('admins'));
 
