@@ -46,14 +46,14 @@
                             <td class="text-center">{{{ $group->id }}}</td>
                             <td class="text-center">
                                 {{ Form::open(['route' => ['admin.groups.destroy', $group->id], 'method' => 'DELETE']) }}
-                                <div class="btn-group">
-                                    <a class="btn btn-sm btn-primary" href="{{ route('admin.groups.edit', $group->id) }}">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <button class="btn btn-sm btn-primary" {{ in_array($group->id, range(1, 5)) ? 'disabled="disabled"' : '' }}>
-                                        <i class="fa fa-fw fa-times"></i>
-                                    </button>
-                                </div>
+	                                <div class="btn-group">
+	                                    <a class="btn btn-sm btn-primary" href="{{ route('admin.groups.edit', $group->id) }}">
+	                                        <i class="fa fa-edit"></i>
+	                                    </a>
+	                                    <button class="btn btn-sm btn-primary" {{ in_array($group->id, $protectedGroups) ? 'disabled="disabled"' : '' }}>
+	                                        <i class="fa fa-fw fa-times"></i>
+	                                    </button>
+	                                </div>
                                 {{ Form::close() }}
                             </td>
                         </tr>

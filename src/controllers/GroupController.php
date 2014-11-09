@@ -2,7 +2,6 @@
 
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
-use Atorscho\Backend\Models\User;
 use Atorscho\Crumbs\Facades\Crumbs;
 use Input;
 use Redirect;
@@ -32,12 +31,13 @@ class GroupController extends BaseController {
 		$title = 'Group Management';
 
 		$groups = Group::all();
+		$protectedGroups = [1, 2, 3, 4, 5, getSetting('defaultGroup')];
 
 		Crumbs::add(route('admin.groups.index'), $title);
 
 		$this->layout->title   = $title;
 		$this->layout->desc    = 'All user groups, their members and permissions';
-		$this->layout->content = View::make('backend::groups.index', compact('groups'));
+		$this->layout->content = View::make('backend::groups.index', compact('groups', 'protectedGroups'));
 	}
 
 	/**

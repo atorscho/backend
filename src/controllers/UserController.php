@@ -40,13 +40,17 @@ class UserController extends BaseController {
 	public function index()
 	{
 		$title   = 'User Management';
+
 		$users   = User::with('groups')->paginate((int) getSetting('usersPerPage'));
+
+		// Counter
+		$counter = ($users->count() * ((Input::get('page') ?: 1) - 1)) + 1;
 
 		Crumbs::add(route('admin.users.index'), $title);
 
 		$this->layout->title   = $title;
 		$this->layout->desc    = 'List of all users and their info';
-		$this->layout->content = View::make('backend::users.index', compact('users'));
+		$this->layout->content = View::make('backend::users.index', compact('users', 'counter'));
 	}
 
 

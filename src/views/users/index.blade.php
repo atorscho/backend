@@ -36,11 +36,10 @@
 						</tr>
 						</tfoot>
 						<tbody>
-						<?php $i = ($users->count() * ((Input::get('page') ? Input::get('page') : 1) - 1)) + 1; ?>
 						@foreach($users as $user)
 							<tr>
-								<td>{{{ $i++ }}}</td>
-								<td data-href="{{{ route('admin.users.edit', $user->id) }}}">{{{ $user->username }}}</td>
+								<td>{{{ $counter++ }}}</td>
+								<td data-href="{{{ route('admin.users.edit', $user->id) }}}">{{ $user->username_formatted }}</td>
 								<td>{{ $user->groupsAnchorList() }}</td>
 								<td>{{{ getDateTimeFormat($user->created_at) }}}</td>
 								<td class="text-center">{{ $user->id }}</td>

@@ -20,7 +20,7 @@
 								<div class="col-sm-10">
 									{{ Form::input((is_numeric($setting->value) ? 'number' : 'text' ), $setting->handle, $setting->value, [
 										'class' => 'form-control',
-										'placeholder' => $setting->value,
+										'placeholder' => $setting->default,
 										'min' => 0,
 										'tabindex' => index()
 									]) }}

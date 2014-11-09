@@ -81,6 +81,21 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	}
 
 
+	// todo - primary group
+	/**
+	 * Format username according to its group prefix and suffix styles.
+	 *
+	 * @return string
+	 */
+	public function getUsernameFormattedAttribute()
+	{
+		$prefix = $this->groups()->first()->prefix ?: '';
+		$suffix = $this->groups()->first()->suffix ?: '';
+
+		return $prefix . $this->username . $suffix;
+	}
+
+
 	/**
 	 * Automatically hash user password.
 	 *
