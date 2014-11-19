@@ -31,7 +31,12 @@ class UserController extends BaseController {
 		parent::__construct();
 
 		// Access Filters
-		$this->beforeFilter('admin.perm:showUsers', [ 'only' => 'index' ]);
+		$this->beforeFilter('admin.perm:showUsers', [
+			'only' => [
+				'index',
+				'show'
+			]
+		]);
 		$this->beforeFilter('admin.perm:createUsers', [
 			'only' => [
 				'create',

@@ -40,8 +40,8 @@
                             <td>{{ index() }}</td>
                             <td>{{ $group->name_formatted }}</td>
                             <td class="handle">{{{ $group->handle }}}</td>
-                            <td class="text-center" data-href="#">
-                                <span class="text-primary">{{{ $group->users_count }}}</span>
+                            <td class="text-center" data-href="{{ route('admin.groups.show', $group->id) }}">
+                                <span class="text-primary">{{{ $group->users()->count() }}}</span>
                             </td>
                             <td class="text-center">{{{ $group->id }}}</td>
                             <td class="text-center">

@@ -49,9 +49,11 @@
 	<div id="page-wrapper">
 		<div class="container">
 
-			<!-- Breadcrumbs -->
-        	{{ Crumbs::render() }}
-        	<!-- / Breadcrumbs -->
+			@if(function_exists('crumbs'))
+				<!-- Breadcrumbs -->
+	            {{ crumbs() }}
+	            <!-- / Breadcrumbs -->
+        	@endif
 
         	<div class="page-header">
         		<h1>

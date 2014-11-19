@@ -2,7 +2,7 @@
 
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
-use Atorscho\Crumbs\Facades\Crumbs;
+use Crumbs;
 use Input;
 use Redirect;
 use Validator;
@@ -20,6 +20,32 @@ class GroupController extends BaseController {
 		'permissions' => 'required'
 	];
 
+	public function __construct()
+	{
+		parent::__construct();
+
+		// Access Filters
+		$this->beforeFilter('admin.perm:showGroups', [
+			'only' => [
+				'index',
+				'show'
+			]
+		]);
+		$this->beforeFilter('admin.perm:createGroups', [
+			'only' => [
+				'create',
+				'store'
+			]
+		]);
+		$this->beforeFilter('admin.perm:editGroups', [
+			'only' => [
+				'edit',
+				'update'
+			]
+		]);
+		$this->beforeFilter('admin.perm:deleteGroups', [ 'only' => [ 'destroy' ] ]);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /group
@@ -30,8 +56,15 @@ class GroupController extends BaseController {
 	{
 		$title = 'Group Management';
 
-		$groups = Group::all();
-		$protectedGroups = [1, 2, 3, 4, 5, getSetting('defaultGroup')];
+		$groups          = Group::all();
+		$protectedGroups = [
+			1,
+			2,
+			3,
+			4,
+			5,
+			getSetting('defaultGroup')
+		];
 
 		Crumbs::add(route('admin.groups.index'), $title);
 
@@ -91,7 +124,14 @@ class GroupController extends BaseController {
 	 */
 	public function show( Group $group )
 	{
-		//
+		$title = $group->name;
+		$groupUsers = Group::with('users')->find($group->id)->users()->orderBy('name');
+
+		Crumbs::add(route('admin.groups.index'), 'Group Management');
+		Crumbs::add(route('admin.groups.show', $group->id), $title);
+
+		$this->layout->title   = $title;
+		$this->layout->content = View::make('backend::groups.show', compact('group', 'groupUsers'));
 	}
 
 	/**
@@ -104,7 +144,7 @@ class GroupController extends BaseController {
 	 */
 	public function edit( Group $group )
 	{
-		$title = 'Edit';
+		$title = 'Edit ' . $group->name;
 
 		// Get an array of permissions: id such as a key, permission name such as a key value
 		$permissions = Permission::lists('name', 'id');
@@ -113,7 +153,7 @@ class GroupController extends BaseController {
 
 		Crumbs::add(route('admin.groups.index'), 'Group Management');
 		Crumbs::add(route('admin.groups.show', $group->id), $group->name);
-		Crumbs::add(route('admin.groups.edit', $group->id), $title);
+		Crumbs::add(route('admin.groups.edit', $group->id), 'Edit');
 
 		$this->layout->title   = $title;
 		$this->layout->content = View::make('backend::groups.edit', compact('group', 'permissions', 'groupperms'));
@@ -161,7 +201,7 @@ class GroupController extends BaseController {
 		foreach ( $group->users as $user )
 		{
 			// Apply this to the users that are only in one group
-			if ($user->groups->count() == 1)
+			if ( $user->groups->count() == 1 )
 				$user->groups()->sync([ getSetting('defaultGroup') => getSetting('defaultGroup') ]);
 		}
 
