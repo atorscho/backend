@@ -40,3 +40,6 @@ In order to run the backend, you must first run all migrations and seeds.
 To create a super-admin, run this command:
 
 	php artisan backend:admin
+
+### 4. Assets
+Do not forget to run `php artisan asset:publish atorscho/backend` to use backend's stylesheet and javascript files.
