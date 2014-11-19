@@ -25,13 +25,15 @@ Search for `providers` key, then add:
 	'Atorscho\Backend\BackendServiceProvider',
 	'Atorscho\Crumbs\CrumbsServiceProvider'
 
-First service provider is the backend itself, the second one is a breadcrumbs package I use on my project. You may learn about it [here](https://github.com/atorscho/crumbs).
+First service provider is the Backend itself, the second one is a breadcrumbs package I use on my project. You may learn about it [here](https://github.com/atorscho/crumbs).
 
 ### 3. Migrations & Seeds
 In order to run the backend, you must first run all migrations and seeds.
 
 #### 3.1 Migrations
 	php artisan migrate --package=atorscho/backend
+
+Since Backend uses its own User Authentication Model, you must change the value in `/app/config/auth.php` file. Search for `model` key and change its value to `Atorscho\Backend\Models\User`.
 
 #### 3.2 Seeds
 	php artisan db:seed
@@ -42,4 +44,4 @@ To create a super-admin, run this command:
 	php artisan backend:admin
 
 ### 4. Assets
-Do not forget to run `php artisan asset:publish atorscho/backend` to use backend's stylesheet and javascript files.
+Do not forget to run `php artisan asset:publish atorscho/backend` to use Backend's stylesheet and javascript files.
