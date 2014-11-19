@@ -9,6 +9,9 @@ class BaseController extends Controller {
 
 	public function __construct()
 	{
+		// CSRF Protection
+		$this->beforeFilter('csrf', [ 'on' => 'post' ]);
+
 		// todo - translate
 		$navmenu = [
 			[
@@ -19,13 +22,9 @@ class BaseController extends Controller {
 			]
 		];
 
-		$settings = new \stdClass;
-		foreach ( Setting::all() as $setting )
-			$settings->{$setting->handle} = $setting->value;
-
 		View::share('navmenu', toObjects($navmenu));
 		View::share('template', toObjects(Config::get('backend::template')));
-		View::share('settings', $settings);
+		View::share('settings', toObjects(Setting::lists('value', 'handle')));
 	}
 
 	/**

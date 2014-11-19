@@ -39,7 +39,7 @@
 						@foreach($users as $user)
 							<tr>
 								<td>{{{ $counter++ }}}</td>
-								<td data-href="{{{ route('admin.users.edit', $user->id) }}}">{{ $user->username }}</td>
+								<td data-href="{{{ route('admin.users.show', $user->id) }}}">{{ $user->username }}</td>
 								<td>{{ $user->groupsAnchorList() }}</td>
 								<td>{{{ getDateTimeFormat($user->created_at) }}}</td>
 								<td class="text-center">{{ $user->id }}</td>

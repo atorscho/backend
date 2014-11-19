@@ -57,6 +57,16 @@
         		<h1>
         			{{{ $title }}}
 
+        			@if(isset($controls))
+	                    <div class="btn-group btn-group-sm">
+	                        @foreach($controls as $control)
+	                            @if(($control['perm'] && Auth::user()->can($control['perm'])) || !$control['perm'])
+	                                <a class="btn btn-{{ $control['color'] ?: 'default' }}" href="{{ $control['uri'] }}">{{ $control['title'] }}</a>
+	                            @endif
+	                        @endforeach
+	                    </div>
+        			@endif
+
         			@if(isset($desc))
         			    <small>{{{ $desc }}}</small>
         			@endif

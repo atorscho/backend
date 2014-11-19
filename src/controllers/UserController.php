@@ -2,7 +2,7 @@
 
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\User;
-use Atorscho\Crumbs\Facades\Crumbs;
+use Crumbs;
 use Input;
 use Redirect;
 use Validator;
@@ -30,10 +30,21 @@ class UserController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->beforeFilter('csrf', [ 'on' => 'post' ]);
-
 		// Access Filters
-
+		$this->beforeFilter('admin.perm:showUsers', [ 'only' => 'index' ]);
+		$this->beforeFilter('admin.perm:createUsers', [
+			'only' => [
+				'create',
+				'store'
+			]
+		]);
+		$this->beforeFilter('admin.perm:editUsers', [
+			'only' => [
+				'edit',
+				'update'
+			]
+		]);
+		$this->beforeFilter('admin.perm:deleteUsers', [ 'only' => [ 'destroy' ] ]);
 	}
 
 	/**
@@ -43,12 +54,12 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		$title   = 'User Management';
+		$title = 'User Management';
 
-		$users   = User::with('groups')->paginate((int) getSetting('usersPerPage'));
+		$users = User::with('groups')->paginate((int) getSetting('usersPerPage'));
 
 		// Counter
-		$counter = ($users->count() * ((Input::get('page') ?: 1) - 1)) + 1;
+		$counter = ( $users->count() * ( ( Input::get('page') ?: 1 ) - 1 ) ) + 1;
 
 		Crumbs::add(route('admin.users.index'), $title);
 
@@ -113,6 +124,28 @@ class UserController extends BaseController {
 	}
 
 
+	public function show( User $user )
+	{
+		$title = $user->username;
+
+		Crumbs::add(route('admin.users.index'), 'User Management');
+		Crumbs::add(route('admin.users.show', $user->id), $title);
+
+		// todo - move this to a function
+		$this->layout->controls = [
+			[
+				'title' => '<i class="fa fa-fw fa-edit"></i>',
+				'uri'   => route('admin.users.edit', $user->id),
+				'color' => '',
+				'perm'  => 'editUsers'
+			]
+		];
+
+		$this->layout->title   = $title;
+		$this->layout->content = View::make('backend::users.show', compact('user'));
+	}
+
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -122,7 +155,7 @@ class UserController extends BaseController {
 	 */
 	public function edit( User $user )
 	{
-		$title = 'Edit';
+		$title = 'Edit ' . $user->username;
 
 		// Get an array of groups: id such as a key, group name such as a key value
 		$groups     = Group::lists('name', 'id');
@@ -135,8 +168,8 @@ class UserController extends BaseController {
 		];
 
 		Crumbs::add(route('admin.users.index'), 'User Management');
-		Crumbs::add(route('admin.users.show', $user->username), $user->username);
-		Crumbs::add(route('admin.users.edit', $user->id), $title);
+		Crumbs::add(route('admin.users.show', $user->id), $user->username);
+		Crumbs::add(route('admin.users.edit', $user->id), 'Edit');
 
 		$this->layout->title   = $title;
 		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'usergroups', 'gender'));
@@ -187,7 +220,7 @@ class UserController extends BaseController {
 	 */
 	public function destroy( User $user )
 	{
-		if ($user != 1)
+		if ( $user != 1 )
 			$user->delete();
 
 		return Redirect::route('admin.users.index')->with('success', 'User has been deactivated.');

@@ -38,12 +38,12 @@ class BackendCreateAdminCommand extends Command {
 		// todo - translate
 		$username = $this->ask('Choose a username:');
 		$email    = $this->ask('Enter your valid email address:');
-		$password = $this->ask('And now your password:');
+		$password = $this->secret('And now your password:');
 
 		$user           = new User;
 		$user->username = $username;
 		$user->email    = $email;
-		$user->password = Hash::make($password);
+		$user->password = $password;
 		$user->save();
 
 		// Add to the Super-admins group
