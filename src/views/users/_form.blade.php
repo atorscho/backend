@@ -107,16 +107,16 @@
             </div>
         </div>
 
-		@if($fieldGroups->count())
+		@if($user->fields()->count())
 			@foreach($fieldGroups as $fieldGroup)
 		        <header class="title">
 		            <h3>{{{ $fieldGroup->name }}}</h3>
 		        </header>
 
-		        @foreach($fieldGroup->fields as $field)
+		        @foreach($user->fields as $field)
 		            <div class="form-group">
 		                {{ Form::label($field->handle) }}
-		                {{ Form::text($field->handle, null, [
+		                {{ Form::text($field->handle, isset($field->pivot->value) ? $field->pivot->value : null, [
 		                    'class' => 'form-control',
 		                    'placeholder' => $field->placeholder ?: $field->name,
 		                    'tabindex' => index()

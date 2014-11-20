@@ -178,10 +178,12 @@ class UserController extends BaseController {
 	{
 		$title = 'Edit ' . $user->username;
 
+		$user = $user->with('fields')->find($user->id);
+
 		// Get an array of groups: id such as a key, group name such as a key value
 		$groups     = Group::lists('name', 'id');
 		$usergroups = $user->groups()->lists('id');
-		$fieldGroups = UserFieldGroup::with('fields')->get();
+		$fieldGroups = UserFieldGroup::all();
 
 		$gender = [
 			'N' => 'Unknown',
