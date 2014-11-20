@@ -63,6 +63,12 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	}
 
 
+	public function fields()
+	{
+		return $this->belongsToMany('Atorscho\Backend\Models\Field', 'user_fields');
+	}
+
+
 	/**
 	 * Return user's full name.
 	 *

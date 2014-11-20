@@ -36,11 +36,25 @@ List of components:
 - prefix:string
 - suffix:string
 
-`usermeta`                      `meta_user`
+`field_groups`
 
-- id:increments                 - id:increments
-- name:string                   - meta_id -> usermeta(id)
-- handle:string:unique          - user_id -> users(id)
+- id:increments
+- name:string
+- handle:string:unique
+
+`userfields`                    `field_user`
+
+- id:increments                 - field_id -> userfields(id)
+- group_id:integer:unsigned     - user_id -> users(id)
+- name:string                   - value:string
+- handle:string:unique
+- placeholder:string
+- required:boolean
+- min:string
+- max:string
+- step:integer:unsigned
+- maxlength:integer
+- pattern:string
 
 ## Settings
 `settings_groups`

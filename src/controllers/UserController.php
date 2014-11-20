@@ -26,9 +26,23 @@ class UserController extends BaseController {
 		'registered' => 'date'
 	];
 
+	protected $rulesFields = array();
+
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this->rulesFields = [
+			'username' => 'Username',
+			'email' => 'Email',
+			'password' => 'Password',
+			'first_name' => 'First Name',
+			'last_name' => 'Last Name',
+			'birthday' => 'Birthday',
+			'gender' => 'Gender',
+			'created_at' => 'Registered',
+			'groups' => 'Groups'
+		];
 
 		// Access Filters
 		$this->beforeFilter('admin.perm:showUsers', [
@@ -115,6 +129,7 @@ class UserController extends BaseController {
 		$rules['password'] = 'required|confirmed';
 
 		$validator = Validator::make(Input::all(), $rules);
+		$validator->setAttributeNames($this->rulesFields);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
