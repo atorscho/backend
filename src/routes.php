@@ -63,5 +63,5 @@ Route::group([
 	// todo - remove 'show'
 	Route::resource('users', 'UserController');
 	Route::resource('groups', 'GroupController');
-	//Route::resource('users/permissions', 'PermissionController');
+	Route::resource('permissions', 'PermissionController', ['only' => 'index']);
 });

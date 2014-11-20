@@ -87,7 +87,7 @@
                 <div class="form-group">
                     {{ Form::label('birthday') }}
                     {{ $errors->first('birthday', '<span class="text-danger">:message</span>') }}
-                    {{ Form::text('birthday', null, [
+                    {{ Form::text('birthday', isset($user) ? datetimePicker($user->birthday) : null, [
                         'class' => 'form-control date',
                         'placeholder' => 'Birthday',
                         'tabindex' => index()
@@ -117,7 +117,7 @@
 		<div class="form-group">
 			{{ Form::label('created_at', 'Registered') }}
 			{{ $errors->first('created_at', '<span class="text-danger">:message</span>') }}
-			{{ Form::text('created_at', null, [
+			{{ Form::text('created_at', isset($user) ? datetimePicker($user->created_at) : null, [
 				'class' => 'form-control datetime',
 				'placeholder' => 'Registered',
 				'tabindex' => index()

@@ -125,7 +125,7 @@ class GroupController extends BaseController {
 	public function show( Group $group )
 	{
 		$title = $group->name;
-		$groupUsers = Group::with('users')->find($group->id)->users()->orderBy('name');
+		$groupUsers = Group::with('users')->find($group->id)->users()->orderBy('username')->get();
 
 		Crumbs::add(route('admin.groups.index'), 'Group Management');
 		Crumbs::add(route('admin.groups.show', $group->id), $title);

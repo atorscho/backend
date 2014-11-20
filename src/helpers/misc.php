@@ -92,3 +92,18 @@ if ( !function_exists('getDateTimeFormat') )
 		return date(getSetting('dateTimeFormat'), strtotime($dateTime));
 	}
 }
+
+if ( !function_exists('datetimePicker') )
+{
+	/**
+	 * Used for the Bootstrap Datetime Picker jQuery Plugin.
+	 *
+	 * @param null $str
+	 *
+	 * @return string
+	 */
+	function datetimePicker( $str )
+	{
+		return date('m/d/Y g:i A', strtotime($str));
+	}
+}

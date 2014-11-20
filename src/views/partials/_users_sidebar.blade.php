@@ -13,7 +13,10 @@
 	        Groups
 	    </a>
 	</li>
-	<li>
-		<a href="permissions.php">Permissions</a>
-	</li>
+	<li {{ Route::current()->getAction()['as'] == 'admin.permissions.index' ? 'class="active"' : '' }}>
+        <a href="{{ route('admin.permissions.index') }}">
+            <span class="badge pull-right">{{ \Atorscho\Backend\Models\Permission::count() }}</span>
+            Permissions
+        </a>
+    </li>
 </ul>
