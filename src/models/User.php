@@ -39,6 +39,13 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		'remember_token'
 	];
 
+	/**
+	 * Touch parent timestamp on fields update.
+	 *
+	 * @var array
+	 */
+//	protected $touches = ['fields'];
+
 
 	/**
 	 * Return user's groups.
@@ -63,9 +70,14 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	}
 
 
+	/**
+	 * Return custom fields including their value.
+	 *
+	 * @return $this
+	 */
 	public function fields()
 	{
-		return $this->belongsToMany('Atorscho\Backend\Models\Field', 'user_fields');
+		return $this->belongsToMany('Atorscho\Backend\Models\UserField', 'user_fields_pivot', 'user_id', 'field_id')->withPivot('value');
 	}
 
 

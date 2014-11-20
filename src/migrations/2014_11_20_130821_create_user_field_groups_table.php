@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFieldGroupsTable extends Migration {
+class CreateUserFieldGroupsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateFieldGroupsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('field_groups', function(Blueprint $table)
+		Schema::create('user_field_groups', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name');
@@ -28,7 +28,7 @@ class CreateFieldGroupsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('field_groups');
+		Schema::drop('user_field_groups');
 	}
 
 }

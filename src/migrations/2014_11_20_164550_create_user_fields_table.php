@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFieldsTable extends Migration {
+class CreateUserFieldsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateFieldsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('fields', function(Blueprint $table)
+		Schema::create('user_fields', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('group_id')->unsigned();
@@ -26,19 +26,17 @@ class CreateFieldsTable extends Migration {
 			$table->integer('step')->unsigned()->nullable();
 			$table->integer('maxlength')->nullable();
 			$table->string('pattern')->nullable();
-			$table->timestamps();
 
-			$table->foreign('group_id')->references('id')->on('field_groups')->onDelete('cascade');
+			$table->foreign('group_id')->references('id')->on('user_field_groups')->onDelete('cascade');
 		});
 
-		Schema::create('user_fields', function ( Blueprint $table )
+		Schema::create('user_fields_pivot', function ( Blueprint $table )
 		{
 			$table->integer('field_id')->unsigned();
 			$table->integer('user_id')->unsigned();
 			$table->text('value');
-			$table->timestamps();
 
-			$table->foreign('field_id')->references('id')->on('fields')->onDelete('cascade');
+			$table->foreign('field_id')->references('id')->on('user_fields')->onDelete('cascade');
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
@@ -51,8 +49,8 @@ class CreateFieldsTable extends Migration {
 	 */
 	public function down()
 	{
+		Schema::drop('user_fields_pivot');
 		Schema::drop('user_fields');
-		Schema::drop('fields');
 	}
 
 }

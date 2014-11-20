@@ -2,6 +2,7 @@
 
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\User;
+use Atorscho\Backend\Models\UserFieldGroup;
 use Crumbs;
 use Input;
 use Redirect;
@@ -180,6 +181,7 @@ class UserController extends BaseController {
 		// Get an array of groups: id such as a key, group name such as a key value
 		$groups     = Group::lists('name', 'id');
 		$usergroups = $user->groups()->lists('id');
+		$fieldGroups = UserFieldGroup::with('fields')->get();
 
 		$gender = [
 			'N' => 'Unknown',
@@ -192,7 +194,7 @@ class UserController extends BaseController {
 		Crumbs::add(route('admin.users.edit', $user->id), 'Edit');
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'usergroups', 'gender'));
+		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'usergroups', 'gender', 'fieldGroups'));
 	}
 
 

@@ -1,9 +1,10 @@
 <?php
 
-use Atorscho\Backend\Models\Field;
-use Atorscho\Backend\Models\FieldGroup;
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
+use Atorscho\Backend\Models\User;
+use Atorscho\Backend\Models\UserField;
+use Atorscho\Backend\Models\UserFieldGroup;
 use Illuminate\Database\Seeder;
 
 class UserFieldsSeeder extends Seeder {
@@ -16,9 +17,15 @@ class UserFieldsSeeder extends Seeder {
 	public function run()
 	{
 		DB::statement('SET FOREIGN_KEY_CHECKS=0');
-		Field::truncate();
-		FieldGroup::truncate();
+		UserField::truncate();
+		UserFieldGroup::truncate();
 		DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
+		$user = User::find(1);
+		if ( $user )
+		{
+			$user->fields()->detach();
+		}
 
 		$fieldGroups = [
 			[
@@ -26,9 +33,14 @@ class UserFieldsSeeder extends Seeder {
 				'handle' => 'socialNetworks',
 				'fields' => [
 					[
-						'type' => 'text',
+						'type' => 'url',
 						'name' => 'Facebook',
 						'handle' => 'facebook'
+					],
+					[
+						'type' => 'url',
+						'name' => 'Twitter',
+						'handle' => 'twitter'
 					]
 				]
 			]
@@ -36,14 +48,14 @@ class UserFieldsSeeder extends Seeder {
 
 		foreach ( $fieldGroups as $fieldGroup )
 		{
-			$group = FieldGroup::create([
+			$group = UserFieldGroup::create([
 				'name'   => $fieldGroup['name'],
 				'handle' => $fieldGroup['handle']
 			]);
 
 			foreach ( $fieldGroup['fields'] as $field )
 			{
-				Field::create([
+				$field = UserField::create([
 					'group_id' => $group->id,
 					'type'     => $field['type'],
 					'name'     => $field['name'],
@@ -52,7 +64,11 @@ class UserFieldsSeeder extends Seeder {
 			}
 		}
 
-
+		if ( $user )
+		{
+			$user->fields()->attach(1, ['value' => 'http://facebook.com']);
+			$user->fields()->attach(2, ['value' => 'http://twitter.com']);
+		}
 
 		// todo - add permissions
 	}
