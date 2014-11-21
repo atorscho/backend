@@ -10,16 +10,16 @@
 		</li>
 	@endif
 	@if(Auth::user()->can('showGroups'))
-		<li {{ Route::current()->getAction()['as'] == 'admin.groups.index' ? 'class="active"' : '' }}>
-			<a href="{{ route('admin.groups.index') }}">
+		<li {{ Route::current()->getAction()['as'] == 'admin.users.groups.index' ? 'class="active"' : '' }}>
+			<a href="{{ route('admin.users.groups.index') }}">
 		        <span class="badge pull-right">{{ $groupsCount }}</span>
 		        Groups
 		    </a>
 		</li>
 	@endif
 	@if(Auth::user()->can('showPermissions'))
-		<li {{ Route::current()->getAction()['as'] == 'admin.permissions.index' ? 'class="active"' : '' }}>
-	        <a href="{{ route('admin.permissions.index') }}">
+		<li {{ Route::current()->getAction()['as'] == 'admin.users.permissions.index' ? 'class="active"' : '' }}>
+	        <a href="{{ route('admin.users.permissions.index') }}">
 	            <span class="badge pull-right">{{ $permissionsCount }}</span>
 	            Permissions
 	        </a>

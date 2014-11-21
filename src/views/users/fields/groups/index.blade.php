@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<aside class="sidebar">
-					@include('backend::partials.users._fields_sidebar')
+					@include('backend::.........partials.users._fields_sidebar')
 
 					<div class="text-center">
 						<a class="btn btn-primary" href="#"><i class="fa fa-fw fa-plus-circle"></i> New User</a>

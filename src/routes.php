@@ -1,26 +1,10 @@
 <?php
 
-// todo - move bindings to separate file
-
-// Filters
+// Global Filters
 Route::when('admin*', 'admin.auth');
+Route::when('admin*', 'csrf', ['post', 'put', 'delete']);
 
-// Bindings
-Route::bind('users', function ( $value )
-{
-	if ( is_numeric($value) )
-		return \Atorscho\Backend\Models\User::find($value);
-	else
-		return \Atorscho\Backend\Models\User::whereUsername($value)->first();
-});
-Route::bind('groups', function ( $value )
-{
-	if ( is_numeric($value) )
-		return \Atorscho\Backend\Models\Group::find($value);
-	else
-		return \Atorscho\Backend\Models\Group::whereHandle($value)->first();
-});
-
+// Routes
 Route::group([
 	'namespace' => 'Atorscho\Backend\Controllers',
 	'prefix'    => 'admin'
@@ -38,7 +22,6 @@ Route::group([
 	]);
 	Route::post('login', [
 		'as'     => 'admin.login.post',
-		'before' => 'csrf',
 		'uses'   => 'BackendController@loginPost'
 	]);
 	Route::get('logout', [
@@ -54,17 +37,13 @@ Route::group([
 	]);
 	Route::put('settings', [
 		'as'     => 'admin.settings.update',
-		'before' => 'csrf',
 		'uses'   => 'SettingController@update'
 	]);
 
-	// Users & Groups & Permissions
-	// ===================================
-	Route::resource('users', 'UserController');
-	Route::resource('groups', 'GroupController');
-	Route::resource('permissions', 'PermissionController', ['only' => 'index']);
-
-	// User Fields
+	// Users & Groups & Permissions & Fields
 	// ===================================
 	Route::resource('users/fields/groups', 'UserFieldGroupController');
+	Route::resource('users/groups', 'GroupController');
+	Route::resource('users/permissions', 'PermissionController', ['only' => 'index']);
+	Route::resource('users', 'UserController');
 });

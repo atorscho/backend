@@ -86,7 +86,7 @@
 				'value'    => 'save_new',
 				'tabindex' => index()
 			]) }}
-			<a class="btn btn-default" href="{{ route('admin.groups.index') }}"><i class="fa fa-times-circle"></i></a>
+			<a class="btn btn-default" href="{{ route('admin.users.groups.index') }}"><i class="fa fa-times-circle"></i></a>
 		</div>
 	</div>
 </div>

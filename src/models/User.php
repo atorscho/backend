@@ -161,9 +161,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		$list = array();
 
 		foreach ( $this->groups as $group )
-		{
-			$list[] = sprintf('<a href="%s">%s</a>', route('admin.groups.show', $group->id), $group->name);
-		}
+			$list[] = sprintf('<a href="%s">%s</a>', route('admin.users.groups.show', $group->id), $group->name);
 
 		return implode(', ', $list);
 	}

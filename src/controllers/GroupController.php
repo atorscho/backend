@@ -65,11 +65,11 @@ class GroupController extends BaseController {
 		];
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.groups.index'), 'Groups');
+		Crumbs::add(route('admin.users.groups.index'), 'Groups');
 
 		$this->layout->title   = 'Group Management';
 		$this->layout->desc    = 'All user groups, their members and permissions';
-		$this->layout->content = View::make('backend::groups.index', compact('groups', 'protectedGroups'));
+		$this->layout->content = View::make('backend::users.groups.index', compact('groups', 'protectedGroups'));
 	}
 
 	/**
@@ -85,11 +85,11 @@ class GroupController extends BaseController {
 		$permissions = Permission::lists('name', 'id');
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.groups.index'), 'Groups');
-		Crumbs::add(route('admin.groups.create'), $title);
+		Crumbs::add(route('admin.users.groups.index'), 'Groups');
+		Crumbs::add(route('admin.users.groups.create'), $title);
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::groups.create', compact('permissions'));
+		$this->layout->content = View::make('backend::users.groups.create', compact('permissions'));
 	}
 
 	/**
@@ -109,9 +109,9 @@ class GroupController extends BaseController {
 		$group->permissions()->sync(Input::get('permissions'));
 
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.groups.create')->with('success', 'Group has been created.');
+			return Redirect::route('admin.users.groups.create')->with('success', 'Group has been created.');
 		else
-			return Redirect::route('admin.groups.index')->with('success', 'Group has been created.');
+			return Redirect::route('admin.users.groups.index')->with('success', 'Group has been created.');
 	}
 
 	/**
@@ -131,18 +131,18 @@ class GroupController extends BaseController {
 		$this->layout->controls = [
 			[
 				'title' => '<i class="fa fa-fw fa-edit"></i>',
-				'uri'   => route('admin.groups.edit', $group->id),
+				'uri'   => route('admin.users.groups.edit', $group->id),
 				'color' => '',
 				'perm'  => 'editGroups'
 			]
 		];
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.groups.index'), 'Groups');
-		Crumbs::add(route('admin.groups.show', $group->id), $title);
+		Crumbs::add(route('admin.users.groups.index'), 'Groups');
+		Crumbs::add(route('admin.users.groups.show', $group->id), $title);
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::groups.show', compact('group', 'groupUsers'));
+		$this->layout->content = View::make('backend::users.groups.show', compact('group', 'groupUsers'));
 	}
 
 	/**
@@ -163,12 +163,12 @@ class GroupController extends BaseController {
 		$groupperms = $group->permissions()->lists('id');
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.groups.index'), 'Groups');
-		Crumbs::add(route('admin.groups.show', $group->id), $group->name);
-		Crumbs::add(route('admin.groups.edit', $group->id), 'Edit');
+		Crumbs::add(route('admin.users.groups.index'), 'Groups');
+		Crumbs::add(route('admin.users.groups.show', $group->id), $group->name);
+		Crumbs::add(route('admin.users.groups.edit', $group->id), 'Edit');
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::groups.edit', compact('group', 'permissions', 'groupperms'));
+		$this->layout->content = View::make('backend::users.groups.edit', compact('group', 'permissions', 'groupperms'));
 	}
 
 	/**
@@ -194,9 +194,9 @@ class GroupController extends BaseController {
 		$group->permissions()->sync(Input::get('permissions'));
 
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.groups.create')->with('success', 'Group has been created.');
+			return Redirect::route('admin.users.groups.create')->with('success', 'Group has been created.');
 		else
-			return Redirect::route('admin.groups.index')->with('success', 'Group has been updated.');
+			return Redirect::route('admin.users.groups.index')->with('success', 'Group has been updated.');
 	}
 
 	/**
@@ -220,7 +220,7 @@ class GroupController extends BaseController {
 		// Now delete that group
 		$group->delete();
 
-		return Redirect::route('admin.groups.index')->with('success', 'Group has been deleted.');
+		return Redirect::route('admin.users.groups.index')->with('success', 'Group has been deleted.');
 	}
 
 }

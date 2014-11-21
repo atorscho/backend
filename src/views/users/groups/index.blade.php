@@ -8,7 +8,7 @@
                 	@include('backend::partials.users._sidebar')
 
                 	<div class="text-center">
-                		<a class="btn btn-primary" href="{{{ route('admin.groups.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> New Group</a>
+                		<a class="btn btn-primary" href="{{{ route('admin.users.groups.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> New Group</a>
                 	</div>
                 </aside>
 			</div>
@@ -38,16 +38,16 @@
                     @foreach($groups as $group)
                         <tr>
                             <td>{{ index() }}</td>
-                            <td data-href="{{ route('admin.groups.show', $group->id) }}">{{ $group->name_formatted }}</td>
+                            <td data-href="{{ route('admin.users.groups.show', $group->id) }}">{{ $group->name_formatted }}</td>
                             <td class="handle">{{{ $group->handle }}}</td>
-                            <td class="text-center" data-href="{{ route('admin.groups.show', $group->id) }}">
+                            <td class="text-center" data-href="{{ route('admin.users.groups.show', $group->id) }}">
                                 <span class="text-primary">{{{ $group->users()->count() }}}</span>
                             </td>
                             <td class="text-center">{{{ $group->id }}}</td>
                             <td class="text-center">
-                                {{ Form::open(['route' => ['admin.groups.destroy', $group->id], 'method' => 'DELETE']) }}
+                                {{ Form::open(['route' => ['admin.users.groups.destroy', $group->id], 'method' => 'DELETE']) }}
 	                                <div class="btn-group">
-	                                    <a class="btn btn-sm btn-primary" href="{{ route('admin.groups.edit', $group->id) }}">
+	                                    <a class="btn btn-sm btn-primary" href="{{ route('admin.users.groups.edit', $group->id) }}">
 	                                        <i class="fa fa-edit"></i>
 	                                    </a>
 	                                    <button class="btn btn-sm btn-primary" {{ in_array($group->id, $protectedGroups) ? 'disabled="disabled"' : '' }}>

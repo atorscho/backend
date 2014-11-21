@@ -31,11 +31,11 @@ class PermissionController extends BaseController {
 		$permissions = Permission::all();
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.permissions.index'), $title);
+		Crumbs::add(route('admin.users.permissions.index'), $title);
 
 		$this->layout->title   = $title;
 		$this->layout->desc    = 'Group permissions';
-		$this->layout->content = View::make('backend::permissions.index', compact('permissions'));
+		$this->layout->content = View::make('backend::users.permissions.index', compact('permissions'));
 	}
 
 }
