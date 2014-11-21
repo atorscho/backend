@@ -2,9 +2,9 @@
 
 <ul class="nav">
 	@foreach($fieldGroups as $fieldGroup)
-		<li {{ Route::current()->getAction()['as'] == 'admin.users.index' ? 'class="active"' : '' }}>
-			<a href="{{ route('admin.users.index') }}">
-				Users
+		<li {{ 'id' == $fieldGroup->id ? 'class="active"' : '' }}>
+			<a href="{{ route('admin.users.fields.groups.show', $fieldGroup->id) }}">
+				{{ $fieldGroup->name }}
 			</a>
 		</li>
 	@endforeach

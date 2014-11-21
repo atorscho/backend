@@ -53,4 +53,18 @@ class UserFieldGroupController extends BaseController {
 		$this->layout->content = View::make('backend::users.fields.groups.index', compact('fieldGroups'));
 	}
 
+	public function show()
+	{
+		$title = 'Field Groups';
+
+		$fieldGroups = UserFieldGroup::all();
+
+		Crumbs::add(route('admin.users.index'), 'Users');
+		Crumbs::add(route('admin.users.fields.groups.index'), $title);
+
+		$this->layout->title   = $title;
+		$this->layout->desc    = 'Manage User Field Groups';
+		$this->layout->content = View::make('backend::users.fields.groups.index', compact('fieldGroups'));
+	}
+
 }

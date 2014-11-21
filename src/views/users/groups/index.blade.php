@@ -48,7 +48,7 @@
                                 {{ Form::open(['route' => ['admin.users.groups.destroy', $group->id], 'method' => 'DELETE']) }}
 	                                <div class="btn-group">
 	                                    <a class="btn btn-sm btn-primary" href="{{ route('admin.users.groups.edit', $group->id) }}">
-	                                        <i class="fa fa-edit"></i>
+	                                        <i class="fa fa-fw fa-edit"></i>
 	                                    </a>
 	                                    <button class="btn btn-sm btn-primary" {{ in_array($group->id, $protectedGroups) ? 'disabled="disabled"' : '' }}>
 	                                        <i class="fa fa-fw fa-times"></i>
