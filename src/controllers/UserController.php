@@ -183,7 +183,7 @@ class UserController extends BaseController {
 		// Get an array of groups: id such as a key, group name such as a key value
 		$groups     = Group::lists('name', 'id');
 		$usergroups = $user->groups()->lists('id');
-		$fieldGroups = UserFieldGroup::all();
+		$fieldGroups = UserFieldGroup::with('fields')->get();
 
 		$gender = [
 			'N' => 'Unknown',
@@ -221,17 +221,23 @@ class UserController extends BaseController {
 			$user->password = Input::get('password');
 		$user->first_name = Input::get('first_name');
 		$user->last_name  = Input::get('last_name');
-		if ( Input::has('birthday') )
-			$user->birthday = Input::get('birthday');
+		$user->birthday = Input::get('birthday');
 		$user->gender     = Input::get('gender');
 		$user->created_at = Input::get('created_at');
 		$user->save();
 		$user->groups()->sync(Input::get('groups'));
 
+		$fieldsUpdate = Input::get('fields');
+
+		foreach ( $fieldsUpdate as $key => $value )
+			$fieldsUpdate[$key] = [ 'value' => $value ];
+
+		$user->fields()->sync($fieldsUpdate);
+
 		if ( Input::get('submit') == 'save_new' )
 			return Redirect::route('admin.users.create')->with('success', 'User has been created.');
 		else
-			return Redirect::route('admin.users.index')->with('success', 'User has been updated.');
+			return Redirect::route('admin.users.show', $user->id)->with('success', 'User has been updated.');
 	}
 
 

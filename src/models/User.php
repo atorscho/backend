@@ -132,7 +132,10 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	 */
 	public function setBirthdayAttribute( $value )
 	{
-		$this->attributes['birthday'] = date('Y-m-d', strtotime($value));
+		if  ( $value )
+			$this->attributes['birthday'] = date('Y-m-d', strtotime($value));
+		else
+			$this->attributes['birthday'] = null;
 	}
 
 

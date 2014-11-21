@@ -87,7 +87,7 @@
                 <div class="form-group">
                     {{ Form::label('birthday') }}
                     {{ $errors->first('birthday', '<span class="text-danger">:message</span>') }}
-                    {{ Form::text('birthday', isset($user) ? datetimePicker($user->birthday) : null, [
+                    {{ Form::text('birthday', (isset($user) && $user->birthday) ? datetimePicker($user->birthday) : null, [
                         'class' => 'form-control date',
                         'placeholder' => 'Birthday',
                         'tabindex' => index()
@@ -107,16 +107,16 @@
             </div>
         </div>
 
-		@if($user->fields()->count())
+		@if($fieldGroups->count())
 			@foreach($fieldGroups as $fieldGroup)
 		        <header class="title">
 		            <h3>{{{ $fieldGroup->name }}}</h3>
 		        </header>
 
-		        @foreach($user->fields as $field)
+		        @foreach($fieldGroup->fields as $field)
 		            <div class="form-group">
-		                {{ Form::label($field->handle) }}
-		                {{ Form::text($field->handle, isset($field->pivot->value) ? $field->pivot->value : null, [
+		                {{ Form::label("fields[{$field->id}]", $field->name) }}
+		                {{ Form::text("fields[{$field->id}]", isset($user->fields()->find($field->id)->value) ? $user->fields()->find($field->id)->value : null, [
 		                    'class' => 'form-control',
 		                    'placeholder' => $field->placeholder ?: $field->name,
 		                    'tabindex' => index()
