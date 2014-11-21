@@ -30,6 +30,7 @@ class PermissionController extends BaseController {
 
 		$permissions = Permission::all();
 
+		Crumbs::add(route('admin.users.index'), 'Users');
 		Crumbs::add(route('admin.permissions.index'), $title);
 
 		$this->layout->title   = $title;

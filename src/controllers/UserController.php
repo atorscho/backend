@@ -34,15 +34,15 @@ class UserController extends BaseController {
 		parent::__construct();
 
 		$this->rulesFields = [
-			'username' => 'Username',
-			'email' => 'Email',
-			'password' => 'Password',
+			'username'   => 'Username',
+			'email'      => 'Email',
+			'password'   => 'Password',
 			'first_name' => 'First Name',
-			'last_name' => 'Last Name',
-			'birthday' => 'Birthday',
-			'gender' => 'Gender',
+			'last_name'  => 'Last Name',
+			'birthday'   => 'Birthday',
+			'gender'     => 'Gender',
 			'created_at' => 'Registered',
-			'groups' => 'Groups'
+			'groups'     => 'Groups'
 		];
 
 		// Access Filters
@@ -74,16 +74,14 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		$title = 'User Management';
-
 		$users = User::with('groups')->paginate((int) getSetting('usersPerPage'));
 
 		// Counter
 		$counter = ( $users->count() * ( ( Input::get('page') ?: 1 ) - 1 ) ) + 1;
 
-		Crumbs::add(route('admin.users.index'), $title);
+		Crumbs::add(route('admin.users.index'), 'Users');
 
-		$this->layout->title   = $title;
+		$this->layout->title   = 'User Management';
 		$this->layout->desc    = 'List of all users and their info';
 		$this->layout->content = View::make('backend::users.index', compact('users', 'counter'));
 	}
@@ -109,7 +107,7 @@ class UserController extends BaseController {
 			'F' => 'Female'
 		];
 
-		Crumbs::add(route('admin.users.index'), 'User Management');
+		Crumbs::add(route('admin.users.index'), 'Users');
 		Crumbs::add(route('admin.users.create'), $title);
 
 		$this->layout->title   = $title;
@@ -149,7 +147,7 @@ class UserController extends BaseController {
 	{
 		$title = $user->username;
 
-		Crumbs::add(route('admin.users.index'), 'User Management');
+		Crumbs::add(route('admin.users.index'), 'Users');
 		Crumbs::add(route('admin.users.show', $user->id), $title);
 
 		// todo - move this to a function
@@ -181,8 +179,8 @@ class UserController extends BaseController {
 		$user = $user->with('fields')->find($user->id);
 
 		// Get an array of groups: id such as a key, group name such as a key value
-		$groups     = Group::lists('name', 'id');
-		$usergroups = $user->groups()->lists('id');
+		$groups      = Group::lists('name', 'id');
+		$usergroups  = $user->groups()->lists('id');
 		$fieldGroups = UserFieldGroup::with('fields')->get();
 
 		$gender = [
@@ -191,7 +189,7 @@ class UserController extends BaseController {
 			'F' => 'Female'
 		];
 
-		Crumbs::add(route('admin.users.index'), 'User Management');
+		Crumbs::add(route('admin.users.index'), 'Users');
 		Crumbs::add(route('admin.users.show', $user->id), $user->username);
 		Crumbs::add(route('admin.users.edit', $user->id), 'Edit');
 
@@ -221,7 +219,7 @@ class UserController extends BaseController {
 			$user->password = Input::get('password');
 		$user->first_name = Input::get('first_name');
 		$user->last_name  = Input::get('last_name');
-		$user->birthday = Input::get('birthday');
+		$user->birthday   = Input::get('birthday');
 		$user->gender     = Input::get('gender');
 		$user->created_at = Input::get('created_at');
 		$user->save();

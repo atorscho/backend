@@ -12,7 +12,11 @@ class PermissionsSeeder extends Seeder {
 	 */
 	public function run()
 	{
+		DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
 		DB::table('group_permission')->truncate();
+
+		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
 		// Members - 1
 		// Moderators - 2

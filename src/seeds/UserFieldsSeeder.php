@@ -2,7 +2,6 @@
 
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
-use Atorscho\Backend\Models\User;
 use Atorscho\Backend\Models\UserField;
 use Atorscho\Backend\Models\UserFieldGroup;
 use Illuminate\Database\Seeder;
@@ -17,15 +16,11 @@ class UserFieldsSeeder extends Seeder {
 	public function run()
 	{
 		DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
 		UserField::truncate();
 		UserFieldGroup::truncate();
-		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-		$user = User::find(1);
-		if ( $user )
-		{
-			$user->fields()->detach();
-		}
+		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
 		$fieldGroups = [
 			[
@@ -64,13 +59,54 @@ class UserFieldsSeeder extends Seeder {
 			}
 		}
 
-		if ( $user )
-		{
-			$user->fields()->attach(1, ['value' => 'http://facebook.com']);
-			$user->fields()->attach(2, ['value' => 'http://twitter.com']);
-		}
+		$this->permissions();
+	}
 
-		// todo - add permissions
+	protected function permissions()
+	{
+		$permissions = [
+			[
+				'name'   => 'Create Fields',
+				'handle' => 'createFields'
+			],
+			[
+				'name'   => 'Show Fields',
+				'handle' => 'showFields'
+			],
+			[
+				'name'   => 'Edit Fields',
+				'handle' => 'editFields'
+			],
+			[
+				'name'   => 'Delete Fields',
+				'handle' => 'deleteFields'
+			]
+		];
+
+		foreach ( $permissions as $permission )
+			${$permission['handle']} = Permission::create($permission);
+
+		$members = Group::find(1);
+		$members->permissions()->attach($showFields->id);
+
+		$mods = Group::find(2);
+		$mods->permissions()->attach($showFields->id);
+
+		$supermods = Group::find(3);
+		$supermods->permissions()->attach($showFields->id);
+		$supermods->permissions()->attach($editFields->id);
+
+		$admins = Group::find(4);
+		$admins->permissions()->attach($showFields->id);
+		$admins->permissions()->attach($createFields->id);
+		$admins->permissions()->attach($editFields->id);
+		$admins->permissions()->attach($deleteFields->id);
+
+		$superadmins = Group::find(5);
+		$superadmins->permissions()->attach($showFields->id);
+		$superadmins->permissions()->attach($createFields->id);
+		$superadmins->permissions()->attach($editFields->id);
+		$superadmins->permissions()->attach($deleteFields->id);
 	}
 
 }

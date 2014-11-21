@@ -1,7 +1,6 @@
 <?php namespace Atorscho\Backend\Controllers;
 
-use Atorscho\Backend\Models\Group;
-use Atorscho\Backend\Models\Permission;
+use Atorscho\Backend\Models\UserFieldGroup;
 use Crumbs;
 use Input;
 use Redirect;
@@ -10,66 +9,48 @@ use View;
 
 // todo - translate
 
-class GroupController extends BaseController {
+class UserFieldGroupController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';
-
-	protected $rules = [
-		'name'        => 'required|max:20',
-		'handle'      => 'max:20',
-		'permissions' => 'required'
-	];
 
 	public function __construct()
 	{
 		parent::__construct();
 
 		// Access Filters
-		$this->beforeFilter('admin.perm:showGroups', [
+		$this->beforeFilter('admin.perm:showFields', [
 			'only' => [
 				'index',
 				'show'
 			]
 		]);
-		$this->beforeFilter('admin.perm:createGroups', [
+		$this->beforeFilter('admin.perm:createFields', [
 			'only' => [
 				'create',
 				'store'
 			]
 		]);
-		$this->beforeFilter('admin.perm:editGroups', [
+		$this->beforeFilter('admin.perm:editFields', [
 			'only' => [
 				'edit',
 				'update'
 			]
 		]);
-		$this->beforeFilter('admin.perm:deleteGroups', [ 'only' => [ 'destroy' ] ]);
+		$this->beforeFilter('admin.perm:deleteFields', [ 'only' => [ 'destroy' ] ]);
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /group
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
-		$groups          = Group::all();
-		$protectedGroups = [
-			1,
-			2,
-			3,
-			4,
-			5,
-			getSetting('defaultGroup')
-		];
+		$title = 'Field Groups';
+
+		$fieldGroups = UserFieldGroup::all();
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.groups.index'), 'Groups');
+		Crumbs::add(route('admin.users.fields.groups.index'), $title);
 
-		$this->layout->title   = 'Group Management';
-		$this->layout->desc    = 'All user groups, their members and permissions';
-		$this->layout->content = View::make('backend::groups.index', compact('groups', 'protectedGroups'));
+		$this->layout->title   = $title;
+		$this->layout->desc    = 'Manage User Field Groups';
+		$this->layout->content = View::make('backend::userfields.groups.index', compact('fieldGroups'));
 	}
 
 	/**
@@ -84,8 +65,7 @@ class GroupController extends BaseController {
 
 		$permissions = Permission::lists('name', 'id');
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.groups.index'), 'Groups');
+		Crumbs::add(route('admin.groups.index'), 'Group Management');
 		Crumbs::add(route('admin.groups.create'), $title);
 
 		$this->layout->title   = $title;
@@ -127,18 +107,7 @@ class GroupController extends BaseController {
 		$title = $group->name;
 		$groupUsers = Group::with('users')->find($group->id)->users()->orderBy('username')->get();
 
-		// todo - move this to a function
-		$this->layout->controls = [
-			[
-				'title' => '<i class="fa fa-fw fa-edit"></i>',
-				'uri'   => route('admin.groups.edit', $group->id),
-				'color' => '',
-				'perm'  => 'editGroups'
-			]
-		];
-
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.groups.index'), 'Groups');
+		Crumbs::add(route('admin.groups.index'), 'Group Management');
 		Crumbs::add(route('admin.groups.show', $group->id), $title);
 
 		$this->layout->title   = $title;
@@ -162,8 +131,7 @@ class GroupController extends BaseController {
 		// Populate the selectbox
 		$groupperms = $group->permissions()->lists('id');
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.groups.index'), 'Groups');
+		Crumbs::add(route('admin.groups.index'), 'Group Management');
 		Crumbs::add(route('admin.groups.show', $group->id), $group->name);
 		Crumbs::add(route('admin.groups.edit', $group->id), 'Edit');
 

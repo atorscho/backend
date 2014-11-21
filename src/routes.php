@@ -32,27 +32,27 @@ Route::group([
 		'as'   => 'admin.index',
 		'uses' => 'BackendController@index'
 	]);
-	Route::get('/login', [
+	Route::get('login', [
 		'as'   => 'admin.login',
 		'uses' => 'BackendController@login'
 	]);
-	Route::post('/login', [
+	Route::post('login', [
 		'as'     => 'admin.login.post',
 		'before' => 'csrf',
 		'uses'   => 'BackendController@loginPost'
 	]);
-	Route::get('/logout', [
+	Route::get('logout', [
 		'as'   => 'admin.logout',
 		'uses' => 'BackendController@logout'
 	]);
 
 	// Settings
 	// ===================================
-	Route::get('/settings', [
+	Route::get('settings', [
 		'as'   => 'admin.settings',
 		'uses' => 'SettingController@index'
 	]);
-	Route::put('/settings', [
+	Route::put('settings', [
 		'as'     => 'admin.settings.update',
 		'before' => 'csrf',
 		'uses'   => 'SettingController@update'
@@ -60,8 +60,11 @@ Route::group([
 
 	// Users & Groups & Permissions
 	// ===================================
-	// todo - remove 'show'
 	Route::resource('users', 'UserController');
 	Route::resource('groups', 'GroupController');
 	Route::resource('permissions', 'PermissionController', ['only' => 'index']);
+
+	// User Fields
+	// ===================================
+	Route::resource('users/fields/groups', 'UserFieldGroupController');
 });

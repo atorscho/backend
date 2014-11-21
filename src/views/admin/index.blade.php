@@ -3,19 +3,19 @@
 	<div class="row">
 		<div class="col-md-9">
 			<div class="com-boxes">
-				<a class="box groups tip" href="{{{ route('admin.users.index') }}}" title="Users and Groups">
+				<a class="box tip" href="{{ route('admin.users.index') }}" title="Users and Groups">
 					<i class="fa fa-fw fa-group"></i>
 				</a>
-				<a class="box pages tip" href="#" title="Pages">
-					<i class="fa fa-fw fa-file-text-o"></i>
+				<a class="box tip" href="{{ route('admin.users.fields.groups.index') }}" title="User Fields">
+					<i class="fa fa-fw fa-sliders"></i>
 				</a>
-				<a class="box forums tip" href="#" title="Forums">
+				<a class="box tip" href="#" title="Forums">
 					<i class="fa fa-fw fa-comments-o"></i>
 				</a>
-				<a class="box menus tip" href="#" title="Menu Manager">
+				<a class="box tip" href="#" title="Menu Manager">
 					<i class="fa fa-fw fa-navicon"></i>
 				</a>
-				<a class="box settings tip" href="{{{ route('admin.settings') }}}" title="Settings">
+				<a class="box tip" href="{{{ route('admin.settings') }}}" title="Settings">
 					<i class="fa fa-fw fa-cogs"></i>
 				</a>
 			</div>
@@ -28,7 +28,7 @@
 				</header>
 				<ul class="list">
 					<?php // todo - stats ?>
-					<li>New Users <span class="badge pull-right">{{{ $userCount }}}</span></li>
+					<li>New Users <span class="badge pull-right">{{ $userCount }}</span></li>
 					<li>New Posts <span class="badge pull-right">15</span></li>
 					<li>New Tickets <span class="badge pull-right">4</span></li>
 				</ul>
@@ -80,7 +80,7 @@
 					<ul class="list">
 						@foreach($users as $user)
 							<li>
-								{{ link_to_route('admin.users.edit', $user->username, [$user->id]) }}
+								{{ link_to_route('admin.users.show', $user->username, [$user->id]) }}
 								<span class="label label-default pull-right">{{ getDateTimeFormat($user->created_at) }}</span>
 							</li>
 						@endforeach

@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<aside class="sidebar">
-                	@include('backend::partials._users_sidebar')
+                	@include('backend::partials.users._sidebar')
 
                 	<div class="text-center">
                 		<a class="btn btn-primary" href="{{{ route('admin.users.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> New User</a>
