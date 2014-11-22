@@ -13,6 +13,10 @@ class UserFieldGroupController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';
 
+	protected $rules = [
+		'name' => 'required'
+	];
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -53,7 +57,31 @@ class UserFieldGroupController extends BaseController {
 		$this->layout->content = View::make('backend::users.fields.groups.index', compact('fieldGroups'));
 	}
 
-	public function show()
+	public function create()
+	{
+		$title = 'New Field Group';
+
+		Crumbs::add(route('admin.users.index'), 'Users');
+		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
+		Crumbs::add(route('admin.users.fields.groups.create'), $title);
+
+		$this->layout->title   = $title;
+		$this->layout->content = View::make('backend::users.fields.groups.create');
+	}
+
+	public function store()
+	{
+		$validator = Validator::make(Input::all(), $this->rules);
+
+		if($validator->fails())
+			return Redirect::back()->withErrors($validator)->withInput();
+
+		UserFieldGroup::create(Input::all());
+
+		return Redirect::route('admin.users.fields.groups.index')->with('success', 'Field Group created.');
+	}
+
+	public function show(UserFieldGroup $fieldGroup)
 	{
 		$title = 'Field Groups';
 

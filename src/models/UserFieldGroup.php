@@ -1,6 +1,10 @@
 <?php namespace Atorscho\Backend\Models;
 
+use Atorscho\Backend\Traits\HandleTrait;
+
 class UserFieldGroup extends BaseModel {
+
+	use HandleTrait;
 
 	protected $fillable = ['name', 'handle'];
 

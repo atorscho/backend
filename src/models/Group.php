@@ -1,6 +1,10 @@
 <?php namespace Atorscho\Backend\Models;
 
+use Atorscho\Backend\Traits\HandleTrait;
+
 class Group extends BaseModel {
+
+	use HandleTrait;
 
 	protected $fillable = ['name', 'handle', 'prefix', 'suffix'];
 
@@ -37,36 +41,6 @@ class Group extends BaseModel {
 	public function getUsersCountAttribute()
 	{
 		return $this->users()->count();
-	}
-
-
-	/**
-	 * Format group's name according to its prefix and suffix styles.
-	 *
-	 * @return string
-	 */
-	public function getNameFormattedAttribute()
-	{
-		$prefix = $this->prefix ?: '';
-		$suffix = $this->suffix ?: '';
-
-		return $prefix . $this->name . $suffix;
-	}
-
-
-	/**
-	 * If handle has not been specified,
-	 * use title to create it.
-	 * Otherwise use the specified one.
-	 *
-	 * @param $value
-	 */
-	public function setHandleAttribute( $value )
-	{
-		if ( $value )
-			$this->attributes['handle'] = \Str::slug($value);
-		else
-			$this->attributes['handle'] = \Str::slug($this->name);
 	}
 
 }

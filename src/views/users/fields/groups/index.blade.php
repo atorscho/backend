@@ -8,7 +8,7 @@
 					@include('backend::partials.users._fields_sidebar')
 
 					<div class="text-center">
-						<a class="btn btn-primary" href="#"><i class="fa fa-fw fa-plus-circle"></i> New User</a>
+						<a class="btn btn-primary" href="{{ route('admin.users.fields.groups.create') }}"><i class="fa fa-fw fa-plus-circle"></i> New Group</a>
 					</div>
 				</aside>
 			</div>
