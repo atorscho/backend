@@ -21,5 +21,5 @@ View::composer('backend::partials.users._sidebar', function ( $view )
  */
 View::composer('backend::partials.users._fields_sidebar', function ( $view )
 {
-	$view->with('fieldGroups', UserFieldGroup::all());
+	$view->with('fieldGroups', UserFieldGroup::orderBy('name')->get());
 });

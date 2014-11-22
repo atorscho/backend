@@ -47,7 +47,7 @@ class UserFieldGroupController extends BaseController {
 	{
 		$title = 'Field Groups';
 
-		$fieldGroups = UserFieldGroup::all();
+		$fieldGroups = UserFieldGroup::orderBy('order')->get();
 
 		Crumbs::add(route('admin.users.index'), 'Users');
 		Crumbs::add(route('admin.users.fields.groups.index'), $title);

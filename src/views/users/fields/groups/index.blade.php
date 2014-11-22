@@ -6,11 +6,6 @@
 			<div class="col-md-3">
 				<aside class="sidebar">
 					@include('backend::partials.users._fields_sidebar')
-
-					<div class="text-center">
-						<a class="btn btn-primary" href="{{ route('admin.users.fields.groups.create') }}"><i class="fa fa-fw fa-plus-circle"></i> New Group</a>
-						<a class="btn btn-primary" href="{{ route('admin.users.fields.create') }}"><i class="fa fa-fw fa-plus-circle"></i> New Group</a>
-					</div>
 				</aside>
 			</div>
 			<div class="col-md-9">
@@ -38,7 +33,7 @@
 						@if($fieldGroups->count())
 							@foreach($fieldGroups as $fieldGroup)
 								<tr>
-									<td>{{ index() }}</td>
+									<td>{{ $fieldGroup->order }}</td>
 									<td data-href="{{ route('admin.users.fields.groups.show', $fieldGroup->id) }}">{{ $fieldGroup->name }}</td>
 									<td class="handle">{{ $fieldGroup->handle }}</td>
 									<td class="text-center">{{ $fieldGroup->id }}</td>

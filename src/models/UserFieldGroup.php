@@ -7,7 +7,7 @@ class UserFieldGroup extends BaseModel {
 
 	use HandleTrait;
 
-	protected $fillable = ['name', 'handle'];
+	protected $fillable = ['name', 'handle', 'order'];
 
 	public $timestamps = false;
 
@@ -27,7 +27,7 @@ class UserFieldGroup extends BaseModel {
 		if( Input::has('order'))
 			$this->attributes['order'] = Input::get('order');
 		else
-			$this->attributes['order'] = $this->count() + 1;
+			$this->attributes['order'] = $this->orderBy('order', 'desc')->first()->order + 1;
 	}
 
 }
