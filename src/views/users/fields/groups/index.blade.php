@@ -21,7 +21,7 @@
 							<th>Name</th>
 							<th>Handle</th>
 							<th class="text-center width-80">ID</th>
-							<th class="text-center width-240">Actions</th>
+							<th class="text-center width-100">Actions</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -34,26 +34,32 @@
 						</tr>
 						</tfoot>
 						<tbody>
-						@foreach($fieldGroups as $fieldGroup)
+						@if($fieldGroups->count())
+							@foreach($fieldGroups as $fieldGroup)
+								<tr>
+									<td>{{ index() }}</td>
+									<td data-href="{{ route('admin.users.fields.groups.show', $fieldGroup->id) }}">{{ $fieldGroup->name }}</td>
+									<td class="handle">{{ $fieldGroup->handle }}</td>
+									<td class="text-center">{{ $fieldGroup->id }}</td>
+									<td class="text-center">
+										{{ Form::open(['route' => ['admin.users.fields.groups.destroy', $fieldGroup->id], 'method' => 'DELETE']) }}
+											<div class="btn-group">
+												<a class="btn btn-sm btn-primary" href="{{ route('admin.users.fields.groups.edit', $fieldGroup->id) }}">
+													<i class="fa fa-fw fa-edit"></i>
+												</a>
+												<button class="btn btn-sm btn-primary">
+													<i class="fa fa-fw fa-times"></i>
+												</button>
+											</div>
+										{{ Form::close() }}
+									</td>
+								</tr>
+							@endforeach
+						@else
 							<tr>
-								<td>{{ index() }}</td>
-								<td data-href="{{ route('admin.users.fields.groups.show', $fieldGroup->id) }}">{{ $fieldGroup->name }}</td>
-								<td class="handle">{{ $fieldGroup->handle }}</td>
-								<td class="text-center">{{ $fieldGroup->id }}</td>
-								<td class="text-center">
-									{{ Form::open(['route' => ['admin.users.fields.groups.destroy', $fieldGroup->id], 'method' => 'DELETE']) }}
-										<div class="btn-group">
-											<a class="btn btn-sm btn-primary" href="{{ route('admin.users.fields.groups.edit', $fieldGroup->id) }}">
-												<i class="fa fa-fw fa-edit"></i>
-											</a>
-											<button class="btn btn-sm btn-primary">
-												<i class="fa fa-fw fa-times"></i>
-											</button>
-										</div>
-									{{ Form::close() }}
-								</td>
+								<td colspan="5">There is no custom field groups.</td>
 							</tr>
-						@endforeach
+						@endif
 						</tbody>
 					</table>
 				</div>

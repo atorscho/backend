@@ -145,22 +145,10 @@ class UserController extends BaseController {
 
 	public function show( User $user )
 	{
-		$title = $user->username;
-
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.show', $user->id), $title);
+		Crumbs::add(route('admin.users.show', $user->id), $user->username);
 
-		// todo - move this to a function
-		$this->layout->controls = [
-			[
-				'title' => '<i class="fa fa-fw fa-edit"></i>',
-				'uri'   => route('admin.users.edit', $user->id),
-				'color' => '',
-				'perm'  => 'editUsers'
-			]
-		];
-
-		$this->layout->title   = $title;
+		$this->layout->title   = 'User Profile: ' . $user->username;
 		$this->layout->content = View::make('backend::users.show', compact('user'));
 	}
 
@@ -174,8 +162,7 @@ class UserController extends BaseController {
 	 */
 	public function edit( User $user )
 	{
-		$title = 'Edit ' . $user->username;
-
+		// Eager-loading
 		$user = $user->with('fields')->find($user->id);
 
 		// Get an array of groups: id such as a key, group name such as a key value
@@ -193,7 +180,7 @@ class UserController extends BaseController {
 		Crumbs::add(route('admin.users.show', $user->id), $user->username);
 		Crumbs::add(route('admin.users.edit', $user->id), 'Edit');
 
-		$this->layout->title   = $title;
+		$this->layout->title   = 'Edit User: ' . $user->username;
 		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'usergroups', 'gender', 'fieldGroups'));
 	}
 

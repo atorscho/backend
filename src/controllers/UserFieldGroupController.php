@@ -11,13 +11,11 @@ use View;
 
 // todo - add order to field groups and to fields
 
+// todo - save or save & new
+
 class UserFieldGroupController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';
-
-	protected $rules = [
-		'name' => 'required'
-	];
 
 	public function __construct()
 	{
@@ -73,7 +71,10 @@ class UserFieldGroupController extends BaseController {
 
 	public function store()
 	{
-		$validator = Validator::make(Input::all(), $this->rules);
+		$validator = Validator::make(Input::all(), [
+			'name' => 'required',
+			'handle' => 'unique:user_field_groups'
+		]);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
@@ -88,14 +89,46 @@ class UserFieldGroupController extends BaseController {
 		// Eager-loading
 		$fieldGroup = $fieldGroup->with('fields')->find($fieldGroup->id);
 
-		$title = $fieldGroup->name;
-
 		Crumbs::add(route('admin.users.index'), 'Users');
 		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
-		Crumbs::add(route('admin.users.fields.groups.show', $fieldGroup->id), $title);
+		Crumbs::add(route('admin.users.fields.groups.show', $fieldGroup->id), $fieldGroup->name);
 
-		$this->layout->title   = $title;
+		$this->layout->title   = 'Field Group: ' . $fieldGroup->name;
 		$this->layout->content = View::make('backend::users.fields.groups.show', compact('fieldGroup'));
+	}
+
+	public function edit( UserFieldGroup $fieldGroup )
+	{
+		Crumbs::add(route('admin.users.index'), 'Users');
+		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
+		Crumbs::add(route('admin.users.fields.groups.show', $fieldGroup->id), $fieldGroup->name);
+		Crumbs::add(route('admin.users.fields.groups.edit', $fieldGroup->id), 'Edit');
+
+		$this->layout->title   = 'Edit Field Group: ' . $fieldGroup->name;
+		$this->layout->content = View::make('backend::users.fields.groups.edit', compact('fieldGroup'));
+	}
+
+	public function update( UserFieldGroup $fieldGroup)
+	{
+		$validator = Validator::make(Input::all(), [
+			'name' => 'required',
+			'handle' => 'unique:user_field_groups,handle,' . $fieldGroup->id
+		]);
+
+		if ( $validator->fails() )
+			return Redirect::back()->withErrors($validator)->withInput();
+
+		$fieldGroup->fill(Input::all());
+		$fieldGroup->save();
+
+		return Redirect::route('admin.users.fields.groups.show', $fieldGroup->id)->with('success', 'Field Group updated.');
+	}
+
+	public function destroy( UserFieldGroup $fieldGroup )
+	{
+		$fieldGroup->delete();
+
+		return Redirect::route('admin.users.fields.groups.index')->with('success', 'Field Group deleted.');
 	}
 
 }

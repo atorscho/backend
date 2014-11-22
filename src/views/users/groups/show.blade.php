@@ -1,3 +1,12 @@
+@section('controls')
+	<div class="btn-group btn-group-sm">
+		@if(Auth::user()->can('editGroups'))
+			<a class="btn btn-default" href="{{ route('admin.users.groups.edit', $group->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+		@endif
+	</div>
+@stop
+
+
 @section('content')
 	<div class="blok">
 		<header class="title">

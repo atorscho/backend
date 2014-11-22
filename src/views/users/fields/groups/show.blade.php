@@ -38,28 +38,34 @@
 						</tr>
 						</tfoot>
 						<tbody>
-						@foreach($fieldGroup->fields as $field)
+						@if($fieldGroup->fields()->count())
+							@foreach($fieldGroup->fields as $field)
+								<tr>
+									<td>{{ index() }}</td>
+									<td>{{{ $field->type_name }}}</td>
+									<td>{{{ $field->name }}}</td>
+									<td class="handle">{{{ $field->handle }}}</td>
+									<td>{{ $field->required ? 'Yes' : 'No' }}</td>
+									<td class="text-center">{{ $field->id }}</td>
+									<td class="text-center">
+										{{ Form::open(['route' => ['admin.users.fields.groups.destroy', $fieldGroup->id], 'method' => 'DELETE']) }}
+											<div class="btn-group">
+												<a class="btn btn-sm btn-primary" href="{{ route('admin.users.fields.groups.edit', $fieldGroup->id) }}">
+													<i class="fa fa-fw fa-edit"></i>
+												</a>
+												<button class="btn btn-sm btn-primary">
+													<i class="fa fa-fw fa-times"></i>
+												</button>
+											</div>
+										{{ Form::close() }}
+									</td>
+								</tr>
+							@endforeach
+						@else
 							<tr>
-								<td>{{ index() }}</td>
-								<td>{{{ $field->type_name }}}</td>
-								<td>{{{ $field->name }}}</td>
-								<td class="handle">{{{ $field->handle }}}</td>
-								<td>{{ $field->required ? 'Yes' : 'No' }}</td>
-								<td class="text-center">{{ $field->id }}</td>
-								<td class="text-center">
-									{{ Form::open(['route' => ['admin.users.fields.groups.destroy', $fieldGroup->id], 'method' => 'DELETE']) }}
-										<div class="btn-group">
-											<a class="btn btn-sm btn-primary" href="{{ route('admin.users.fields.groups.edit', $fieldGroup->id) }}">
-												<i class="fa fa-fw fa-edit"></i>
-											</a>
-											<button class="btn btn-sm btn-primary">
-												<i class="fa fa-fw fa-times"></i>
-											</button>
-										</div>
-									{{ Form::close() }}
-								</td>
+								<td colspan="7">Field Group does not have any custom fields.</td>
 							</tr>
-						@endforeach
+						@endif
 						</tbody>
 					</table>
 				</div>

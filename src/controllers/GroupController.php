@@ -124,24 +124,13 @@ class GroupController extends BaseController {
 	 */
 	public function show( Group $group )
 	{
-		$title = $group->name;
 		$groupUsers = Group::with('users')->find($group->id)->users()->orderBy('username')->get();
-
-		// todo - move this to a function
-		$this->layout->controls = [
-			[
-				'title' => '<i class="fa fa-fw fa-edit"></i>',
-				'uri'   => route('admin.users.groups.edit', $group->id),
-				'color' => '',
-				'perm'  => 'editGroups'
-			]
-		];
 
 		Crumbs::add(route('admin.users.index'), 'Users');
 		Crumbs::add(route('admin.users.groups.index'), 'Groups');
-		Crumbs::add(route('admin.users.groups.show', $group->id), $title);
+		Crumbs::add(route('admin.users.groups.show', $group->id), $group->name);
 
-		$this->layout->title   = $title;
+		$this->layout->title   = 'User Group: ' . $group->name;
 		$this->layout->content = View::make('backend::users.groups.show', compact('group', 'groupUsers'));
 	}
 
@@ -155,8 +144,6 @@ class GroupController extends BaseController {
 	 */
 	public function edit( Group $group )
 	{
-		$title = 'Edit ' . $group->name;
-
 		// Get an array of permissions: id such as a key, permission name such as a key value
 		$permissions = Permission::lists('name', 'id');
 		// Populate the selectbox
@@ -167,7 +154,7 @@ class GroupController extends BaseController {
 		Crumbs::add(route('admin.users.groups.show', $group->id), $group->name);
 		Crumbs::add(route('admin.users.groups.edit', $group->id), 'Edit');
 
-		$this->layout->title   = $title;
+		$this->layout->title   = 'Edit Group: ' . $group->name;
 		$this->layout->content = View::make('backend::users.groups.edit', compact('group', 'permissions', 'groupperms'));
 	}
 
