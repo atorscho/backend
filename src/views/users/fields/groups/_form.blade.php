@@ -28,6 +28,20 @@
 	</div>
 </div>
 <div class="col-md-3">
+	<div class="blok">
+		<header class="title"><h3>Misc</h3></header>
+
+		<div class="form-group">
+			{{ Form::label('order') }}
+			{{ Form::number('order', null, [
+				'class' => 'form-control',
+				'placeholder' => 'Order',
+				'min' => 0,
+				'tabindex' => index()
+			]) }}
+		</div>
+	</div>
+
 	<div class="text-center">
 		<div class="btn-group">
 			{{ Form::button('Save', [

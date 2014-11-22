@@ -1,5 +1,13 @@
 <?php // todo - translate ?>
 
+@section('controls')
+	<div class="btn-group btn-group-sm">
+		@if(Auth::user()->can('editGroups'))
+			<a class="btn btn-default" href="{{ route('admin.users.fields.groups.edit', $fieldGroup->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+		@endif
+	</div>
+@stop
+
 @section('content')
 	<div class="blok">
 		<div class="row">

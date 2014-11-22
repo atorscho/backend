@@ -6,7 +6,6 @@
 	</div>
 @stop
 
-
 @section('content')
 	<div class="blok">
 		<header class="title">
