@@ -9,6 +9,8 @@ use View;
 
 // todo - translate
 
+// todo - add order to field groups and to fields
+
 class UserFieldGroupController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';
@@ -73,7 +75,7 @@ class UserFieldGroupController extends BaseController {
 	{
 		$validator = Validator::make(Input::all(), $this->rules);
 
-		if($validator->fails())
+		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
 		UserFieldGroup::create(Input::all());
@@ -81,18 +83,19 @@ class UserFieldGroupController extends BaseController {
 		return Redirect::route('admin.users.fields.groups.index')->with('success', 'Field Group created.');
 	}
 
-	public function show(UserFieldGroup $fieldGroup)
+	public function show( UserFieldGroup $fieldGroup )
 	{
-		$title = 'Field Groups';
+		// Eager-loading
+		$fieldGroup = $fieldGroup->with('fields')->find($fieldGroup->id);
 
-		$fieldGroups = UserFieldGroup::all();
+		$title = $fieldGroup->name;
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.groups.index'), $title);
+		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
+		Crumbs::add(route('admin.users.fields.groups.show', $fieldGroup->id), $title);
 
 		$this->layout->title   = $title;
-		$this->layout->desc    = 'Manage User Field Groups';
-		$this->layout->content = View::make('backend::users.fields.groups.index', compact('fieldGroups'));
+		$this->layout->content = View::make('backend::users.fields.groups.show', compact('fieldGroup'));
 	}
 
 }

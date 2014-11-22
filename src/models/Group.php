@@ -43,4 +43,18 @@ class Group extends BaseModel {
 		return $this->users()->count();
 	}
 
+
+	/**
+	 * Format group's name according to its prefix and suffix styles.
+	 *
+	 * @return string
+	 */
+	public function getNameFormattedAttribute()
+	{
+		$prefix = $this->prefix ?: '';
+		$suffix = $this->suffix ?: '';
+
+		return $prefix . $this->name . $suffix;
+	}
+
 }

@@ -18,28 +18,34 @@
 						<thead>
 						<tr>
 							<th class="width-50">#</th>
-							<th>Name</th>
-							<th>Handle</th>
+							<th class="width-140">Type</th>
+							<th class="width-180">Name</th>
+							<th class="width-180">Handle</th>
+							<th class="width-50">Required</th>
 							<th class="text-center width-80">ID</th>
-							<th class="text-center width-240">Actions</th>
+							<th class="text-center width-100">Actions</th>
 							</tr>
 						</thead>
 						<tfoot>
 						<tr>
 							<th>#</th>
+							<th>Type</th>
 							<th>Name</th>
 							<th>Handle</th>
+							<th>Required</th>
 							<th class="text-center">ID</th>
 							<th class="text-center">Actions</th>
 						</tr>
 						</tfoot>
 						<tbody>
-						@foreach($fieldGroups as $fieldGroup)
+						@foreach($fieldGroup->fields as $field)
 							<tr>
 								<td>{{ index() }}</td>
-								<td data-href="{{ route('admin.users.fields.groups.show', $fieldGroup->id) }}">{{ $fieldGroup->name }}</td>
-								<td class="handle">{{ $fieldGroup->handle }}</td>
-								<td class="text-center">{{ $fieldGroup->id }}</td>
+								<td>{{{ $field->type_name }}}</td>
+								<td>{{{ $field->name }}}</td>
+								<td class="handle">{{{ $field->handle }}}</td>
+								<td>{{ $field->required ? 'Yes' : 'No' }}</td>
+								<td class="text-center">{{ $field->id }}</td>
 								<td class="text-center">
 									{{ Form::open(['route' => ['admin.users.fields.groups.destroy', $fieldGroup->id], 'method' => 'DELETE']) }}
 										<div class="btn-group">

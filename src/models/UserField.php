@@ -39,4 +39,32 @@ class UserField extends BaseModel {
 		return $this->belongsToMany('Atorscho\Backend\Models\User', 'user_fields_pivot', 'field_id', 'user_id')->withPivot('value');
 	}
 
+
+	// todo - translate
+	/**
+	 * Return a type name attribute.
+	 *
+	 * @return string
+	 */
+	public function getTypeNameAttribute()
+	{
+		switch ( $this->type )
+		{
+			case 'text':
+				return 'Text Field';
+			case 'textarea':
+				return 'Text Box';
+			case 'url':
+				return 'URL';
+			case 'search':
+				return 'Search Box';
+			case 'email':
+				return 'Email';
+			case 'password':
+				return 'Password';
+			default:
+				return 'Input';
+		}
+	}
+
 }

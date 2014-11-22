@@ -24,7 +24,8 @@ class CreateUserFieldsTable extends Migration {
 			$table->string('min')->nullable();
 			$table->string('max')->nullable();
 			$table->integer('step')->unsigned()->nullable();
-			$table->integer('maxlength')->nullable();
+			$table->integer('rows')->unsigned()->nullable();
+			$table->integer('maxlength')->unsigned()->nullable();
 			$table->string('pattern')->nullable();
 
 			$table->foreign('group_id')->references('id')->on('user_field_groups')->onDelete('cascade');

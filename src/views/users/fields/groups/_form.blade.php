@@ -1,4 +1,5 @@
 <?php // todo - translate ?>
+
 <div class="col-md-9">
 	<div class="blok">
 		<header class="title">
@@ -27,12 +28,6 @@
 	</div>
 </div>
 <div class="col-md-3">
-	<div class="blok">
-		<header class="title">
-			<h3>Save</h3>
-		</header>
-	</div>
-
 	<div class="text-center">
 		<div class="btn-group">
 			{{ Form::button('Save', [
