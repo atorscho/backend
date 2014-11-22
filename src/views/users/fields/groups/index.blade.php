@@ -33,7 +33,7 @@
 						@if($fieldGroups->count())
 							@foreach($fieldGroups as $fieldGroup)
 								<tr>
-									<td>{{ $fieldGroup->order }}</td>
+									<td>{{ index() }}</td>
 									<td data-href="{{ route('admin.users.fields.groups.show', $fieldGroup->id) }}">{{ $fieldGroup->name }}</td>
 									<td class="handle">{{ $fieldGroup->handle }}</td>
 									<td class="text-center">{{ $fieldGroup->id }}</td>
