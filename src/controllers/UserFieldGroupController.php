@@ -91,7 +91,8 @@ class UserFieldGroupController extends BaseController {
 		$fieldGroup = $fieldGroup->with('fields')->find($fieldGroup->id);
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
+		Crumbs::add(route('admin.users.fields.index'), 'Fields');
+		Crumbs::add(route('admin.users.fields.groups.index'), 'Groups');
 		Crumbs::add(route('admin.users.fields.groups.show', $fieldGroup->id), $fieldGroup->name);
 
 		$this->layout->title   = 'Field Group: ' . $fieldGroup->name;
@@ -101,7 +102,8 @@ class UserFieldGroupController extends BaseController {
 	public function edit( UserFieldGroup $fieldGroup )
 	{
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
+		Crumbs::add(route('admin.users.fields.index'), 'Fields');
+		Crumbs::add(route('admin.users.fields.groups.index'), 'Groups');
 		Crumbs::add(route('admin.users.fields.groups.show', $fieldGroup->id), $fieldGroup->name);
 		Crumbs::add(route('admin.users.fields.groups.edit', $fieldGroup->id), 'Edit');
 

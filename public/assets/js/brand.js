@@ -44,6 +44,14 @@ jQuery(document).ready(function ($) {
 			down: "fa fa-arrow-down"
 		}
 	});
+	$(".switch:checkbox").switchButton({
+		checked: false,
+		labels_placement: 'right',
+		on_label: 'Yes',
+		off_label: 'No',
+		width: 32,
+		height: 16
+	});
 
 	/*
 	 * Dropdown Box
@@ -83,5 +91,32 @@ jQuery(document).ready(function ($) {
 			window.location = href;
 		}
 	});
+
+	/*
+	 * Name to Handle keybinding.
+	 */
+	function slug(string) {
+		return string.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+	}
+	function toCamelCase(s) {
+		// remove all characters that should not be in a variable name
+		// as well underscores and numbers from the beginning of the string
+		s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
+		// uppercase letters preceeded by a hyphen or a space
+		s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a,b,c) {
+			return c.toUpperCase();
+		});
+		// uppercase letters following numbers
+		s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a,b,c) {
+			return b + c.toUpperCase();
+		});
+		return s;
+	}
+	$('input[name="name"]').bind('keypress keyup blur', function () {
+		$('input[name="handle"]').val(toCamelCase($(this).val()));
+	});
+
+	// todo - DELETE THIS!!!
+	localStorage.clear();
 
 });

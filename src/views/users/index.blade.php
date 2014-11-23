@@ -69,7 +69,7 @@
 														<i class="fa fa-fw fa-edit"></i> Edit
 													</a>
 												</li>
-												<li class="disabled">
+												<li {{ $user->id == 1 ? 'class="disabled"' : '' }}>
 													<button type="submit" {{ $user->id == 1 ? 'disabled="disabled"' : '' }}>
 														<i class="fa fa-fw fa-times-circle-o"></i> Deactivate
 													</button>

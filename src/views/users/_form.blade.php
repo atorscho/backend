@@ -109,20 +109,22 @@
 
 		@if($fieldGroups->count())
 			@foreach($fieldGroups as $fieldGroup)
-		        <header class="title">
-		            <h3>{{{ $fieldGroup->name }}}</h3>
-		        </header>
+				@if($fieldGroup->fields()->count())
+			        <header class="title">
+			            <h3>{{{ $fieldGroup->name }}}</h3>
+			        </header>
 
-		        @foreach($fieldGroup->fields as $field)
-		            <div class="form-group">
-		                {{ Form::label("fields[{$field->id}]", $field->name) }}
-		                {{ Form::text("fields[{$field->id}]", isset($user->fields()->find($field->id)->value) ? $user->fields()->find($field->id)->value : null, [
-		                    'class' => 'form-control',
-		                    'placeholder' => $field->placeholder ?: $field->name,
-		                    'tabindex' => index()
-		                ]) }}
-		            </div>
-		        @endforeach
+			        @foreach($fieldGroup->fields as $field)
+			            <div class="form-group">
+			                {{ Form::label("fields[{$field->id}]", $field->name) }}
+			                {{ Form::text("fields[{$field->id}]", isset($user) && isset($user->fields()->find($field->id)->value) ? $user->fields()->find($field->id)->value : null, [
+			                    'class' => 'form-control',
+			                    'placeholder' => $field->placeholder ?: $field->name,
+			                    'tabindex' => index()
+			                ]) }}
+			            </div>
+			        @endforeach
+		        @endif
 	        @endforeach
         @endif
 	</div>

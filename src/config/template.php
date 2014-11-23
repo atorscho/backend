@@ -27,6 +27,7 @@ return array(
 		'bootstrap',
 		'bootstrap-datetimepicker',
 		'bootstrap-select',
+		'jquery.switchButton',
 		'font-awesome',
 //		'master' todo - bring back the master.css
 	],
@@ -35,6 +36,7 @@ return array(
 		'bootstrap',
 		'bootstrap-datetimepicker',
 		'bootstrap-select',
+		'jquery.switchButton',
 //		'angular',
 //		'angular-resource',
 		'less',

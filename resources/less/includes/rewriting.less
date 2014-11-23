@@ -155,6 +155,36 @@ label {
 	cursor: pointer;
 }
 
+// List Groups
+// ===================================
+.list-group {
+	.border-radius();
+	background: @pageBg;
+	box-shadow: inset @dropShadow3;
+	margin-bottom: 0;
+
+	.list-group-item {
+		background: transparent;
+		border: none;
+
+		&:first-child {
+			.border-radius-top();
+		}
+		&:last-child {
+			.border-radius-bottom();
+		}
+	}
+	a.list-group-item {
+		&:hover {
+			background: #fff;
+		}
+	}
+
+	&.condensed {
+		padding: 5px 15px;
+	}
+}
+
 // Nav
 // ===================================
 .nav {
@@ -246,6 +276,31 @@ label {
 	}
 }
 
+// Pagination
+// ===================================
+// todo - customize style
+.pagination {
+	li {
+		> a, > span {
+
+		}
+
+		&.disabled {
+			> span {
+
+			}
+		}
+
+		&.active {
+			> span {
+				background: @brandPrimary;
+				border-color: darken(@brandPrimary, 10%);
+				text-shadow: 0 1px darken(@brandPrimary, 5%);
+			}
+		}
+	}
+}
+
 // Small
 // ===================================
 small {
@@ -294,3 +349,9 @@ small {
 .text-info 	  { color: @brandInfo; }
 .text-warning { color: @brandWarning; }
 .text-danger  { color: @brandDanger; }
+
+// REWRITING PLUGINS
+// ===================================
+.switch-button-label {
+	font-size: @fontSizeBase !important;
+}

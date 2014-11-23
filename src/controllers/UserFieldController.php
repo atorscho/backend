@@ -1,6 +1,7 @@
 <?php namespace Atorscho\Backend\Controllers;
 
 use Atorscho\Backend\Models\UserField;
+use Atorscho\Backend\Models\UserFieldGroup;
 use Crumbs;
 use Input;
 use Redirect;
@@ -63,12 +64,24 @@ class UserFieldController extends BaseController {
 	{
 		$title = 'New Custom Field';
 
+		$fieldGroups = UserFieldGroup::orderBy('name')->lists('name', 'id');
+		$types = [
+			'text'     => 'Text',
+			'textarea' => 'Text Box',
+			'email'    => 'Email',
+			'url'      => 'URL',
+			'password' => 'password',
+			'select'   => 'Select Box',
+			'radio'    => 'Radio',
+			'checkbox' => 'Checkbox'
+		];
+
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
-		Crumbs::add(route('admin.users.fields.groups.create'), $title);
+		Crumbs::add(route('admin.users.fields.index'), 'Fields');
+		Crumbs::add(route('admin.users.fields.create'), $title);
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::users.fields.groups.create');
+		$this->layout->content = View::make('backend::users.fields.create', compact('fieldGroups', 'types'));
 	}
 
 	public function store()

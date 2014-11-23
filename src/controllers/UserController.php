@@ -101,17 +101,19 @@ class UserController extends BaseController {
 		// Remove Super-Administrators from the array
 		unset( $groups[5] );
 
+		$fieldGroups = UserFieldGroup::with('fields')->get();
+
 		$gender = [
 			'N' => 'Unknown',
-			'M' => 'Male',
-			'F' => 'Female'
+			'M' => 'Man',
+			'F' => 'Woman'
 		];
 
 		Crumbs::add(route('admin.users.index'), 'Users');
 		Crumbs::add(route('admin.users.create'), $title);
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::users.create', compact('groups', 'gender'));
+		$this->layout->content = View::make('backend::users.create', compact('groups', 'gender', 'fieldGroups'));
 	}
 
 
@@ -135,6 +137,13 @@ class UserController extends BaseController {
 
 		$user = User::create(Input::except('groups'));
 		$user->groups()->sync(Input::get('groups'));
+
+		$fieldsUpdate = Input::get('fields');
+
+		foreach ( $fieldsUpdate as $key => $value )
+			$fieldsUpdate[$key] = [ 'value' => $value ];
+
+		$user->fields()->sync($fieldsUpdate);
 
 		if ( Input::get('submit') == 'save_new' )
 			return Redirect::route('admin.users.create')->with('success', 'User has been created.');
@@ -172,8 +181,8 @@ class UserController extends BaseController {
 
 		$gender = [
 			'N' => 'Unknown',
-			'M' => 'Male',
-			'F' => 'Female'
+			'M' => 'Man',
+			'F' => 'Woman'
 		];
 
 		Crumbs::add(route('admin.users.index'), 'Users');
@@ -235,7 +244,7 @@ class UserController extends BaseController {
 	 */
 	public function destroy( User $user )
 	{
-		if ( $user != 1 )
+		if ( $user->id != 1 )
 			$user->delete();
 
 		return Redirect::route('admin.users.index')->with('success', 'User has been deactivated.');
