@@ -1,6 +1,10 @@
 <?php namespace Atorscho\Backend\Models;
 
+use Atorscho\Backend\Traits\OrderAttributeTrait;
+
 class UserField extends BaseModel {
+
+	use OrderAttributeTrait;
 
 	protected $fillable = [
 		'group_id',

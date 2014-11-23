@@ -3,6 +3,7 @@
 use Atorscho\Backend\Models\User;
 use Auth;
 use Input;
+use LaravelGettext;
 use Redirect;
 use Validator;
 use View;
@@ -15,7 +16,7 @@ class BackendController extends BaseController {
 
 	public function index()
 	{
-		$users = User::orderBy('id', 'desc')->take(5)->get();
+		$users     = User::orderBy('id', 'desc')->take(5)->get();
 		$userCount = User::all()->count();
 
 		$this->layout->title   = 'Backend Dashboard';
@@ -49,6 +50,14 @@ class BackendController extends BaseController {
 	public function logout()
 	{
 		Auth::logout();
+	}
+
+	public function lang( $locale = null )
+	{
+		LaravelGettext::setLocale($locale);
+
+		return Redirect::to('/admin');
+
 	}
 
 }

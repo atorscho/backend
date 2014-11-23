@@ -1,6 +1,6 @@
 <?php namespace Atorscho\Backend\Controllers;
 
-use Atorscho\Backend\Models\UserFieldGroup;
+use Atorscho\Backend\Models\UserField;
 use Crumbs;
 use Input;
 use Redirect;
@@ -12,6 +12,8 @@ use View;
 // todo - add order to field groups and to fields
 
 // todo - save or save & new
+
+// todo - add SELECT type
 
 class UserFieldController extends BaseController {
 
@@ -45,21 +47,21 @@ class UserFieldController extends BaseController {
 
 	public function index()
 	{
-		$title = 'Field Groups';
+		$title = 'Fields';
 
-		$fieldGroups = UserFieldGroup::all();
+		$fields = UserField::all();
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.groups.index'), $title);
+		Crumbs::add(route('admin.users.fields.index'), $title);
 
 		$this->layout->title   = $title;
-		$this->layout->desc    = 'Manage User Field Groups';
-		$this->layout->content = View::make('backend::users.fields.groups.index', compact('fieldGroups'));
+		$this->layout->desc    = 'List of all custom fields';
+		$this->layout->content = View::make('backend::users.fields.index', compact('fields'));
 	}
 
 	public function create()
 	{
-		$title = 'New Field Group';
+		$title = 'New Custom Field';
 
 		Crumbs::add(route('admin.users.index'), 'Users');
 		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');

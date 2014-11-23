@@ -1,10 +1,10 @@
 <?php namespace Atorscho\Backend\Models;
 
-use Atorscho\Backend\Traits\HandleTrait;
+use Atorscho\Backend\Traits\HandleAttributeTrait;
 
 class Permission extends BaseModel {
 
-	use HandleTrait;
+	use HandleAttributeTrait;
 
 	protected $fillable = ['name', 'handle'];
 

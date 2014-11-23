@@ -180,7 +180,7 @@ class UserController extends BaseController {
 		Crumbs::add(route('admin.users.show', $user->id), $user->username);
 		Crumbs::add(route('admin.users.edit', $user->id), 'Edit');
 
-		$this->layout->title   = 'Edit User: ' . $user->username;
+		$this->layout->title   = 'Edit ' . $user->username;
 		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'usergroups', 'gender', 'fieldGroups'));
 	}
 

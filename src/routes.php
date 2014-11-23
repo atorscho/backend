@@ -28,6 +28,10 @@ Route::group([
 		'as'   => 'admin.logout',
 		'uses' => 'BackendController@logout'
 	]);
+	Route::get('lang/{locale}', [
+		'as'   => 'admin.lang',
+		'uses' => 'BackendController@lang'
+	]);
 
 	// Settings
 	// ===================================

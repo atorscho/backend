@@ -1,11 +1,11 @@
 <?php namespace Atorscho\Backend\Models;
 
-use Atorscho\Backend\Traits\HandleTrait;
-use Input;
+use Atorscho\Backend\Traits\HandleAttributeTrait;
+use Atorscho\Backend\Traits\OrderAttributeTrait;
 
 class UserFieldGroup extends BaseModel {
 
-	use HandleTrait;
+	use HandleAttributeTrait, OrderAttributeTrait;
 
 	protected $fillable = ['name', 'handle', 'order'];
 
@@ -19,15 +19,6 @@ class UserFieldGroup extends BaseModel {
 	public function fields()
 	{
 		return $this->hasMany('Atorscho\Backend\Models\UserField', 'group_id');
-	}
-
-
-	public function setOrderAttribute()
-	{
-		if( Input::has('order'))
-			$this->attributes['order'] = Input::get('order');
-		else
-			$this->attributes['order'] = $this->orderBy('order', 'desc')->first()->order + 1;
 	}
 
 }

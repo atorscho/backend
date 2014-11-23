@@ -45,27 +45,25 @@ class UserFieldGroupController extends BaseController {
 
 	public function index()
 	{
-		$title = 'Field Groups';
-
 		$fieldGroups = UserFieldGroup::orderBy('order')->get();
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.groups.index'), $title);
+		Crumbs::add(route('admin.users.fields.index'), 'Fields');
+		Crumbs::add(route('admin.users.fields.groups.index'), 'Groups');
 
-		$this->layout->title   = $title;
+		$this->layout->title   = 'Field Groups';
 		$this->layout->desc    = 'Manage User Field Groups';
 		$this->layout->content = View::make('backend::users.fields.groups.index', compact('fieldGroups'));
 	}
 
 	public function create()
 	{
-		$title = 'New Field Group';
-
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
-		Crumbs::add(route('admin.users.fields.groups.create'), $title);
+		Crumbs::add(route('admin.users.fields.index'), 'Fields');
+		Crumbs::add(route('admin.users.fields.groups.index'), 'Groups');
+		Crumbs::add(route('admin.users.fields.groups.create'), 'New Group');
 
-		$this->layout->title   = $title;
+		$this->layout->title   = 'New Field Group';
 		$this->layout->content = View::make('backend::users.fields.groups.create');
 	}
 
@@ -81,7 +79,10 @@ class UserFieldGroupController extends BaseController {
 
 		UserFieldGroup::create(Input::all());
 
-		return Redirect::route('admin.users.fields.groups.index')->with('success', 'Field Group created.');
+		if ( Input::get('submit') == 'save_new' )
+			return Redirect::route('admin.users.fields.groups.create')->with('success', 'Field Group has been created.');
+		else
+			return Redirect::route('admin.users.fields.groups.index')->with('success', 'Field Group has been created.');
 	}
 
 	public function show( UserFieldGroup $fieldGroup )
@@ -121,7 +122,10 @@ class UserFieldGroupController extends BaseController {
 		$fieldGroup->fill(Input::all());
 		$fieldGroup->save();
 
-		return Redirect::route('admin.users.fields.groups.show', $fieldGroup->id)->with('success', 'Field Group updated.');
+		if ( Input::get('submit') == 'save_new' )
+			return Redirect::route('admin.users.fields.groups.create')->with('success', 'Field Group has been updated.');
+		else
+			return Redirect::route('admin.users.fields.groups.show', $fieldGroup->id)->with('success', 'Field Group has been updated.');
 	}
 
 	public function destroy( UserFieldGroup $fieldGroup )

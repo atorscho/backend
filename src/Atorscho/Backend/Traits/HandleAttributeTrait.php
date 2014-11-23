@@ -1,6 +1,6 @@
 <?php namespace Atorscho\Backend\Traits;
 
-trait HandleTrait {
+trait HandleAttributeTrait {
 
 	/**
 	 * If handle has not been specified,
@@ -13,9 +13,9 @@ trait HandleTrait {
 	public function setHandleAttribute( $value, $title = 'name' )
 	{
 		if ( $value )
-			$this->attributes['handle'] = \Str::slug($value);
+			$this->attributes['handle'] = \Str::camel($value);
 		else
-			$this->attributes['handle'] = \Str::slug($this->$title);
+			$this->attributes['handle'] = \Str::camel($this->$title);
 	}
 
 } 

@@ -60,6 +60,9 @@
         			{{{ $title }}}
 
         			@yield('controls')
+        			@if(isset($controls))
+
+        			@endif
 
         			@if(isset($desc))
         			    <small>{{{ $desc }}}</small>
