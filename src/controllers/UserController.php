@@ -16,6 +16,8 @@ use View;
 
 // todo - let add to user his own permissions
 
+// todo - Avatar
+
 class UserController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';

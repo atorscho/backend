@@ -70,7 +70,6 @@ class UserFieldController extends BaseController {
 			'textarea' => 'Text Box',
 			'email'    => 'Email',
 			'url'      => 'URL',
-			'password' => 'password',
 			'select'   => 'Select Box',
 			'radio'    => 'Radio',
 			'checkbox' => 'Checkbox'
@@ -87,8 +86,15 @@ class UserFieldController extends BaseController {
 	public function store()
 	{
 		$validator = Validator::make(Input::all(), [
-			'name' => 'required',
-			'handle' => 'unique:user_field_groups'
+			'group_id'    => 'required|integer',
+			'type'        => 'required',
+			'name'        => 'required|max:40',
+			'handle'      => 'max:40',
+			'description' => 'max:255',
+			'required'    => 'boolean',
+			'step'        => 'integer',
+			'maxlength'   => 'integer',
+			'order'       => 'integer'
 		]);
 
 		if ( $validator->fails() )
@@ -96,10 +102,10 @@ class UserFieldController extends BaseController {
 
 		UserField::create(Input::all());
 
-		return Redirect::route('admin.users.fields.groups.index')->with('success', 'Field Group created.');
+		return Redirect::route('admin.users.fields.index')->with('success', 'Field created.');
 	}
 
-	public function show( UserFieldGroup $fieldGroup )
+	public function show( UserField $fieldGroup )
 	{
 		// Eager-loading
 		$fieldGroup = $fieldGroup->with('fields')->find($fieldGroup->id);
@@ -112,7 +118,7 @@ class UserFieldController extends BaseController {
 		$this->layout->content = View::make('backend::users.fields.groups.show', compact('fieldGroup'));
 	}
 
-	public function edit( UserFieldGroup $fieldGroup )
+	public function edit( UserField $fieldGroup )
 	{
 		Crumbs::add(route('admin.users.index'), 'Users');
 		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
@@ -123,7 +129,7 @@ class UserFieldController extends BaseController {
 		$this->layout->content = View::make('backend::users.fields.groups.edit', compact('fieldGroup'));
 	}
 
-	public function update( UserFieldGroup $fieldGroup)
+	public function update( UserField $fieldGroup)
 	{
 		$validator = Validator::make(Input::all(), [
 			'name' => 'required',
@@ -139,7 +145,7 @@ class UserFieldController extends BaseController {
 		return Redirect::route('admin.users.fields.groups.show', $fieldGroup->id)->with('success', 'Field Group updated.');
 	}
 
-	public function destroy( UserFieldGroup $fieldGroup )
+	public function destroy( UserField $fieldGroup )
 	{
 		$fieldGroup->delete();
 

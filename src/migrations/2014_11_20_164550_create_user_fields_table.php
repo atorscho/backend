@@ -20,7 +20,7 @@ class CreateUserFieldsTable extends Migration {
 			$table->string('name');
 			$table->string('handle')->unique();
 			$table->string('description')->nullable();
-			$table->boolean('required')->nullable();
+			$table->boolean('required')->default(0);
 			$table->string('min')->nullable();
 			$table->string('max')->nullable();
 			$table->integer('step')->unsigned()->nullable();

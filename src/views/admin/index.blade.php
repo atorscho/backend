@@ -18,6 +18,21 @@
 				<a class="box tip" href="{{{ route('admin.settings') }}}" title="Settings">
 					<i class="fa fa-fw fa-cogs"></i>
 				</a>
+				<a class="box tip" href="{{ route('admin.users.index') }}" title="Users and Groups">
+					<i class="fa fa-fw fa-group"></i>
+				</a>
+				<a class="box tip" href="{{ route('admin.users.fields.groups.index') }}" title="User Fields">
+					<i class="fa fa-fw fa-sliders"></i>
+				</a>
+				<a class="box tip" href="#" title="Forums">
+					<i class="fa fa-fw fa-comments-o"></i>
+				</a>
+				<a class="box tip" href="#" title="Menu Manager">
+					<i class="fa fa-fw fa-navicon"></i>
+				</a>
+				<a class="box tip" href="{{{ route('admin.settings') }}}" title="Settings">
+					<i class="fa fa-fw fa-cogs"></i>
+				</a>
 			</div>
 		</div>
 

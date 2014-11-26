@@ -11,13 +11,15 @@ class UserField extends BaseModel {
 		'type',
 		'name',
 		'handle',
-		'placeholder',
+		'description',
 		'required',
 		'min',
 		'max',
 		'step',
+		'rows',
 		'maxlength',
-		'pattern'
+		'pattern',
+		'order'
 	];
 
 	public $timestamps = false;

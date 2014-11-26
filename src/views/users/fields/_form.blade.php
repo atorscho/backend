@@ -8,9 +8,18 @@
 
 		<div class="form-group">
 			{{ Form::label('group_id', 'Field Group') }}
-			{{ Form::select('group_id', $fieldGroups, null, [
+			{{ $errors->first('group_id', '<span class="text-danger">:message</span>') }}
+			{{ Form::select('group_id', $fieldGroups, Input::get('group', null), [
 				'class' => 'select',
-				'title' => 'Select a Field Group',
+				'tabindex' => index()
+			]) }}
+		</div>
+
+		<div class="form-group">
+			{{ Form::label('type') }}
+			{{ $errors->first('type', '<span class="text-danger">:message</span>') }}
+			{{ Form::select('type', $types, null, [
+				'class' => 'select',
 				'tabindex' => index()
 			]) }}
 		</div>
@@ -41,6 +50,7 @@
 
         <div class="form-group">
         	{{ Form::label('description') }}
+        	{{ $errors->first('description', '<span class="text-danger">:message</span>') }}
         	{{ Form::textarea('description', null, [
         		'class' => 'form-control',
         		'placeholder' => 'Description',
@@ -48,11 +58,14 @@
         		'rows' => 3,
         		'tabindex' => index()
         	]) }}
-        	<span class="help-block">Characters left: <span data-chars="description">255</span>.</span>
+        	<span class="help-block">Characters left: <span data-chars="description"><span class="text-success">255</span></span>.</span>
         </div>
 
         <div class="form-group">
-        	<div>{{ Form::label('required') }}</div>
+			<div>
+				{{ Form::label('required') }}
+				{{ $errors->first('required', '<span class="text-danger">:message</span>') }}
+			</div>
         	{{ Form::checkbox('required', 1, null, [
         		'class' => 'switch',
         		'placeholder' => 'Required',
@@ -62,12 +75,14 @@
         </div>
 	</div>
 </div>
+
 <div class="col-md-3">
 	<div class="blok">
 		<header class="title"><h3>Misc</h3></header>
 
 		<div class="form-group">
 			{{ Form::label('order') }}
+			{{ $errors->first('order', '<span class="text-danger">:message</span>') }}
 			{{ Form::number('order', null, [
 				'class' => 'form-control',
 				'placeholder' => 'Order',
