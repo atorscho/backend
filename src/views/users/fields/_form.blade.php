@@ -48,7 +48,7 @@
         		'rows' => 3,
         		'tabindex' => index()
         	]) }}
-        	<span class="help-block">Maximum number of characters: 255.</span>
+        	<span class="help-block">Characters left: <span data-chars="description">255</span>.</span>
         </div>
 
         <div class="form-group">

@@ -9,10 +9,6 @@ use View;
 
 // todo - translate
 
-// todo - add order to field groups and to fields
-
-// todo - save or save & new
-
 class UserFieldGroupController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';

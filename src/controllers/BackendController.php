@@ -20,7 +20,7 @@ class BackendController extends BaseController {
 		$userCount = User::all()->count();
 
 		$this->layout->title   = 'Backend Dashboard';
-		$this->layout->desc    = 'Admin Cotrol Panel';
+		$this->layout->desc    = 'Admin Control Panel';
 		$this->layout->content = View::make('backend::admin.index', compact('users', 'userCount'));
 	}
 

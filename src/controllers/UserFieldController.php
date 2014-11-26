@@ -14,7 +14,7 @@ use View;
 
 // todo - save or save & new
 
-// todo - add SELECT type
+// todo - add SELECT type (+ options)
 
 class UserFieldController extends BaseController {
 
@@ -94,7 +94,7 @@ class UserFieldController extends BaseController {
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
-		UserFieldGroup::create(Input::all());
+		UserField::create(Input::all());
 
 		return Redirect::route('admin.users.fields.groups.index')->with('success', 'Field Group created.');
 	}
