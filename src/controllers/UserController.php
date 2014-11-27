@@ -156,8 +156,8 @@ class UserController extends BaseController {
 
 	public function show( User $user )
 	{
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.show', $user->id), $user->username);
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.show', $user->username, $user->id);
 
 		$this->layout->title   = 'User Profile: ' . $user->username;
 		$this->layout->content = View::make('backend::users.show', compact('user'));

@@ -52,8 +52,8 @@ class UserFieldController extends BaseController {
 
 		$fields = UserField::all();
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.index'), $title);
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.fields.index', $title);
 
 		$this->layout->title   = $title;
 		$this->layout->desc    = 'List of all custom fields';
