@@ -12,8 +12,6 @@ use View;
 
 class BackendController extends BaseController {
 
-	protected $layout = 'backend::layouts.backend';
-
 	public function index()
 	{
 		$users     = User::orderBy('id', 'desc')->take(5)->get();
@@ -35,13 +33,14 @@ class BackendController extends BaseController {
 	{
 		$validator = Validator::make(Input::all(), [
 			'username' => 'required',
-			'password' => 'required'
+			'password' => 'required',
+			'remember' => 'boolean'
 		]);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
-		if ( Auth::attempt(Input::only('username', 'password')) )
+		if ( Auth::attempt(Input::only('username', 'password'), (bool) Input::get('remember', false)) )
 			return Redirect::route('admin.index')->with('success', 'Logged in successfully.');
 		else
 			return Redirect::back()->with('danger', 'Username with such credentials does not exist.');
@@ -50,6 +49,8 @@ class BackendController extends BaseController {
 	public function logout()
 	{
 		Auth::logout();
+
+		return Redirect::route('admin.login');
 	}
 
 	public function lang( $locale = null )

@@ -1,7 +1,8 @@
-<?php
+<?php namespace Atorscho\Backend\Seeds;
 
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
+use DB;
 use Illuminate\Database\Seeder;
 
 class GroupsSeeder extends Seeder {

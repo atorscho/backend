@@ -48,7 +48,7 @@
 			</div>
 		</li>
 		<li><a href="{{ route('admin.settings') }}"><i class="fa fa-fw fa-cog"></i></a></li>
-		<li><a href="#"><i class="fa fa-fw fa-home"></i></a></li>
-		<li><a href="#"><i class="fa fa-fw fa-sign-out"></i></a></li>
+		<li><a href="{{ getSetting('siteFront') }}"><i class="fa fa-fw fa-home"></i></a></li>
+		<li><a href="{{ route('admin.logout') }}"><i class="fa fa-fw fa-sign-out"></i></a></li>
 	</ul>
 </div>

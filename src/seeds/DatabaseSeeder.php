@@ -1,4 +1,4 @@
-<?php
+<?php namespace Atorscho\Backend\Seeds;
 
 use Illuminate\Database\Seeder;
 
@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder {
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-		$this->call('SettingsSeeder');
-		$this->call('GroupsSeeder');
-		$this->call('PermissionsSeeder');
-		$this->call('UserFieldsSeeder');
+		$this->call(__NAMESPACE__ . '\SettingsSeeder');
+		$this->call(__NAMESPACE__ . '\GroupsSeeder');
+		$this->call(__NAMESPACE__ . '\PermissionsSeeder');
+		$this->call(__NAMESPACE__ . '\UserFieldsSeeder');
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 	}

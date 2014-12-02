@@ -7,6 +7,8 @@ use Atorscho\Backend\Models\Setting;
 
 class BaseController extends Controller {
 
+	protected $layout = 'backend::layouts.backend';
+
 	public function __construct()
 	{
 		// CSRF Protection

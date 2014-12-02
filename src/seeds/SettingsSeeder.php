@@ -1,7 +1,8 @@
-<?php
+<?php namespace Atorscho\Backend\Seeds;
 
 use Atorscho\Backend\Models\SettingsGroup;
 use Atorscho\Backend\Models\Setting;
+use DB;
 use Illuminate\Database\Seeder;
 
 class SettingsSeeder extends Seeder {
@@ -17,6 +18,8 @@ class SettingsSeeder extends Seeder {
 
 		Setting::truncate();
 		SettingsGroup::truncate();
+
+		\Eloquent::unguard();
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
@@ -59,6 +62,13 @@ class SettingsSeeder extends Seeder {
 						'value'       => 'All rights reserved',
 						'default'     => 'All rights reserved',
 						'description' => 'Your custom copyright text that is displayed in site footer.'
+					],
+					[
+						'name' => 'Site Front',
+						'handle' => 'siteFront',
+						'value' => '/',
+						'default' => '/',
+						'description' => 'URL to the front page of your site.'
 					],
 					[
 						'name'        => 'Date Format',

@@ -21,6 +21,14 @@
 		</div>
 
 		<div class="form-group">
+			<label>
+				{{ Form::checkbox('remember', 1, null, [
+					'tabindex' => index()
+				]) }} Remember Me
+			</label>
+		</div>
+
+		<div class="form-group">
 			{{ Form::submit('Login', ['class' => 'btn btn-block btn-primary', 'tabindex' => index()]) }}
 		</div>
 	{{ Form::close() }}
