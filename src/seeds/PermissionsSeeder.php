@@ -14,8 +14,8 @@ class PermissionsSeeder extends Seeder {
 	{
 		DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-		Permission::truncate();
 		DB::table('group_permission')->truncate();
+		Permission::truncate();
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 

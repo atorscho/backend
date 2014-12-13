@@ -1,6 +1,5 @@
 <?php
 
-use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
 use Atorscho\Backend\Models\UserField;
 use Atorscho\Backend\Models\UserFieldGroup;
@@ -50,7 +49,7 @@ class UserFieldsSeeder extends Seeder {
 
 			foreach ( $fieldGroup['fields'] as $field )
 			{
-				$field = UserField::create([
+				UserField::create([
 					'group_id' => $group->id,
 					'type'     => $field['type'],
 					'name'     => $field['name'],
@@ -84,29 +83,13 @@ class UserFieldsSeeder extends Seeder {
 		];
 
 		foreach ( $permissions as $permission )
-			${$permission['handle']} = Permission::create($permission);
+			Permission::create($permission);
 
-		$members = Group::find(1);
-		$members->permissions()->attach($showFields->id);
-
-		$mods = Group::find(2);
-		$mods->permissions()->attach($showFields->id);
-
-		$supermods = Group::find(3);
-		$supermods->permissions()->attach($showFields->id);
-		$supermods->permissions()->attach($editFields->id);
-
-		$admins = Group::find(4);
-		$admins->permissions()->attach($showFields->id);
-		$admins->permissions()->attach($createFields->id);
-		$admins->permissions()->attach($editFields->id);
-		$admins->permissions()->attach($deleteFields->id);
-
-		$superadmins = Group::find(5);
-		$superadmins->permissions()->attach($showFields->id);
-		$superadmins->permissions()->attach($createFields->id);
-		$superadmins->permissions()->attach($editFields->id);
-		$superadmins->permissions()->attach($deleteFields->id);
+		addPermissionsToGroup('members', 'showFields');
+		addPermissionsToGroup('moderators', 'showFields');
+		addPermissionsToGroup('supermods', ['showFields', 'editFields']);
+		addPermissionsToGroup('admins', ['createFields', 'showFields', 'editFields', 'deleteFields']);
+		addPermissionsToGroup('superadmins', ['createFields', 'showFields', 'editFields', 'deleteFields']);
 	}
 
 }
