@@ -2,40 +2,37 @@
 
 // todo - translate
 
+// todo - update binds with new Live Template
+
+use Atorscho\Backend\Models\Group;
+use Atorscho\Backend\Models\User;
+use Atorscho\Backend\Models\UserField;
+use Atorscho\Backend\Models\UserFieldGroup;
+
 Route::bind('users', function ( $value )
 {
-	$users = \Atorscho\Backend\Models\User::find($value);
-
-	if ( !$users )
-		return Redirect::route('admin.users.index')->with('User does not exist.');
+	$users = User::find($value);
 
 	return $users;
 });
+
 Route::bind('groups', function ( $value )
 {
 	if ( strpos(Route::current()->getName(), 'fields.groups') )
 	{
-		$groups = \Atorscho\Backend\Models\UserFieldGroup::find($value);
-
-		if ( !$groups )
-			return Redirect::route('admin.users.fields.groups.index')->with('Fields Group does not exist.');
+		$groups = UserFieldGroup::find($value);
 	}
 	else
 	{
-		$groups = \Atorscho\Backend\Models\Group::find($value);
-
-		if ( !$groups )
-			return Redirect::route('admin.users.groups.index')->with('Group does not exist.');
+		$groups = Group::find($value);
 	}
 
 	return $groups;
 });
+
 Route::bind('fields', function ( $fields )
 {
-	$fields = \Atorscho\Backend\Models\UserField::all();
-
-	if ( !$fields )
-		return Redirect::route('admin.users.fields.index')->with('Field does not exist.');
+	$fields = UserField::find($fields);
 
 	return $fields;
 });

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 // todo - formatted username
 
+// todo - password reminder
+
 class User extends BaseModel implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait, SoftDeletingTrait;
@@ -44,6 +46,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	 *
 	 * @var array
 	 */
+	// todo - maybe needed to be removed
 //	protected $touches = ['fields'];
 
 

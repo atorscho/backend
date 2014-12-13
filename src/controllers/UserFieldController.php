@@ -20,6 +20,18 @@ class UserFieldController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';
 
+	protected $rules = [
+		'group_id'    => 'required|integer',
+		'type'        => 'required',
+		'name'        => 'required|max:40',
+		'handle'      => 'max:40|unique:fields',
+		'description' => 'max:255',
+		'required'    => 'boolean',
+		'step'        => 'integer',
+		'maxlength'   => 'integer',
+		'order'       => 'integer'
+	];
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -85,71 +97,72 @@ class UserFieldController extends BaseController {
 
 	public function store()
 	{
-		$validator = Validator::make(Input::all(), [
-			'group_id'    => 'required|integer',
-			'type'        => 'required',
-			'name'        => 'required|max:40',
-			'handle'      => 'max:40',
-			'description' => 'max:255',
-			'required'    => 'boolean',
-			'step'        => 'integer',
-			'maxlength'   => 'integer',
-			'order'       => 'integer'
-		]);
+		$validator = Validator::make(Input::all(), $this->rules);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
 		UserField::create(Input::all());
 
-		return Redirect::route('admin.users.fields.index')->with('success', 'Field created.');
+		if ( Input::get('submit') == 'save_new' )
+			return Redirect::route('admin.users.fields.create')->with('success', 'Field created.');
+		else
+			return Redirect::route('admin.users.fields.index')->with('success', 'Field created.');
 	}
 
-	public function show( UserField $fieldGroup )
+	public function show( UserField $field )
 	{
-		// Eager-loading
-		$fieldGroup = $fieldGroup->with('fields')->find($fieldGroup->id);
+		// todo - may be implemented in future
+	}
+
+	public function edit( UserField $field )
+	{
+		$title = 'New Custom Field';
+
+		$fieldGroups = UserFieldGroup::orderBy('name')->lists('name', 'id');
+		$types = [
+			'text'     => 'Text',
+			'textarea' => 'Text Box',
+			'email'    => 'Email',
+			'url'      => 'URL',
+			'select'   => 'Select Box',
+			'radio'    => 'Radio',
+			'checkbox' => 'Checkbox'
+		];
 
 		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
-		Crumbs::add(route('admin.users.fields.groups.show', $fieldGroup->id), $fieldGroup->name);
+		Crumbs::add(route('admin.users.fields.index'), 'Fields');
+		Crumbs::add(route('admin.users.fields.create'), $title);
 
-		$this->layout->title   = 'Field Group: ' . $fieldGroup->name;
-		$this->layout->content = View::make('backend::users.fields.groups.show', compact('fieldGroup'));
+		$this->layout->title   = $title;
+		$this->layout->content = View::make('backend::users.fields.edit', compact('field', 'fieldGroups', 'types'));
 	}
 
-	public function edit( UserField $fieldGroup )
+	public function update( UserField $field)
 	{
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.groups.index'), 'Field Groups');
-		Crumbs::add(route('admin.users.fields.groups.show', $fieldGroup->id), $fieldGroup->name);
-		Crumbs::add(route('admin.users.fields.groups.edit', $fieldGroup->id), 'Edit');
+		// Specifying that handle must be unique excepting for current ID.
+		$rules = $this->rules;
+		$rules['handle'] .= ',handle,' . $field->id;
 
-		$this->layout->title   = 'Edit Field Group: ' . $fieldGroup->name;
-		$this->layout->content = View::make('backend::users.fields.groups.edit', compact('fieldGroup'));
-	}
-
-	public function update( UserField $fieldGroup)
-	{
-		$validator = Validator::make(Input::all(), [
-			'name' => 'required',
-			'handle' => 'unique:user_field_groups,handle,' . $fieldGroup->id
-		]);
+		$validator = Validator::make(Input::all(), $rules);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
-		$fieldGroup->fill(Input::all());
-		$fieldGroup->save();
+		$field->fill(Input::all());
+		$field->save();
 
-		return Redirect::route('admin.users.fields.groups.show', $fieldGroup->id)->with('success', 'Field Group updated.');
+		if ( Input::get('submit') == 'save_new' )
+			return Redirect::route('admin.users.fields.create')->with('success', 'Field updated.');
+		else
+			return Redirect::route('admin.users.fields.index')->with('success', 'Field updated.');
 	}
 
-	public function destroy( UserField $fieldGroup )
+	public function destroy( UserField $field )
 	{
-		$fieldGroup->delete();
+		$field->delete();
 
-		return Redirect::route('admin.users.fields.groups.index')->with('success', 'Field Group deleted.');
+		return Redirect::route('admin.users.fields.index')->with('success', 'Field deleted.');
 	}
 
 }

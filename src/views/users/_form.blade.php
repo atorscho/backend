@@ -7,16 +7,12 @@
 
 		<div class="form-group">
 			{{ Form::label('username') }}
-			@if(strpos(Route::currentRouteName(), 'create'))
-				{{ $errors->first('username', '<span class="text-danger">:message</span>') }}
-				{{ Form::text('username', null, [
-					'class' => 'form-control',
-					'placeholder' => 'Username',
-					'tabindex' => index()
-				]) }}
-			@else
-				<p class="form-control-static">{{ $user->username }}</p>
-			@endif
+			{{ $errors->first('username', '<span class="text-danger">:message</span>') }}
+			{{ Form::text('username', null, [
+				'class' => 'form-control',
+				'placeholder' => 'Username',
+				'tabindex' => index()
+			]) }}
 		</div>
 
 		<div class="form-group">
@@ -117,11 +113,10 @@
 			        @foreach($fieldGroup->fields as $field)
 			            <div class="form-group">
 			                {{ Form::label("fields[{$field->id}]", $field->name) }}
-			                {{ Form::text("fields[{$field->id}]", isset($user) && isset($user->fields()->find($field->id)->value) ? $user->fields()->find($field->id)->value : null, [
-			                    'class' => 'form-control',
-			                    'placeholder' => $field->placeholder ?: $field->name,
-			                    'tabindex' => index()
-			                ]) }}
+							{{ userFieldInput($field, isset($user) ? $user : null) }}
+							@if($field->description)
+								<span class="help-block">{{{ $field->description }}}</span>
+							@endif
 			            </div>
 			        @endforeach
 		        @endif

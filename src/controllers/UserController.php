@@ -18,11 +18,16 @@ use View;
 
 // todo - Avatar
 
+// todo - add rules to custom fields
+
+// todo - improve eager loadings
+
 class UserController extends BaseController {
 
 	protected $layout = 'backend::layouts.backend';
 
 	protected $rules = [
+		'username'   => 'required|max:20|unique:users',
 		'birthday'   => 'date',
 		'gender'     => 'in:N,M,F',
 		'groups'     => 'required',
@@ -127,7 +132,6 @@ class UserController extends BaseController {
 	public function store()
 	{
 		$rules             = $this->rules;
-		$rules['username'] = 'required|max:20|unique:users';
 		$rules['email']    = 'required|email|max:40|unique:users';
 		$rules['password'] = 'required|confirmed';
 
@@ -140,11 +144,18 @@ class UserController extends BaseController {
 		$user = User::create(Input::except('groups'));
 		$user->groups()->sync(Input::get('groups'));
 
+		// Synchronize custom user fields
 		$fieldsUpdate = Input::get('fields');
-
 		foreach ( $fieldsUpdate as $key => $value )
-			$fieldsUpdate[$key] = [ 'value' => $value ];
+		{
+			if ( !$value )
+			{
+				unset( $fieldsUpdate[$key] );
+				continue;
+			}
 
+			$fieldsUpdate[$key] = [ 'value' => $value ];
+		}
 		$user->fields()->sync($fieldsUpdate);
 
 		if ( Input::get('submit') == 'save_new' )
@@ -206,6 +217,7 @@ class UserController extends BaseController {
 	public function update( User $user )
 	{
 		$rules = $this->rules;
+		$rules['username'] .= ',username,' . $user->id;
 		if ( Input::has('password') )
 			$rules['password'] = 'confirmed';
 		$validator = Validator::make(Input::all(), $rules);
@@ -213,6 +225,7 @@ class UserController extends BaseController {
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
+		$user->username = Input::get('username');
 		if ( Input::has('password') )
 			$user->password = Input::get('password');
 		$user->first_name = Input::get('first_name');
@@ -223,11 +236,18 @@ class UserController extends BaseController {
 		$user->save();
 		$user->groups()->sync(Input::get('groups'));
 
+		// Synchronize custom user fields
 		$fieldsUpdate = Input::get('fields');
-
 		foreach ( $fieldsUpdate as $key => $value )
-			$fieldsUpdate[$key] = [ 'value' => $value ];
+		{
+			if ( !$value )
+			{
+				unset( $fieldsUpdate[$key] );
+				continue;
+			}
 
+			$fieldsUpdate[$key] = [ 'value' => $value ];
+		}
 		$user->fields()->sync($fieldsUpdate);
 
 		if ( Input::get('submit') == 'save_new' )

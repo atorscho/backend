@@ -4,6 +4,7 @@
 	@foreach($fieldGroups as $fieldGroup)
 		<li {{ isset(Route::current()->getParameter('groups')->id) && Route::current()->getParameter('groups')->id == $fieldGroup->id ? 'class="active"' : '' }}>
 			<a href="{{ route('admin.users.fields.groups.show', $fieldGroup->id) }}">
+				<span class="badge pull-right">{{ $fieldGroup->fields->count() }}</span>
 				{{ $fieldGroup->name }}
 			</a>
 		</li>

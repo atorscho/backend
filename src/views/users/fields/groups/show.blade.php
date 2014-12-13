@@ -28,7 +28,7 @@
 							<th class="width-50">Required</th>
 							<th class="text-center width-80">ID</th>
 							<th class="text-center width-100">Actions</th>
-							</tr>
+						</tr>
 						</thead>
 						<tfoot>
 						<tr>
@@ -42,7 +42,7 @@
 						</tr>
 						</tfoot>
 						<tbody>
-						@if($fieldGroup->fields()->count())
+						@if($fieldGroup->fields->count())
 							@foreach($fieldGroup->fields as $field)
 								<tr>
 									<td>{{ index() }}</td>
@@ -54,7 +54,7 @@
 									<td class="text-center">
 										{{ Form::open(['route' => ['admin.users.fields.groups.destroy', $fieldGroup->id], 'method' => 'DELETE']) }}
 											<div class="btn-group">
-												<a class="btn btn-sm btn-primary" href="{{ route('admin.users.fields.groups.edit', $fieldGroup->id) }}">
+												<a class="btn btn-sm btn-primary" href="{{ route('admin.users.fields.edit', $fieldGroup->id) }}">
 													<i class="fa fa-fw fa-edit"></i>
 												</a>
 												<button class="btn btn-sm btn-primary">
@@ -67,7 +67,10 @@
 							@endforeach
 						@else
 							<tr>
-								<td colspan="7">Field Group does not have any custom fields.</td>
+								<td colspan="7">
+									Field Group does not have any custom fields.
+									<a href="{{ route('admin.users.fields.create') . (isset(Route::current()->getParameter('groups')->id) ? '?group=' . Route::current()->getParameter('groups')->id : '') }}">Click here</a> to create a new one.
+								</td>
 							</tr>
 						@endif
 						</tbody>
