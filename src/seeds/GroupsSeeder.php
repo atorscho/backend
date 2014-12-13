@@ -1,8 +1,6 @@
-<?php namespace Atorscho\Backend\Seeds;
+<?php
 
 use Atorscho\Backend\Models\Group;
-use Atorscho\Backend\Models\Permission;
-use DB;
 use Illuminate\Database\Seeder;
 
 class GroupsSeeder extends Seeder {
@@ -17,7 +15,6 @@ class GroupsSeeder extends Seeder {
 		DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
 		Group::truncate();
-		Permission::truncate();
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
@@ -52,58 +49,8 @@ class GroupsSeeder extends Seeder {
 			]
 		];
 
-		$permissions = [
-			[
-				'name'   => 'Create Users',
-				'handle' => 'createUsers'
-			],
-			[
-				'name'   => 'Show Users',
-				'handle' => 'showUsers'
-			],
-			[
-				'name'   => 'Edit Users',
-				'handle' => 'editUsers'
-			],
-			[
-				'name'   => 'Delete Users',
-				'handle' => 'deleteUsers'
-			],
-			[
-				'name'   => 'Create Groups',
-				'handle' => 'createGroups'
-			],
-			[
-				'name'   => 'Show Groups',
-				'handle' => 'showGroups'
-			],
-			[
-				'name'   => 'Edit Groups',
-				'handle' => 'editGroups'
-			],
-			[
-				'name'   => 'Delete Groups',
-				'handle' => 'deleteGroups'
-			],
-			[
-				'name'   => 'Show Permissions',
-				'handle' => 'showPermissions'
-			],
-			[
-				'name'   => 'Edit Settings',
-				'handle' => 'editSettings'
-			]
-		];
-
 		foreach ( $groups as $group )
-		{
 			Group::create($group);
-		}
-
-		foreach ( $permissions as $permission )
-		{
-			Permission::create($permission);
-		}
 	}
 
 }

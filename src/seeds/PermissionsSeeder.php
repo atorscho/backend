@@ -1,7 +1,6 @@
-<?php namespace Atorscho\Backend\Seeds;
+<?php
 
-use Atorscho\Backend\Models\Group;
-use DB;
+use Atorscho\Backend\Models\Permission;
 use Illuminate\Database\Seeder;
 
 class PermissionsSeeder extends Seeder {
@@ -15,69 +14,62 @@ class PermissionsSeeder extends Seeder {
 	{
 		DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
+		Permission::truncate();
 		DB::table('group_permission')->truncate();
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-		// Members - 1
-		// Moderators - 2
-		// Supermods - 3
-		// Admins - 4
-		// Superadmins - 5
+		$permissions = [
+			[
+				'name'   => 'Create Users',
+				'handle' => 'createUsers'
+			],
+			[
+				'name'   => 'Show Users',
+				'handle' => 'showUsers'
+			],
+			[
+				'name'   => 'Edit Users',
+				'handle' => 'editUsers'
+			],
+			[
+				'name'   => 'Delete Users',
+				'handle' => 'deleteUsers'
+			],
+			[
+				'name'   => 'Create Groups',
+				'handle' => 'createGroups'
+			],
+			[
+				'name'   => 'Show Groups',
+				'handle' => 'showGroups'
+			],
+			[
+				'name'   => 'Edit Groups',
+				'handle' => 'editGroups'
+			],
+			[
+				'name'   => 'Delete Groups',
+				'handle' => 'deleteGroups'
+			],
+			[
+				'name'   => 'Show Permissions',
+				'handle' => 'showPermissions'
+			],
+			[
+				'name'   => 'Edit Settings',
+				'handle' => 'editSettings'
+			]
+		];
 
-		// Create Users - 1
-		// Show Users - 2
-		// Edit Users - 3
-		// Delete Users - 4
-		// Create Groups - 5
-		// Show Groups - 6
-		// Edit Groups - 7
-		// Delete Groups - 8
-		// Show Permissions - 9
-		// Edit Settings - 10
+		foreach ( $permissions as $permission )
+			Permission::create($permission);
 
-		$members = Group::find(1);
-		$members->permissions()->attach(2);
-		$members->permissions()->attach(6);
-		$members->permissions()->attach(9);
-
-		$moderators = Group::find(2);
-		$moderators->permissions()->attach(2);
-		$moderators->permissions()->attach(3);
-		$moderators->permissions()->attach(6);
-		$moderators->permissions()->attach(9);
-
-		$supermods = Group::find(3);
-		$supermods->permissions()->attach(1);
-		$supermods->permissions()->attach(2);
-		$supermods->permissions()->attach(3);
-		$supermods->permissions()->attach(4);
-		$supermods->permissions()->attach(6);
-		$supermods->permissions()->attach(7);
-		$supermods->permissions()->attach(9);
-
-		$admins = Group::find(4);
-		$admins->permissions()->attach(1);
-		$admins->permissions()->attach(2);
-		$admins->permissions()->attach(3);
-		$admins->permissions()->attach(4);
-		$admins->permissions()->attach(5);
-		$admins->permissions()->attach(6);
-		$admins->permissions()->attach(7);
-		$admins->permissions()->attach(8);
-		$admins->permissions()->attach(9);
-
-		$superadmins = Group::find(5);
-		$superadmins->permissions()->attach(1);
-		$superadmins->permissions()->attach(2);
-		$superadmins->permissions()->attach(3);
-		$superadmins->permissions()->attach(4);
-		$superadmins->permissions()->attach(5);
-		$superadmins->permissions()->attach(6);
-		$superadmins->permissions()->attach(7);
-		$superadmins->permissions()->attach(8);
-		$superadmins->permissions()->attach(9);
-		$superadmins->permissions()->attach(10);
+		addPermissionsToGroup('members', ['showUsers', 'showGroups', 'showPermissions']);
+		addPermissionsToGroup('moderators', ['showUsers', 'editUsers', 'showGroups', 'showPermissions']);
+		addPermissionsToGroup('supermods', ['createUsers', 'showUsers', 'editUsers', 'createGroups', 'showGroups', 'editGroups', 'showPermissions']);
+		addPermissionsToGroup('admins', ['createUsers', 'showUsers', 'editUsers', 'deleteUsers', 'createGroups', 'showGroups', 'editGroups', 'deleteGroups', 'showPermissions']);
+		addPermissionsToGroup('superadmins', ['createUsers', 'showUsers', 'editUsers', 'deleteUsers', 'createGroups', 'showGroups', 'editGroups', 'deleteGroups', 'showPermissions', 'editSettings']);
 	}
 
 }

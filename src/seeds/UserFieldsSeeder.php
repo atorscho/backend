@@ -1,10 +1,9 @@
-<?php namespace Atorscho\Backend\Seeds;
+<?php
 
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
 use Atorscho\Backend\Models\UserField;
 use Atorscho\Backend\Models\UserFieldGroup;
-use DB;
 use Illuminate\Database\Seeder;
 
 class UserFieldsSeeder extends Seeder {

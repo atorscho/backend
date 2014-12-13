@@ -1,8 +1,7 @@
-<?php namespace Atorscho\Backend\Seeds;
+<?php
 
 use Atorscho\Backend\Models\SettingsGroup;
 use Atorscho\Backend\Models\Setting;
-use DB;
 use Illuminate\Database\Seeder;
 
 class SettingsSeeder extends Seeder {
