@@ -1,4 +1,5 @@
 <?php // todo - translate ?>
+
 <div class="col-md-9">
 	<div class="blok">
 		<header class="title">
@@ -112,7 +113,8 @@
 
 			        @foreach($fieldGroup->fields as $field)
 			            <div class="form-group">
-			                {{ Form::label("fields[{$field->id}]", $field->name) }}
+			                {{ Form::label("fields[{$field->handle}]", $field->name) }}
+							{{ $errors->first("fields[{$field->handle}]", '<span class="text-danger">:message</span>') }}
 							{{ userFieldInput($field, isset($user) ? $user : null) }}
 							@if($field->description)
 								<span class="help-block">{{{ $field->description }}}</span>

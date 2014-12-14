@@ -18,20 +18,23 @@ if ( !function_exists('userFieldInput') )
 		$tabindex  = 'tabindex="' . index() . '"';
 
 		$class     = 'class="form-control"';
-		$value     = 'value="' . ( isset( $user ) && isset( $user->fields()->find($field->id)->value ) ? $user->fields()->find($field->id)->value : '' ) . '"';
+		$value     = ( isset( $user ) && isset( $user->fields()->find($field->id)->value ) ? $user->fields()->find($field->id)->value : '' );
 		$title     = $field->placeholder ?: $field->name;
 
 		$required  = $field->required ? 'required="true"' : '';
+		$maxlength = $field->min ? 'maxlength="' . $field->min . '"' : '';
 		$min       = $field->min ? 'min="' . $field->min . '"' : '';
 		$max       = $field->max ? 'max="' . $field->max . '"' : '';
 		$step      = $field->step ? 'step="' . $field->step . '"' : '';
-		$maxlength = $field->maxlength ? 'maxlength="' . $field->maxlength . '"' : '';
 		$pattern   = $field->pattern ? 'pattern="' . $field->pattern . '"' : '';
 
 		if ( $field->type == 'textarea' )
 		{
 			// todo - <textarea> case
-			$rows = $field->rows ? 'rows="' . $field->rows . '"' : '';
+			$rows = $field->rows ? 'rows="' . $field->rows . '"' : 'rows="5"';
+			$cols = $field->cols ? 'cols="' . $field->cols . '"' : '';
+
+			$output = "<textarea $class id=\"$id\" name=\"$id\" placeholder=\"$title\" $rows $cols $tabindex $maxlength $required $pattern>$value</textarea>";
 		}
 		elseif ( $field->type == 'select' )
 		{
@@ -43,9 +46,11 @@ if ( !function_exists('userFieldInput') )
 			// todo - <input> cases
 			$type = 'type="' . $field->type . '"';
 
-			$output = "<input $type $class id=\"$id\" name=\"$id\" placeholder=\"$title\" $value $tabindex $required $min $max $step $maxlength $pattern />";
-			$output = preg_replace('/\s+/', ' ', $output);
+			$output = "<input $type $class id=\"$id\" name=\"$id\" placeholder=\"$title\" value=\"$value\" $tabindex $min $max $step $maxlength $required $pattern />";
 		}
+
+		// Remove repeating whitespace
+		$output = preg_replace('/\s+/', ' ', $output);
 
 		return $output;
 	}

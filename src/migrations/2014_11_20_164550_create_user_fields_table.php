@@ -16,7 +16,7 @@ class CreateUserFieldsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('group_id')->unsigned();
-			$table->string('type');
+			$table->enum('type', ['text', 'email', 'url', 'radio', 'checkbox', 'textarea']);
 			$table->string('name');
 			$table->string('handle')->unique();
 			$table->string('placeholder')->nullable();

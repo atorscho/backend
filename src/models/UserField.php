@@ -2,6 +2,8 @@
 
 use Atorscho\Backend\Traits\OrderAttributeTrait;
 
+// todo - add select support
+
 class UserField extends BaseModel {
 
 	use OrderAttributeTrait;

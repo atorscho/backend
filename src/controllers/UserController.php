@@ -138,18 +138,23 @@ class UserController extends BaseController {
 
 		// Setting up custom fields rules
 		$fieldsUpdate = Input::get('fields');
+		$rulesFields = $this->rulesFields;
 		foreach ( $fieldsUpdate as $key => $value )
 		{
 			$field = UserField::where('handle', $key)->first();
 
-			if($field->required)
-				$rules["field[{$field->handle}]"][] = 'required';
-			if($field->min)
-				$rules["field[{$field->handle}]"][] = 'min:' . $field->min;
-			if($field->max)
-				$rules["field[{$field->handle}]"][] = 'max:' . $field->max;
+			if ( $field->required )
+				$rules["fields[{$field->handle}]"][] = 'required';
+			if ( $field->min )
+				$rules["fields[{$field->handle}]"][] = 'min:' . $field->min;
+			if ( $field->max )
+				$rules["fields[{$field->handle}]"][] = 'max:' . $field->max;
+			if ( $field->pattern )
+				$rules["fields[{$field->handle}]"][] = 'regex:' . $field->pattern;
 
-			$rules["field[{$field->handle}]"] = join('|', $rules["field[{$field->handle}]"]);
+			$rules["fields[{$field->handle}]"] = join('|', $rules["fields[{$field->handle}]"]);
+
+			$rulesFields["fields[{$field->handle}]"] = $field->name;
 
 			// Replace handle key with its ID
 			unset( $fieldsUpdate[$key] );
@@ -158,7 +163,7 @@ class UserController extends BaseController {
 		}
 
 		$validator = Validator::make(Input::all(), $rules);
-		$validator->setAttributeNames($this->rulesFields);
+		$validator->setAttributeNames($rulesFields);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
@@ -231,7 +236,35 @@ class UserController extends BaseController {
 		$rules['username'] .= ',username,' . $user->id;
 		if ( Input::has('password') )
 			$rules['password'] = 'confirmed';
+
+		// Setting up custom fields rules
+		$fieldsUpdate = Input::get('fields');
+		$rulesFields = $this->rulesFields;
+		foreach ( $fieldsUpdate as $key => $value )
+		{
+			$field = UserField::where('handle', $key)->first();
+
+			if ( $field->required )
+				$rules["fields[{$field->handle}]"][] = 'required';
+			if ( $field->min )
+				$rules["fields[{$field->handle}]"][] = 'min:' . $field->min;
+			if ( $field->max )
+				$rules["fields[{$field->handle}]"][] = 'max:' . $field->max;
+			if ( $field->pattern )
+				$rules["fields[{$field->handle}]"][] = 'regex:' . $field->pattern;
+
+			$rules["fields[{$field->handle}]"] = join('|', $rules["fields[{$field->handle}]"]);
+
+			$rulesFields["fields[{$field->handle}]"] = $field->name;
+
+			// Replace handle key with its ID
+			unset( $fieldsUpdate[$key] );
+			if ( $value )
+				$fieldsUpdate[$field->id] = [ 'value' => $value ];
+		}
+
 		$validator = Validator::make(Input::all(), $rules);
+		$validator->setAttributeNames($rulesFields);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
@@ -248,17 +281,6 @@ class UserController extends BaseController {
 		$user->groups()->sync(Input::get('groups'));
 
 		// Synchronize custom user fields
-		$fieldsUpdate = Input::get('fields');
-		foreach ( $fieldsUpdate as $key => $value )
-		{
-			if ( !$value )
-			{
-				unset( $fieldsUpdate[$key] );
-				continue;
-			}
-
-			$fieldsUpdate[$key] = [ 'value' => $value ];
-		}
 		$user->fields()->sync($fieldsUpdate);
 
 		if ( Input::get('submit') == 'save_new' )
