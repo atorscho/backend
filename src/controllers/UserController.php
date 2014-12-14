@@ -2,6 +2,7 @@
 
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\User;
+use Atorscho\Backend\Models\UserField;
 use Atorscho\Backend\Models\UserFieldGroup;
 use Crumbs;
 use Input;
@@ -135,6 +136,27 @@ class UserController extends BaseController {
 		$rules['email']    = 'required|email|max:40|unique:users';
 		$rules['password'] = 'required|confirmed';
 
+		// Setting up custom fields rules
+		$fieldsUpdate = Input::get('fields');
+		foreach ( $fieldsUpdate as $key => $value )
+		{
+			$field = UserField::where('handle', $key)->first();
+
+			if($field->required)
+				$rules["field[{$field->handle}]"][] = 'required';
+			if($field->min)
+				$rules["field[{$field->handle}]"][] = 'min:' . $field->min;
+			if($field->max)
+				$rules["field[{$field->handle}]"][] = 'max:' . $field->max;
+
+			$rules["field[{$field->handle}]"] = join('|', $rules["field[{$field->handle}]"]);
+
+			// Replace handle key with its ID
+			unset( $fieldsUpdate[$key] );
+			if ( $value )
+				$fieldsUpdate[$field->id] = [ 'value' => $value ];
+		}
+
 		$validator = Validator::make(Input::all(), $rules);
 		$validator->setAttributeNames($this->rulesFields);
 
@@ -145,17 +167,6 @@ class UserController extends BaseController {
 		$user->groups()->sync(Input::get('groups'));
 
 		// Synchronize custom user fields
-		$fieldsUpdate = Input::get('fields');
-		foreach ( $fieldsUpdate as $key => $value )
-		{
-			if ( !$value )
-			{
-				unset( $fieldsUpdate[$key] );
-				continue;
-			}
-
-			$fieldsUpdate[$key] = [ 'value' => $value ];
-		}
 		$user->fields()->sync($fieldsUpdate);
 
 		if ( Input::get('submit') == 'save_new' )

@@ -14,7 +14,7 @@ if ( !function_exists('userFieldInput') )
 	{
 		$output = '';
 
-		$id        = 'fields[' . $field->id . ']';
+		$id        = 'fields[' . $field->handle . ']';
 		$tabindex  = 'tabindex="' . index() . '"';
 
 		$class     = 'class="form-control"';
