@@ -64,12 +64,8 @@ class UserField extends BaseModel {
 				return 'Text Box';
 			case 'url':
 				return 'URL';
-			case 'search':
-				return 'Search Box';
 			case 'email':
 				return 'Email';
-			case 'password':
-				return 'Password';
 			default:
 				return 'Input';
 		}

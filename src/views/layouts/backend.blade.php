@@ -82,7 +82,7 @@
 	<!-- FOOTER -->
 	<footer id="footer">
 		<div class="container">
-			&copy; {{{ $settings->established }}} {{{ $settings->siteName }}} &bull; {{ $settings->copyright }} &bull; Designed by <a href="//alextorscho.com">Alex Torscho</a>
+			&copy; {{{ $settings->established }}} {{{ $settings->siteName }}} &bull; {{ $settings->copyright }} &bull; Designed and developed by <a href="http://alextorscho.com">Alex Torscho</a>
 		</div>
 	</footer>
 	<!-- / FOOTER -->
