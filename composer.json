@@ -19,9 +19,7 @@
     },
     "autoload": {
         "classmap": [
-            "src/controllers",
             "src/migrations",
-            "src/models",
             "src/seeds"
         ],
 		"files": [
@@ -30,6 +28,9 @@
             "src/helpers/users.php"
 		],
         "psr-0": {
+            "Atorscho\\Backend\\": "src/"
+        },
+        "psr-4": {
             "Atorscho\\Backend\\": "src/"
         }
     },
