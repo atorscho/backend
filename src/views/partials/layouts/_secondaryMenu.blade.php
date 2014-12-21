@@ -2,6 +2,27 @@
 <div id="secondary">
 	<ul>
 		<li class="drop right">
+			<a href="#"><i class="fa fa-fw fa-cubes"></i><i class="fa fa-angle-down"></i></a>
+
+			<div class="drop-box">
+				<div class="title">Extensions</div>
+
+				<ul>
+					@foreach($extensions as $extension)
+						<li>
+							<a href="{{ $extension->route ? route($extension->route) : to($extension->uri) }}">
+								@if($extension->icon)
+									<i class="fa fa-fw fa-{{ $extension->icon }}"></i>
+								@endif
+
+								{{ $extension->name }}
+							</a>
+						</li>
+					@endforeach
+				</ul>
+			</div>
+		</li>
+		<li class="drop right">
 			<a href="#"><i class="fa fa-fw fa-bell"></i><i class="fa fa-angle-down"></i></a>
 
 			<div class="drop-box">
@@ -36,14 +57,14 @@
 				<div class="avatar-holder">
 					<div class="welcome">
 						<?php // todo - link to user's profile ?>
-						<p>
-							Welcome back,<br/>{{{ Auth::user()->username }}}
+
+						{{{ Auth::user()->username }}}
 						</p>
 					</div>
-                    <div class="avatar">
-                        <?php // todo - link to user's profile ?>
-                        <img src="{{ asset('packages/atorscho/backend/assets/img/misc/noavatar.png') }}" alt="User Avatar" />
-                    </div>
+					<div class="avatar">
+						<?php // todo - link to user's profile ?>
+						<img src="{{ asset('packages/atorscho/backend/assets/img/misc/noavatar.png') }}" alt="User Avatar" />
+					</div>
 				</div>
 			</div>
 		</li>

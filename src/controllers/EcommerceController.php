@@ -14,7 +14,8 @@ class EcommerceController extends BaseController {
 
 	public function index()
 	{
-		Backend::extension('name');
+		$this->layout->title = 'Ecommerce';
+		$this->layout->content = View::make('backend::ecommerce.index');
 	}
 
 }

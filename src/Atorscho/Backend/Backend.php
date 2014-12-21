@@ -4,36 +4,53 @@
 
 class Backend {
 
-	public $extensions = [ ];
+	/**
+	 * List of extensions objects.
+	 *
+	 * @var array
+	 */
+	private $extensions = [ ];
 
-	public function __construct()
+	/**
+	 * Get an array of all extensions objects.
+	 *
+	 * @return array
+	 */
+	public function getExtensions()
 	{
-		$files = scandir(__DIR__ . DIRECTORY_SEPARATOR . 'Extensions');
-		$classes = [ ];
-		array_map(function ( $value ) use(&$php)
+		// Get all files in Extensions folder.
+		$files   = scandir(__DIR__ . DIRECTORY_SEPARATOR . 'Extensions');
+
+		$extensions = [ ];
+
+		// Filter through the directory to get only .php files.
+		array_map(function ( $value ) use ( &$extensions )
 		{
-			if ( !preg_match('/^.+\.php$/i', $value) )
+			if ( !preg_match('/^.+\.php$/i', $value) || $value == 'Extension.php' )
 				return;
 
-			$php[] = $value;
+			$value = str_replace('.php', '', $value);
+
+			$extensions[] = $this->extension($value, true);
 		}, $files);
-		var_dump($php);
-		dd(scandir(__DIR__ . DIRECTORY_SEPARATOR . 'Extensions'));
+
+		return $this->extensions = $extensions;
 	}
 
 	/**
 	 * Return extension's object instance if it exists and is enabled.
 	 *
-	 * @param $name Extension's name. e.g. 'ecommerce'
+	 * @param string $name      Extension's name. e.g. 'ecommerce'
+	 * @param bool   $className Whether the name parameter is a class name or extension's name.
 	 *
-	 * @return object|bool
+	 * @return bool|object
 	 */
-	public function extension( $name )
+	public function extension( $name, $className = false )
 	{
 		$this->extensions[] = $name;
 
 		// Get proper extension class
-		$class = 'Atorscho\Backend\Extensions\\' . ucfirst($name) . 'Extension';
+		$class = 'Atorscho\Backend\Extensions\\' . ucfirst($name) . ($className ? '' : 'Extension');
 
 		// Create a new instance of extension class
 		$instance = new $class;

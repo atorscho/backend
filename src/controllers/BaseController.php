@@ -1,5 +1,6 @@
 <?php namespace Atorscho\Backend\Controllers;
 
+use Backend;
 use Config;
 use Controller;
 use View;
@@ -25,6 +26,7 @@ class BaseController extends Controller {
 		View::share('navmenu', toObjects($navmenu));
 		View::share('template', toObjects(Config::get('backend::template')));
 		View::share('settings', toObjects(Setting::lists('value', 'handle')));
+		View::share('extensions', Backend::getExtensions());
 	}
 
 	/**

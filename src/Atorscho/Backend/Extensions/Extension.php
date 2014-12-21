@@ -12,6 +12,13 @@ class Extension {
 	public $enabled = false;
 
 	/**
+	 * Extension's public name.
+	 *
+	 * @var string
+	 */
+	public $name = '';
+
+	/**
 	 * Service Provider of the extension.
 	 *
 	 * e.g. 'Atorscho\Backend\BackendServiceProvider' for this Backend package.
@@ -19,5 +26,28 @@ class Extension {
 	 * @var string|null
 	 */
 	public $service = null;
+
+	/**
+	 * URI to extension's home page.
+	 *
+	 * @var string
+	 */
+	public $uri = '';
+
+	/**
+	 * If needed you may also specify route name for extension's home page.
+	 *
+	 * @var string
+	 */
+	public $route = '';
+
+	/**
+	 * Any Font-Awesome icon to represent the extension.
+	 *
+	 * e.g. 'comments' for 'fa fa-comments'
+	 *
+	 * @var string
+	 */
+	public $icon = '';
 
 }
