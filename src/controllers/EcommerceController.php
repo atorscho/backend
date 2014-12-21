@@ -10,6 +10,8 @@ use Atorscho\Crumbs\Facades\Crumbs;
 
 // todo - translate
 
+// todo - add extension manager to settings page
+
 class EcommerceController extends BaseController {
 
 	public function index()
