@@ -62,7 +62,7 @@ if ( !function_exists('userFieldInput') )
 		$title     = $field->placeholder ?: $field->name;
 
 		$required  = $field->required ? 'required="true"' : '';
-		$maxlength = $field->min ? 'maxlength="' . $field->min . '"' : '';
+		$maxlength = $field->max ? 'maxlength="' . $field->max . '"' : '';
 		$min       = $field->min ? 'min="' . $field->min . '"' : '';
 		$max       = $field->max ? 'max="' . $field->max . '"' : '';
 		$step      = $field->step ? 'step="' . $field->step . '"' : '';
