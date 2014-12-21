@@ -11,8 +11,6 @@ use View;
 
 class UserFieldGroupController extends BaseController {
 
-	protected $layout = 'backend::layouts.backend';
-
 	public function __construct()
 	{
 		parent::__construct();

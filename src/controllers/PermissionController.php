@@ -8,8 +8,6 @@ use View;
 
 class PermissionController extends BaseController {
 
-	protected $layout = 'backend::layouts.backend';
-
 	public function __construct()
 	{
 		parent::__construct();

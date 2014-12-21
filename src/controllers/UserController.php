@@ -25,8 +25,6 @@ use View;
 
 class UserController extends BaseController {
 
-	protected $layout = 'backend::layouts.backend';
-
 	protected $rules = [
 		'username'   => 'required|max:20|unique:users',
 		'birthday'   => 'date',
@@ -238,6 +236,7 @@ class UserController extends BaseController {
 			$rules['password'] = 'confirmed';
 
 		// Setting up custom fields rules
+		// todo - bug. not saving new field inputs (e.g. Twitter) !!!!!!!!!!!!
 		$fieldsUpdate = Input::get('fields');
 		$rulesFields = $this->rulesFields;
 		foreach ( $fieldsUpdate as $key => $value )

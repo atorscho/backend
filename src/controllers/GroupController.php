@@ -12,8 +12,6 @@ use View;
 
 class GroupController extends BaseController {
 
-	protected $layout = 'backend::layouts.backend';
-
 	protected $rules = [
 		'name'        => 'required|max:20',
 		'handle'      => 'max:20',

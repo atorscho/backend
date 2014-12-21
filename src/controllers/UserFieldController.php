@@ -18,8 +18,6 @@ use View;
 
 class UserFieldController extends BaseController {
 
-	protected $layout = 'backend::layouts.backend';
-
 	protected $rules = [
 		'group_id'    => 'required|integer',
 		'type'        => 'required',

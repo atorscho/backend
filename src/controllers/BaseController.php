@@ -5,16 +5,14 @@ use Controller;
 use View;
 use Atorscho\Backend\Models\Setting;
 
+// todo - translate
+
 class BaseController extends Controller {
 
 	protected $layout = 'backend::layouts.backend';
 
 	public function __construct()
 	{
-		// CSRF Protection
-		$this->beforeFilter('csrf', [ 'on' => 'post' ]);
-
-		// todo - translate
 		$navmenu = [
 			[
 				'title' => 'Dashboard',

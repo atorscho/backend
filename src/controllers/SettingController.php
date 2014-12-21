@@ -9,11 +9,7 @@ use Atorscho\Crumbs\Facades\Crumbs;
 
 // todo - translate
 
-// todo - add "Link to front"
-
 class SettingController extends BaseController {
-
-	protected $layout = 'backend::layouts.backend';
 
 	public function index()
 	{
