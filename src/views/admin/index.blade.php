@@ -15,7 +15,7 @@
 				<a class="box tip" href="#" title="Menu Manager">
 					<i class="fa fa-fw fa-navicon"></i>
 				</a>
-				<a class="box tip" href="{{{ route('admin.settings') }}}" title="Settings">
+				<a class="box tip" href="{{{ route('admin.settings.index') }}}" title="Settings">
 					<i class="fa fa-fw fa-cogs"></i>
 				</a>
 				<a class="box tip" href="{{ route('admin.users.index') }}" title="Users and Groups">
@@ -30,7 +30,7 @@
 				<a class="box tip" href="#" title="Menu Manager">
 					<i class="fa fa-fw fa-navicon"></i>
 				</a>
-				<a class="box tip" href="{{{ route('admin.settings') }}}" title="Settings">
+				<a class="box tip" href="{{{ route('admin.settings.index') }}}" title="Settings">
 					<i class="fa fa-fw fa-cogs"></i>
 				</a>
 			</div>

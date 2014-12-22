@@ -25,7 +25,7 @@ class SettingsSeeder extends Seeder {
 		$groups = [
 			[
 				'name'     => 'General Settings',
-				'handle'   => 'general',
+				'slug'     => 'general',
 				'settings' => [
 					[
 						'name'        => 'Site Name',
@@ -63,10 +63,10 @@ class SettingsSeeder extends Seeder {
 						'description' => 'Your custom copyright text that is displayed in site footer.'
 					],
 					[
-						'name' => 'Site Front',
-						'handle' => 'siteFront',
-						'value' => '/',
-						'default' => '/',
+						'name'        => 'Site Front',
+						'handle'      => 'siteFront',
+						'value'       => '/',
+						'default'     => '/',
 						'description' => 'URL to the front page of your site.'
 					],
 					[
@@ -87,7 +87,7 @@ class SettingsSeeder extends Seeder {
 			],
 			[
 				'name'     => 'User Settings',
-				'handle'   => 'users',
+				'slug'     => 'users',
 				'settings' => [
 					[
 						'name'        => 'Default Group',
@@ -107,7 +107,7 @@ class SettingsSeeder extends Seeder {
 			],
 			[
 				'name'     => 'Template Settings',
-				'handle'   => 'template',
+				'slug'     => 'template',
 				'settings' => [
 					[
 						'name'        => 'Title Separator',
@@ -127,7 +127,7 @@ class SettingsSeeder extends Seeder {
 			],
 			[
 				'name'     => 'File System',
-				'handle'   => 'files',
+				'slug'     => 'files',
 				'settings' => [
 					[
 						'name'        => 'Images Folder',
@@ -150,13 +150,13 @@ class SettingsSeeder extends Seeder {
 		foreach ( $groups as $seedGroup )
 		{
 			$settingsGroup = SettingsGroup::create([
-				'name'   => $seedGroup['name'],
-				'handle' => $seedGroup['handle']
+				'name' => $seedGroup['name'],
+				'slug' => $seedGroup['slug']
 			]);
 
 			foreach ( $seedGroup['settings'] as $seedSetting )
 			{
-				$setting = Setting::create([
+				Setting::create([
 					'group_id'    => $settingsGroup->id,
 					'name'        => $seedSetting['name'],
 					'handle'      => $seedSetting['handle'],

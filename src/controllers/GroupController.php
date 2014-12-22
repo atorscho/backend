@@ -62,8 +62,8 @@ class GroupController extends BaseController {
 			getSetting('defaultGroup')
 		];
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.groups.index'), 'Groups');
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.groups.index', 'Groups');
 
 		$this->layout->title   = 'Group Management';
 		$this->layout->desc    = 'All user groups, their members and permissions';
@@ -82,9 +82,9 @@ class GroupController extends BaseController {
 
 		$permissions = Permission::lists('name', 'id');
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.groups.index'), 'Groups');
-		Crumbs::add(route('admin.users.groups.create'), $title);
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.groups.index', 'Groups');
+		Crumbs::addRoute('admin.users.groups.create', $title);
 
 		$this->layout->title   = $title;
 		$this->layout->content = View::make('backend::users.groups.create', compact('permissions'));
@@ -124,9 +124,9 @@ class GroupController extends BaseController {
 	{
 		$groupUsers = Group::with('users')->find($group->id)->users()->orderBy('username')->get();
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.groups.index'), 'Groups');
-		Crumbs::add(route('admin.users.groups.show', $group->id), $group->name);
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.groups.index', 'Groups');
+		Crumbs::addRoute('admin.users.groups.show', $group->name, $group->id);
 
 		$this->layout->title   = 'User Group: ' . $group->name;
 		$this->layout->content = View::make('backend::users.groups.show', compact('group', 'groupUsers'));
@@ -147,10 +147,10 @@ class GroupController extends BaseController {
 		// Populate the selectbox
 		$groupperms = $group->permissions()->lists('id');
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.groups.index'), 'Groups');
-		Crumbs::add(route('admin.users.groups.show', $group->id), $group->name);
-		Crumbs::add(route('admin.users.groups.edit', $group->id), 'Edit');
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.groups.index', 'Groups');
+		Crumbs::addRoute('admin.users.groups.show', $group->name, $group->id);
+		Crumbs::addRoute('admin.users.groups.edit', 'Edit', $group->id);
 
 		$this->layout->title   = 'Edit Group: ' . $group->name;
 		$this->layout->content = View::make('backend::users.groups.edit', compact('group', 'permissions', 'groupperms'));

@@ -85,7 +85,7 @@ class UserController extends BaseController {
 		// Counter
 		$counter = ( $users->count() * ( ( Input::get('page') ?: 1 ) - 1 ) ) + 1;
 
-		Crumbs::add(route('admin.users.index'), 'Users');
+		Crumbs::addRoute('admin.users.index', 'Users');
 
 		$this->layout->title   = 'User Management';
 		$this->layout->desc    = 'List of all users and their info';
@@ -115,8 +115,8 @@ class UserController extends BaseController {
 			'F' => 'Woman'
 		];
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.create'), $title);
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.create', $title);
 
 		$this->layout->title   = $title;
 		$this->layout->content = View::make('backend::users.create', compact('groups', 'gender', 'fieldGroups'));
@@ -212,9 +212,9 @@ class UserController extends BaseController {
 			'F' => 'Woman'
 		];
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.show', $user->id), $user->username);
-		Crumbs::add(route('admin.users.edit', $user->id), 'Edit');
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.show', $user->username, $user->id);
+		Crumbs::addRoute('admin.users.edit', 'Edit', $user->id);
 
 		$this->layout->title   = 'Edit ' . $user->username;
 		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'usergroups', 'gender', 'fieldGroups'));

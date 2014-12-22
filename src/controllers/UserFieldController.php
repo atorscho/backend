@@ -85,9 +85,9 @@ class UserFieldController extends BaseController {
 			'checkbox' => 'Checkbox'
 		];
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.index'), 'Fields');
-		Crumbs::add(route('admin.users.fields.create'), $title);
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.fields.index', 'Fields');
+		Crumbs::addRoute('admin.users.fields.create', $title);
 
 		$this->layout->title   = $title;
 		$this->layout->content = View::make('backend::users.fields.create', compact('fieldGroups', 'types'));
@@ -128,9 +128,9 @@ class UserFieldController extends BaseController {
 			'checkbox' => 'Checkbox'
 		];
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.index'), 'Fields');
-		Crumbs::add(route('admin.users.fields.create'), $title);
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.fields.index', 'Fields');
+		Crumbs::addRoute('admin.users.fields.create', $title);
 
 		$this->layout->title   = $title;
 		$this->layout->content = View::make('backend::users.fields.edit', compact('field', 'fieldGroups', 'types'));

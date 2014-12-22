@@ -16,11 +16,23 @@ class SettingController extends BaseController {
 		$groups = SettingsGroup::with('settings')->get();
 		$title = 'Settings';
 
-		Crumbs::add(route('admin.settings'), $title);
+		Crumbs::addRoute('admin.settings.index', $title);
 
 		$this->layout->title   = $title;
 		$this->layout->desc    = 'Site configurations and options';
 		$this->layout->content = View::make('backend::settings.index', compact('groups'));
+	}
+
+	public function show( SettingsGroup $group )
+	{
+		$group = $group->with('settings')->find($group->id);
+		$title = $group->name;
+
+		Crumbs::addRoute('admin.settings.index', 'Settings');
+		Crumbs::addRoute('admin.settings.show', $title, $group->slug);
+
+		$this->layout->title   = $title;
+		$this->layout->content = View::make('backend::settings.show', compact('group'));
 	}
 
 	public function update()
@@ -34,7 +46,7 @@ class SettingController extends BaseController {
 			}
 		}
 
-		return Redirect::route('admin.settings')->with('success', 'Updated');
+		return Redirect::back()->with('success', 'Updated');
 	}
 
 }

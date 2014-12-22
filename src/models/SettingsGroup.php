@@ -1,10 +1,11 @@
 <?php namespace Atorscho\Backend\Models;
 
-use Atorscho\Backend\Traits\HandleAttributeTrait;
+
+use Atorscho\Backend\Traits\SlugAttributeTrait;
 
 class SettingsGroup extends BaseModel {
 
-	use HandleAttributeTrait;
+	use SlugAttributeTrait;
 
 	protected $fillable = [];
 

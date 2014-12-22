@@ -41,9 +41,9 @@ class UserFieldGroupController extends BaseController {
 	{
 		$fieldGroups = UserFieldGroup::orderBy('order')->get();
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.index'), 'Fields');
-		Crumbs::add(route('admin.users.fields.groups.index'), 'Groups');
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.fields.index', 'Fields');
+		Crumbs::addRoute('admin.users.fields.groups.index', 'Groups');
 
 		$this->layout->title   = 'Field Groups';
 		$this->layout->desc    = 'Manage User Field Groups';
@@ -52,10 +52,10 @@ class UserFieldGroupController extends BaseController {
 
 	public function create()
 	{
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.index'), 'Fields');
-		Crumbs::add(route('admin.users.fields.groups.index'), 'Groups');
-		Crumbs::add(route('admin.users.fields.groups.create'), 'New Group');
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.fields.index', 'Fields');
+		Crumbs::addRoute('admin.users.fields.groups.index', 'Groups');
+		Crumbs::addRoute('admin.users.fields.groups.create', 'New Group');
 
 		$this->layout->title   = 'New Field Group';
 		$this->layout->content = View::make('backend::users.fields.groups.create');
@@ -64,7 +64,7 @@ class UserFieldGroupController extends BaseController {
 	public function store()
 	{
 		$validator = Validator::make(Input::all(), [
-			'name' => 'required',
+			'name'   => 'required',
 			'handle' => 'unique:user_field_groups'
 		]);
 
@@ -84,10 +84,10 @@ class UserFieldGroupController extends BaseController {
 		// Eager-loading
 		$fieldGroup = $fieldGroup->with('fields')->find($fieldGroup->id);
 
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.index'), 'Fields');
-		Crumbs::add(route('admin.users.fields.groups.index'), 'Groups');
-		Crumbs::add(route('admin.users.fields.groups.show', $fieldGroup->id), $fieldGroup->name);
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.fields.index', 'Fields');
+		Crumbs::addRoute('admin.users.fields.groups.index', 'Groups');
+		Crumbs::addRoute('admin.users.fields.groups.show', $fieldGroup->name, $fieldGroup->id);
 
 		$this->layout->title   = 'Field Group: ' . $fieldGroup->name;
 		$this->layout->content = View::make('backend::users.fields.groups.show', compact('fieldGroup'));
@@ -95,20 +95,20 @@ class UserFieldGroupController extends BaseController {
 
 	public function edit( UserFieldGroup $fieldGroup )
 	{
-		Crumbs::add(route('admin.users.index'), 'Users');
-		Crumbs::add(route('admin.users.fields.index'), 'Fields');
-		Crumbs::add(route('admin.users.fields.groups.index'), 'Groups');
-		Crumbs::add(route('admin.users.fields.groups.show', $fieldGroup->id), $fieldGroup->name);
-		Crumbs::add(route('admin.users.fields.groups.edit', $fieldGroup->id), 'Edit');
+		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.fields.index', 'Fields');
+		Crumbs::addRoute('admin.users.fields.groups.index', 'Groups');
+		Crumbs::addRoute('admin.users.fields.groups.show', $fieldGroup->name, $fieldGroup->id);
+		Crumbs::addRoute('admin.users.fields.groups.edit', 'Edit', $fieldGroup->id);
 
 		$this->layout->title   = 'Edit Field Group: ' . $fieldGroup->name;
 		$this->layout->content = View::make('backend::users.fields.groups.edit', compact('fieldGroup'));
 	}
 
-	public function update( UserFieldGroup $fieldGroup)
+	public function update( UserFieldGroup $fieldGroup )
 	{
 		$validator = Validator::make(Input::all(), [
-			'name' => 'required',
+			'name'   => 'required',
 			'handle' => 'unique:user_field_groups,handle,' . $fieldGroup->id
 		]);
 

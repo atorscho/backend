@@ -1,44 +1,39 @@
+<?php // todo - translate ?>
+
 @section('content')
-	<div class="blok">
-		{{ Form::open(['route' => 'admin.settings.update', 'class' => 'form-horizontal', 'method' => 'PUT']) }}
-			<!-- Nav tabs -->
-			<ul class="nav nav-pills" role="tablist">
-				@foreach($groups as $group)
-					<li role="presentation" {{ ($group->id == 1) ? 'class="active"' : '' }}>
-						<a href="#{{{ $group->handle }}}" role="tab" data-toggle="tab">{{{ $group->name }}}</a>
-					</li>
-				@endforeach
-			</ul>
+	<div class="blok settings">
+		<header class="title">
+			<h2>Global Settings</h2>
+		</header>
 
-			<!-- Tab panes -->
-			<div class="tab-content">
-				@foreach($groups as $group)
-					<div role="tabpanel" class="tab-pane {{ ($group->id == 1) ? 'active' : '' }}" id="{{{ $group->handle }}}">
-						@foreach($group->settings as $setting)
-							<div class="form-group">
-								{{ Form::label($setting->handle, $setting->name, ['class' => 'control-label col-sm-2']) }}
-								<div class="col-sm-10">
-									{{ Form::input((is_numeric($setting->value) ? 'number' : 'text' ), $setting->handle, $setting->value, [
-										'class' => 'form-control',
-										'placeholder' => $setting->default,
-										'min' => 0,
-										'tabindex' => index()
-									]) }}
-									@if($setting->description)
-										<span class="help-block">{{ $setting->description }}</span>
-									@endif
-								</div>
-							</div>
-						@endforeach
-					</div>
-				@endforeach
+		<div class="row">
+			<div class="col-md-3 col-xs-6">
+				<a href="{{ route('admin.settings.show', 'general') }}" class="thumbnail tip" title="General Settings">
+					<i class="fa fa-fw fa-dashboard"></i>
+				</a>
 			</div>
+			<div class="col-md-3 col-xs-6">
+				<a href="{{ route('admin.settings.show', 'users') }}" class="thumbnail tip" title="User Management">
+					<i class="fa fa-fw fa-users"></i>
+				</a>
+			</div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-3">
-					{{ Form::submit('Save', ['class' => 'btn btn-block btn-primary', 'tabindex' => index()]) }}
-				</div>
+		<header class="title">
+			<h2>Miscellaneous</h2>
+		</header>
+
+		<div class="row">
+			<div class="col-md-3 col-xs-6">
+				<a href="{{ route('admin.settings.show', 'template') }}" class="thumbnail tip" title="Template & Layout">
+					<i class="fa fa-fw fa-th"></i>
+				</a>
 			</div>
-		{{ Form::close() }}
+			<div class="col-md-3 col-xs-6">
+				<a href="{{ route('admin.settings.show', 'files') }}" class="thumbnail tip" title="File System">
+					<i class="fa fa-fw fa-file-o"></i>
+				</a>
+			</div>
+		</div>
 	</div>
 @stop

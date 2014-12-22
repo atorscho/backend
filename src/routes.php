@@ -40,8 +40,12 @@ Route::group([
 	// Settings
 	// ===================================
 	Route::get('settings', [
-		'as'   => 'admin.settings',
+		'as'   => 'admin.settings.index',
 		'uses' => 'SettingController@index'
+	]);
+	Route::get('settings/{settingsGroup}', [
+		'as'   => 'admin.settings.show',
+		'uses' => 'SettingController@show'
 	]);
 	Route::put('settings', [
 		'as'   => 'admin.settings.update',
