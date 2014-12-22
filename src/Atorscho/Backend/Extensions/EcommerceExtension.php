@@ -14,4 +14,6 @@ class EcommerceExtension extends Extension {
 
 	public $icon = 'shopping-cart';
 
+	public $settings = 'ecommerce';
+
 }

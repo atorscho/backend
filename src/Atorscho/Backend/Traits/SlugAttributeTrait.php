@@ -13,9 +13,9 @@ trait SlugAttributeTrait {
 	public function setSlugAttribute( $value, $title = 'name' )
 	{
 		if ( $value )
-			$this->attributes['slug'] = \Str::str($value);
+			$this->attributes['slug'] = \Str::slug($value);
 		else
-			$this->attributes['slug'] = \Str::str($this->$title);
+			$this->attributes['slug'] = \Str::slug($this->$title);
 	}
 
 } 

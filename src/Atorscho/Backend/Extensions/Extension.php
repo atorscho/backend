@@ -50,4 +50,31 @@ class Extension {
 	 */
 	public $icon = '';
 
+	/**
+	 * Extension's settings group slug.
+	 *
+	 * @var string
+	 */
+	public $settings = '';
+
+	/**
+	 * Return array of fields as JSON when casting the class to a string.
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		$fields = [
+			'enabled'  => $this->enabled,
+			'name'     => $this->name,
+			'service'  => $this->service,
+			'uri'      => $this->uri,
+			'route'    => $this->route,
+			'icon'     => $this->icon,
+			'settings' => $this->settings,
+		];
+
+		return json_encode($fields);
+	}
+
 }

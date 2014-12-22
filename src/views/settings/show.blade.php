@@ -3,7 +3,11 @@
 @section('content')
 	<div class="blok">
 		{{ Form::open(['route' => 'admin.settings.update', 'class' => 'form-horizontal', 'method' => 'PUT']) }}
-			@include('backend::settings.partials.' . $group->slug)
+			@if(View::exists('backend::settings.partials.' . $group->slug))
+				@include('backend::settings.partials.' . $group->slug)
+			@else
+				@include('backend::settings.partials.common')
+			@endif
 
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-3">

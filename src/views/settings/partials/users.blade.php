@@ -1,7 +1,7 @@
 @if($group->settings->count())
 	{{-- Default Group --}}
 	<div class="form-group">
-		{{ Form::label($setting->handle('defaultGroup')->handle, $setting->handle('defaultGroup')->name, ['class' => 'control-label col-sm-2']) }}
+		{{ Form::label('settings[' . $setting->handle('defaultGroup')->handle . ']', $setting->handle('defaultGroup')->name, ['class' => 'control-label col-sm-2']) }}
 		<div class="col-sm-10">
 			{{ Form::select('settings[' . $setting->handle('defaultGroup')->handle . ']', $userGroups, $setting->handle('defaultGroup')->value, [
 				'class' => 'select',

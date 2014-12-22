@@ -35,5 +35,21 @@
 				</a>
 			</div>
 		</div>
+
+		@if($extensions)
+			<header class="title">
+				<h2>Extensions</h2>
+			</header>
+
+			<div class="row">
+				@foreach($extensions as $extension)
+					<div class="col-md-3 col-xs-6">
+						<a href="{{ route('admin.settings.show', $extension->settings) }}" class="thumbnail tip" title="{{ $extension->name }}">
+							<i class="fa fa-fw fa-{{ $extension->icon }}"></i>
+						</a>
+					</div>
+				@endforeach
+			</div>
+		@endif
 	</div>
 @stop

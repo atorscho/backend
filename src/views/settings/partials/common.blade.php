@@ -1,9 +1,9 @@
 @if($group->settings->count())
 	@foreach($group->settings as $setting)
 		<div class="form-group">
-			{{ Form::label($setting->handle, $setting->name, ['class' => 'control-label col-sm-2']) }}
+			{{ Form::label('settings[' . $setting->handle . ']', $setting->name, ['class' => 'control-label col-sm-2']) }}
 			<div class="col-sm-10">
-				{{ Form::input((is_numeric($setting->value) ? 'number' : 'text' ), $setting->handle, $setting->value, [
+				{{ Form::input((is_numeric($setting->value) ? 'number' : 'text' ), 'settings[' . $setting->handle . ']', $setting->value, [
 					'class' => 'form-control',
 					'placeholder' => $setting->default,
 					'min' => 0,
