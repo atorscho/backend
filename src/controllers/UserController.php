@@ -136,29 +136,8 @@ class UserController extends BaseController {
 
 		// Setting up custom fields rules
 		$fieldsUpdate = Input::get('fields');
-		$rulesFields = $this->rulesFields;
-		foreach ( $fieldsUpdate as $key => $value )
-		{
-			$field = UserField::where('handle', $key)->first();
-
-			if ( $field->required )
-				$rules["fields[{$field->handle}]"][] = 'required';
-			if ( $field->min )
-				$rules["fields[{$field->handle}]"][] = 'min:' . $field->min;
-			if ( $field->max )
-				$rules["fields[{$field->handle}]"][] = 'max:' . $field->max;
-			if ( $field->pattern )
-				$rules["fields[{$field->handle}]"][] = 'regex:' . $field->pattern;
-
-			$rules["fields[{$field->handle}]"] = join('|', $rules["fields[{$field->handle}]"]);
-
-			$rulesFields["fields[{$field->handle}]"] = $field->name;
-
-			// Replace handle key with its ID
-			unset( $fieldsUpdate[$key] );
-			if ( $value )
-				$fieldsUpdate[$field->id] = [ 'value' => $value ];
-		}
+		$rulesFields  = $this->rulesFields;
+		$fieldsUpdate = saveUserField($rules, $rulesFields, $fieldsUpdate);
 
 		$validator = Validator::make(Input::all(), $rules);
 		$validator->setAttributeNames($rulesFields);
@@ -236,31 +215,9 @@ class UserController extends BaseController {
 			$rules['password'] = 'confirmed';
 
 		// Setting up custom fields rules
-		// todo - bug. not saving new field inputs (e.g. Twitter) !!!!!!!!!!!!
 		$fieldsUpdate = Input::get('fields');
-		$rulesFields = $this->rulesFields;
-		foreach ( $fieldsUpdate as $key => $value )
-		{
-			$field = UserField::where('handle', $key)->first();
-
-			if ( $field->required )
-				$rules["fields[{$field->handle}]"][] = 'required';
-			if ( $field->min )
-				$rules["fields[{$field->handle}]"][] = 'min:' . $field->min;
-			if ( $field->max )
-				$rules["fields[{$field->handle}]"][] = 'max:' . $field->max;
-			if ( $field->pattern )
-				$rules["fields[{$field->handle}]"][] = 'regex:' . $field->pattern;
-
-			$rules["fields[{$field->handle}]"] = join('|', $rules["fields[{$field->handle}]"]);
-
-			$rulesFields["fields[{$field->handle}]"] = $field->name;
-
-			// Replace handle key with its ID
-			unset( $fieldsUpdate[$key] );
-			if ( $value )
-				$fieldsUpdate[$field->id] = [ 'value' => $value ];
-		}
+		$rulesFields  = $this->rulesFields;
+		$fieldsUpdate = saveUserField($rules, $rulesFields, $fieldsUpdate);
 
 		$validator = Validator::make(Input::all(), $rules);
 		$validator->setAttributeNames($rulesFields);

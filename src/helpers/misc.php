@@ -1,6 +1,7 @@
 <?php
 
 use Atorscho\Backend\Models\Setting;
+use Atorscho\Backend\Models\UserField;
 
 if ( !function_exists('toObjects') )
 {
@@ -105,5 +106,45 @@ if ( !function_exists('datetimePicker') )
 	function datetimePicker( $str )
 	{
 		return date('m/d/Y g:i A', strtotime($str));
+	}
+}
+
+if ( !function_exists('saveUserField') )
+{
+	/**
+	 * Save User Field.
+	 *
+	 * @param $rules
+	 * @param $rulesFields
+	 * @param $fieldsUpdate
+	 */
+	function saveUserField(&$rules, &$rulesFields, $fieldsUpdate)
+	{
+		foreach ( $fieldsUpdate as $key => $value )
+		{
+			$field = UserField::where('handle', $key)->first();
+
+			if ( $field->required )
+				$rules["fields[{$field->handle}]"][] = 'required';
+			if ( $field->min )
+				$rules["fields[{$field->handle}]"][] = 'min:' . $field->min;
+			if ( $field->max )
+				$rules["fields[{$field->handle}]"][] = 'max:' . $field->max;
+			if ( $field->pattern )
+				$rules["fields[{$field->handle}]"][] = 'regex:' . $field->pattern;
+
+			if ( isset( $rules["fields[{$field->handle}]"] ) )
+				$rules["fields[{$field->handle}]"] = join('|', $rules["fields[{$field->handle}]"]);
+
+			// Add new field name
+			$rulesFields["fields[{$field->handle}]"] = $field->name;
+
+			// Replace handle key with its ID
+			unset( $fieldsUpdate[$key] );
+			if ( $value )
+				$fieldsUpdate[$field->id] = [ 'value' => $value ];
+		}
+
+		return $fieldsUpdate;
 	}
 }

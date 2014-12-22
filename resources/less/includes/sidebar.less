@@ -4,9 +4,8 @@
 
 // ----------------------------
 
-// todo - --> master-variables
 .sidebar {
-	border-right: 1px solid @fadeBlack7;
+	border-right: 1px solid @sidebarBorder;
 	position:     relative;
 
 	.nav {
@@ -14,20 +13,20 @@
 
 		> li {
 			> a {
-				color: @textColor;
+				color: @sidebarText;
 			}
 
 			&:hover {
 				> a {
-					background: @fadeBlack3;
-					box-shadow: 1px 0 @brandPrimary;
+					background: @sidebarTextBgHover;
+					box-shadow: 1px 0 @sidebarTextBorderHover;
 				}
 			}
 			&.active, &:active {
 				> a {
-					background:  @brandPrimary;
-					box-shadow:  1px 0 darken(@brandPrimary, 10%);
-					color:       #fff;
+					background:  @sidebarTextBgActive;
+					box-shadow:  1px 0 @sidebarTextBorderActive;
+					color:       @sidebarTextActive;
 					text-shadow: 0 1px darken(@brandPrimary, 7%);
 				}
 			}
