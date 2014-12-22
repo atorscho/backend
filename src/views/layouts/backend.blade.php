@@ -17,7 +17,7 @@
 		{{ HTML::style($template->assetsCss . $css . '.css') }}
 	@endforeach
 	<?php // todo - remove ?>
-	<link rel="stylesheet/less" href="{{ asset('packages/atorscho/backend/assets/less/' . 'master.less') }}"/>
+	<link rel="stylesheet/less" href="{{ asset('packages/atorscho/backend/assets/less/' . 'master.less') }}" />
 </head>
 <body>
 
@@ -42,7 +42,8 @@
 			<!-- Secondary Menu -->
 			@include('backend::partials.layouts._secondaryMenu')
 			<!-- / Secondary Menu -->
-		</div> <!-- end .container -->
+		</div>
+		<!-- end .container -->
 	</header>
 	<!-- / HEADER -->
 
@@ -50,33 +51,28 @@
 	<div id="page-wrapper">
 		<div class="container">
 
-			@if(function_exists('crumbs'))
-				<!-- Breadcrumbs -->
-	            {{ crumbs() }}
-	            <!-- / Breadcrumbs -->
-        	@endif
+			@crumbs
 
-        	<div class="page-header">
-        		<h1>
-        			{{{ $title }}}
+			<div class="page-header">
+				<h1>
+					{{{ $title }}}
 
-        			@yield('controls')
-        			@if(isset($controls))
+					@yield('controls')
 
-        			@endif
+					@if(isset($desc))
+						<small>{{{ $desc }}}</small>
+					@endif
+				</h1>
+			</div>
 
-        			@if(isset($desc))
-        			    <small>{{{ $desc }}}</small>
-        			@endif
-        		</h1>
-        	</div>
-
-        	{{ flash() }}
+			{{ flash() }}
 
 			@yield('content')
 
-		</div> <!-- end .container -->
-	</div> <!-- end #page-wrapper -->
+		</div>
+		<!-- end .container -->
+	</div>
+	<!-- end #page-wrapper -->
 	<!-- / BODY -->
 
 	<!-- FOOTER -->
@@ -87,7 +83,8 @@
 	</footer>
 	<!-- / FOOTER -->
 
-</div> <!-- end #wrapper -->
+</div>
+<!-- end #wrapper -->
 
 <!-- Scripts: put in footer for better performance
 ==================================================== -->
