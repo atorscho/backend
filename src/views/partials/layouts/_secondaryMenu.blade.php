@@ -6,12 +6,12 @@
 				<a href="#"><i class="fa fa-fw fa-cubes"></i><i class="fa fa-angle-down"></i></a>
 
 				<div class="drop-box">
-					<div class="title">Extensions</div>
+					<div class="title">@lang('backend::labels.extensions')</div>
 
 					<ul>
 						@foreach($extensions as $extension)
 							<li>
-								<a href="{{ $extension->route ? route($extension->route) : to($extension->uri) }}">
+								<a href="{{ $extension->route ? route($extension->route) : url($extension->uri) }}">
 									@if($extension->icon)
 										<i class="fa fa-fw fa-{{ $extension->icon }}"></i>
 									@endif
@@ -61,11 +61,10 @@
 						<?php // todo - link to user's profile ?>
 
 						{{{ Auth::user()->username }}}
-						</p>
 					</div>
 					<div class="avatar">
 						<?php // todo - link to user's profile ?>
-						<img src="{{ asset('packages/atorscho/backend/assets/img/misc/noavatar.png') }}" alt="User Avatar" />
+						<img src="{{ asset('packages/atorscho/backend/assets/img/misc/noavatar.png') }}" alt="@lang('backend::labels.userAvatar')" />
 					</div>
 				</div>
 			</div>

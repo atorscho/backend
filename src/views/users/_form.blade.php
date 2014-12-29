@@ -1,28 +1,26 @@
-<?php // todo - translate ?>
-
 <div class="col-md-9">
 	<div class="blok">
 		<header class="title">
-			<h3>Required Information</h3>
+			<h3>@lang('backend::labels.infoRequired')</h3>
 		</header>
 
 		<div class="form-group">
-			{{ Form::label('username') }}
+			{{ Form::label('username', trans('backend::labels.username')) }}
 			{{ $errors->first('username', '<span class="text-danger">:message</span>') }}
 			{{ Form::text('username', null, [
 				'class' => 'form-control',
-				'placeholder' => 'Username',
+				'placeholder' => trans('backend::labels.username'),
 				'tabindex' => index()
 			]) }}
 		</div>
 
 		<div class="form-group">
-			{{ Form::label('email') }}
+			{{ Form::label('email', trans('backend::labels.email')) }}
 			@if(strpos(Route::currentRouteName(), 'create'))
 				{{ $errors->first('email', '<span class="text-danger">:message</span>') }}
 				{{ Form::email('email', null, [
 					'class' => 'form-control',
-					'placeholder' => 'Email',
+					'placeholder' => trans('backend::labels.email'),
 					'tabindex' => index()
 				]) }}
 			@else
@@ -31,21 +29,21 @@
 		</div>
 
 		<div class="form-group">
-			{{ Form::label('password') }}
+			{{ Form::label('password', trans('backend::labels.password')) }}
 			{{ $errors->first('password', '<span class="text-danger">:message</span>') }}
 
 			<div class="row">
 				<div class="col-sm-6">
 					{{ Form::password('password', [
 						'class' => 'form-control',
-						'placeholder' => 'Password',
+						'placeholder' => trans('backend::labels.password'),
 						'tabindex' => index()
 					]) }}
 				</div>
 				<div class="col-sm-6">
 					{{ Form::password('password_confirmation', [
                         'class' => 'form-control',
-                        'placeholder' => 'Confirm Password',
+                        'placeholder' => trans('backend::labels.passwordConfirm'),
                         'tabindex' => index()
                     ]) }}
 				</div>
@@ -53,11 +51,11 @@
 		</div>
 
 		<header class="title">
-			<h3>Additional Information</h3>
+			<h3>@lang('backend::labels.infoAdditional')</h3>
 		</header>
 
 		<div class="form-group">
-            {{ Form::label('first_name', 'Name') }}
+            {{ Form::label('first_name', trans('backend::labels.fullName')) }}
             {{ $errors->first('first_name', '<span class="text-danger">:message</span>') }}
             {{ $errors->first('last_name', '<span class="text-danger">:message</span>') }}
 
@@ -65,14 +63,14 @@
                 <div class="col-sm-6">
                     {{ Form::text('first_name', null, [
                         'class' => 'form-control',
-                        'placeholder' => 'First Name',
+                        'placeholder' => trans('backend::labels.firstName'),
                         'tabindex' => index()
                     ]) }}
                 </div>
                 <div class="col-sm-6">
                     {{ Form::text('last_name', null, [
                         'class' => 'form-control',
-                        'placeholder' => 'Last Name',
+                        'placeholder' => trans('backend::labels.lastName'),
                         'tabindex' => index()
                     ]) }}
                 </div>
@@ -82,22 +80,21 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    {{ Form::label('birthday') }}
+                    {{ Form::label('birthday', trans('backend::labels.birthday')) }}
                     {{ $errors->first('birthday', '<span class="text-danger">:message</span>') }}
                     {{ Form::text('birthday', (isset($user) && $user->birthday) ? datetimePicker($user->birthday) : null, [
                         'class' => 'form-control date',
-                        'placeholder' => 'Birthday',
+                        'placeholder' => trans('backend::labels.birthday'),
                         'tabindex' => index()
                     ]) }}
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    {{ Form::label('gender') }}
+                    {{ Form::label('gender', trans('backend::labels.gender')) }}
                     {{ $errors->first('gender', '<span class="text-danger">:message</span>') }}
                     {{ Form::select('gender', $gender, null, [
                         'class' => 'select',
-                        'title' => 'Who are you?',
                         'tabindex' => index()
                     ]) }}
                 </div>
@@ -129,25 +126,25 @@
 <div class="col-md-3">
 	<div class="blok">
 		<header class="title">
-			<h3>Misc</h3>
+			<h3>@lang('backend::labels.misc')</h3>
 		</header>
 
 		<div class="form-group">
-			{{ Form::label('created_at', 'Registered') }}
+			{{ Form::label('created_at', trans('backend::labels.registered')) }}
 			{{ $errors->first('created_at', '<span class="text-danger">:message</span>') }}
 			{{ Form::text('created_at', isset($user) ? datetimePicker($user->created_at) : null, [
 				'class' => 'form-control datetime',
-				'placeholder' => 'Registered',
+				'placeholder' => trans('backend::labels.registered'),
 				'tabindex' => index()
 			]) }}
 		</div>
 
 		<div class="form-group">
-			{{ Form::label('groups') }}
+			{{ Form::label('groups', trans('backend::labels.groups')) }}
 			{{ $errors->first('groups', '<span class="text-danger">:message</span>') }}
 			{{ Form::select('groups[]', $groups, isset($usergroups) ? $usergroups : null, [
 				'class'    => 'select',
-				'title'    => 'Choose user groups',
+				'title'    => trans('backend::labels.groupsChoose'),
 				'multiple' => 'multiple',
 				'tabindex' => index()
 			]) }}
@@ -156,14 +153,14 @@
 
 	<div class="text-center">
 		<div class="btn-group">
-			{{ Form::button('Save', [
+			{{ Form::button(trans('backend::labels.save'), [
 				'type'     => 'submit',
 				'class'    => 'btn btn-primary',
 				'name'     => 'submit',
 				'value'    => 'save',
 				'tabindex' => index()
 			]) }}
-			{{ Form::button('Save & New', [
+			{{ Form::button(trans('backend::labels.saveNew'), [
 				'type'     => 'submit',
 				'class'    => 'btn btn-primary',
 				'name'     => 'submit',

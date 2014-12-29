@@ -10,16 +10,11 @@ use Redirect;
 use Validator;
 use View;
 
-// todo - translate
-
-// todo - CREATE PHPUNIT TESTS!!!!!!!!!
 // todo - forgotten password
 
 // todo - let add to user his own permissions
 
 // todo - Avatar
-
-// todo - add rules to custom fields
 
 // todo - improve eager loadings
 
@@ -33,22 +28,22 @@ class UserController extends BaseController {
 		'registered' => 'date'
 	];
 
-	protected $rulesFields = array();
+	protected $ruleFields = [ ];
 
 	public function __construct()
 	{
 		parent::__construct();
 
-		$this->rulesFields = [
-			'username'   => 'Username',
-			'email'      => 'Email',
-			'password'   => 'Password',
-			'first_name' => 'First Name',
-			'last_name'  => 'Last Name',
-			'birthday'   => 'Birthday',
-			'gender'     => 'Gender',
-			'created_at' => 'Registered',
-			'groups'     => 'Groups'
+		$this->ruleFields = [
+			'username'   => trans('backend::labels.username'),
+			'email'      => trans('backend::labels.email'),
+			'password'   => trans('backend::labels.password'),
+			'first_name' => trans('backend::labels.firstName'),
+			'last_name'  => trans('backend::labels.lastName'),
+			'birthday'   => trans('backend::labels.birthday'),
+			'gender'     => trans('backend::labels.gender'),
+			'created_at' => trans('backend::labels.registered'),
+			'groups'     => trans('backend::labels.groups')
 		];
 
 		// Access Filters
@@ -85,10 +80,10 @@ class UserController extends BaseController {
 		// Counter
 		$counter = ( $users->count() * ( ( Input::get('page') ?: 1 ) - 1 ) ) + 1;
 
-		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
 
-		$this->layout->title   = 'User Management';
-		$this->layout->desc    = 'List of all users and their info';
+		$this->layout->title   = trans('backend::labels.usersManagement');
+		$this->layout->desc    = trans('backend::labels.usersDesc');
 		$this->layout->content = View::make('backend::users.index', compact('users', 'counter'));
 	}
 
@@ -100,7 +95,7 @@ class UserController extends BaseController {
 	 */
 	public function create()
 	{
-		$title = 'New User';
+		$title = trans('backend::labels.usersNew');
 
 		// Get an array of groups: id such as a key, group name such as a key value
 		$groups = Group::lists('name', 'id');
@@ -110,12 +105,12 @@ class UserController extends BaseController {
 		$fieldGroups = UserFieldGroup::with('fields')->get();
 
 		$gender = [
-			'N' => 'Unknown',
-			'M' => 'Man',
-			'F' => 'Woman'
+			'N' => trans('backend::labels.genderUnknown'),
+			'M' => trans('backend::labels.genderMale'),
+			'F' => trans('backend::labels.genderFemale')
 		];
 
-		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
 		Crumbs::addRoute('admin.users.create', $title);
 
 		$this->layout->title   = $title;
@@ -136,11 +131,11 @@ class UserController extends BaseController {
 
 		// Setting up custom fields rules
 		$fieldsUpdate = Input::get('fields');
-		$rulesFields  = $this->rulesFields;
-		$fieldsUpdate = saveUserField($rules, $rulesFields, $fieldsUpdate);
+		$ruleFields  = $this->ruleFields;
+		$fieldsUpdate = saveUserField($rules, $ruleFields, $fieldsUpdate);
 
 		$validator = Validator::make(Input::all(), $rules);
-		$validator->setAttributeNames($rulesFields);
+		$validator->setAttributeNames($ruleFields);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
@@ -152,18 +147,18 @@ class UserController extends BaseController {
 		$user->fields()->sync($fieldsUpdate);
 
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.create')->with('success', 'User has been created.');
+			return Redirect::route('admin.users.create')->with('success', trans('backend::labels.userCreated'));
 		else
-			return Redirect::route('admin.users.index')->with('success', 'User has been created.');
+			return Redirect::route('admin.users.index')->with('success', trans('backend::labels.userCreated'));
 	}
 
 
 	public function show( User $user )
 	{
-		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
 		Crumbs::addRoute('admin.users.show', $user->username, $user->id);
 
-		$this->layout->title   = 'User Profile: ' . $user->username;
+		$this->layout->title   = trans('backend::labels.usersName', [ 'name' => $user->username ]);
 		$this->layout->content = View::make('backend::users.show', compact('user'));
 	}
 
@@ -186,16 +181,16 @@ class UserController extends BaseController {
 		$fieldGroups = UserFieldGroup::with('fields')->get();
 
 		$gender = [
-			'N' => 'Unknown',
-			'M' => 'Man',
-			'F' => 'Woman'
+			'N' => trans('backend::labels.genderUnknown'),
+			'M' => trans('backend::labels.genderMale'),
+			'F' => trans('backend::labels.genderFemale')
 		];
 
-		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
 		Crumbs::addRoute('admin.users.show', $user->username, $user->id);
-		Crumbs::addRoute('admin.users.edit', 'Edit', $user->id);
+		Crumbs::addRoute('admin.users.edit', trans('backend::labels.edit'), $user->id);
 
-		$this->layout->title   = 'Edit ' . $user->username;
+		$this->layout->title   = trans('backend::labels.usersEditName', [ 'name' => $user->username ]);
 		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'usergroups', 'gender', 'fieldGroups'));
 	}
 
@@ -216,11 +211,11 @@ class UserController extends BaseController {
 
 		// Setting up custom fields rules
 		$fieldsUpdate = Input::get('fields');
-		$rulesFields  = $this->rulesFields;
-		$fieldsUpdate = saveUserField($rules, $rulesFields, $fieldsUpdate);
+		$ruleFields  = $this->ruleFields;
+		$fieldsUpdate = saveUserField($rules, $ruleFields, $fieldsUpdate);
 
 		$validator = Validator::make(Input::all(), $rules);
-		$validator->setAttributeNames($rulesFields);
+		$validator->setAttributeNames($ruleFields);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
@@ -240,9 +235,9 @@ class UserController extends BaseController {
 		$user->fields()->sync($fieldsUpdate);
 
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.create')->with('success', 'User has been created.');
+			return Redirect::route('admin.users.create')->with('success', trans('backend::messages.userUpdated'));
 		else
-			return Redirect::route('admin.users.show', $user->id)->with('success', 'User has been updated.');
+			return Redirect::route('admin.users.show', $user->id)->with('success', trans('backend::messages.userUpdated'));
 	}
 
 
@@ -258,7 +253,7 @@ class UserController extends BaseController {
 		if ( $user->id != 1 )
 			$user->delete();
 
-		return Redirect::route('admin.users.index')->with('success', 'User has been deactivated.');
+		return Redirect::route('admin.users.index')->with('success', trans('backend::messages.userDeactivated'));
 	}
 
 

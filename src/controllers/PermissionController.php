@@ -4,8 +4,6 @@ use Atorscho\Backend\Models\Permission;
 use Crumbs;
 use View;
 
-// todo - translate
-
 class PermissionController extends BaseController {
 
 	public function __construct()
@@ -24,15 +22,15 @@ class PermissionController extends BaseController {
 	 */
 	public function index()
 	{
-		$title = 'Permissions';
+		$title = trans('backend::labels.permissions');
 
 		$permissions = Permission::all();
 
-		Crumbs::addRoute('admin.users.index', 'Users');
+		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
 		Crumbs::addRoute('admin.users.permissions.index', $title);
 
 		$this->layout->title   = $title;
-		$this->layout->desc    = 'Group permissions';
+		$this->layout->desc    = trans('backend::labels.permissionsDesc');
 		$this->layout->content = View::make('backend::users.permissions.index', compact('permissions'));
 	}
 

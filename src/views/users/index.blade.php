@@ -8,7 +8,7 @@
                 	@include('backend::partials.users._sidebar')
 
                 	<div class="text-center">
-                		<a class="btn btn-primary" href="{{{ route('admin.users.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> New User</a>
+                		<a class="btn btn-primary" href="{{{ route('admin.users.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.usersNew')</a>
                 	</div>
                 </aside>
 			</div>
@@ -18,21 +18,21 @@
 						<thead>
 						<tr>
 							<th class="width-50">#</th>
-							<th>Username</th>
-							<th>Groups</th>
-							<th class="width-140">Registered</th>
-							<th class="text-center width-80">ID</th>
-							<th class="text-center width-240">Actions</th>
+							<th>@lang('backend::labels.username')</th>
+							<th>@lang('backend::labels.groups')</th>
+							<th class="width-140">@lang('backend::labels.registered')</th>
+							<th class="text-center width-80">@lang('backend::labels.id')</th>
+							<th class="text-center width-240">@lang('backend::labels.actions')</th>
 						</tr>
 						</thead>
 						<tfoot>
 						<tr>
 							<th>#</th>
-							<th>Username</th>
-							<th>Groups</th>
-							<th>Registered</th>
-							<th class="text-center">ID</th>
-							<th class="text-center">Actions</th>
+							<th>@lang('backend::labels.username')</th>
+							<th>@lang('backend::labels.groups')</th>
+							<th>@lang('backend::labels.registered')</th>
+							<th class="text-center">@lang('backend::labels.id')</th>
+							<th class="text-center">@lang('backend::labels.actions')</th>
 						</tr>
 						</tfoot>
 						<tbody>
@@ -46,32 +46,25 @@
 								<td class="text-center">
 									{{ Form::open(['route' => ['admin.users.destroy', $user->id], 'method' => 'DELETE']) }}
 										<div class="btn-group">
-											<a class="btn btn-sm btn-default" href="mailto:{{ HTML::email($user->email) }}" title="Send an email">
+											<a class="btn btn-sm btn-default" href="mailto:{{ HTML::email($user->email) }}" title="@lang('backend::labels.emailSend')">
 												<i class="fa fa-envelope-o"></i>
 											</a>
-											<?php // todo - show links to user's social profiles ?>
-											{{--<a class="btn btn-sm btn-default" href="#" title="Go to Facebook profile">
-												<i class="fa fa-facebook"></i>
-											</a>
-											<a class="btn btn-sm btn-default" href="#" title="Go to LinkedIn profile">
-												<i class="fa fa-linkedin"></i>
-											</a>--}}
-											<a class="btn btn-sm btn-primary" href="#" title="View user's profile">
+											<a class="btn btn-sm btn-primary" href="#" title="@lang('backend::labels.viewUserProfile')">
 												<i class="fa fa-user"></i>
 											</a>
 											<a class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
 												<i class="fa fa-caret-down"></i>
 											</a>
 											<ul class="dropdown-menu pull-right">
-												<li class="dropdown-header">Manage User</li>
+												<li class="dropdown-header">@lang('backend::labels.userManage')</li>
 												<li>
 													<a href="{{ route('admin.users.edit', $user->id) }}">
-														<i class="fa fa-fw fa-edit"></i> Edit
+														<i class="fa fa-fw fa-edit"></i> @lang('backend::labels.edit')
 													</a>
 												</li>
 												<li {{ $user->id == 1 ? 'class="disabled"' : '' }}>
 													<button type="submit" {{ $user->id == 1 ? 'disabled="disabled"' : '' }}>
-														<i class="fa fa-fw fa-times-circle-o"></i> Deactivate
+														<i class="fa fa-fw fa-times-circle-o"></i> @lang('backend::labels.deactivate')
 													</button>
 												</li>
 												<?php // todo - add links to user content ?>

@@ -417,6 +417,33 @@
 
 // VARIANTS
 // ===================================
+.variants-alert(@color) {
+	border-color: @color;
+
+	&:before {
+		.square(0);
+		border-color: @color transparent transparent transparent;
+		border-style: solid;
+		border-width: 20px 20px 0 0;
+		content:      '';
+		left:         0;
+		position:     absolute;
+		top:          0;
+	}
+
+	.close {
+		.border-radius();
+		.opacity(1);
+		color: @color;
+		padding: 1px 5px 0 6px;
+		transition: background 250ms ease;
+
+		&:hover {
+			background: fade(#000, 10%);
+		}
+	}
+}
+
 .variants-btn(@bg, @text: #fff, @border: darken(@bg, 10%)) {
 	.vertical(@bg, darken(@bg, 3%));
 	border-color: @border;

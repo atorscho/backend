@@ -9,7 +9,7 @@
 @section('content')
 	<div class="blok">
 		<header class="title">
-			<h2>List of group members</h2>
+			<h2>@lang('backend::labels.groupMembersList')</h2>
 		</header>
 
 		<div class="list-group">

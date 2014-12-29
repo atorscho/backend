@@ -8,8 +8,6 @@ use Redirect;
 use Validator;
 use View;
 
-// todo - translate
-
 class GroupController extends BaseController {
 
 	protected $rules = [
@@ -18,9 +16,18 @@ class GroupController extends BaseController {
 		'permissions' => 'required'
 	];
 
+	protected $ruleFields = [ ];
+
 	public function __construct()
 	{
 		parent::__construct();
+
+		// Form Field Names
+		$this->ruleFields = [
+			'name'        => trans('backend::labels.name'),
+			'handle'      => trans('backend::labels.handle'),
+			'permissions' => trans('backend::labels.permissions')
+		];
 
 		// Access Filters
 		$this->beforeFilter('admin.perm:showGroups', [
@@ -62,11 +69,11 @@ class GroupController extends BaseController {
 			getSetting('defaultGroup')
 		];
 
-		Crumbs::addRoute('admin.users.index', 'Users');
-		Crumbs::addRoute('admin.users.groups.index', 'Groups');
+		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
+		Crumbs::addRoute('admin.users.groups.index', trans('backend::labels.groups'));
 
-		$this->layout->title   = 'Group Management';
-		$this->layout->desc    = 'All user groups, their members and permissions';
+		$this->layout->title   = trans('backend::labels.groupsManagement');
+		$this->layout->desc    = trans('backend::labels.groupsDesc');
 		$this->layout->content = View::make('backend::users.groups.index', compact('groups', 'protectedGroups'));
 	}
 
@@ -78,12 +85,12 @@ class GroupController extends BaseController {
 	 */
 	public function create()
 	{
-		$title = 'New Group';
+		$title = trans('backend::labels.groupsNew');
 
 		$permissions = Permission::lists('name', 'id');
 
-		Crumbs::addRoute('admin.users.index', 'Users');
-		Crumbs::addRoute('admin.users.groups.index', 'Groups');
+		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
+		Crumbs::addRoute('admin.users.groups.index', trans('backend::labels.groups'));
 		Crumbs::addRoute('admin.users.groups.create', $title);
 
 		$this->layout->title   = $title;
@@ -99,6 +106,7 @@ class GroupController extends BaseController {
 	public function store()
 	{
 		$validator = Validator::make(Input::all(), $this->rules);
+		$validator->setAttributeNames($this->ruleFields);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
@@ -107,9 +115,9 @@ class GroupController extends BaseController {
 		$group->permissions()->sync(Input::get('permissions'));
 
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.groups.create')->with('success', 'Group has been created.');
+			return Redirect::route('admin.users.groups.create')->with('success', trans('backend::messages.groupCreated'));
 		else
-			return Redirect::route('admin.users.groups.index')->with('success', 'Group has been created.');
+			return Redirect::route('admin.users.groups.index')->with('success', trans('backend::messages.groupCreated'));
 	}
 
 	/**
@@ -124,11 +132,11 @@ class GroupController extends BaseController {
 	{
 		$groupUsers = Group::with('users')->find($group->id)->users()->orderBy('username')->get();
 
-		Crumbs::addRoute('admin.users.index', 'Users');
-		Crumbs::addRoute('admin.users.groups.index', 'Groups');
+		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
+		Crumbs::addRoute('admin.users.groups.index', trans('backend::labels.groups'));
 		Crumbs::addRoute('admin.users.groups.show', $group->name, $group->id);
 
-		$this->layout->title   = 'User Group: ' . $group->name;
+		$this->layout->title   = trans('backend::labels.groupsName', ['name' => $group->name]);
 		$this->layout->content = View::make('backend::users.groups.show', compact('group', 'groupUsers'));
 	}
 
@@ -147,12 +155,12 @@ class GroupController extends BaseController {
 		// Populate the selectbox
 		$groupperms = $group->permissions()->lists('id');
 
-		Crumbs::addRoute('admin.users.index', 'Users');
-		Crumbs::addRoute('admin.users.groups.index', 'Groups');
+		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
+		Crumbs::addRoute('admin.users.groups.index', trans('backend::labels.groups'));
 		Crumbs::addRoute('admin.users.groups.show', $group->name, $group->id);
-		Crumbs::addRoute('admin.users.groups.edit', 'Edit', $group->id);
+		Crumbs::addRoute('admin.users.groups.edit', trans('backend::labels.edit'), $group->id);
 
-		$this->layout->title   = 'Edit Group: ' . $group->name;
+		$this->layout->title   = trans('backend::labels.groupsEditName', ['name' => $group->name]);
 		$this->layout->content = View::make('backend::users.groups.edit', compact('group', 'permissions', 'groupperms'));
 	}
 
@@ -167,6 +175,7 @@ class GroupController extends BaseController {
 	public function update( Group $group )
 	{
 		$validator = Validator::make(Input::all(), $this->rules);
+		$validator->setAttributeNames($this->ruleFields);
 
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
@@ -179,9 +188,9 @@ class GroupController extends BaseController {
 		$group->permissions()->sync(Input::get('permissions'));
 
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.groups.create')->with('success', 'Group has been created.');
+			return Redirect::route('admin.users.groups.create')->with('success', trans('backend::messages.groupUpdated'));
 		else
-			return Redirect::route('admin.users.groups.index')->with('success', 'Group has been updated.');
+			return Redirect::route('admin.users.groups.index')->with('success', trans('backend::messages.groupUpdated'));
 	}
 
 	/**
@@ -205,7 +214,7 @@ class GroupController extends BaseController {
 		// Now delete that group
 		$group->delete();
 
-		return Redirect::route('admin.users.groups.index')->with('success', 'Group has been deleted.');
+		return Redirect::route('admin.users.groups.index')->with('success', trans('backend::messages.groupDeleted'));
 	}
 
 }

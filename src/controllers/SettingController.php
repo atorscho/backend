@@ -3,24 +3,22 @@
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Setting;
 use Atorscho\Backend\Models\SettingsGroup;
+use Crumbs;
 use Redirect;
 use View;
 use Input;
-use Atorscho\Crumbs\Facades\Crumbs;
-
-// todo - translate
 
 class SettingController extends BaseController {
 
 	public function index()
 	{
 		$groups = SettingsGroup::with('settings')->get();
-		$title  = 'Settings';
+		$title  = trans('backend::labels.settings');
 
 		Crumbs::addRoute('admin.settings.index', $title);
 
 		$this->layout->title   = $title;
-		$this->layout->desc    = 'Site configurations and options';
+		$this->layout->desc    = trans('backend::labels.settingsDesc');
 		$this->layout->content = View::make('backend::settings.index', compact('groups'));
 	}
 
@@ -34,7 +32,7 @@ class SettingController extends BaseController {
 		$userGroups = Group::lists('name', 'id');
 		unset( $userGroups[5] );
 
-		Crumbs::addRoute('admin.settings.index', 'Settings');
+		Crumbs::addRoute('admin.settings.index', trans('backend::labels.settings'));
 		Crumbs::addRoute('admin.settings.show', $title, $group->slug);
 
 		$this->layout->title   = $title;
@@ -50,7 +48,7 @@ class SettingController extends BaseController {
 			$setting->save();
 		}
 
-		return Redirect::back()->with('success', 'Updated');
+		return Redirect::back()->with('success', trans('backend::messages.settingsUpdated'));
 	}
 
 }

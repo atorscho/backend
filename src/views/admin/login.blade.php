@@ -1,21 +1,22 @@
-<?php // todo - translate ?>
 @section('content')
 	{{ Form::open(['route' => 'admin.login.post']) }}
 		<div class="form-group">
-			{{ Form::label('username') }} {{ $errors->first('username', '<span class="text-danger">:message</span>') }}
+			{{ Form::label('username', trans('backend::labels.username')) }}
+			{{ $errors->first('username', '<span class="text-danger">:message</span>') }}
 			{{ Form::text('username', null, [
 				'class' => 'form-control',
-				'placeholder' => 'Username',
+				'placeholder' => trans('backend::labels.username'),
 				'autofocus' => 'true',
 				'tabindex' => index()
 			]) }}
 		</div>
 
 		<div class="form-group">
-			{{ Form::label('password') }} {{ $errors->first('password', '<span class="text-danger">:message</span>') }}
+			{{ Form::label('password', trans('backend::labels.password')) }}
+			{{ $errors->first('password', '<span class="text-danger">:message</span>') }}
 			{{ Form::password('password', [
 				'class' => 'form-control',
-				'placeholder' => 'Password',
+				'placeholder' => trans('backend::labels.password'),
 				'tabindex' => index()
 			]) }}
 		</div>
@@ -24,12 +25,12 @@
 			<label>
 				{{ Form::checkbox('remember', 1, null, [
 					'tabindex' => index()
-				]) }} Remember Me
+				]) }} @lang('backend::labels.rememberMe')
 			</label>
 		</div>
 
 		<div class="form-group">
-			{{ Form::submit('Login', ['class' => 'btn btn-block btn-primary', 'tabindex' => index()]) }}
+			{{ Form::submit(trans('backend::labels.login'), ['class' => 'btn btn-block btn-primary', 'tabindex' => index()]) }}
 		</div>
 	{{ Form::close() }}
 @stop

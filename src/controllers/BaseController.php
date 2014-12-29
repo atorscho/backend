@@ -6,8 +6,6 @@ use Controller;
 use View;
 use Atorscho\Backend\Models\Setting;
 
-// todo - translate
-
 class BaseController extends Controller {
 
 	protected $layout = 'backend::layouts.backend';
@@ -16,7 +14,7 @@ class BaseController extends Controller {
 	{
 		$navmenu = [
 			[
-				'title' => 'Dashboard',
+				'title' => trans('backend::labels.dashboard'),
 				'route' => 'admin.index',
 				'group' => '',
 				'perm'  => ''

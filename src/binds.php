@@ -1,7 +1,5 @@
 <?php
 
-// todo - translate
-
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\SettingsGroup;
 use Atorscho\Backend\Models\User;

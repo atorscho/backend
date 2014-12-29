@@ -1,5 +1,3 @@
-<?php // todo - translate ?>
-
 @section('content')
 	<div class="blok">
 		<div class="row">
@@ -13,17 +11,17 @@
                     <thead>
                     <tr>
                         <th class="width-50">#</th>
-                        <th>Name</th>
-                        <th>Handle</th>
-                        <th class="text-center width-80">ID</th>
+                        <th>@lang('backend::labels.name')</th>
+                        <th>@lang('backend::labels.handle')</th>
+                        <th class="text-center width-80">@lang('backend::labels.id')</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Handle</th>
-                        <th class="text-center">ID</th>
+                        <th>@lang('backend::labels.name')</th>
+                        <th>@lang('backend::labels.handle')</th>
+                        <th class="text-center">@lang('backend::labels.id')</th>
                     </tr>
                     </tfoot>
                     <tbody>

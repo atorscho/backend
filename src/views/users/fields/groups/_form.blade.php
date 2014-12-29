@@ -1,27 +1,25 @@
-<?php // todo - translate ?>
-
 <div class="col-md-9">
 	<div class="blok">
 		<header class="title">
-			<h3>Required Information</h3>
+			<h3>@lang('backend::labels.infoRequired')</h3>
 		</header>
 
 		<div class="form-group">
-            {{ Form::label('name') }}
+            {{ Form::label('name', trans('backend::labels.name')) }}
             {{ $errors->first('name', '<span class="text-danger">:message</span>') }}
             {{ Form::text('name', null, [
                 'class' => 'form-control',
-                'placeholder' => 'Name',
+                'placeholder' => trans('backend::labels.name'),
                 'tabindex' => index()
             ]) }}
         </div>
 
         <div class="form-group">
-            {{ Form::label('handle') }}
+            {{ Form::label('handle', trans('backend::labels.handle')) }}
             {{ $errors->first('handle', '<span class="text-danger">:message</span>') }}
             {{ Form::text('handle', null, [
                 'class' => 'form-control handle',
-                'placeholder' => 'Handle',
+                'placeholder' => trans('backend::labels.handle'),
                 'tabindex' => index()
             ]) }}
         </div>
@@ -29,13 +27,13 @@
 </div>
 <div class="col-md-3">
 	<div class="blok">
-		<header class="title"><h3>Misc</h3></header>
+		<header class="title"><h3>@lang('backend::labels.misc')</h3></header>
 
 		<div class="form-group">
-			{{ Form::label('order') }}
+			{{ Form::label('order', trans('backend::labels.order')) }}
 			{{ Form::number('order', null, [
 				'class' => 'form-control',
-				'placeholder' => 'Order',
+				'placeholder' => trans('backend::labels.order'),
 				'min' => 0,
 				'tabindex' => index()
 			]) }}
@@ -44,14 +42,14 @@
 
 	<div class="text-center">
 		<div class="btn-group">
-			{{ Form::button('Save', [
+			{{ Form::button(trans('backend::labels.save'), [
 				'type'     => 'submit',
 				'class'    => 'btn btn-primary',
 				'name'     => 'submit',
 				'value'    => 'save',
 				'tabindex' => index()
 			]) }}
-			{{ Form::button('Save & New', [
+			{{ Form::button(trans('backend::labels.saveNew'), [
 				'type'     => 'submit',
 				'class'    => 'btn btn-primary',
 				'name'     => 'submit',

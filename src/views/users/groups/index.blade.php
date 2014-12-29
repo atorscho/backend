@@ -1,5 +1,3 @@
-<?php // todo - translate ?>
-
 @section('content')
 	<div class="blok">
 		<div class="row">
@@ -8,7 +6,7 @@
                 	@include('backend::partials.users._sidebar')
 
                 	<div class="text-center">
-                		<a class="btn btn-primary" href="{{{ route('admin.users.groups.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> New Group</a>
+                		<a class="btn btn-primary" href="{{{ route('admin.users.groups.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.groupsNew')</a>
                 	</div>
                 </aside>
 			</div>
@@ -17,21 +15,21 @@
                     <thead>
                     <tr>
                         <th class="width-50">#</th>
-                        <th>Name</th>
-                        <th>Handle</th>
-                        <th class="text-center width-100">Members</th>
-                        <th class="text-center width-80">ID</th>
-                        <th class="text-center width-100">Actions</th>
+                        <th>@lang('backend::labels.name')</th>
+                        <th>@lang('backend::labels.handle')</th>
+                        <th class="text-center width-100">@lang('backend::labels.members')</th>
+                        <th class="text-center width-80">@lang('backend::labels.id')</th>
+                        <th class="text-center width-100">@lang('backend::labels.actions')</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Handle</th>
-                        <th class="text-center">Members</th>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Actions</th>
+                        <th>@lang('backend::labels.name')</th>
+                        <th>@lang('backend::labels.handle')</th>
+                        <th class="text-center">@lang('backend::labels.members')</th>
+                        <th class="text-center">@lang('backend::labels.id')</th>
+                        <th class="text-center">@lang('backend::labels.actions')</th>
                     </tr>
                     </tfoot>
                     <tbody>

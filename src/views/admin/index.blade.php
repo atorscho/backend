@@ -3,10 +3,10 @@
 	<div class="row">
 		<div class="col-md-9">
 			<div class="com-boxes">
-				<a class="box tip" href="{{ route('admin.users.index') }}" title="Users and Groups">
+				<a class="box tip" href="{{ route('admin.users.index') }}" title="@lang('backend::labels.usersAndGroups')">
 					<i class="fa fa-fw fa-group"></i>
 				</a>
-				<a class="box tip" href="{{ route('admin.users.fields.groups.index') }}" title="User Fields">
+				<a class="box tip" href="{{ route('admin.users.fields.groups.index') }}" title="@lang('backend::labels.userFields')">
 					<i class="fa fa-fw fa-sliders"></i>
 				</a>
 				<a class="box tip" href="#" title="Forums">
@@ -15,7 +15,7 @@
 				<a class="box tip" href="#" title="Menu Manager">
 					<i class="fa fa-fw fa-navicon"></i>
 				</a>
-				<a class="box tip" href="{{{ route('admin.settings.index') }}}" title="Settings">
+				<a class="box tip" href="{{{ route('admin.settings.index') }}}" title="@lang('backend::labels.settings')">
 					<i class="fa fa-fw fa-cogs"></i>
 				</a>
 				<a class="box tip" href="{{ route('admin.users.index') }}" title="Users and Groups">
@@ -39,21 +39,21 @@
 		<div class="col-md-3">
 			<aside class="blok">
 				<header class="title">
-					<h3>Statistics</h3>
+					<h3>@lang('backend::labels.statistics')</h3>
 				</header>
 				<ul class="list">
 					<?php // todo - stats ?>
-					<li>New Users <span class="badge pull-right">{{ $userCount }}</span></li>
+					<li>@lang('backend::labels.newUsers') <span class="badge pull-right">{{ $userCount }}</span></li>
 					<li>New Posts <span class="badge pull-right">15</span></li>
 					<li>New Tickets <span class="badge pull-right">4</span></li>
 				</ul>
 
 				<header class="title">
-					<h3>Add...</h3>
+					<h3>@lang('backend::labels.add')</h3>
 				</header>
 				<div class="navmenu">
 					<ul>
-						<li>{{ link_to_route('admin.users.create', 'New User') }}</li>
+						<li>{{ link_to_route('admin.users.create', trans('backend::labels.usersNew')) }}</li>
 						<li><a href="#">New Page</a></li>
 						<li><a href="#">New Menu</a></li>
 					</ul>
@@ -68,15 +68,15 @@
 		<div class="col-md-6">
 			<div class="blok">
 				<header class="title">
-					<h3>Notes for Admins</h3>
+					<h3>@lang('backend::labels.adminNotes')</h3>
 				</header>
 
 				<form action="">
 					<div class="form-group">
-						<textarea class="form-control" id="text" name="text" title="Text" style="height:96px"></textarea>
+						<textarea class="form-control" id="text" name="text" title="@lang('backend::labels.text')" style="height:96px"></textarea>
 					</div>
 					<div class="form-group clearfix">
-						<button type="submit" class="btn btn-primary pull-right">Save Notes</button>
+						<button type="submit" class="btn btn-primary pull-right">@lang('backend::labels.adminNotesSave')</button>
 					</div>
 				</form>
 			</div>
@@ -84,7 +84,7 @@
 		<div class="col-md-6">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs nav-justified" role="tablist">
-				<li class="active"><a href="#users" role="tab" data-toggle="tab">Newest Users</a></li>
+				<li class="active"><a href="#users" role="tab" data-toggle="tab">@lang('backend::labels.newestUsers')</a></li>
 				<li><a href="#posts" role="tab" data-toggle="tab">Newest Posts</a></li>
 				<li><a href="#tickets" role="tab" data-toggle="tab">Newest Tickets</a></li>
 			</ul>

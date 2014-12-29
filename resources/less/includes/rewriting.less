@@ -4,6 +4,20 @@
 
 // ----------------------------
 
+// Alerts
+// ===================================
+.alert {
+	.border-radius();
+	background: #fff;
+	box-shadow: @dropShadow7;
+	position: relative;
+
+	&.alert-success { .variants-alert(@brandSuccess); }
+	&.alert-info 	{ .variants-alert(@brandInfo); }
+	&.alert-warning { .variants-alert(@brandWarning); }
+	&.alert-danger 	{ .variants-alert(@brandDanger); }
+}
+
 // Breadcrumb
 // ===================================
 .breadcrumb {
@@ -278,23 +292,45 @@ label {
 
 // Pagination
 // ===================================
+// todo - customize style
 .pagination {
+	.border-radius();
+
 	li {
 		> a, > span {
-
+			border-color: @fadeBlack7;
+			color: @textColor;
 		}
 
 		&.disabled {
 			> span {
+				border-color: @fadeBlack3;
+				color: @fadeBlack7;
 
+				&:hover {
+					background: @fadeBlack3;
+					color: @textColor;
+				}
 			}
 		}
 
 		&.active {
-			> span {
+			> span, > span:hover {
 				background: @brandPrimary;
 				border-color: darken(@brandPrimary, 10%);
-				text-shadow: 0 1px darken(@brandPrimary, 5%);
+				box-shadow: inset 0 1px fade(#fff, 20%);
+				text-shadow: 0 1px darken(@brandPrimary, 7%);
+			}
+		}
+
+		&:first-child {
+			> a, > span {
+				.border-radius-left();
+			}
+		}
+		&:last-child {
+			> a, > span {
+				.border-radius-right();
 			}
 		}
 	}
@@ -348,6 +384,23 @@ small {
 .text-info 	  { color: @brandInfo; }
 .text-warning { color: @brandWarning; }
 .text-danger  { color: @brandDanger; }
+
+// Thumbnails
+// ===================================
+.thumbnail {
+	.border-radius();
+	border-color: @thumbnailBorder;
+	box-shadow:   0 1px 5px fade(#000, 4%);
+	color:        @thumbnailText;
+
+	&:hover {
+		background:   @thumbnailBgHover;
+		border-color: @thumbnailBorderHover !important;
+		box-shadow:   inset 0 1px fade(#fff, 30%), 0 1px 5px fade(#000, 10%);
+		color:        #fff;
+		text-shadow:  0 1px @thumbnailTextShadow;
+	}
+}
 
 // REWRITING PLUGINS
 // ===================================

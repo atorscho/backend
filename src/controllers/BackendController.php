@@ -5,10 +5,9 @@ use Auth;
 use Input;
 use LaravelGettext;
 use Redirect;
+use Session;
 use Validator;
 use View;
-
-// todo - translate
 
 class BackendController extends BaseController {
 
@@ -17,15 +16,15 @@ class BackendController extends BaseController {
 		$users     = User::orderBy('id', 'desc')->take(5)->get();
 		$userCount = User::all()->count();
 
-		$this->layout->title   = 'Backend Dashboard';
-		$this->layout->desc    = 'Admin Control Panel';
+		$this->layout->title   = trans('backend::labels.dashboardHome');
+		$this->layout->desc    = trans('backend::labels.adminCP');
 		$this->layout->content = View::make('backend::admin.index', compact('users', 'userCount'));
 	}
 
 	public function login()
 	{
 		$this->layout          = View::make('backend::layouts.auth');
-		$this->layout->title   = 'Login';
+		$this->layout->title   = trans('backend::labels.login');
 		$this->layout->content = View::make('backend::admin.login');
 	}
 
@@ -41,9 +40,9 @@ class BackendController extends BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 
 		if ( Auth::attempt(Input::only('username', 'password'), (bool) Input::get('remember', false)) )
-			return Redirect::route('admin.index')->with('success', 'Logged in successfully.');
+			return Redirect::route('admin.index')->with('success', trans('backend::messages.loggedIn'));
 		else
-			return Redirect::back()->with('danger', 'Username with such credentials does not exist.');
+			return Redirect::back()->with('danger', trans('backend::messages.userNotFound'));
 	}
 
 	public function logout()
@@ -55,9 +54,9 @@ class BackendController extends BaseController {
 
 	public function lang( $locale = null )
 	{
-		LaravelGettext::setLocale($locale);
+		Session::pull('lang', $locale);
 
-		return Redirect::to('/admin');
+		return Redirect::route('admin.login');
 
 	}
 

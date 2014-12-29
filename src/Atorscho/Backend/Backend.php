@@ -19,7 +19,7 @@ class Backend {
 	public function getExtensions()
 	{
 		// Get all files in Extensions folder.
-		$files   = scandir(__DIR__ . DIRECTORY_SEPARATOR . 'Extensions');
+		$files = scandir(__DIR__ . DIRECTORY_SEPARATOR . 'Extensions');
 
 		$extensions = [ ];
 
@@ -31,7 +31,8 @@ class Backend {
 
 			$value = str_replace('.php', '', $value);
 
-			$extensions[] = $this->extension($value, true);
+			if ( $extension = $this->extension($value, true) )
+				$extensions[] = $extension;
 		}, $files);
 
 		return $this->extensions = $extensions;
@@ -50,7 +51,7 @@ class Backend {
 		$this->extensions[] = $name;
 
 		// Get proper extension class
-		$class = 'Atorscho\Backend\Extensions\\' . ucfirst($name) . ($className ? '' : 'Extension');
+		$class = 'Atorscho\Backend\Extensions\\' . ucfirst($name) . ( $className ? '' : 'Extension' );
 
 		// Create a new instance of extension class
 		$instance = new $class;

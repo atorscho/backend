@@ -7,8 +7,7 @@
 	<meta name="author" content="{{ $settings->owner }}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<?php // todo - translate ?>
-	<title>{{{ $title }}} {{{ $settings->titleSep }}} Backend {{{ $settings->titleSep }}} {{{ $settings->siteName }}}</title>
+	<title>{{{ $title }}} {{{ $settings->titleSep }}} @lang('backend::labels.backend') {{{ $settings->titleSep }}} {{{ $settings->siteName }}}</title>
 
 	<!-- Stylesheets
 	==================================================== -->
@@ -78,7 +77,7 @@
 	<!-- FOOTER -->
 	<footer id="footer">
 		<div class="container">
-			&copy; {{{ $settings->established }}} {{{ $settings->siteName }}} &bull; {{ $settings->copyright }} &bull; Designed and developed by <a href="http://alextorscho.com">Alex Torscho</a>
+			&copy; {{{ $settings->established }}} {{{ $settings->siteName }}} &bull; {{ $settings->copyright }} &bull; @lang('backend::messages.copyright')
 		</div>
 	</footer>
 	<!-- / FOOTER -->

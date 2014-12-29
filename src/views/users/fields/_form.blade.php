@@ -1,13 +1,11 @@
-<?php // todo - translate ?>
-
 <div class="col-md-9">
 	<div class="blok">
 		<header class="title">
-			<h3>Required Information</h3>
+			<h3>@lang('backend::labels.infoRequired')</h3>
 		</header>
 
 		<div class="form-group">
-			{{ Form::label('group_id', 'Field Group') }}
+			{{ Form::label('group_id', trans('backend::labels.userFieldGroup')) }}
 			{{ $errors->first('group_id', '<span class="text-danger">:message</span>') }}
 			{{ Form::select('group_id', $fieldGroups, Input::get('group', null), [
 				'class' => 'select',
@@ -16,7 +14,7 @@
 		</div>
 
 		<div class="form-group">
-			{{ Form::label('type') }}
+			{{ Form::label('type', trans('backend::labels.type')) }}
 			{{ $errors->first('type', '<span class="text-danger">:message</span>') }}
 			{{ Form::select('type', $types, null, [
 				'class' => 'select',
@@ -25,67 +23,67 @@
 		</div>
 
 		<div class="form-group">
-            {{ Form::label('name') }}
+            {{ Form::label('name', trans('backend::labels.name')) }}
             {{ $errors->first('name', '<span class="text-danger">:message</span>') }}
             {{ Form::text('name', null, [
                 'class' => 'form-control',
-                'placeholder' => 'Name',
+                'placeholder' => trans('backend::labels.name'),
                 'tabindex' => index()
             ]) }}
         </div>
 
         <div class="form-group">
-            {{ Form::label('handle') }}
+            {{ Form::label('handle', trans('backend::labels.handle')) }}
             {{ $errors->first('handle', '<span class="text-danger">:message</span>') }}
             {{ Form::text('handle', null, [
                 'class' => 'form-control handle',
-                'placeholder' => 'Handle',
+                'placeholder' => trans('backend::labels.handle'),
                 'tabindex' => index()
             ]) }}
         </div>
 
         <header class="title">
-        	<h3>Options</h3>
+        	<h3>@lang('backend::labels.options')</h3>
         </header>
 
         <div class="form-group">
-        	{{ Form::label('description') }}
+        	{{ Form::label('description', trans('backend::labels.description')) }}
         	{{ $errors->first('description', '<span class="text-danger">:message</span>') }}
         	{{ Form::textarea('description', null, [
         		'class' => 'form-control',
-        		'placeholder' => 'Description',
+        		'placeholder' => trans('backend::labels.description'),
         		'maxlength' => 255,
         		'rows' => 3,
         		'tabindex' => index()
         	]) }}
-        	<span class="help-block">Characters left: <span data-chars="description"><span class="text-success">255</span></span>.</span>
+        	<span class="help-block">@lang('backend::labels.charsLeft') <span data-chars="description"><span class="text-success">255</span></span>.</span>
         </div>
 
         <div class="form-group">
 			<div>
-				{{ Form::label('required') }}
+				{{ Form::label('required', trans('backend::labels.required')) }}
 				{{ $errors->first('required', '<span class="text-danger">:message</span>') }}
 			</div>
         	{{ Form::checkbox('required', 1, null, [
         		'class' => 'switch',
-        		'placeholder' => 'Required',
+        		'placeholder' => trans('backend::labels.required'),
         		'tabindex' => index()
         	]) }}
-        	<span class="help-block">Whether the current custom field is required or not.</span>
+        	<span class="help-block">@lang('backend::messages.userFieldRequiredDesc')</span>
         </div>
 	</div>
 </div>
 
 <div class="col-md-3">
 	<div class="blok">
-		<header class="title"><h3>Misc</h3></header>
+		<header class="title"><h3>@lang('backend::labels.misc')</h3></header>
 
 		<div class="form-group">
-			{{ Form::label('order') }}
+			{{ Form::label('order', trans('backend::labels.order')) }}
 			{{ $errors->first('order', '<span class="text-danger">:message</span>') }}
 			{{ Form::number('order', null, [
 				'class' => 'form-control',
-				'placeholder' => 'Order',
+				'placeholder' => trans('backend::labels.order'),
 				'min' => 0,
 				'tabindex' => index()
 			]) }}
@@ -94,14 +92,14 @@
 
 	<div class="text-center">
 		<div class="btn-group">
-			{{ Form::button('Save', [
+			{{ Form::button(trans('backend::labels.save'), [
 				'type'     => 'submit',
 				'class'    => 'btn btn-primary',
 				'name'     => 'submit',
 				'value'    => 'save',
 				'tabindex' => index()
 			]) }}
-			{{ Form::button('Save & New', [
+			{{ Form::button(trans('backend::labels.saveNew'), [
 				'type'     => 'submit',
 				'class'    => 'btn btn-primary',
 				'name'     => 'submit',
