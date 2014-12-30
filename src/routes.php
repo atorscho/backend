@@ -37,6 +37,14 @@ Route::group([
 		'uses' => 'BackendController@lang'
 	]);
 
+	Route::get('test', function ()
+	{
+		\Flash::success('Text');
+
+		return Redirect::route('admin.index');
+	});
+
+
 	// Settings
 	// ===================================
 	Route::get('settings', [

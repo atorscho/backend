@@ -2,6 +2,7 @@
 
 use Atorscho\Backend\Models\User;
 use Auth;
+use Flash;
 use Input;
 use LaravelGettext;
 use Redirect;
@@ -13,6 +14,8 @@ class BackendController extends BaseController {
 
 	public function index()
 	{
+		\Flash::success('loggedIn');
+
 		$users     = User::orderBy('id', 'desc')->take(5)->get();
 		$userCount = User::all()->count();
 
@@ -24,6 +27,7 @@ class BackendController extends BaseController {
 	public function login()
 	{
 		$this->layout          = View::make('backend::layouts.auth');
+
 		$this->layout->title   = trans('backend::labels.login');
 		$this->layout->content = View::make('backend::admin.login');
 	}
@@ -40,21 +44,32 @@ class BackendController extends BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 
 		if ( Auth::attempt(Input::only('username', 'password'), (bool) Input::get('remember', false)) )
-			return Redirect::route('admin.index')->with('success', trans('backend::messages.loggedIn'));
+		{
+			Flash::success('loggedIn');
+
+			return Redirect::route('admin.index');
+		}
 		else
-			return Redirect::back()->with('danger', trans('backend::messages.userNotFound'));
+		{
+			Flash::danger('userNotFound');
+
+			return Redirect::back()->withInput();
+		}
 	}
 
 	public function logout()
 	{
 		Auth::logout();
 
+		// todo - bug with flash messages
+		Flash::success('loggedOut');
+
 		return Redirect::route('admin.login');
 	}
 
 	public function lang( $locale = null )
 	{
-		Session::pull('lang', $locale);
+		Session::put('lang', $locale);
 
 		return Redirect::route('admin.login');
 

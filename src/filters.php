@@ -11,8 +11,14 @@
 Route::filter('admin.auth', function ()
 {
 	if ( !strpos(Route::currentRouteName(), 'login') )
+	{
 		if ( Auth::guest() )
-			return Redirect::route('admin.login')->with('warning', trans('backend::messages.loginRequired'));
+		{
+			Flash::warning('loginRequired');
+
+			return Redirect::route('admin.login');
+		}
+	}
 });
 
 /*
@@ -25,8 +31,14 @@ Route::filter('admin.auth', function ()
 */
 Route::filter('admin.group', function($route, $request, $group) {
 	if ( !in_array(Route::currentRouteName(), ['admin.login', 'admin.login.post', 'admin.logout']) && Auth::check() )
+	{
 		if ( !Auth::user()->in($group) )
-			return Redirect::to('/')->with('danger', trans('backend::messages.noPageAccess'));
+		{
+			Flash::danger('noPageAccess');
+
+			return Redirect::to('/');
+		}
+	}
 });
 
 /*
@@ -39,6 +51,12 @@ Route::filter('admin.group', function($route, $request, $group) {
 */
 Route::filter('admin.perm', function($route, $request, $perm) {
 	if ( !in_array(Route::currentRouteName(), ['admin.login', 'admin.login.post', 'admin.logout']) && Auth::check() )
+	{
 		if ( !Auth::user()->can($perm) )
-			return Redirect::route('admin.index')->with('danger', trans('backend::messages.noPageAccess'));
+		{
+			Flash::danger('noPageAccess');
+
+			return Redirect::route('admin.index');
+		}
+	}
 });

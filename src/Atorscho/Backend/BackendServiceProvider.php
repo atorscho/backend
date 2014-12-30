@@ -81,6 +81,12 @@ class BackendServiceProvider extends ServiceProvider {
 		{
 			return new Backend;
 		});
+
+		// Helper Facade
+		$this->app->bind('flash', function ()
+		{
+			return $this->app->make('Atorscho\Backend\Helpers\FlashHelper');
+		});
 	}
 
 	/**
@@ -94,6 +100,12 @@ class BackendServiceProvider extends ServiceProvider {
 		{
 			$loader = AliasLoader::getInstance();
 			$loader->alias('Backend', 'Atorscho\Backend\Facades\Backend');
+		});
+
+		$this->app->booting(function ()
+		{
+			$loader = AliasLoader::getInstance();
+			$loader->alias('Flash', 'Atorscho\Backend\Facades\Flash');
 		});
 	}
 

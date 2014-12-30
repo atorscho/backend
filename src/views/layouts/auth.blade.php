@@ -26,7 +26,7 @@
 			<h1>{{{ $title }}}</h1>
 		</div>
 
-		{{ flash() }}
+		{{ Flash::message() }}
 
 		<div class="content">
 			@yield('content')

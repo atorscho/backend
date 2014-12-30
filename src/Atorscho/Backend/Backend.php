@@ -1,7 +1,5 @@
 <?php namespace Atorscho\Backend;
 
-// todo - translate
-
 class Backend {
 
 	/**
