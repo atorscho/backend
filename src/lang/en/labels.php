@@ -11,6 +11,7 @@ return [
 	'birthday'                => 'Birthday',
 	'charsLeft'               => 'Characters left:',
 	'checkBox'                => 'Checkbox',
+	'close'                   => 'Close',
 	'dashboard'               => 'Dashboard',
 	'dashboardHome'           => 'Backend Dashboard',
 	'deactivate'              => 'Deactivate',
@@ -37,6 +38,8 @@ return [
 	'id'                      => 'ID',
 	'infoAdditional'          => 'Additional Information',
 	'infoRequired'            => 'Required Information',
+	'input'                   => 'Input',
+	'inputText'               => 'Text Field',
 	'lastName'                => 'Last Name',
 	'login'                   => 'Login',
 	'logout'                  => 'Logout',
@@ -47,6 +50,7 @@ return [
 	'name'                    => 'Name',
 	'newestUsers'             => 'Newest Users',
 	'newUsers'                => 'New Users',
+	'no'                      => 'No',
 	'options'                 => 'Options',
 	'order'                   => 'Order',
 	'password'                => 'Password',
@@ -98,10 +102,7 @@ return [
 	'usersName'               => 'User Profile: :name',
 	'usersNew'                => 'New User',
 	'viewUserProfile'         => "View User's Profile",
-	'close'                   => 'Close',
 	'yes'                     => 'Yes',
-	'no'                      => 'No',
-	'input'                   => 'Input',
-	'inputText'               => 'Text Field',
+	'contentTypes' => 'Content Types'
 
 ];

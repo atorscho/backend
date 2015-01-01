@@ -68,7 +68,7 @@ class BackendController extends BaseController {
 	{
 		Session::put('lang', $locale);
 
-		Flash::success('langSwitched');
+		Flash::success('langSwitched', ['lang' => trans("backend::locales.$locale")]);
 
 		return Redirect::route('admin.login');
 

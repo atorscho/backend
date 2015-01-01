@@ -32,18 +32,10 @@ Route::group([
 		'as'   => 'admin.logout',
 		'uses' => 'BackendController@logout'
 	]);
-	Route::get('lang/{locale}', [
+	Route::put('lang/{locale}', [
 		'as'   => 'admin.lang',
 		'uses' => 'BackendController@lang'
 	]);
-
-	Route::get('test', function ()
-	{
-		\Flash::success('Text');
-
-		return Redirect::route('admin.index');
-	});
-
 
 	// Settings
 	// ===================================
@@ -67,6 +59,10 @@ Route::group([
 	Route::resource('users/groups', 'GroupController');
 	Route::resource('users/permissions', 'PermissionController', [ 'only' => 'index' ]);
 	Route::resource('users', 'UserController');
+
+	// Content Types
+	// ===================================
+	Route::resource('content/types', 'ContentTypeController');
 
 	// Ecommerce
 	// ===================================

@@ -7,6 +7,7 @@ return [
 	'groupDeleted'          => 'Group has been deleted.',
 	'groupsPrefixesDesc'    => 'HTML wrappers of the group name. Opening and closing tags.',
 	'groupUpdated'          => 'Group has been updated.',
+	'langSwitched'          => 'Language has been switched to :lang',
 	'loggedIn'              => 'You have successfully logged in.',
 	'loggedOut'             => 'You have successfully logged out of the system.',
 	'loginRequired'         => 'You must be authenticated to access this page.',
@@ -26,6 +27,5 @@ return [
 	'userFieldUpdated'      => 'Custom user field has been updated.',
 	'userNotFound'          => 'Username with such credentials does not exist.',
 	'userUpdated'           => 'User has been updated.',
-	'langSwitched'          => 'Language has been switched to :lang'
 
 ];
