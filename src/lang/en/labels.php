@@ -98,8 +98,10 @@ return [
 	'usersName'               => 'User Profile: :name',
 	'usersNew'                => 'New User',
 	'viewUserProfile'         => "View User's Profile",
-	'close' => 'Close',
-	'yes' => 'Yes',
-	'no' => 'No',
+	'close'                   => 'Close',
+	'yes'                     => 'Yes',
+	'no'                      => 'No',
+	'input'                   => 'Input',
+	'inputText'               => 'Text Field',
 
 ];

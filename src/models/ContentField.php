@@ -4,14 +4,12 @@ use Atorscho\Backend\Traits\HandleAttributeTrait;
 use Atorscho\Backend\Traits\OrderAttributeTrait;
 use Atorscho\Backend\Traits\TypeNameAttributeTrait;
 
-// todo - add select support
-
-class UserField extends BaseModel {
+class ContentField extends BaseModel {
 
 	use HandleAttributeTrait, OrderAttributeTrait, TypeNameAttributeTrait;
 
 	protected $fillable = [
-		'group_id',
+		'content_type_id',
 		'type',
 		'name',
 		'handle',
@@ -29,23 +27,13 @@ class UserField extends BaseModel {
 	public $timestamps = false;
 
 	/**
-	 * Return the User Field Group the field belongs to.
+	 * Return the Content Type the field belongs to.
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function group()
+	public function type()
 	{
-		return $this->belongsTo('Atorscho\Backend\Models\UserFieldGroup');
-	}
-
-	/**
-	 * Return users that have filled up current field.
-	 *
-	 * @return $this
-	 */
-	public function users()
-	{
-		return $this->belongsToMany('Atorscho\Backend\Models\User', 'user_fields_pivot', 'field_id', 'user_id')->withPivot('value');
+		return $this->belongsTo('Atorscho\Backend\Models\ContentType');
 	}
 
 }
