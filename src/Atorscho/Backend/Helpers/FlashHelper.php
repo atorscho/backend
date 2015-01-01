@@ -2,7 +2,6 @@
 
 use Illuminate\Session\Store;
 use Lang;
-use Session;
 use View;
 
 /**
@@ -30,40 +29,44 @@ class FlashHelper {
 	 * Success Flash Message.
 	 *
 	 * @param string $text
+	 * @param array  $parameters
 	 */
-	public function success( $text )
+	public function success( $text, $parameters = array() )
 	{
-		$this->flash($text, 'success', 'check');
+		$this->flash($text, 'success', 'check', $parameters);
 	}
 
 	/**
 	 * Information Flash Message.
 	 *
 	 * @param string $text
+	 * @param array  $parameters
 	 */
-	public function info( $text )
+	public function info( $text, $parameters = array() )
 	{
-		$this->flash($text, 'info', 'info');
+		$this->flash($text, 'info', 'info', $parameters);
 	}
 
 	/**
 	 * Warning Flash Message.
 	 *
 	 * @param string $text
+	 * @param array  $parameters
 	 */
-	public function warning( $text )
+	public function warning( $text, $parameters = array() )
 	{
-		$this->flash($text, 'warning', 'warning');
+		$this->flash($text, 'warning', 'warning', $parameters);
 	}
 
 	/**
 	 * Danger Flash Message.
 	 *
 	 * @param string $text
+	 * @param array  $parameters
 	 */
-	public function danger( $text )
+	public function danger( $text, $parameters = array() )
 	{
-		$this->flash($text, 'danger', 'times-circle');
+		$this->flash($text, 'danger', 'times-circle', $parameters);
 	}
 
 	/**
@@ -85,14 +88,15 @@ class FlashHelper {
 	/**
 	 * Flash base.
 	 *
-	 * @param $text
-	 * @param $type
-	 * @param $icon
+	 * @param       $text
+	 * @param       $type
+	 * @param       $icon
+	 * @param array $parameters
 	 */
-	private function flash( $text, $type, $icon )
+	private function flash( $text, $type, $icon, $parameters = array() )
 	{
 		if ( Lang::has("backend::messages.{$text}") )
-			$text = trans("backend::messages.{$text}");
+			$text = trans("backend::messages.{$text}", $parameters);
 
 		$this->session->flash('alert.type', $type);
 		$this->session->flash('alert.icon', $icon);

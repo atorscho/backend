@@ -59,7 +59,6 @@ class BackendController extends BaseController {
 	{
 		Auth::logout();
 
-		// todo - bug with flash messages
 		Flash::success('loggedOut');
 
 		return Redirect::route('admin.login');
@@ -68,6 +67,8 @@ class BackendController extends BaseController {
 	public function lang( $locale = null )
 	{
 		Session::put('lang', $locale);
+
+		Flash::success('langSwitched');
 
 		return Redirect::route('admin.login');
 

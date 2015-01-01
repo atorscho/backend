@@ -26,5 +26,6 @@ return [
 	'userFieldUpdated'      => 'Custom user field has been updated.',
 	'userNotFound'          => 'Username with such credentials does not exist.',
 	'userUpdated'           => 'User has been updated.',
+	'langSwitched'          => 'Language has been switched to :lang'
 
 ];
