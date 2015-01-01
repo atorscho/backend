@@ -1,12 +1,13 @@
 <?php namespace Atorscho\Backend\Models;
 
+use Atorscho\Backend\Traits\HandleAttributeTrait;
 use Atorscho\Backend\Traits\OrderAttributeTrait;
 
 // todo - add select support
 
 class UserField extends BaseModel {
 
-	use OrderAttributeTrait;
+	use HandleAttributeTrait, OrderAttributeTrait;
 
 	protected $fillable = [
 		'group_id',
@@ -36,7 +37,6 @@ class UserField extends BaseModel {
 		return $this->belongsTo('Atorscho\Backend\Models\UserFieldGroup');
 	}
 
-
 	/**
 	 * Return users that have filled up current field.
 	 *
@@ -46,7 +46,6 @@ class UserField extends BaseModel {
 	{
 		return $this->belongsToMany('Atorscho\Backend\Models\User', 'user_fields_pivot', 'field_id', 'user_id')->withPivot('value');
 	}
-
 
 	// todo - translate
 	/**

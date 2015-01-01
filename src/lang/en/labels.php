@@ -99,5 +99,7 @@ return [
 	'usersNew'                => 'New User',
 	'viewUserProfile'         => "View User's Profile",
 	'close' => 'Close',
+	'yes' => 'Yes',
+	'no' => 'No',
 
 ];

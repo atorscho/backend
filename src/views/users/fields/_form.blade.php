@@ -64,11 +64,16 @@
 				{{ Form::label('required', trans('backend::labels.required')) }}
 				{{ $errors->first('required', '<span class="text-danger">:message</span>') }}
 			</div>
-        	{{ Form::checkbox('required', 1, null, [
-        		'class' => 'switch',
-        		'placeholder' => trans('backend::labels.required'),
-        		'tabindex' => index()
-        	]) }}
+        	<div>
+				<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default {{ (isset($field) && $field->required) ? 'active' : '' }}">
+						{{ Form::radio('required', 1, null) }} @lang('backend::labels.yes')
+					</label>
+					<label class="btn btn-default {{ (isset($field) && !$field->required) ? 'active' : '' }}">
+						{{ Form::radio('required', 0, true) }} @lang('backend::labels.no')
+					</label>
+				</div>
+			</div>
         	<span class="help-block">@lang('backend::messages.userFieldRequiredDesc')</span>
         </div>
 	</div>

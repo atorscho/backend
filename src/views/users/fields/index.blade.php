@@ -32,7 +32,7 @@
 							@foreach($fields as $field)
 								<tr>
 									<td>{{ index() }}</td>
-									<td data-href="{{ route('admin.users.fields.groups.show', $field->id) }}">{{ $field->name }}</td>
+									<td data-href="{{ route('admin.users.fields.edit', $field->id) }}">{{ $field->name }}</td>
 									<td class="handle">{{ $field->handle }}</td>
 									<td class="text-center">{{ $field->id }}</td>
 									<td class="text-center">

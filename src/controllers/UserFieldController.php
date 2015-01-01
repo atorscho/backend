@@ -16,7 +16,7 @@ class UserFieldController extends BaseController {
 		'group_id'    => 'required|integer',
 		'type'        => 'required',
 		'name'        => 'required|max:40',
-		'handle'      => 'max:40|unique:fields',
+		'handle'      => 'max:40|unique:user_fields',
 		'description' => 'max:255',
 		'required'    => 'boolean',
 		'min'         => 'integer',
@@ -137,9 +137,10 @@ class UserFieldController extends BaseController {
 
 		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
 		Crumbs::addRoute('admin.users.fields.index', trans('backend::labels.userFields'));
-		Crumbs::addRoute('admin.users.fields.create', $title);
+		Crumbs::add('#', $field->name, $field->id);
+		Crumbs::addRoute('admin.users.fields.edit', trans('backend::labels.edit'), $field->id);
 
-		$this->layout->title   = $title;
+		$this->layout->title   = trans('backend::labels.userFieldsEditName', ['name' => $field->name]);
 		$this->layout->content = View::make('backend::users.fields.edit', compact('field', 'fieldGroups', 'types'));
 	}
 

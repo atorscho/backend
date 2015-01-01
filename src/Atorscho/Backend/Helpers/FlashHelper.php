@@ -124,7 +124,6 @@ class FlashHelper {
 		}
 
 		$this->session->flash($type, $message);
-
 	}
 
 }

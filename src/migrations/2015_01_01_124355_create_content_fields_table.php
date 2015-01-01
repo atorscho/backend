@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUserFieldsTable extends Migration {
+class CreateContentFieldsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,10 @@ class CreateUserFieldsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_fields', function(Blueprint $table)
+		Schema::create('content_fields', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('group_id')->unsigned();
+			$table->integer('type_id')->unsigned();
 			$table->enum('type', ['text', 'email', 'url', 'radio', 'checkbox', 'textarea']);
 			$table->string('name');
 			$table->string('handle')->unique();
@@ -29,18 +29,19 @@ class CreateUserFieldsTable extends Migration {
 			$table->integer('rows')->unsigned()->nullable();
 			$table->string('pattern')->nullable();
 			$table->integer('order')->unsigned();
+			$table->timestamps();
 
-			$table->foreign('group_id')->references('id')->on('user_field_groups')->onDelete('cascade');
+			$table->foreign('type_id')->references('id')->on('content_types')->onDelete('cascade');
 		});
 
-		Schema::create('user_fields_pivot', function ( Blueprint $table )
+		Schema::create('content_fields_pivot', function ( Blueprint $table )
 		{
+			$table->integer('type_id')->unsigned();
 			$table->integer('field_id')->unsigned();
-			$table->integer('user_id')->unsigned();
 			$table->text('value')->nullable();
 
-			$table->foreign('field_id')->references('id')->on('user_fields')->onDelete('cascade');
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('type_id')->references('id')->on('content_types')->onDelete('cascade');
+			$table->foreign('field_id')->references('id')->on('content_fields')->onDelete('cascade');
 		});
 	}
 
@@ -52,8 +53,8 @@ class CreateUserFieldsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('user_fields_pivot');
-		Schema::drop('user_fields');
+		Schema::drop('content_fields_pivot');
+		Schema::drop('content_fields');
 	}
 
 }
