@@ -29,7 +29,7 @@ class Backend {
 
 			$value = str_replace('.php', '', $value);
 
-			if ( $extension = $this->extension($value, true) )
+			if ( $extension = $this->addExtension($value, true) )
 				$extensions[] = $extension;
 		}, $files);
 
@@ -44,7 +44,7 @@ class Backend {
 	 *
 	 * @return bool|object
 	 */
-	public function extension( $name, $className = false )
+	public function addExtension( $name, $className = false )
 	{
 		$this->extensions[] = $name;
 
@@ -59,6 +59,28 @@ class Backend {
 			return false;
 
 		return $instance;
+	}
+
+	/**
+	 * Get specified extension from the `extensions` property.
+	 *
+	 * @param $name
+	 *
+	 * @return bool
+	 */
+	public function getExtension( $name )
+	{
+		$class = 'Atorscho\Backend\Extensions\\' . ucfirst($name) . 'Extension';
+
+		foreach ( $this->extensions as $extension )
+		{
+			if ( $extension instanceof $class )
+			{
+				return $extension;
+			}
+		}
+
+		return false;
 	}
 
 }

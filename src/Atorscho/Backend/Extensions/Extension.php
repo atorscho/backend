@@ -9,14 +9,14 @@ class Extension {
 	 *
 	 * @var bool True to enable the extension, false to disable.
 	 */
-	public $enabled = false;
+	protected $enabled = false;
 
 	/**
 	 * Extension's public name.
 	 *
 	 * @var string
 	 */
-	public $name = '';
+	protected $name = '';
 
 	/**
 	 * Service Provider of the extension.
@@ -25,21 +25,21 @@ class Extension {
 	 *
 	 * @var string|null
 	 */
-	public $service = null;
+	protected $service = null;
 
 	/**
 	 * URI to extension's home page.
 	 *
 	 * @var string
 	 */
-	public $uri = '';
+	protected $uri = '';
 
 	/**
 	 * If needed you may also specify route name for extension's home page.
 	 *
 	 * @var string
 	 */
-	public $route = '';
+	protected $route = '';
 
 	/**
 	 * Any Font-Awesome icon to represent the extension.
@@ -48,14 +48,14 @@ class Extension {
 	 *
 	 * @var string
 	 */
-	public $icon = '';
+	protected $icon = '';
 
 	/**
-	 * Extension's settings group slug.
+	 * Extension's settings group slug in DB.
 	 *
 	 * @var string
 	 */
-	public $settings = '';
+	protected $settings = '';
 
 	/**
 	 * Return array of fields as JSON when casting the class to a string.
@@ -75,6 +75,35 @@ class Extension {
 		];
 
 		return json_encode($fields);
+	}
+
+	/**
+	 * Let only get values from properties.
+	 *
+	 * @param $name
+	 *
+	 * @return bool|string
+	 */
+	public function __get( $name )
+	{
+		if ( in_array($name, array_keys(get_class_vars(__CLASS__))) )
+		{
+			return $this->$name;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Only set `enabled` attribute to TRUE or FALSE.
+	 *
+	 * @param boolean $enabled
+	 *
+	 * @return $this
+	 */
+	public function setEnabled( $enabled )
+	{
+		$this->enabled = $enabled;
 	}
 
 }

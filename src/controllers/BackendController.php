@@ -14,8 +14,6 @@ class BackendController extends BaseController {
 
 	public function index()
 	{
-		\Flash::success('loggedIn');
-
 		$users     = User::orderBy('id', 'desc')->take(5)->get();
 		$userCount = User::all()->count();
 

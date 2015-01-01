@@ -2,18 +2,18 @@
 
 class EcommerceExtension extends Extension {
 
-	public $enabled = true;
+	protected $enabled = true;
 
-	public $name = 'Ecommerce';
+	protected $name = 'Ecommerce';
 
-	public $service = 'Amroll\Ecommerce\EcommerceServiceProvider';
+	protected $service = 'Amroll\Ecommerce\EcommerceServiceProvider';
 
-	public $uri = 'ecommerce';
+	protected $uri = 'ecommerce';
 
-	public $route = 'ecommerce.index';
+	protected $route = 'ecommerce.index';
 
-	public $icon = 'shopping-cart';
+	protected $icon = 'shopping-cart';
 
-	public $settings = 'ecommerce';
+	protected $settings = 'ecommerce';
 
 }

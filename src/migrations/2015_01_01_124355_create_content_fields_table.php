@@ -34,7 +34,7 @@ class CreateContentFieldsTable extends Migration {
 			$table->foreign('content_type_id')->references('id')->on('content_types')->onDelete('cascade');
 		});
 
-		Schema::create('content_fields_pivot', function ( Blueprint $table )
+		Schema::create('contents', function ( Blueprint $table )
 		{
 			$table->integer('content_type_id')->unsigned();
 			$table->integer('field_id')->unsigned();
@@ -53,7 +53,7 @@ class CreateContentFieldsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('content_fields_pivot');
+		Schema::drop('contents');
 		Schema::drop('content_fields');
 	}
 
