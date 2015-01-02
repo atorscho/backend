@@ -3,6 +3,19 @@
 trait HandleAttributeTrait {
 
 	/**
+	 * Find a record by its handle.
+	 *
+	 * @param $query
+	 * @param $handle
+	 *
+	 * @return mixed
+	 */
+	public function scopeFindHandle( $query, $handle )
+	{
+		return $query->where('handle', $handle)->first();
+	}
+
+	/**
 	 * If handle has not been specified,
 	 * use name to create it.
 	 * Otherwise use the specified one.

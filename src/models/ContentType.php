@@ -13,14 +13,9 @@ class ContentType extends BaseModel {
 
 	public $timestamps = false;
 
-	/**
-	 * Get the values of the content's fields.
-	 *
-	 * @return $this
-	 */
 	public function contents()
 	{
-		return $this->belongsToMany('Atorscho\Backend\Models\ContentField', 'contents', 'type_id', 'field_id')->withPivot('value');
+		return $this->hasMany('Atorscho\Backend\Models\Content', 'type_id');
 	}
 
 	/**

@@ -9,7 +9,7 @@ class ContentField extends BaseModel {
 	use HandleAttributeTrait, OrderAttributeTrait, TypeNameAttributeTrait;
 
 	protected $fillable = [
-		'content_type_id',
+		'type_id',
 		'type',
 		'name',
 		'handle',
@@ -31,9 +31,22 @@ class ContentField extends BaseModel {
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function type()
+	public function contentType()
 	{
 		return $this->belongsTo('Atorscho\Backend\Models\ContentType');
+	}
+
+	/**
+	 * If placeholder is not set, use the title to fill it.
+	 *
+	 * @param $value
+	 */
+	public function setPlaceholderAttribute( $value )
+	{
+		if ( $value )
+			$this->attributes['placeholder'] = $value;
+		else
+			$this->attributes['placeholder'] = $this->name;
 	}
 
 }

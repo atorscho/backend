@@ -15,7 +15,7 @@ class CreateContentFieldsTable extends Migration {
 		Schema::create('content_fields', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('content_type_id')->unsigned();
+			$table->integer('type_id')->unsigned();
 			$table->enum('type', ['text', 'email', 'url', 'radio', 'checkbox', 'textarea']);
 			$table->string('name');
 			$table->string('handle')->unique();
@@ -31,17 +31,7 @@ class CreateContentFieldsTable extends Migration {
 			$table->integer('order')->unsigned();
 			$table->timestamps();
 
-			$table->foreign('content_type_id')->references('id')->on('content_types')->onDelete('cascade');
-		});
-
-		Schema::create('contents', function ( Blueprint $table )
-		{
-			$table->integer('content_type_id')->unsigned();
-			$table->integer('field_id')->unsigned();
-			$table->text('value')->nullable();
-
-			$table->foreign('content_type_id')->references('id')->on('content_types')->onDelete('cascade');
-			$table->foreign('field_id')->references('id')->on('content_fields')->onDelete('cascade');
+			$table->foreign('type_id')->references('id')->on('content_types')->onDelete('cascade');
 		});
 	}
 
@@ -53,7 +43,6 @@ class CreateContentFieldsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('contents');
 		Schema::drop('content_fields');
 	}
 

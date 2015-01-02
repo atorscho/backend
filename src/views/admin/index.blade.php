@@ -9,7 +9,7 @@
 				<a class="box tip" href="{{ route('admin.users.fields.groups.index') }}" title="@lang('backend::labels.userFields')">
 					<i class="fa fa-fw fa-sliders"></i>
 				</a>
-				<a class="box tip" href="{{ route('admin.content.types') }}" title="@lang('backend::labels.contentTypes')">
+				<a class="box tip" href="{{ route('admin.content.types.index') }}" title="@lang('backend::labels.contentTypes')">
 					<i class="fa fa-fw fa-cube"></i>
 				</a>
 				<a class="box tip" href="#" title="Menu Manager">

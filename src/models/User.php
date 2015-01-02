@@ -41,7 +41,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		'remember_token'
 	];
 
-	/**
+	/*
 	 * Touch parent timestamp on fields update.
 	 *
 	 * @var array
@@ -49,6 +49,13 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	// todo - maybe needed to be removed
 //	protected $touches = ['fields'];
 
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function contents()
+	{
+		return $this->hasMany('Atorscho\Backend\Models\Content', 'created_by');
+	}
 
 	/**
 	 * Return user's groups.
@@ -59,7 +66,6 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	{
 		return $this->belongsToMany('Atorscho\Backend\Models\Group');
 	}
-
 
 	/**
 	 * Return user's permissions that he gets from groups and
@@ -72,7 +78,6 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		return $this->belongsToMany('Atorscho\Backend\Models\Permission');
 	}
 
-
 	/**
 	 * Return custom fields including their value.
 	 *
@@ -82,7 +87,6 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	{
 		return $this->belongsToMany('Atorscho\Backend\Models\UserField', 'user_fields_pivot', 'user_id', 'field_id')->withPivot('value');
 	}
-
 
 	/**
 	 * Return user's full name.
@@ -101,7 +105,6 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 			return false;
 	}
 
-
 	// todo - primary group
 	/**
 	 * Format username according to its group prefix and suffix styles.
@@ -116,7 +119,6 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		return $prefix . $this->username . $suffix;
 	}
 
-
 	/**
 	 * Automatically hash user password.
 	 *
@@ -127,7 +129,6 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		$this->attributes['password'] = \Hash::make($value);
 	}
 
-
 	/**
 	 * Ensure that the saved format is SQL Date.
 	 *
@@ -135,12 +136,11 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	 */
 	public function setBirthdayAttribute( $value )
 	{
-		if  ( $value )
+		if ( $value )
 			$this->attributes['birthday'] = date('Y-m-d', strtotime($value));
 		else
 			$this->attributes['birthday'] = null;
 	}
-
 
 	/**
 	 * Ensure that the saved format is SQL Datetime.
@@ -151,7 +151,6 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	{
 		$this->attributes['created_at'] = date('Y-m-d H:i:s', $value ? strtotime($value) : time());
 	}
-
 
 	/**
 	 * The same as $user->groups->implode('name', ', '),
@@ -168,7 +167,6 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 
 		return implode(', ', $list);
 	}
-
 
 	/**
 	 * Check whether user has specific permission.
@@ -206,7 +204,6 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		return false;
 	}
 
-
 	/**
 	 * Chech whether user is in specified group.
 	 * You may specify group handle or an array of group handles.
@@ -228,18 +225,15 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		return false;
 	}
 
-
 	public function getRememberToken()
 	{
 		return $this->remember_token;
 	}
 
-
 	public function setRememberToken( $value )
 	{
 		$this->remember_token = $value;
 	}
-
 
 	public function getRememberTokenName()
 	{
