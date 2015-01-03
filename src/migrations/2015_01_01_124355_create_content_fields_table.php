@@ -18,7 +18,7 @@ class CreateContentFieldsTable extends Migration {
 			$table->integer('type_id')->unsigned();
 			$table->enum('type', ['text', 'email', 'url', 'radio', 'checkbox', 'textarea']);
 			$table->string('name');
-			$table->string('handle')->unique();
+			$table->string('handle');
 			$table->string('placeholder')->nullable();
 			$table->string('description')->nullable();
 			$table->boolean('required')->default(0);

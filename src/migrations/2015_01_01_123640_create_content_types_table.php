@@ -17,6 +17,7 @@ class CreateContentTypesTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('handle')->unique();
+			$table->string('icon');
 		});
 	}
 

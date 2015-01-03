@@ -18,7 +18,7 @@ class Content extends BaseModel {
 	];
 
 	/**
-	 * Fill `created_by` and `updated_by` columns on proper events.
+	 * Fill up `created_by` and `updated_by` columns on proper events.
 	 */
 	protected static function boot()
 	{
@@ -26,8 +26,8 @@ class Content extends BaseModel {
 
 		static::creating(function ($content)
 		{
-			$content->created_by = Auth::id();
-			$content->updated_by = Auth::id();
+			$content->created_by = Auth::id() || User::first()->id;
+			$content->updated_by = Auth::id() || User::first()->id;
 		});
 
 		static::updating(function ($content)
