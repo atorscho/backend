@@ -3,6 +3,19 @@
 trait SlugAttributeTrait {
 
 	/**
+	 * Find a record by its slug.
+	 *
+	 * @param $query
+	 * @param $slug
+	 *
+	 * @return mixed
+	 */
+	public function scopeFindSlug( $query, $slug )
+	{
+		return $query->where('slug', $slug)->first();
+	}
+
+	/**
 	 * If slug has not been specified,
 	 * use name to create it.
 	 * Otherwise use the specified one.

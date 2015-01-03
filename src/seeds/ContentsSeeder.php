@@ -31,7 +31,7 @@ class ContentsSeeder extends Seeder {
 					[
 						'type'     => 'textarea',
 						'name'     => 'Body',
-						'handle'   => 'body',
+						'slug'   => 'body',
 						'required' => 1,
 					]
 				]
@@ -43,7 +43,7 @@ class ContentsSeeder extends Seeder {
 					[
 						'type'     => 'textarea',
 						'name'     => 'Body',
-						'handle'   => 'body',
+						'slug'   => 'body',
 						'required' => 1,
 					]
 				]
@@ -55,17 +55,17 @@ class ContentsSeeder extends Seeder {
 		{
 			$contentType = ContentType::create([
 				'name'   => $type['name'],
-				'handle' => '',
+				'slug' => '',
 				'icon'   => $type['icon']
 			]);
 
 			foreach ( $type['fields'] as $field )
 			{
-				$contentField[$contentType->handle . '.' . $field['handle']] = ContentField::create([
+				$contentField[$contentType->slug . '.' . $field['slug']] = ContentField::create([
 					'type_id'     => $contentType->id,
 					'type'        => $field['type'],
 					'name'        => $field['name'],
-					'handle'      => $field['handle'],
+					'slug'      => $field['slug'],
 					'placeholder' => '',
 					'required'    => $field['required'],
 					'order'       => ''
@@ -77,7 +77,7 @@ class ContentsSeeder extends Seeder {
 		foreach ( range(1, 10) as $i )
 		{
 			$content = Content::create([
-				'type_id'    => ContentType::findHandle('page')->id,
+				'type_id'    => ContentType::findSlug('page')->id,
 				'title'      => $name = $faker->sentence(4),
 				'slug'       => $name,
 				'published'  => 1,
@@ -93,7 +93,7 @@ class ContentsSeeder extends Seeder {
 		foreach ( range(1, 10) as $i )
 		{
 			$content = Content::create([
-				'type_id'    => ContentType::findHandle('article')->id,
+				'type_id'    => ContentType::findSlug('article')->id,
 				'title'      => $name = $faker->sentence(4),
 				'slug'       => $name,
 				'published'  => 1,

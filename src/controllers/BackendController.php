@@ -1,5 +1,6 @@
 <?php namespace Atorscho\Backend\Controllers;
 
+use Atorscho\Backend\Models\ContentType;
 use Atorscho\Backend\Models\User;
 use Auth;
 use Flash;
@@ -17,14 +18,19 @@ class BackendController extends BaseController {
 		$users     = User::orderBy('id', 'desc')->take(5)->get();
 		$userCount = User::all()->count();
 
+		// Default Content Types
+		$page    = ContentType::findHandle('page');
+		$article = ContentType::findHandle('article');
+
 		$this->layout->title   = trans('backend::labels.dashboardHome');
 		$this->layout->desc    = trans('backend::labels.adminCP');
-		$this->layout->content = View::make('backend::admin.index', compact('users', 'userCount'));
+		$this->layout->content = View::make('backend::admin.index', compact('users', 'userCount', 'page', 'article'));
 	}
 
 	public function login()
 	{
-		$this->layout          = View::make('backend::layouts.auth');
+		// Change master layout to authentication layout
+		$this->layout = View::make('backend::layouts.auth');
 
 		$this->layout->title   = trans('backend::labels.login');
 		$this->layout->content = View::make('backend::admin.login');
@@ -68,7 +74,7 @@ class BackendController extends BaseController {
 	{
 		Session::put('lang', $locale);
 
-		Flash::success('langSwitched', ['lang' => trans("backend::locales.$locale")]);
+		Flash::success('langSwitched', [ 'lang' => trans("backend::locales.$locale") ]);
 
 		return Redirect::route('admin.login');
 

@@ -16,8 +16,12 @@ class CreateContentTypesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->string('handle')->unique();
+			$table->string('name_sg');
+			$table->string('description');
+			$table->string('slug')->unique();
 			$table->string('icon');
+			$table->boolean('hierarchical');
+			$table->text('labels');
 		});
 	}
 

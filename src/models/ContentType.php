@@ -1,10 +1,10 @@
 <?php namespace Atorscho\Backend\Models;
 
-use Atorscho\Backend\Traits\HandleAttributeTrait;
+use Atorscho\Backend\Traits\SlugAttributeTrait;
 
 class ContentType extends BaseModel {
 
-	use HandleAttributeTrait;
+	use SlugAttributeTrait;
 
 	protected $fillable = [
 		'name',

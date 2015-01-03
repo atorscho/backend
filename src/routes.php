@@ -1,6 +1,8 @@
 <?php
 
 // Global Filters
+use Atorscho\Backend\Models\ContentType;
+
 Route::when('admin*', 'admin.auth');
 Route::when('admin*', 'csrf', [
 	'post',
@@ -62,7 +64,31 @@ Route::group([
 
 	// Content Types
 	// ===================================
-	Route::resource('content/types', 'ContentTypeController');
+	Route::resource('content-types', 'ContentTypeController', [ 'except' => 'show' ]);
+	Route::get('{content-types}', [
+		'as'   => 'admin.content-types.show',
+		'uses' => 'ContentTypeController@show'
+	]);
+	Route::get('{content-types}/create', [
+		'as'   => 'admin.content-types.create',
+		'uses' => 'ContentTypeController@create'
+	]);
+	Route::post('{content-types}', [
+		'as'   => 'admin.content-types.store',
+		'uses' => 'ContentTypeController@store'
+	]);
+	Route::get('{content-types}/{content}/edit', [
+		'as'   => 'admin.content-types.edit',
+		'uses' => 'ContentTypeController@edit'
+	]);
+	Route::put('{content-types}/{content}', [
+		'as'   => 'admin.content-types.update',
+		'uses' => 'ContentTypeController@update'
+	]);
+	Route::delete('{content-types}/{content}', [
+		'as'   => 'admin.content-types.destroy',
+		'uses' => 'ContentTypeController@destroy'
+	]);
 
 	// Ecommerce
 	// ===================================
