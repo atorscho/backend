@@ -6,6 +6,8 @@ use Atorscho\Backend\Models\ContentType;
 use Atorscho\Backend\Models\Permission;
 use Atorscho\Backend\Models\User;
 
+// todo - add settings. e.g. content per page
+
 class ContentsSeeder extends Seeder {
 
 	public function run()
