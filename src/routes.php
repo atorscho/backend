@@ -65,29 +65,29 @@ Route::group([
 	// Content Types
 	// ===================================
 	Route::resource('content-types', 'ContentTypeController', [ 'except' => 'show' ]);
-	Route::get('{content-types}', [
+	Route::get('{content_types}', [
 		'as'   => 'admin.content-types.show',
 		'uses' => 'ContentTypeController@show'
 	]);
 	Route::get('{content-types}/create', [
-		'as'   => 'admin.content-types.create',
-		'uses' => 'ContentTypeController@create'
+		'as'   => 'admin.contents.create',
+		'uses' => 'ContentController@create'
 	]);
 	Route::post('{content-types}', [
-		'as'   => 'admin.content-types.store',
-		'uses' => 'ContentTypeController@store'
+		'as'   => 'admin.contents.store',
+		'uses' => 'ContentController@store'
 	]);
 	Route::get('{content-types}/{content}/edit', [
-		'as'   => 'admin.content-types.edit',
-		'uses' => 'ContentTypeController@edit'
+		'as'   => 'admin.contents.edit',
+		'uses' => 'ContentController@edit'
 	]);
 	Route::put('{content-types}/{content}', [
-		'as'   => 'admin.content-types.update',
-		'uses' => 'ContentTypeController@update'
+		'as'   => 'admin.contents.update',
+		'uses' => 'ContentController@update'
 	]);
 	Route::delete('{content-types}/{content}', [
-		'as'   => 'admin.content-types.destroy',
-		'uses' => 'ContentTypeController@destroy'
+		'as'   => 'admin.contents.destroy',
+		'uses' => 'ContentController@destroy'
 	]);
 
 	// Ecommerce

@@ -5,9 +5,11 @@
 				<aside class="sidebar">
                 	@include('backend::partials.users._sidebar')
 
-                	<div class="text-center">
-                		<a class="btn btn-primary" href="{{{ route('admin.users.groups.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.groupsNew')</a>
-                	</div>
+                    @if(Auth::user()->can('createGroups'))
+                        <div class="text-center">
+                            <a class="btn btn-primary" href="{{{ route('admin.users.groups.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.groupsNew')</a>
+                        </div>
+                    @endif
                 </aside>
 			</div>
 			<div class="col-md-9">

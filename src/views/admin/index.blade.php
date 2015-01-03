@@ -6,7 +6,7 @@
 				<a class="box tip" href="{{ route('admin.users.index') }}" title="@lang('backend::labels.usersAndGroups')">
 					<i class="fa fa-fw fa-group"></i>
 				</a>
-				<a class="box tip" href="{{ route('admin.content-types.show', $article->handle) }}" title="@lang('backend::labels.contentTypes')">
+				<a class="box tip" href="{{ route('admin.content-types.show', $article->slug) }}" title="@lang('backend::labels.contentTypes')">
 					<i class="fa fa-fw fa-{{ $article->icon }}"></i>
 				</a>
 				<a class="box tip" href="{{ route('admin.content-types.index') }}" title="@lang('backend::labels.contentTypes')">

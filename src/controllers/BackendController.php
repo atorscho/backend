@@ -19,8 +19,8 @@ class BackendController extends BaseController {
 		$userCount = User::all()->count();
 
 		// Default Content Types
-		$page    = ContentType::findHandle('page');
-		$article = ContentType::findHandle('article');
+		$page    = ContentType::findSlug('pages');
+		$article = ContentType::findSlug('articles');
 
 		$this->layout->title   = trans('backend::labels.dashboardHome');
 		$this->layout->desc    = trans('backend::labels.adminCP');

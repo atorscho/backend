@@ -1,5 +1,7 @@
 <?php
 
+use Atorscho\Backend\Models\Content;
+use Atorscho\Backend\Models\ContentType;
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\SettingsGroup;
 use Atorscho\Backend\Models\User;
@@ -66,4 +68,30 @@ Route::bind('settingsGroup', function($settingsGroup)
 		\App::abort(404);
 
 	return $settingsGroup;
+});
+
+Route::bind('content_types', function($contentTypes)
+{
+	if ( is_numeric( $contentTypes ) )
+		$contentTypes = ContentType::find($contentTypes);
+	else
+		$contentTypes = ContentType::where('slug', $contentTypes)->first();
+
+	if ( !$contentTypes )
+		\App::abort(404);
+
+	return $contentTypes;
+});
+
+Route::bind('content', function($content)
+{
+	if ( is_numeric( $content ) )
+		$content = Content::find($content);
+	else
+		$content = Content::where('slug', $content)->first();
+
+	if ( !$content )
+		\App::abort(404);
+
+	return $content;
 });

@@ -1,11 +1,11 @@
 <?php // todo - complete view ?>
 
 @section('controls')
-	<div class="btn-group btn-group-sm">
-		@if(Auth::user()->can('editUsers'))
+	@if(Auth::user()->can('editUsers'))
+		<div class="btn-group btn-group-sm">
 			<a class="btn btn-default" href="{{ route('admin.users.edit', $user->id) }}"><i class="fa fa-fw fa-edit"></i></a>
-		@endif
-	</div>
+		</div>
+	@endif
 @stop
 
 @section('content')

@@ -2,13 +2,19 @@
 
 use Atorscho\Backend\Traits\SlugAttributeTrait;
 
+// todo - make page hierarchical
+
 class ContentType extends BaseModel {
 
 	use SlugAttributeTrait;
 
 	protected $fillable = [
 		'name',
-		'handle'
+		'name_sg',
+		'description',
+		'slug',
+		'icon',
+		'hierarchical'
 	];
 
 	public $timestamps = false;

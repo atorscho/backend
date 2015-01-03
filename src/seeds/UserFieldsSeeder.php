@@ -79,6 +79,22 @@ class UserFieldsSeeder extends Seeder {
 			[
 				'name'   => 'Delete Fields',
 				'handle' => 'deleteFields'
+			],
+			[
+				'name'   => 'Create Field Groups',
+				'handle' => 'createFieldGroups'
+			],
+			[
+				'name'   => 'Show Field Groups',
+				'handle' => 'showFieldGroups'
+			],
+			[
+				'name'   => 'Edit Field Groups',
+				'handle' => 'editFieldGroups'
+			],
+			[
+				'name'   => 'Delete Field Groups',
+				'handle' => 'deleteFieldGroups'
 			]
 		];
 
@@ -88,8 +104,8 @@ class UserFieldsSeeder extends Seeder {
 		addPermissionsToGroup('members', 'showFields');
 		addPermissionsToGroup('moderators', 'showFields');
 		addPermissionsToGroup('supermods', ['showFields', 'editFields']);
-		addPermissionsToGroup('admins', ['createFields', 'showFields', 'editFields', 'deleteFields']);
-		addPermissionsToGroup('superadmins', ['createFields', 'showFields', 'editFields', 'deleteFields']);
+		addPermissionsToGroup('admins', ['createFields', 'showFields', 'editFields', 'deleteFields', 'showFieldGroups', 'editFieldGroups']);
+		addPermissionsToGroup('superadmins', ['createFields', 'showFields', 'editFields', 'deleteFields', 'showFieldGroups', 'editFieldGroups']);
 	}
 
 }

@@ -3,6 +3,8 @@
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
+// todo - change current page menu item (.active) to something simpler.
+
 class BackendServiceProvider extends ServiceProvider {
 
 	/**
@@ -79,13 +81,19 @@ class BackendServiceProvider extends ServiceProvider {
 		// Backend Facade
 		$this->app->bind('backend', function ()
 		{
-			return new Backend;
+			return $this->app->make('Atorscho\Backend\Backend');
 		});
 
 		// Helper Facade
 		$this->app->bind('flash', function ()
 		{
 			return $this->app->make('Atorscho\Backend\Helpers\FlashHelper');
+		});
+
+		// Helper Facade
+		$this->app->bind('template', function ()
+		{
+			return $this->app->make('Atorscho\Backend\Helpers\TemplateHelper');
 		});
 	}
 
@@ -106,6 +114,12 @@ class BackendServiceProvider extends ServiceProvider {
 		{
 			$loader = AliasLoader::getInstance();
 			$loader->alias('Flash', 'Atorscho\Backend\Facades\Flash');
+		});
+
+		$this->app->booting(function ()
+		{
+			$loader = AliasLoader::getInstance();
+			$loader->alias('Template', 'Atorscho\Backend\Facades\Template');
 		});
 	}
 

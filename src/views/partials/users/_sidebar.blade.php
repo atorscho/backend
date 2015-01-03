@@ -1,6 +1,6 @@
 <ul class="nav">
 	@if(Auth::user()->can('showUsers'))
-		<li {{ Route::current()->getAction()['as'] == 'admin.users.index' ? 'class="active"' : '' }}>
+		<li {{ Route::currentRouteName() == 'admin.users.index' ? 'class="active"' : '' }}>
 			<a href="{{ route('admin.users.index') }}">
 				<span class="badge pull-right">{{ $usersCount }}</span>
 				@lang('backend::labels.users')
@@ -8,7 +8,7 @@
 		</li>
 	@endif
 	@if(Auth::user()->can('showGroups'))
-		<li {{ Route::current()->getAction()['as'] == 'admin.users.groups.index' ? 'class="active"' : '' }}>
+		<li {{ Route::currentRouteName() == 'admin.users.groups.index' ? 'class="active"' : '' }}>
 			<a href="{{ route('admin.users.groups.index') }}">
 		        <span class="badge pull-right">{{ $groupsCount }}</span>
 		        @lang('backend::labels.groups')
@@ -16,7 +16,7 @@
 		</li>
 	@endif
 	@if(Auth::user()->can('showPermissions'))
-		<li {{ Route::current()->getAction()['as'] == 'admin.users.permissions.index' ? 'class="active"' : '' }}>
+		<li {{ Route::currentRouteName() == 'admin.users.permissions.index' ? 'class="active"' : '' }}>
 	        <a href="{{ route('admin.users.permissions.index') }}">
 	            <span class="badge pull-right">{{ $permissionsCount }}</span>
 	            @lang('backend::labels.permissions')

@@ -7,9 +7,11 @@
 				<aside class="sidebar">
                 	@include('backend::partials.users._sidebar')
 
-                	<div class="text-center">
-                		<a class="btn btn-primary" href="{{{ route('admin.users.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.usersNew')</a>
-                	</div>
+					@if(Auth::user()->can('createUsers'))
+						<div class="text-center">
+							<a class="btn btn-primary" href="{{{ route('admin.users.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.usersNew')</a>
+						</div>
+					@endif
                 </aside>
 			</div>
 			<div class="col-md-9">

@@ -74,6 +74,7 @@ return [
 	'settingsMisc'            => 'Miscellaneous',
 	'settingsTemplate'        => 'Template &amp; Layout',
 	'settingsUsers'           => 'User Settings',
+	'slug'                    => 'Slug',
 	'statistics'              => 'Statistics',
 	'step'                    => 'Step',
 	'suffix'                  => 'Suffix',
@@ -103,6 +104,9 @@ return [
 	'usersNew'                => 'New User',
 	'viewUserProfile'         => "View User's Profile",
 	'yes'                     => 'Yes',
-	'contentTypes' => 'Content Types'
+	'contentTypes' => 'Content Types',
+	'contentTypesNew' => 'New Content Type',
+	'contentsNew' => 'New Content',
+	'contentTypesNewShort' => 'New Type'
 
 ];

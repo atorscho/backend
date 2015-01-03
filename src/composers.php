@@ -1,5 +1,6 @@
 <?php
 
+use Atorscho\Backend\Models\ContentType;
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
 use Atorscho\Backend\Models\User;
@@ -22,4 +23,12 @@ View::composer('backend::partials.users._sidebar', function ( $view )
 View::composer('backend::partials.users._fields_sidebar', function ( $view )
 {
 	$view->with('fieldGroups', UserFieldGroup::orderBy('name')->get());
+});
+
+/**
+ * Sidebar on Content Types index page
+ */
+View::composer('backend::partials.contents._sidebar', function ( $view )
+{
+	$view->with('types', ContentType::orderBy('name')->get());
 });
