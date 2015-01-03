@@ -1,5 +1,14 @@
 <?php namespace Atorscho\Backend\Helpers;
 
+// todo - replace table headings by proper method
+
+/**
+ * Class TemplateHelper
+ *
+ * Template helper class to easily create layout elements of the Backend.
+ *
+ * @package Atorscho\Backend\Helpers
+ */
 class TemplateHelper {
 
 	/**
@@ -74,10 +83,18 @@ class TemplateHelper {
 		return '</div>';
 	}
 
+	/**
+	 * Outputs HTML <thead> and <tfoot> blocks for table.
+	 *
+	 * @param $rows
+	 *
+	 * @return string
+	 */
 	public function tableHeadings($rows)
 	{
 		$rows = (array) $rows;
 
+		// If row title is in value position, move it to the key position and replace by an empty string.
 		foreach ( $rows as $key => $row )
 		{
 			if ( is_numeric($key) )
@@ -87,11 +104,33 @@ class TemplateHelper {
 			else
 			{
 				unset( $rows[$key] );
-				$rows[$key] = $row;
+				$rows[$key] = trim($row);
 			}
 		}
 
-		return $rows;
+		$output = '';
+
+		$output .= '<thead><tr>';
+
+		// Create <thead> rows with classes and titles.
+		foreach ( $rows as $title => $classes )
+		{
+			$output .= '<th' . (($classes) ? ' class="' . $classes . '"' : '') . '>' . $title . '</th>';
+		}
+
+
+		$output .= '</tr></thead><tfoot><tr>';
+
+		// The same as above but for <tfoot>.
+		foreach ( $rows as $title => $classes )
+		{
+			$classes = preg_replace('/( ?width-.+)/', '', $classes);
+			$output .= '<th' . (($classes) ? ' class="' . $classes . '"' : '') . '>' . $title . '</th>';
+		}
+
+		$output .= '</tr></tfoot>';
+
+		return $output;
 	}
 
 }

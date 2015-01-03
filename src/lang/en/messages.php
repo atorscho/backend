@@ -14,6 +14,7 @@ return [
 	'noPageAccess'          => 'You do not have enough permissions to access this page.',
 	'noUserFieldGroups'     => 'There is no custom field groups.',
 	'noUserFields'          => 'There is no custom fields.',
+	'noUsers'               => 'No users found.',
 	'settingsUpdated'       => 'Settings have been updated.',
 	'userCreated'           => 'User has been created.',
 	'userDeactivated'       => 'User has been deactivated.',
@@ -27,5 +28,6 @@ return [
 	'userFieldUpdated'      => 'Custom user field has been updated.',
 	'userNotFound'          => 'Username with such credentials does not exist.',
 	'userUpdated'           => 'User has been updated.',
+	'noContents'            => 'No content found for this content type.',
 
 ];

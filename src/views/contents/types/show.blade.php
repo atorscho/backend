@@ -9,52 +9,48 @@
 
 	<div class="table-responsive">
 		<table class="table table-striped">
-
-			{{--<thead>
-			<tr>
-				<th class="width-50">#</th>
-				<th>@lang('backend::labels.username')</th>
-				<th>@lang('backend::labels.groups')</th>
-				<th class="width-140">@lang('backend::labels.registered')</th>
-				<th class="text-center width-80">@lang('backend::labels.id')</th>
-				<th class="text-center width-240">@lang('backend::labels.actions')</th>
-			</tr>
-			</thead>
-			<tfoot>
-			<tr>
-				<th>#</th>
-				<th>@lang('backend::labels.username')</th>
-				<th>@lang('backend::labels.groups')</th>
-				<th>@lang('backend::labels.registered')</th>
-				<th class="text-center">@lang('backend::labels.id')</th>
-				<th class="text-center">@lang('backend::labels.actions')</th>
-			</tr>
-			</tfoot>--}}
+			{{ Template::tableHeadings($rows) }}
 			<tbody>
-			@foreach($users as $user)
+			@forelse($contentType->contents as $content)
 				<tr>
-					<td>{{{ $counter++ }}}</td>
-					<td data-href="{{{ route('admin.users.show', $user->id) }}}">{{ $user->username }}</td>
-					<td>{{ $user->groupsAnchorList() }}</td>
-					<td>{{{ getDateTimeFormat($user->created_at) }}}</td>
-					<td class="text-center">{{ $user->id }}</td>
-					<td class="text-center">
-						{{ Form::open(['route' => ['admin.users.destroy', $user->id], 'method' => 'DELETE']) }}
-						<div class="btn-group">
-							<a class="btn btn-sm btn-default" href="mailto:{{ HTML::email($user->email) }}" title="@lang('backend::labels.emailSend')">
-								<i class="fa fa-envelope-o"></i>
-							</a>
-							<a class="btn btn-sm btn-primary" href="#" title="@lang('backend::labels.viewUserProfile')">
-								<i class="fa fa-user"></i>
-							</a>
-							<a class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="fa fa-caret-down"></i>
-							</a>
+					<td>{{ $counter++ }}</td>
+					<td>
+						<div class="tip" title="{{{ $content->title }}}">
+							{{{ Str::limit($content->title, 30) }}}
 						</div>
+					</td>
+					<td>
+						<div class="tip" title="{{{ $content->slug }}}">
+							{{ Str::limit($content->slug, 30) }}
+						</div>
+					</td>
+					<td class="text-center">
+						<span class="label label-{{ $content->published ? 'success' : 'danger' }}">
+							<i class="fa fa-{{ $content->published ? 'check' : 'ban' }}"></i>
+						</span>
+					</td>
+					<td class="text-center">{{ $content->creator->username }}</td>
+					<td class="text-center">{{ $content->id }}</td>
+					<td class="text-center">
+						{{ Form::open(['route' => ['admin.contents.destroy', $contentType->slug, $content->id], 'method' => 'DELETE']) }}
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-primary" href="{{ route('admin.contents.edit', [$contentType->slug, $content->id]) }}">
+									<i class="fa fa-fw fa-edit"></i>
+								</a>
+								<button type="submit" class="btn btn-primary">
+									<i class="fa fa-fw fa-times"></i>
+								</button>
+							</div>
 						{{ Form::close() }}
 					</td>
 				</tr>
-			@endforeach
+			@empty
+				<tr>
+					<td colspan="{{ count($rows) }}">
+						@lang('backend::messages.noContents')
+					</td>
+				</tr>
+			@endforelse
 			</tbody>
 		</table>
 	</div>

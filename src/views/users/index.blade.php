@@ -38,7 +38,7 @@
 						</tr>
 						</tfoot>
 						<tbody>
-						@foreach($users as $user)
+						@forelse($users as $user)
 							<tr>
 								<td>{{{ $counter++ }}}</td>
 								<td data-href="{{{ route('admin.users.show', $user->id) }}}">{{ $user->username }}</td>
@@ -47,14 +47,15 @@
 								<td class="text-center">{{ $user->id }}</td>
 								<td class="text-center">
 									{{ Form::open(['route' => ['admin.users.destroy', $user->id], 'method' => 'DELETE']) }}
-										<div class="btn-group">
-											<a class="btn btn-sm btn-default" href="mailto:{{ HTML::email($user->email) }}" title="@lang('backend::labels.emailSend')">
+										<div class="btn-group btn-group-sm">
+											<a class="btn btn-default" href="mailto:{{ HTML::email($user->email) }}" title="@lang('backend::labels.emailSend')">
 												<i class="fa fa-envelope-o"></i>
 											</a>
-											<a class="btn btn-sm btn-primary" href="#" title="@lang('backend::labels.viewUserProfile')">
+											<?php // todo - specify a link ?>
+											<a class="btn btn-primary" href="#" title="@lang('backend::labels.viewUserProfile')">
 												<i class="fa fa-user"></i>
 											</a>
-											<a class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+											<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
 												<i class="fa fa-caret-down"></i>
 											</a>
 											<ul class="dropdown-menu pull-right">
@@ -78,7 +79,13 @@
 									{{ Form::close() }}
 								</td>
 							</tr>
-						@endforeach
+						@empty
+							<tr>
+								<td colspan="6">
+									@lang('backend::messages.noUsers')
+								</td>
+							</tr>
+						@endforelse
 						</tbody>
 					</table>
 				</div>
