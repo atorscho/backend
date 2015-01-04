@@ -92,7 +92,7 @@ class ContentsSeeder extends Seeder {
 				'type_id'    => ContentType::findSlug('pages')->first()->id,
 				'title'      => $name = $faker->sentence(4),
 				'slug'       => $name,
-				'published'  => 1,
+				'published'  => rand(0, 1),
 				'order'      => '',
 				'created_by' => $userID,
 				'updated_by' => $userID
@@ -110,7 +110,7 @@ class ContentsSeeder extends Seeder {
 				'type_id'    => ContentType::findSlug('articles')->first()->id,
 				'title'      => $name = $faker->sentence(4),
 				'slug'       => $name,
-				'published'  => 1,
+				'published'  => rand(0, 1),
 				'order'      => '',
 				'created_by' => $userID,
 				'updated_by' => $userID

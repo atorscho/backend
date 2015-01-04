@@ -1,6 +1,5 @@
 <?php namespace Atorscho\Backend\Controllers;
 
-use Atorscho\Backend\Facades\Template;
 use Atorscho\Backend\Models\ContentType;
 use Crumbs;
 use Input;
@@ -20,7 +19,11 @@ class ContentTypeController extends BaseController {
 	{
 		$perPage = Input::get('perPage', 10);
 
-		$contents = $contentType->contents()->paginate($perPage);
+		// If parameter exists, show only trashed records.
+		if ( Input::get('trashed') == 'yes' )
+			$contents = $contentType->contents()->onlyTrashed()->paginate($perPage);
+		else
+			$contents = $contentType->contents()->paginate($perPage);
 
 		$counter = counter($perPage);
 
@@ -38,7 +41,10 @@ class ContentTypeController extends BaseController {
 		Crumbs::addRoute('admin.content-types.index', 'Content Types');
 		Crumbs::addRoute('admin.content-types.show', $contentType->name, $contentType->slug);
 
-		$this->layout->title   = 'All ' . $contentType->name;
+		if ( Input::get('trashed') == 'yes' )
+			$this->layout->title = 'All ' . $contentType->name . ': ' . trans('backend::labels.trashedOnly');
+		else
+			$this->layout->title = 'All ' . $contentType->name;
 		$this->layout->content = View::make('backend::contents.types.show', compact('contentType', 'contents', 'rows', 'counter'));
 	}
 

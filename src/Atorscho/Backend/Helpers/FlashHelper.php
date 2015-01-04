@@ -95,8 +95,7 @@ class FlashHelper {
 	 */
 	private function flash( $text, $type, $icon, $parameters = array() )
 	{
-		if ( Lang::has("backend::messages.{$text}") )
-			$text = trans("backend::messages.{$text}", $parameters);
+		$text = transIfExists($text, $parameters, 'messages');
 
 		$this->session->flash('alert.type', $type);
 		$this->session->flash('alert.icon', $icon);

@@ -30,6 +30,7 @@ return [
 	'userUpdated'           => 'User has been updated.',
 	'noContents'            => 'No content found for this content type.',
 	'noArticles'            => 'No articles found.',
-	'noPages'               => 'No pages found.'
+	'noPages' => 'No pages found.',
+	'contentDeleted' => 'Content has been deleted.',
 
 ];

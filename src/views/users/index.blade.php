@@ -15,7 +15,7 @@
 
 					<br />
 
-					{{ perPageControls('admin.users.index') }}
+					{{ Template::perPageRecordsParams() }}
                 </aside>
 			</div>
 			<div class="col-md-9">

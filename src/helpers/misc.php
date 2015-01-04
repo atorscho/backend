@@ -118,7 +118,7 @@ if ( !function_exists('saveUserField') )
 	 * @param $rulesFields
 	 * @param $fieldsUpdate
 	 */
-	function saveUserField(&$rules, &$rulesFields, $fieldsUpdate)
+	function saveUserField( &$rules, &$rulesFields, $fieldsUpdate )
 	{
 		foreach ( $fieldsUpdate as $key => $value )
 		{
@@ -163,3 +163,25 @@ if ( !function_exists('counter') )
 		return ( $perPage * ( ( Input::get('page') ?: 1 ) - 1 ) ) + 1;
 	}
 }
+
+if ( !function_exists('transIfExists') )
+{
+	/**
+	 * If a translation exists, use it, otherwise return the actual string.
+	 *
+	 * @param        $text         String or a translation to return.
+	 * @param array  $parameters   Parameters for the translation.
+	 * @param string $type         Which file to use: labels.php or messages.php. Use `labels` or `messages`.
+	 *
+	 * @return string
+	 */
+	function transIfExists( $text, $parameters = array(), $type = 'labels' )
+	{
+		if ( Lang::has("backend::{$type}.{$text}") )
+			$text = trans("backend::{$type}.{$text}", $parameters);
+
+		return $text;
+	}
+}
+
+

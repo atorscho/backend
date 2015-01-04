@@ -69,23 +69,23 @@ Route::group([
 		'as'   => 'admin.content-types.show',
 		'uses' => 'ContentTypeController@show'
 	]);
-	Route::get('{content-types}/create', [
+	Route::get('{content_types}/create', [
 		'as'   => 'admin.contents.create',
 		'uses' => 'ContentController@create'
 	]);
-	Route::post('{content-types}', [
+	Route::post('{content_types}', [
 		'as'   => 'admin.contents.store',
 		'uses' => 'ContentController@store'
 	]);
-	Route::get('{content-types}/{content}/edit', [
+	Route::get('{content_types}/{content}/edit', [
 		'as'   => 'admin.contents.edit',
 		'uses' => 'ContentController@edit'
 	]);
-	Route::put('{content-types}/{content}', [
+	Route::put('{content_types}/{content}', [
 		'as'   => 'admin.contents.update',
 		'uses' => 'ContentController@update'
 	]);
-	Route::delete('{content-types}/{content}', [
+	Route::delete('{content_types}/{content}', [
 		'as'   => 'admin.contents.destroy',
 		'uses' => 'ContentController@destroy'
 	]);

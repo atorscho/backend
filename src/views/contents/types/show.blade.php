@@ -6,7 +6,9 @@
 
 	<br />
 
-	{{ perPageControls('admin.content-types.show', $contentType->slug) }}
+	{{ Template::perPageRecordsParams() }}
+
+	{{ Template::pageParams('trashedOnly', 'trashed', ['no' => trans('backend::labels.no'), 'yes' => trans('backend::labels.yes')]) }}
 
 	{{ Template::closeBlokSidebar() }}
 	{{ Template::openBlokContent() }}
