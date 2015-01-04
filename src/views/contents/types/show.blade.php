@@ -4,6 +4,10 @@
 
 	@include('backend::partials.contents._sidebar')
 
+	<br />
+
+	{{ perPageControls('admin.content-types.show', $contentType->slug) }}
+
 	{{ Template::closeBlokSidebar() }}
 	{{ Template::openBlokContent() }}
 
@@ -11,7 +15,7 @@
 		<table class="table table-striped">
 			{{ Template::tableHeadings($rows) }}
 			<tbody>
-			@forelse($contentType->contents as $content)
+			@forelse($contents as $content)
 				<tr>
 					<td>{{ $counter++ }}</td>
 					<td>
@@ -54,6 +58,8 @@
 			</tbody>
 		</table>
 	</div>
+
+	{{ $contents->appends(Input::all())->links() }}
 
 	{{ Template::closeBlokContent() }}
 	{{ Template::closeBlok() }}

@@ -107,6 +107,7 @@ return [
 	'contentTypes' => 'Content Types',
 	'contentTypesNew' => 'New Content Type',
 	'contentsNew' => 'New Content',
-	'contentTypesNewShort' => 'New Type'
+	'contentTypesNewShort' => 'New Type',
+	'perPage' => 'Per Page'
 
 ];

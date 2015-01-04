@@ -75,10 +75,11 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		$users = User::with('groups')->paginate((int) getSetting('usersPerPage'));
+		$perPage = Input::get('perPage', 10);
 
-		// Counter
-		$counter = ( $users->count() * ( ( Input::get('page') ?: 1 ) - 1 ) ) + 1;
+		$users = User::with('groups')->paginate($perPage);
+
+		$counter = counter($perPage);
 
 		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
 
@@ -86,7 +87,6 @@ class UserController extends BaseController {
 		$this->layout->desc    = trans('backend::labels.usersDesc');
 		$this->layout->content = View::make('backend::users.index', compact('users', 'counter'));
 	}
-
 
 	/**
 	 * Show the form for creating a new resource.

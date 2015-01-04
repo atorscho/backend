@@ -148,3 +148,18 @@ if ( !function_exists('saveUserField') )
 		return $fieldsUpdate;
 	}
 }
+
+if ( !function_exists('counter') )
+{
+	/**
+	 * Creates a counter for Pagination.
+	 *
+	 * @param $perPage
+	 *
+	 * @return mixed
+	 */
+	function counter( $perPage )
+	{
+		return ( $perPage * ( ( Input::get('page') ?: 1 ) - 1 ) ) + 1;
+	}
+}

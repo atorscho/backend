@@ -18,6 +18,11 @@ class BaseController extends Controller {
 				'route' => 'admin.index',
 				'group' => '',
 				'perm'  => ''
+			],
+			[
+				'title' => trans('backend::labels.users'),
+				'route' => 'admin.users.index',
+				'perm'  => 'showUsers'
 			]
 		];
 

@@ -12,6 +12,10 @@
 							<a class="btn btn-primary" href="{{{ route('admin.users.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.usersNew')</a>
 						</div>
 					@endif
+
+					<br />
+
+					{{ perPageControls('admin.users.index') }}
                 </aside>
 			</div>
 			<div class="col-md-9">
@@ -91,7 +95,7 @@
 				</div>
 
 				<?php // todo - customize pagination style ?>
-				{{ $users->links() }}
+				{{ $users->appends(Input::all())->links() }}
 			</div>
 		</div>
 	</div>

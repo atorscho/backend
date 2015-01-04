@@ -18,10 +18,11 @@ class ContentTypeController extends BaseController {
 
 	public function show( ContentType $contentType )
 	{
-		$contentType = $contentType->with('contents')->find($contentType->id);
+		$perPage = Input::get('perPage', 10);
 
-		// Counter
-		$counter = ( $contentType->contents->count() * ( ( Input::get('page') ?: 1 ) - 1 ) ) + 1;
+		$contents = $contentType->contents()->paginate($perPage);
+
+		$counter = counter($perPage);
 
 		// Table Heading Rows
 		$rows = [
@@ -38,7 +39,7 @@ class ContentTypeController extends BaseController {
 		Crumbs::addRoute('admin.content-types.show', $contentType->name, $contentType->slug);
 
 		$this->layout->title   = 'All ' . $contentType->name;
-		$this->layout->content = View::make('backend::contents.types.show', compact('contentType', 'rows', 'counter'));
+		$this->layout->content = View::make('backend::contents.types.show', compact('contentType', 'contents', 'rows', 'counter'));
 	}
 
 }
