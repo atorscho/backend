@@ -26,13 +26,13 @@ class ContentTypeController extends BaseController {
 
 		// Table Heading Rows
 		$rows = [
-			'#' => 'width-50',
+			'#'         => 'width-50',
 			'Title',
 			'Slug',
 			'Published' => 'width-50',
-			'Author' => 'text-center width-100',
-			'ID' => 'text-center width-80',
-			'Actions' => 'text-center width-90'
+			'Author'    => 'text-center width-100',
+			'ID'        => 'text-center width-80',
+			'Actions'   => 'text-center width-90'
 		];
 
 		Crumbs::addRoute('admin.content-types.index', 'Content Types');

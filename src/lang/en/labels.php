@@ -49,7 +49,8 @@ return [
 	'misc'                    => 'Misc',
 	'name'                    => 'Name',
 	'newestUsers'             => 'Newest Users',
-	'newUsers'                => 'New Users',
+	'newestArticles'          => 'Newest Articles',
+	'newestPages'             => 'Newest Pages',
 	'no'                      => 'No',
 	'options'                 => 'Options',
 	'order'                   => 'Order',
@@ -104,10 +105,18 @@ return [
 	'usersNew'                => 'New User',
 	'viewUserProfile'         => "View User's Profile",
 	'yes'                     => 'Yes',
-	'contentTypes' => 'Content Types',
-	'contentTypesNew' => 'New Content Type',
-	'contentsNew' => 'New Content',
-	'contentTypesNewShort' => 'New Type',
-	'perPage' => 'Per Page'
+	'contentTypes'            => 'Content Types',
+	'contentType'             => 'Content Type',
+	'contentTypesNew'         => 'New Content Type',
+	'contentsNew'             => 'New Content',
+	'contentTypesNewShort'    => 'New Type',
+	'perPage'                 => 'Per Page',
+	'pages'                   => 'Pages',
+	'page'                    => 'Page',
+	'articles'                => 'Articles',
+	'article'                 => 'Article',
+	'pagesNew'                => 'New Page',
+	'articlesNew' => 'New Article',
+	'contentAuthor' => 'by <a href=":link">:username</a>'
 
 ];

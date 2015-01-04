@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+// todo - improve permissions. let reseed.
+
 class BackendSeeder extends Seeder {
 
 	/**

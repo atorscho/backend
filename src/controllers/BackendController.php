@@ -19,12 +19,14 @@ class BackendController extends BaseController {
 		$userCount = User::all()->count();
 
 		// Default Content Types
-		$page    = ContentType::findSlug('pages');
-		$article = ContentType::findSlug('articles');
+		$article = ContentType::findSlug('articles')->with('contents')->first();
+		$page    = ContentType::findSlug('pages')->with('contents')->first();
+		$latestArticles = $article->contents()->orderBy('id', 'desc')->take(5)->get();
+		$latestPages = $page->contents()->orderBy('id', 'desc')->take(5)->get();
 
 		$this->layout->title   = trans('backend::labels.dashboardHome');
 		$this->layout->desc    = trans('backend::labels.adminCP');
-		$this->layout->content = View::make('backend::admin.index', compact('users', 'userCount', 'page', 'article'));
+		$this->layout->content = View::make('backend::admin.index', compact('users', 'userCount', 'article', 'page', 'latestArticles', 'latestPages'));
 	}
 
 	public function login()

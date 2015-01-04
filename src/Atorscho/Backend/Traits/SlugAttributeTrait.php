@@ -12,7 +12,7 @@ trait SlugAttributeTrait {
 	 */
 	public function scopeFindSlug( $query, $slug )
 	{
-		return $query->where('slug', $slug)->first();
+		return $query->where('slug', $slug);
 	}
 
 	/**

@@ -1,4 +1,3 @@
-<?php // todo - translate ?>
 @section('content')
 	<div class="row">
 		<div class="col-md-9">
@@ -6,8 +5,11 @@
 				<a class="box tip" href="{{ route('admin.users.index') }}" title="@lang('backend::labels.usersAndGroups')">
 					<i class="fa fa-fw fa-group"></i>
 				</a>
-				<a class="box tip" href="{{ route('admin.content-types.show', $article->slug) }}" title="@lang('backend::labels.contentTypes')">
+				<a class="box tip" href="{{ route('admin.content-types.show', $article->slug) }}" title="@lang('backend::labels.articles')">
 					<i class="fa fa-fw fa-{{ $article->icon }}"></i>
+				</a>
+				<a class="box tip" href="{{ route('admin.content-types.show', $page->slug) }}" title="@lang('backend::labels.pages')">
+					<i class="fa fa-fw fa-{{ $page->icon }}"></i>
 				</a>
 				<a class="box tip" href="{{ route('admin.content-types.index') }}" title="@lang('backend::labels.contentTypes')">
 					<i class="fa fa-fw fa-cube"></i>
@@ -24,9 +26,6 @@
 				<a class="box tip" href="{{ route('admin.users.fields.groups.index') }}" title="User Fields">
 					<i class="fa fa-fw fa-sliders"></i>
 				</a>
-				<a class="box tip" href="#" title="Forums">
-					<i class="fa fa-fw fa-comments-o"></i>
-				</a>
 				<a class="box tip" href="#" title="Menu Manager">
 					<i class="fa fa-fw fa-navicon"></i>
 				</a>
@@ -42,10 +41,9 @@
 					<h3>@lang('backend::labels.statistics')</h3>
 				</header>
 				<ul class="list">
-					<?php // todo - stats ?>
-					<li>@lang('backend::labels.newUsers') <span class="badge pull-right">{{ $userCount }}</span></li>
-					<li>New Posts <span class="badge pull-right">15</span></li>
-					<li>New Tickets <span class="badge pull-right">4</span></li>
+					<li>@lang('backend::labels.users') <span class="badge pull-right">{{ $userCount }}</span></li>
+					<li>@lang('backend::labels.articles') <span class="badge pull-right">{{ $article->contents->count() }}</span></li>
+					<li>@lang('backend::labels.pages') <span class="badge pull-right">{{ $page->contents->count() }}</span></li>
 				</ul>
 
 				<header class="title">
@@ -54,8 +52,8 @@
 				<div class="navmenu">
 					<ul>
 						<li>{{ link_to_route('admin.users.create', trans('backend::labels.usersNew')) }}</li>
-						<li><a href="#">New Page</a></li>
-						<li><a href="#">New Menu</a></li>
+						<li>{{ link_to_route('admin.contents.create', trans('backend::labels.articlesNew'), 'articles') }}</li>
+						<li>{{ link_to_route('admin.contents.create', trans('backend::labels.pagesNew'), 'pages') }}</li>
 					</ul>
 				</div>
 			</aside>
@@ -82,14 +80,11 @@
 			</div>
 		</div>
 		<div class="col-md-6">
-			<!-- Nav tabs -->
 			<ul class="nav nav-tabs nav-justified" role="tablist">
 				<li class="active"><a href="#users" role="tab" data-toggle="tab">@lang('backend::labels.newestUsers')</a></li>
-				<li><a href="#posts" role="tab" data-toggle="tab">Newest Posts</a></li>
-				<li><a href="#tickets" role="tab" data-toggle="tab">Newest Tickets</a></li>
+				<li><a href="#articles" role="tab" data-toggle="tab">@lang('backend::labels.newestArticles')</a></li>
+				<li><a href="#pages" role="tab" data-toggle="tab">@lang('backend::labels.newestPages')</a></li>
 			</ul>
-
-			<!-- Tab panes -->
 			<div class="tab-content">
 				<div class="tab-pane active" id="users">
 					<ul class="list">
@@ -101,22 +96,30 @@
 						@endforeach
 					</ul>
 				</div>
-				<div class="tab-pane" id="posts">
+				<div class="tab-pane" id="articles">
 					<ul class="list">
-						<li><a href="#">Post #1</a> <small>(by <a href="#">Alexxali</a>)</small> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">Post #2</a> <small>(by <a href="#">Alexxali</a>)</small> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">Post #3</a> <small>(by <a href="#">Alexxali</a>)</small> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">Post #4</a> <small>(by <a href="#">Alexxali</a>)</small> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">Post #5</a> <small>(by <a href="#">Alexxali</a>)</small> <span class="label label-default pull-right">Oct 29 2014</span></li>
+						@forelse($latestArticles as $content)
+							<li>
+								{{ link_to_route('admin.contents.edit', Str::limit($content->title, 30), ['articles', $content->id]) }}
+								<small>(@lang('backend::labels.contentAuthor', ['link' => route('admin.users.show', $content->created_by), 'username' => $content->creator->username]))</small>
+								<span class="label label-default pull-right">{{ getDateTimeFormat($content->created_at) }}</span>
+							</li>
+						@empty
+							<li>@lang('backend::messages.noArticles')</li>
+						@endforelse
 					</ul>
 				</div>
-				<div class="tab-pane" id="tickets">
+				<div class="tab-pane" id="pages">
 					<ul class="list">
-						<li><a href="#">Ticket #1</a> <small>(by <a href="#">Alexxali</a>)</small> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">Ticket #2</a> <small>(by <a href="#">Alexxali</a>)</small> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">Ticket #3</a> <small>(by <a href="#">Alexxali</a>)</small> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">Ticket #4</a> <small>(by <a href="#">Alexxali</a>)</small> <span class="label label-default pull-right">Oct 29 2014</span></li>
-						<li><a href="#">Ticket #5</a> <small>(by <a href="#">Alexxali</a>)</small> <span class="label label-default pull-right">Oct 29 2014</span></li>
+						@forelse($latestPages as $content)
+							<li>
+								{{ link_to_route('admin.contents.edit', Str::limit($content->title, 30), ['articles', $content->id]) }}
+								<small>(@lang('backend::labels.contentAuthor', ['link' => route('admin.users.show', $content->created_by), 'username' => $content->creator->username]))</small>
+								<span class="label label-default pull-right">{{ getDateTimeFormat($content->created_at) }}</span>
+							</li>
+						@empty
+							<li>@lang('backend::messages.noPages')</li>
+						@endforelse
 					</ul>
 				</div>
 			</div>

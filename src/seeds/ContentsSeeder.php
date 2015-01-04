@@ -23,8 +23,6 @@ class ContentsSeeder extends Seeder {
 
 		$faker = \Faker\Factory::create();
 
-		$userID = User::first()->id;
-
 		// Default Content Types with its Fields
 		$types = [
 			[
@@ -88,8 +86,10 @@ class ContentsSeeder extends Seeder {
 		// Seed Pages with some fake data.
 		foreach ( range(1, 10) as $i )
 		{
+			$userID = User::orderByRaw("RAND()")->first()->id;
+
 			$content = Content::create([
-				'type_id'    => ContentType::findSlug('pages')->id,
+				'type_id'    => ContentType::findSlug('pages')->first()->id,
 				'title'      => $name = $faker->sentence(4),
 				'slug'       => $name,
 				'published'  => 1,
@@ -104,8 +104,10 @@ class ContentsSeeder extends Seeder {
 		// Seed Articles with some fake data.
 		foreach ( range(1, 10) as $i )
 		{
+			$userID = User::orderByRaw("RAND()")->first()->id;
+
 			$content = Content::create([
-				'type_id'    => ContentType::findSlug('articles')->id,
+				'type_id'    => ContentType::findSlug('articles')->first()->id,
 				'title'      => $name = $faker->sentence(4),
 				'slug'       => $name,
 				'published'  => 1,

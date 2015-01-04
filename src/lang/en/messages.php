@@ -29,5 +29,7 @@ return [
 	'userNotFound'          => 'Username with such credentials does not exist.',
 	'userUpdated'           => 'User has been updated.',
 	'noContents'            => 'No content found for this content type.',
+	'noArticles'            => 'No articles found.',
+	'noPages'               => 'No pages found.'
 
 ];

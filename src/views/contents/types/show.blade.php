@@ -30,7 +30,7 @@
 					</td>
 					<td class="text-center">
 						<span class="label label-{{ $content->published ? 'success' : 'danger' }}">
-							<i class="fa fa-{{ $content->published ? 'check' : 'ban' }}"></i>
+							<i class="fa fa-fw fa-{{ $content->published ? 'check' : 'ban' }}"></i>
 						</span>
 					</td>
 					<td class="text-center">{{ $content->creator->username }}</td>
