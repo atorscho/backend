@@ -9,6 +9,13 @@ use View;
 
 class ContentTypeController extends BaseController {
 
+	public function __construct()
+	{
+		parent::__construct();
+
+		// todo - access permissions
+	}
+
 	public function index()
 	{
 		$this->layout->title   = 'Content Types';

@@ -120,5 +120,8 @@ return [
 	'usersNew'                => 'New User',
 	'viewUserProfile'         => "View User's Profile",
 	'yes'                     => 'Yes',
+	'editName' => 'Edit: :name',
+	'infoMain' => 'Main Information',
+	'published' => 'Published'
 
 ];

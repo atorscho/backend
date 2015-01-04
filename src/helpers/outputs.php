@@ -19,11 +19,11 @@ if ( !function_exists('userFieldInput') )
 	 * Outputs the proper input depending on field type.
 	 *
 	 * @param \Atorscho\Backend\Models\UserField $field
-	 * @param \Atorscho\Backend\Models\User|null $user
+	 * @param object $record
 	 *
 	 * @return string
 	 */
-	function userFieldInput( $field, $user = null )
+	function userFieldInput( $field, $record = null )
 	{
 		$output = '';
 
@@ -31,7 +31,7 @@ if ( !function_exists('userFieldInput') )
 		$tabindex = 'tabindex="' . index() . '"';
 
 		$class = 'class="form-control"';
-		$value = ( isset( $user ) && isset( $user->fields()->find($field->id)->value ) ? $user->fields()->find($field->id)->value : '' );
+		$value = ( isset( $record ) && isset( $record->fields()->find($field->id)->value ) ? $record->fields()->find($field->id)->value : '' );
 		$title = $field->placeholder ?: $field->name;
 
 		$required  = $field->required ? 'required="true"' : '';

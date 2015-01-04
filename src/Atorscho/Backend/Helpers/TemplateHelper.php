@@ -79,9 +79,68 @@ class TemplateHelper {
 	}
 
 	/**
+	 * Open a block inside a col-9 div.
+	 * Default: <div class="col-md-9"><div class="blok">
+	 *
+	 * @return string
+	 */
+	public function openColBlok()
+	{
+		return '<div class="col-md-9"><div class="blok">';
+	}
+
+	/**
+	 * Close the block and open a sidebar tag.
+	 * Default: </div></div><div class="col-md-3"><div class="blok">
+	 *
+	 * @return string
+	 */
+	public function middleColBlok()
+	{
+		return '</div></div><div class="col-md-3"><div class="blok">';
+	}
+
+	/**
+	 * Close the block and open the controls block.
+	 * Default: </div><div class="text-center">
+	 *
+	 * @return string
+	 */
+	public function controlsColBlok()
+	{
+		return '</div><div class="text-center">';
+	}
+
+	/**
+	 * Close the col block.
+	 * Default: </div></div>
+	 *
+	 * @return string
+	 */
+	public function closeColBlok()
+	{
+		return '</div></div>';
+	}
+
+	/**
+	 * Outputs a block heading.
+	 *
+	 * @param string $title Title string or a key from lang/labels.php
+	 * @param string $level A heading level. Choices: h1|h2|h3|h4|h5|h6
+	 *
+	 * @return string
+	 */
+	public function blokHeading( $title, $level = 'h3' )
+	{
+		$title = transIfExists($title);
+
+		return "<header class=\"title\"><$level>{$title}</$level></header>";
+	}
+
+	/**
 	 * Outputs HTML <thead> and <tfoot> blocks for table.
 	 *
-	 * @param $rows
+	 * @param array $rows
 	 *
 	 * @return string
 	 */
