@@ -7,6 +7,7 @@ use Flash;
 use Input;
 use Redirect;
 use Str;
+use Validator;
 use View;
 
 // todo - translate
@@ -16,7 +17,7 @@ class ContentController extends BaseController {
 	protected $rules = [
 		'type_id'   => 'integer',
 		'title'     => 'required|max:100',
-		'slug'      => 'max:100',
+		'slug'      => 'max:100|unique:contents',
 		'published' => 'required|boolean',
 		'order'     => 'integer'
 	];
@@ -48,7 +49,7 @@ class ContentController extends BaseController {
 		Crumbs::addRoute('admin.content-types.index', 'Content Types');
 		Crumbs::addRoute('admin.content-types.show', $contentType->name, $contentType->slug);
 		Crumbs::add('#', Str::limit($content->title, 30));
-		Crumbs::addRoute('admin.contents.edit', trans('backend::labels.edit'), [$contentType->slug, $content->id]);
+		Crumbs::addRoute('admin.contents.edit', trans('backend::labels.edit'), [ $contentType->slug, $content->id ]);
 
 		$this->layout->title   = trans('backend::labels.editName', [ 'name' => $content->title ]);
 		$this->layout->content = View::make('backend::contents.edit', compact('contentType', 'content'));
@@ -56,14 +57,18 @@ class ContentController extends BaseController {
 
 	public function update( ContentType $contentType, Content $content )
 	{
-		$rules             = $this->rules;
-		$rules['email']    = 'required|email|max:40|unique:users';
-		$rules['password'] = 'required|confirmed';
+		$rules = $this->rules;
+		$rules['slug'] .= ',slug,' . $content->id;
+
+		// todo - maybe needed to be removed
+		$ruleFields   = $this->ruleFields;
+		$fieldsUpdate = Input::get('fields');
 
 		// Setting up custom fields rules
-		$fieldsUpdate = Input::get('fields');
-		$ruleFields  = $this->ruleFields;
-		$fieldsUpdate = saveUserField($rules, $ruleFields, $fieldsUpdate);
+		// todo - rules are ignored. FIX!!!
+		/*$fieldsUpdate = Input::get('fields');
+		$ruleFields   = $this->ruleFields;
+		$fieldsUpdate = saveUserField($rules, $ruleFields, $fieldsUpdate, 'content');*/
 
 		$validator = Validator::make(Input::all(), $rules);
 		$validator->setAttributeNames($ruleFields);
@@ -71,16 +76,15 @@ class ContentController extends BaseController {
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
-		$user = User::create(Input::except('groups'));
-		$user->groups()->sync(Input::get('groups'));
+		$content->fill(Input::all());
 
-		// Synchronize custom user fields
-		$user->fields()->sync($fieldsUpdate);
+		// Synchronize custom content fields
+		$content->fields()->sync($fieldsUpdate);
 
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.create')->with('success', trans('backend::labels.userCreated'));
+			return Redirect::route('admin.content-types.show', $contentType->slug)->with('success', 'Content saved');
 		else
-			return Redirect::route('admin.users.index')->with('success', trans('backend::labels.userCreated'));
+			return Redirect::route('admin.content-types.show', $contentType->slug)->with('success', 'Content saved');
 	}
 
 	public function destroy( ContentType $contentType, Content $content )

@@ -1,5 +1,6 @@
 <?php
 
+use Atorscho\Backend\Models\ContentField;
 use Atorscho\Backend\Models\Setting;
 use Atorscho\Backend\Models\UserField;
 
@@ -114,15 +115,21 @@ if ( !function_exists('saveUserField') )
 	/**
 	 * Save User Field.
 	 *
-	 * @param $rules
-	 * @param $rulesFields
-	 * @param $fieldsUpdate
+	 * @param array  $rules
+	 * @param array  $ruleFields
+	 * @param array  $fieldsUpdate
+	 * @param string $type
+	 *
+	 * @return array
 	 */
-	function saveUserField( &$rules, &$rulesFields, $fieldsUpdate )
+	function saveUserField( &$rules, &$ruleFields, $fieldsUpdate, $type = 'user' )
 	{
 		foreach ( $fieldsUpdate as $key => $value )
 		{
-			$field = UserField::where('handle', $key)->first();
+			if ( $type == 'user' )
+				$field = UserField::where('handle', $key)->first();
+			else
+				$field = ContentField::findHandle($key)->first();
 
 			if ( $field->required )
 				$rules["fields[{$field->handle}]"][] = 'required';
@@ -137,7 +144,7 @@ if ( !function_exists('saveUserField') )
 				$rules["fields[{$field->handle}]"] = join('|', $rules["fields[{$field->handle}]"]);
 
 			// Add new field name
-			$rulesFields["fields[{$field->handle}]"] = $field->name;
+			$ruleFields["fields[{$field->handle}]"] = $field->name;
 
 			// Replace handle key with its ID
 			unset( $fieldsUpdate[$key] );
