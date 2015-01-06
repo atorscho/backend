@@ -20,7 +20,7 @@
 			@forelse($contents as $content)
 				<tr>
 					<td>{{ $counter++ }}</td>
-					<td>
+					<td data-href="{{ route('admin.contents.edit', [$contentType->slug, $content->id]) }}">
 						<div class="tip" title="{{{ $content->title }}}">
 							{{{ Str::limit($content->title, 30) }}}
 						</div>
@@ -31,9 +31,11 @@
 						</div>
 					</td>
 					<td class="text-center">
-						<span class="label label-{{ $content->published ? 'success' : 'danger' }}">
-							<i class="fa fa-fw fa-{{ $content->published ? 'check' : 'ban' }}"></i>
-						</span>
+						{{ Form::open(['route' => ['admin.contents.toggleStatus', $content->id], 'id' => 'toggleStatus-' . $content->id, 'method' => 'PUT']) }}
+							<button type="submit" class="btn btn-xs btn-{{ $content->published ? 'success' : 'danger' }}" name="published" value="{{ $content->published ? 0 : 1 }}">
+								<i class="fa fa-fw fa-{{ $content->published ? 'check' : 'ban' }}"></i>
+							</button>
+						{{ Form::close() }}
 					</td>
 					<td class="text-center">{{ $content->creator->username }}</td>
 					<td class="text-center">{{ $content->id }}</td>
@@ -66,3 +68,25 @@
 	{{ Template::closeBlokContent() }}
 	{{ Template::closeBlok() }}
 @stop
+
+{{--@section('js')
+	<script>
+		$(document).ready(function () {
+			$('#toggleStatus-12').on('submit', function (e) {
+				e.preventDefault();
+
+				var data = {
+					"_token": $(this).find('input[name=_token]').val(),
+					"value": $(this).find('[name=published]').val()
+				};
+
+				console.log(data);
+
+				$.post(
+					$(this).prop('action'),
+					data
+				);
+			});
+		});
+	</script>
+@stop--}}

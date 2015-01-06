@@ -2,6 +2,9 @@
 
 return [
 
+	'contentCreated'        => 'Content has been created.',
+	'contentDeleted'        => 'Content has been deleted.',
+	'contentUpdated'        => 'Content has been updated.',
 	'copyright'             => 'Designed and Developed by <a href="//alextorscho.com">Alex Torscho</a>',
 	'groupCreated'          => 'Group has been created.',
 	'groupDeleted'          => 'Group has been deleted.',
@@ -11,7 +14,10 @@ return [
 	'loggedIn'              => 'You have successfully logged in.',
 	'loggedOut'             => 'You have successfully logged out of the system.',
 	'loginRequired'         => 'You must be authenticated to access this page.',
+	'noArticles'            => 'No articles found.',
+	'noContents'            => 'No content found for this content type.',
 	'noPageAccess'          => 'You do not have enough permissions to access this page.',
+	'noPages'               => 'No pages found.',
 	'noUserFieldGroups'     => 'There is no custom field groups.',
 	'noUserFields'          => 'There is no custom fields.',
 	'noUsers'               => 'No users found.',
@@ -28,9 +34,6 @@ return [
 	'userFieldUpdated'      => 'Custom user field has been updated.',
 	'userNotFound'          => 'Username with such credentials does not exist.',
 	'userUpdated'           => 'User has been updated.',
-	'noContents'            => 'No content found for this content type.',
-	'noArticles'            => 'No articles found.',
-	'noPages' => 'No pages found.',
-	'contentDeleted' => 'Content has been deleted.',
+	'contentStatusUpdate' => 'Status of the content has been changed.',
 
 ];

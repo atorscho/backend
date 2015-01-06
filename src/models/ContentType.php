@@ -19,6 +19,11 @@ class ContentType extends BaseModel {
 
 	public $timestamps = false;
 
+	/**
+	 * Records of current content type.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
 	public function contents()
 	{
 		return $this->hasMany('Atorscho\Backend\Models\Content', 'type_id');
@@ -31,7 +36,7 @@ class ContentType extends BaseModel {
 	 */
 	public function fields()
 	{
-		return $this->hasMany('Atorscho\Backend\Models\ContentField');
+		return $this->hasMany('Atorscho\Backend\Models\ContentField', 'type_id');
 	}
 
 }

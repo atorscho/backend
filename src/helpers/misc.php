@@ -132,19 +132,19 @@ if ( !function_exists('saveUserField') )
 				$field = ContentField::findHandle($key)->first();
 
 			if ( $field->required )
-				$rules["fields[{$field->handle}]"][] = 'required';
+				$rules["fields.{$field->handle}"][] = 'required';
 			if ( $field->min )
-				$rules["fields[{$field->handle}]"][] = 'min:' . $field->min;
+				$rules["fields.{$field->handle}"][] = 'min:' . $field->min;
 			if ( $field->max )
-				$rules["fields[{$field->handle}]"][] = 'max:' . $field->max;
+				$rules["fields.{$field->handle}"][] = 'max:' . $field->max;
 			if ( $field->pattern )
-				$rules["fields[{$field->handle}]"][] = 'regex:' . $field->pattern;
+				$rules["fields.{$field->handle}"][] = 'regex:' . $field->pattern;
 
-			if ( isset( $rules["fields[{$field->handle}]"] ) )
-				$rules["fields[{$field->handle}]"] = join('|', $rules["fields[{$field->handle}]"]);
+			if ( isset( $rules["fields.{$field->handle}"] ) )
+				$rules["fields.{$field->handle}"] = join('|', $rules["fields.{$field->handle}"]);
 
 			// Add new field name
-			$ruleFields["fields[{$field->handle}]"] = $field->name;
+			$ruleFields["fields.{$field->handle}"] = $field->name;
 
 			// Replace handle key with its ID
 			unset( $fieldsUpdate[$key] );

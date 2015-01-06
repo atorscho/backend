@@ -65,6 +65,9 @@ Route::group([
 	// Content Types
 	// ===================================
 	Route::resource('content-types', 'ContentTypeController', [ 'except' => 'show' ]);
+
+	// Contents
+	// ===================================
 	Route::get('{content_types}', [
 		'as'   => 'admin.content-types.show',
 		'uses' => 'ContentTypeController@show'
@@ -88,6 +91,10 @@ Route::group([
 	Route::delete('{content_types}/{content}', [
 		'as'   => 'admin.contents.destroy',
 		'uses' => 'ContentController@destroy'
+	]);
+	Route::put('{content}', [
+		'as'   => 'admin.contents.toggleStatus',
+		'uses' => 'ContentController@toggleStatus'
 	]);
 
 	// Ecommerce

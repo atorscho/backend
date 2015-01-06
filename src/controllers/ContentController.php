@@ -42,6 +42,40 @@ class ContentController extends BaseController {
 		// todo - access permissions
 	}
 
+	public function create( ContentType $contentType )
+	{
+
+	}
+
+	public function store( ContentType $contentType )
+	{
+		$rules = $this->rules;
+
+		// Setting up custom fields rules
+		$fieldsUpdate = Input::get('fields');
+		$ruleFields   = $this->ruleFields;
+		$fieldsUpdate = saveUserField($rules, $ruleFields, $fieldsUpdate, 'content');
+
+		$validator = Validator::make(Input::all(), $rules);
+		$validator->setAttributeNames($ruleFields);
+
+		if ( $validator->fails() )
+			return Redirect::back()->withErrors($validator)->withInput();
+
+		$content = Content::create(Input::all());
+		$content->fill(Input::all());
+
+		// Synchronize custom content fields
+		$content->fields()->sync($fieldsUpdate);
+
+		Flash::success('contentCreated');
+
+		if ( Input::get('submit') == 'save_new' )
+			return Redirect::route('admin.contents.create', $contentType->slug);
+		else
+			return Redirect::route('admin.content-types.show', $contentType->slug);
+	}
+
 	public function edit( ContentType $contentType, Content $content )
 	{
 		$content = $content->with('fields')->find($content->id);
@@ -60,15 +94,10 @@ class ContentController extends BaseController {
 		$rules = $this->rules;
 		$rules['slug'] .= ',slug,' . $content->id;
 
-		// todo - maybe needed to be removed
-		$ruleFields   = $this->ruleFields;
-		$fieldsUpdate = Input::get('fields');
-
 		// Setting up custom fields rules
-		// todo - rules are ignored. FIX!!!
-		/*$fieldsUpdate = Input::get('fields');
+		$fieldsUpdate = Input::get('fields');
 		$ruleFields   = $this->ruleFields;
-		$fieldsUpdate = saveUserField($rules, $ruleFields, $fieldsUpdate, 'content');*/
+		$fieldsUpdate = saveUserField($rules, $ruleFields, $fieldsUpdate, 'content');
 
 		$validator = Validator::make(Input::all(), $rules);
 		$validator->setAttributeNames($ruleFields);
@@ -77,14 +106,18 @@ class ContentController extends BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 
 		$content->fill(Input::all());
+		$content->updated_at = time();
+		$content->save();
 
 		// Synchronize custom content fields
 		$content->fields()->sync($fieldsUpdate);
 
+		Flash::success('contentUpdated');
+
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.content-types.show', $contentType->slug)->with('success', 'Content saved');
+			return Redirect::route('admin.contents.create', $contentType->slug);
 		else
-			return Redirect::route('admin.content-types.show', $contentType->slug)->with('success', 'Content saved');
+			return Redirect::route('admin.content-types.show', $contentType->slug);
 	}
 
 	public function destroy( ContentType $contentType, Content $content )
@@ -94,6 +127,21 @@ class ContentController extends BaseController {
 		$content->published = 0;
 
 		Flash::success('contentDeleted');
+
+		return Redirect::back();
+	}
+
+	// todo - make an ajax update
+	public function toggleStatus( Content $content )
+	{
+		$validator = Validator::make(Input::all(), [
+			'published' => 'required|boolean'
+		]);
+
+		$content->published = Input::get('published');
+		$content->save();
+
+		Flash::success('contentStatusUpdate');
 
 		return Redirect::back();
 	}

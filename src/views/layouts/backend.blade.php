@@ -92,5 +92,6 @@
 @foreach($template->scripts as $js)
 	{{ HTML::script($template->assetsJs . $js . '.js') }}
 @endforeach
+@yield('js')
 </body>
 </html>

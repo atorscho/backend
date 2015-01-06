@@ -111,7 +111,7 @@
 			        @foreach($fieldGroup->fields as $field)
 			            <div class="form-group">
 			                {{ Form::label("fields[{$field->handle}]", $field->name) }}
-							{{ $errors->first("fields[{$field->handle}]", '<span class="text-danger">:message</span>') }}
+							{{ $errors->first("fields.{$field->handle}", '<span class="text-danger">:message</span>') }}
 							{{ userFieldInput($field, isset($user) ? $user : null) }}
 							@if($field->description)
 								<span class="help-block">{{{ $field->description }}}</span>
