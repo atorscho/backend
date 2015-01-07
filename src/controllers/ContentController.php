@@ -45,6 +45,10 @@ class ContentController extends BaseController {
 
 	public function create( ContentType $contentType )
 	{
+		$parent = '';
+		if ( $contentType->hierarchical )
+			$parent = $contentType->contents()->orderBy('title')->lists('title', 'id');
+
 		$title = trans('backend::labels.contentsNew');
 
 		Crumbs::addRoute('admin.content-types.index', 'Content Types');
@@ -52,7 +56,7 @@ class ContentController extends BaseController {
 		Crumbs::addRoute('admin.contents.create', $title, $contentType->slug);
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::contents.create', compact('contentType'));
+		$this->layout->content = View::make('backend::contents.create', compact('contentType', 'parent'));
 	}
 
 	public function store( ContentType $contentType )
@@ -129,11 +133,20 @@ class ContentController extends BaseController {
 			return Redirect::route('admin.content-types.show', $contentType->slug);
 	}
 
-	public function destroy( ContentType $contentType, Content $content )
+	public function destroy( Content $content )
 	{
 		$content->delete();
 
 		$content->published = 0;
+
+		Flash::success('contentDeleted');
+
+		return Redirect::back();
+	}
+
+	public function forceDestroy( Content $content )
+	{
+		$content->forceDelete();
 
 		Flash::success('contentDeleted');
 

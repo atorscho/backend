@@ -40,7 +40,11 @@
 					<td class="text-center">{{ $content->creator->username }}</td>
 					<td class="text-center">{{ $content->id }}</td>
 					<td class="text-center">
-						{{ Form::open(['route' => ['admin.contents.destroy', $contentType->slug, $content->id], 'method' => 'DELETE']) }}
+						@if($content->deleted_at)
+							{{ Form::open(['route' => ['admin.contents.forceDestroy', $content->id], 'method' => 'DELETE']) }}
+						@else
+							{{ Form::open(['route' => ['admin.contents.destroy', $content->id], 'method' => 'DELETE']) }}
+						@endif
 							<div class="btn-group btn-group-sm">
 								<a class="btn btn-primary" href="{{ route('admin.contents.edit', [$contentType->slug, $content->id]) }}">
 									<i class="fa fa-fw fa-edit"></i>

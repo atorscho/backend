@@ -22,6 +22,7 @@ class ContentTypeController extends BaseController {
 		$this->layout->content = View::make('backend::contents.types.index');
 	}
 
+	// todo - hierarchical view (- -- --- etc)
 	public function show( ContentType $contentType )
 	{
 		$perPage = Input::get('perPage', 10);

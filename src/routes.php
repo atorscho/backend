@@ -1,8 +1,6 @@
 <?php
 
 // Global Filters
-use Atorscho\Backend\Models\ContentType;
-
 Route::when('admin*', 'admin.auth');
 Route::when('admin*', 'csrf', [
 	'post',
@@ -88,9 +86,13 @@ Route::group([
 		'as'   => 'admin.contents.update',
 		'uses' => 'ContentController@update'
 	]);
-	Route::delete('{content_types}/{content}', [
+	Route::delete('{content}', [
 		'as'   => 'admin.contents.destroy',
 		'uses' => 'ContentController@destroy'
+	]);
+	Route::delete('{content}', [
+		'as'   => 'admin.contents.forceDestroy',
+		'uses' => 'ContentController@forceDestroy'
 	]);
 	Route::put('{content}', [
 		'as'   => 'admin.contents.toggleStatus',

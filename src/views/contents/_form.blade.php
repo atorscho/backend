@@ -2,6 +2,18 @@
 
 {{ Template::blokHeading('infoMain') }}
 
+@if($contentType->hierarchical)
+	<div class="form-group">
+		{{ Form::label('parent_id', trans('backend::labels.parent')) }}
+		{{ $errors->first('parent_id', '<span class="text-danger">:message</span>') }}
+		{{ Form::select('parent_id', $parent, null, [
+			'class' => 'select',
+			'placeholder' => trans('backend::labels.parent'),
+			'tabindex' => index()
+		]) }}
+	</div>
+@endif
+
 <div class="form-group">
 	{{ Form::label('title', 'Title') }}
 	{{ $errors->first('title', '<span class="text-danger">:message</span>') }}
