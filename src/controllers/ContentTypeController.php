@@ -18,8 +18,27 @@ class ContentTypeController extends BaseController {
 
 	public function index()
 	{
-		$this->layout->title   = 'Content Types';
-		$this->layout->content = View::make('backend::contents.types.index');
+		$perPage = Input::get('perPage', 10);
+		$contentTypes = ContentType::paginate($perPage);
+		$counter = counter($perPage);
+
+		$title = trans('backend::labels.contentTypes');
+
+		// Table Heading Rows
+		$rows = [
+			'#'         => 'width-50',
+			'Title',
+			'Slug',
+			'Published' => 'width-50',
+			'Author'    => 'text-center width-100',
+			'ID'        => 'text-center width-80',
+			'Actions'   => 'text-center width-90'
+		];
+
+		Crumbs::addRoute('admin.content-types.index', $title);
+
+		$this->layout->title   = $title;
+		$this->layout->content = View::make('backend::contents.types.index', compact('contentTypes', 'rows', 'counter'));
 	}
 
 	// todo - hierarchical view (- -- --- etc)
