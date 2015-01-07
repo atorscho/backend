@@ -47,7 +47,7 @@ class ContentController extends BaseController {
 	{
 		$parent = '';
 		if ( $contentType->hierarchical )
-			$parent = $contentType->contents()->orderBy('title')->lists('title', 'id');
+			$parent = ['none' => trans('backend::labels.noParent')] + $contentType->contents()->orderBy('title')->lists('title', 'id');
 
 		$title = trans('backend::labels.contentsNew');
 
@@ -74,7 +74,7 @@ class ContentController extends BaseController {
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
-		$data            = Input::all();
+		$data            = (Input::get('parent_id') == 'none') ? Input::except('parent_id') : Input::all();
 		$data['type_id'] = $contentType->id;
 		$content         = Content::create($data);
 
@@ -133,6 +133,13 @@ class ContentController extends BaseController {
 			return Redirect::route('admin.content-types.show', $contentType->slug);
 	}
 
+	/**
+	 * Soft delete the content.
+	 *
+	 * @param Content $content
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function destroy( Content $content )
 	{
 		$content->delete();
@@ -144,6 +151,13 @@ class ContentController extends BaseController {
 		return Redirect::back();
 	}
 
+	/**
+	 * Completely delete the content from the DB.
+	 *
+	 * @param Content $content
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function forceDestroy( Content $content )
 	{
 		$content->forceDelete();

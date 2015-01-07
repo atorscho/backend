@@ -126,7 +126,8 @@ return [
 	'placeholder'             => 'Placeholder',
 	'sizesLengths'            => 'Sizes &amp; Lenghts',
 	'pattern'                 => 'Pattern',
-	'fullName' => 'Full Name',
-	'parent' => 'Parent'
+	'fullName'                => 'Full Name',
+	'parent'                  => 'Parent',
+	'noParent'                => 'No Parent'
 
 ];

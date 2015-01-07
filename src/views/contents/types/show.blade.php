@@ -31,11 +31,15 @@
 						</div>
 					</td>
 					<td class="text-center">
-						{{ Form::open(['route' => ['admin.contents.toggleStatus', $content->id], 'id' => 'toggleStatus-' . $content->id, 'method' => 'PUT']) }}
+						@if(!$content->deleted_at)
+							{{ Form::open(['route' => ['admin.contents.toggleStatus', $content->id], 'id' => 'toggleStatus-' . $content->id, 'method' => 'PUT']) }}
+						@endif
 							<button type="submit" class="btn btn-xs btn-{{ $content->published ? 'success' : 'danger' }}" name="published" value="{{ $content->published ? 0 : 1 }}">
 								<i class="fa fa-fw fa-{{ $content->published ? 'check' : 'ban' }}"></i>
 							</button>
-						{{ Form::close() }}
+						@if(!$content->deleted_at)
+							{{ Form::close() }}
+						@endif
 					</td>
 					<td class="text-center">{{ $content->creator->username }}</td>
 					<td class="text-center">{{ $content->id }}</td>
@@ -46,9 +50,11 @@
 							{{ Form::open(['route' => ['admin.contents.destroy', $content->id], 'method' => 'DELETE']) }}
 						@endif
 							<div class="btn-group btn-group-sm">
-								<a class="btn btn-primary" href="{{ route('admin.contents.edit', [$contentType->slug, $content->id]) }}">
-									<i class="fa fa-fw fa-edit"></i>
-								</a>
+								@if(!$content->deleted_at)
+									<a class="btn btn-primary" href="{{ route('admin.contents.edit', [$contentType->slug, $content->id]) }}">
+										<i class="fa fa-fw fa-edit"></i>
+									</a>
+								@endif
 								<button type="submit" class="btn btn-primary">
 									<i class="fa fa-fw fa-times"></i>
 								</button>

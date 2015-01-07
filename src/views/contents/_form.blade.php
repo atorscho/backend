@@ -35,6 +35,7 @@
 	]) }}
 </div>
 
+<?php // todo - does not repopulate custom fields ?>
 @foreach($contentType->fields as $field)
 	<div class="form-group">
 		{{ Form::label("fields[{$field->handle}]", $field->name) }}

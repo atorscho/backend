@@ -86,7 +86,7 @@ Route::bind('content_types', function($contentTypes)
 Route::bind('content', function($content)
 {
 	if ( is_numeric( $content ) )
-		$content = Content::find($content);
+		$content = Content::withTrashed()->find($content);
 	else
 		$content = Content::where('slug', $content)->first();
 
