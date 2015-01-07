@@ -1,5 +1,3 @@
-<?php // todo - translate ?>
-
 @section('content')
 	<div class="row">
 		{{ Form::model($content, ['route' => ['admin.contents.update', $contentType->id, $content->id], 'method' => 'PUT']) }}

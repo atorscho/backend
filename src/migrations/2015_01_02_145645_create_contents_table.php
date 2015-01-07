@@ -16,6 +16,7 @@ class CreateContentsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('type_id')->unsigned();
+			$table->integer('parent_id')->unsigned()->nullable();
 			$table->string('title');
 			$table->string('slug')->unique();
 			$table->boolean('published')->default(1);
@@ -26,6 +27,7 @@ class CreateContentsTable extends Migration {
 			$table->softDeletes();
 
 			$table->foreign('type_id')->references('id')->on('content_types')->onDelete('cascade');
+			$table->foreign('parent_id')->references('id')->on('contents')->onDelete('cascade');
 			$table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
 			$table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
 		});

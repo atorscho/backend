@@ -4,6 +4,7 @@ return [
 
 	'contentCreated'        => 'Content has been created.',
 	'contentDeleted'        => 'Content has been deleted.',
+	'contentStatusUpdate'   => 'Status of the content has been changed.',
 	'contentUpdated'        => 'Content has been updated.',
 	'copyright'             => 'Designed and Developed by <a href="//alextorscho.com">Alex Torscho</a>',
 	'groupCreated'          => 'Group has been created.',
@@ -21,7 +22,9 @@ return [
 	'noUserFieldGroups'     => 'There is no custom field groups.',
 	'noUserFields'          => 'There is no custom fields.',
 	'noUsers'               => 'No users found.',
+	'pattern'               => 'A regular expression to apply to the input.',
 	'settingsUpdated'       => 'Settings have been updated.',
+	'stepDesc'              => e('Number intervals for an <input> element.'),
 	'userCreated'           => 'User has been created.',
 	'userDeactivated'       => 'User has been deactivated.',
 	'userDeleted'           => 'User has been deleted.',
@@ -34,6 +37,5 @@ return [
 	'userFieldUpdated'      => 'Custom user field has been updated.',
 	'userNotFound'          => 'Username with such credentials does not exist.',
 	'userUpdated'           => 'User has been updated.',
-	'contentStatusUpdate' => 'Status of the content has been changed.',
 
 ];

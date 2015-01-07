@@ -26,9 +26,9 @@ trait SlugAttributeTrait {
 	public function setSlugAttribute( $value, $title = 'name' )
 	{
 		if ( $value )
-			$this->attributes['slug'] = \Str::slug($value);
+			$this->attributes['slug'] = snake_case($value);
 		else
-			$this->attributes['slug'] = \Str::slug($this->$title);
+			$this->attributes['slug'] = snake_case($this->$title);
 	}
 
 } 

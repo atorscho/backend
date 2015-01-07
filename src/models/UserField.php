@@ -20,8 +20,6 @@ class UserField extends BaseModel {
 		'min',
 		'max',
 		'step',
-		'rows',
-		'maxlength',
 		'pattern',
 		'order'
 	];

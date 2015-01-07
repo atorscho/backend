@@ -25,8 +25,6 @@ class CreateUserFieldsTable extends Migration {
 			$table->string('min')->nullable();
 			$table->string('max')->nullable();
 			$table->integer('step')->unsigned()->nullable();
-			$table->integer('cols')->unsigned()->nullable();
-			$table->integer('rows')->unsigned()->nullable();
 			$table->string('pattern')->nullable();
 			$table->integer('order')->unsigned();
 

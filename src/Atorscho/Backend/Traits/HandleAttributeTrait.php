@@ -26,9 +26,9 @@ trait HandleAttributeTrait {
 	public function setHandleAttribute( $value, $title = 'name' )
 	{
 		if ( $value )
-			$this->attributes['handle'] = \Str::camel($value);
+			$this->attributes['handle'] = camel_case($value);
 		else
-			$this->attributes['handle'] = \Str::camel($this->$title);
+			$this->attributes['handle'] = camel_case($this->$title);
 	}
 
 } 

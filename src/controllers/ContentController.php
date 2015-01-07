@@ -31,6 +31,7 @@ class ContentController extends BaseController {
 		// todo - translate
 		$this->ruleFields = [
 			'type_id'    => 'Content Type',
+			'parent_id'  => 'Parent',
 			'title'      => 'Title',
 			'slug'       => 'slug',
 			'published'  => 'Published',
@@ -44,7 +45,14 @@ class ContentController extends BaseController {
 
 	public function create( ContentType $contentType )
 	{
+		$title = trans('backend::labels.contentsNew');
 
+		Crumbs::addRoute('admin.content-types.index', 'Content Types');
+		Crumbs::addRoute('admin.content-types.show', $contentType->name, $contentType->slug);
+		Crumbs::addRoute('admin.contents.create', $title, $contentType->slug);
+
+		$this->layout->title   = $title;
+		$this->layout->content = View::make('backend::contents.create', compact('contentType'));
 	}
 
 	public function store( ContentType $contentType )
@@ -62,8 +70,9 @@ class ContentController extends BaseController {
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
-		$content = Content::create(Input::all());
-		$content->fill(Input::all());
+		$data            = Input::all();
+		$data['type_id'] = $contentType->id;
+		$content         = Content::create($data);
 
 		// Synchronize custom content fields
 		$content->fields()->sync($fieldsUpdate);
@@ -137,6 +146,9 @@ class ContentController extends BaseController {
 		$validator = Validator::make(Input::all(), [
 			'published' => 'required|boolean'
 		]);
+
+		if ( $validator->fails() )
+			return Redirect::back();
 
 		$content->published = Input::get('published');
 		$content->save();

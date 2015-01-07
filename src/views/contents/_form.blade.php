@@ -23,7 +23,7 @@
 	]) }}
 </div>
 
-@foreach($content->fields as $field)
+@foreach($contentType->fields as $field)
 	<div class="form-group">
 		{{ Form::label("fields[{$field->handle}]", $field->name) }}
 		{{ $errors->first("fields.{$field->handle}", '<span class="text-danger">:message</span>') }}
