@@ -59,26 +59,25 @@ class BackendServiceProvider extends ServiceProvider {
 	private function registerCommands()
 	{
 		// Create New Super-Admin Command
-		/*$this->app['backend.backend.admin'] = $this->app->share(function ($app)
+		$this->app['backend.backend.admin'] = $this->app->share(function ( $app )
 		{
-			return new Commands\BackendAdminCommand();
+			return $app->make('Atorscho\Backend\Commands\BackendAdminCommand');
 		});
-		$this->commands('backend.backend.admin');*/
+		$this->commands('backend.backend.admin');
 
 		// Faker Command
-		$this->app['backend.backend.install'] = $this->app->share(function ($app)
+		$this->app['backend.backend.faker'] = $this->app->share(function ( $app )
 		{
-//			return new Commands\BackendInstallCommand();
+			return $app->make('Atorscho\Backend\Commands\BackendFakerCommand');
+		});
+		$this->commands('backend.backend.faker');
+
+		// Faker Command
+		$this->app['backend.backend.install'] = $this->app->share(function ( $app )
+		{
 			return $app->make('Atorscho\Backend\Commands\BackendInstallCommand');
 		});
 		$this->commands('backend.backend.install');
-
-		// Faker Command
-		/*$this->app['backend.backend.faker'] = $this->app->share(function ($app)
-		{
-			return new Commands\BackendFakerCommand();
-		});
-		$this->commands('backend.backend.faker');*/
 	}
 
 	/**
@@ -107,7 +106,6 @@ class BackendServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register Aliases for custom Facades.
-	 *
 	 * No need to add them to /app/config/app.php
 	 */
 	private function registerAliases()
