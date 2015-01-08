@@ -177,7 +177,7 @@ class BackendContentsSeeder extends Seeder {
 		addPermissionsToGroup('moderators', 'showContents');
 		addPermissionsToGroup('supermods', ['showContents', 'editContents']);
 		addPermissionsToGroup('admins', ['createContents', 'showContents', 'editContents', 'deleteContents', 'showContentTypes', 'editContentTypes']);
-		addPermissionsToGroup('superadmins', ['createContents', 'showContents', 'editContents', 'deleteContents', 'showContentTypes', 'editContentTypes']);
+		addPermissionsToGroup('superadmins', ['createContents', 'showContents', 'editContents', 'deleteContents', 'createContentTypes', 'showContentTypes', 'editContentTypes', 'deleteContentTypes']);
 	}
 
 }
