@@ -5,7 +5,7 @@ use Illuminate\Console\Command;
 use Hash;
 use Atorscho\Backend\Models\User;
 
-class BackendCreateAdminCommand extends Command {
+class BackendAdminCommand extends Command {
 
 	/**
 	 * The console command name.
@@ -36,7 +36,6 @@ class BackendCreateAdminCommand extends Command {
 	 */
 	public function fire()
 	{
-		// todo - translate
 		$username  = $this->ask('Choose a username:');
 		$email     = $this->ask('Enter your valid email address:');
 		$password  = $this->secret('And now your password:');

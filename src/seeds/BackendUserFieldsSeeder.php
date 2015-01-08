@@ -5,7 +5,47 @@ use Atorscho\Backend\Models\UserField;
 use Atorscho\Backend\Models\UserFieldGroup;
 use Illuminate\Database\Seeder;
 
-class UserFieldsSeeder extends Seeder {
+class BackendUserFieldsSeeder extends Seeder {
+
+	protected $permissions;
+
+	public function __construct()
+	{
+		$this->permissions = [
+			[
+				'name'   => 'Create Fields',
+				'handle' => 'createFields'
+			],
+			[
+				'name'   => 'Show Fields',
+				'handle' => 'showFields'
+			],
+			[
+				'name'   => 'Edit Fields',
+				'handle' => 'editFields'
+			],
+			[
+				'name'   => 'Delete Fields',
+				'handle' => 'deleteFields'
+			],
+			[
+				'name'   => 'Create Field Groups',
+				'handle' => 'createFieldGroups'
+			],
+			[
+				'name'   => 'Show Field Groups',
+				'handle' => 'showFieldGroups'
+			],
+			[
+				'name'   => 'Edit Field Groups',
+				'handle' => 'editFieldGroups'
+			],
+			[
+				'name'   => 'Delete Field Groups',
+				'handle' => 'deleteFieldGroups'
+			]
+		];
+	}
 
 	/**
 	 * Run the database seeds.
@@ -14,10 +54,16 @@ class UserFieldsSeeder extends Seeder {
 	 */
 	public function run()
 	{
+		$permHandles = array_map(function ($item)
+		{
+			return $item['handle'];
+		}, $this->permissions);
+
 		DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
 		UserField::truncate();
 		UserFieldGroup::truncate();
+		Permission::whereIn('handle', $permHandles)->delete();
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
@@ -63,42 +109,7 @@ class UserFieldsSeeder extends Seeder {
 
 	protected function permissions()
 	{
-		$permissions = [
-			[
-				'name'   => 'Create Fields',
-				'handle' => 'createFields'
-			],
-			[
-				'name'   => 'Show Fields',
-				'handle' => 'showFields'
-			],
-			[
-				'name'   => 'Edit Fields',
-				'handle' => 'editFields'
-			],
-			[
-				'name'   => 'Delete Fields',
-				'handle' => 'deleteFields'
-			],
-			[
-				'name'   => 'Create Field Groups',
-				'handle' => 'createFieldGroups'
-			],
-			[
-				'name'   => 'Show Field Groups',
-				'handle' => 'showFieldGroups'
-			],
-			[
-				'name'   => 'Edit Field Groups',
-				'handle' => 'editFieldGroups'
-			],
-			[
-				'name'   => 'Delete Field Groups',
-				'handle' => 'deleteFieldGroups'
-			]
-		];
-
-		foreach ( $permissions as $permission )
+		foreach ( $this->permissions as $permission )
 			Permission::create($permission);
 
 		addPermissionsToGroup('members', 'showFields');

@@ -7,7 +7,7 @@ return [
 	| GROUPS
 	|--------------------------------------------------------------------------
 	|
-	| Group configurations and defines.
+	| Default groups configurations and defines.
 	|
 	*/
 	'groups' => [

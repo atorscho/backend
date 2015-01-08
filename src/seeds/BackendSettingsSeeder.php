@@ -4,7 +4,7 @@ use Atorscho\Backend\Models\SettingsGroup;
 use Atorscho\Backend\Models\Setting;
 use Illuminate\Database\Seeder;
 
-class SettingsSeeder extends Seeder {
+class BackendSettingsSeeder extends Seeder {
 
 	/**
 	 * Run the database seeds.

@@ -3,7 +3,7 @@
 use Atorscho\Backend\Models\Permission;
 use Illuminate\Database\Seeder;
 
-class PermissionsSeeder extends Seeder {
+class BackendPermissionsSeeder extends Seeder {
 
 	/**
 	 * Run the database seeds.

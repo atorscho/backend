@@ -3,7 +3,7 @@
 use Atorscho\Backend\Models\Group;
 use Illuminate\Database\Seeder;
 
-class GroupsSeeder extends Seeder {
+class BackendGroupsSeeder extends Seeder {
 
 	/**
 	 * Run the database seeds.

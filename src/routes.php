@@ -1,7 +1,7 @@
 <?php
 
 // Global Filters
-Route::when('admin*', 'admin.auth');
+//Route::when('admin*', 'admin.auth');
 Route::when('admin*', 'csrf', [
 	'post',
 	'put',
@@ -51,6 +51,14 @@ Route::group([
 		'as'   => 'admin.settings.update',
 		'uses' => 'SettingController@update'
 	]);
+
+	Route::get('test', function ()
+	{
+		$seeder = new Seeder;
+
+		$seeder->call('ContentsSeeder');
+	});
+
 
 	// Users & Groups & Permissions & Fields
 	// ===================================
