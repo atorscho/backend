@@ -99,6 +99,55 @@ Route::group([
 		'uses' => 'ContentController@toggleStatus'
 	]);
 
+	// Taxonomy Types
+	// ===================================
+	Route::resource('taxonomies/taxonomy-types', 'TaxonomyTypeController', [
+		'except' => 'show',
+		'names'  => [
+			'index'   => 'admin.taxonomy-types.index',
+			'create'  => 'admin.taxonomy-types.create',
+			'store'   => 'admin.taxonomy-types.store',
+			'edit'    => 'admin.taxonomy-types.edit',
+			'update'  => 'admin.taxonomy-types.update',
+			'destroy' => 'admin.taxonomy-types.destroy',
+		]
+	]);
+
+	// Taxonomies
+	// ===================================
+	Route::get('taxonomies/{taxonomy_types}', [
+		'as'   => 'admin.taxonomy-types.show',
+		'uses' => 'TaxonomyTypeController@show'
+	]);
+	Route::get('taxonomies/{taxonomy_types}/create', [
+		'as'   => 'admin.taxonomies.create',
+		'uses' => 'TaxonomyController@create'
+	]);
+	Route::post('taxonomies/{taxonomy_types}', [
+		'as'   => 'admin.taxonomies.store',
+		'uses' => 'TaxonomyController@store'
+	]);
+	Route::get('taxonomies/{taxonomy_types}/{taxonomy}/edit', [
+		'as'   => 'admin.taxonomies.edit',
+		'uses' => 'TaxonomyController@edit'
+	]);
+	Route::put('taxonomies/{taxonomy_types}/{taxonomy}', [
+		'as'   => 'admin.taxonomies.update',
+		'uses' => 'TaxonomyController@update'
+	]);
+	Route::delete('taxonomies/{taxonomy}', [
+		'as'   => 'admin.taxonomies.destroy',
+		'uses' => 'TaxonomyController@destroy'
+	]);
+	Route::delete('taxonomies/{taxonomy}', [
+		'as'   => 'admin.taxonomies.forceDestroy',
+		'uses' => 'TaxonomyController@forceDestroy'
+	]);
+	Route::put('taxonomies/{taxonomy}', [
+		'as'   => 'admin.taxonomies.toggleStatus',
+		'uses' => 'TaxonomyController@toggleStatus'
+	]);
+
 	// Ecommerce
 	// ===================================
 	Route::get('ecommerce', [

@@ -100,6 +100,16 @@ class Content extends BaseModel {
 	}
 
 	/**
+	 * The list of content's taxonomies.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function taxonomies()
+	{
+		return $this->belongsToMany('Atorscho\Backend\Models\Taxonomy');
+	}
+
+	/**
 	 * The person who updated the content.
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

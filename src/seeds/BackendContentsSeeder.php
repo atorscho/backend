@@ -67,13 +67,10 @@ class BackendContentsSeeder extends Seeder {
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-		$faker = \Faker\Factory::create();
-
 		// Default Content Types with its Fields
 		$types = [
 			[
 				'name'         => 'Pages',
-				'name_sg'      => 'Page',
 				'description'  => 'List of all static pages.',
 				'icon'         => 'file-text',
 				'hierarchical' => 1,
@@ -88,7 +85,6 @@ class BackendContentsSeeder extends Seeder {
 			],
 			[
 				'name'         => 'Articles',
-				'name_sg'      => 'Article',
 				'description'  => 'Site news, articles and posts.',
 				'icon'         => 'file-image-o',
 				'hierarchical' => 0,

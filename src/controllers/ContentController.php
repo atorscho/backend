@@ -2,6 +2,7 @@
 
 use Atorscho\Backend\Models\Content;
 use Atorscho\Backend\Models\ContentType;
+use Atorscho\Backend\Models\TaxonomyType;
 use Crumbs;
 use Flash;
 use Input;
@@ -11,6 +12,8 @@ use Validator;
 use View;
 
 // todo - translate
+
+// todo - creator and published date inputs in forms
 
 class ContentController extends BaseController {
 
@@ -45,6 +48,8 @@ class ContentController extends BaseController {
 
 	public function create( ContentType $contentType )
 	{
+		$categories = TaxonomyType::findSlug('categories')->first()->taxonomies;
+
 		$parent = '';
 		if ( $contentType->hierarchical )
 			$parent = ['none' => trans('backend::labels.noParent')] + $contentType->contents()->orderBy('title')->lists('title', 'id');
@@ -56,7 +61,7 @@ class ContentController extends BaseController {
 		Crumbs::addRoute('admin.contents.create', $title, $contentType->slug);
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::contents.create', compact('contentType', 'parent'));
+		$this->layout->content = View::make('backend::contents.create', compact('contentType', 'categories', 'parent'));
 	}
 
 	public function store( ContentType $contentType )
@@ -180,7 +185,7 @@ class ContentController extends BaseController {
 		$content->published = Input::get('published');
 		$content->save();
 
-		Flash::success('contentStatusUpdate');
+		Flash::success('contentUpdatedStatus');
 
 		return Redirect::back();
 	}

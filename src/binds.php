@@ -4,6 +4,8 @@ use Atorscho\Backend\Models\Content;
 use Atorscho\Backend\Models\ContentType;
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\SettingsGroup;
+use Atorscho\Backend\Models\Taxonomy;
+use Atorscho\Backend\Models\TaxonomyType;
 use Atorscho\Backend\Models\User;
 use Atorscho\Backend\Models\UserField;
 use Atorscho\Backend\Models\UserFieldGroup;
@@ -77,8 +79,8 @@ Route::bind('content_types', function($contentTypes)
 	else
 		$contentTypes = ContentType::where('slug', $contentTypes)->first();
 
-	if ( !$contentTypes )
-		\App::abort(404);
+//	if ( !$contentTypes )
+//		\App::abort(404);
 
 	return $contentTypes;
 });
@@ -90,8 +92,34 @@ Route::bind('content', function($content)
 	else
 		$content = Content::where('slug', $content)->first();
 
-	if ( !$content )
-		\App::abort(404);
+//	if ( !$content )
+//		\App::abort(404);
 
 	return $content;
+});
+
+Route::bind('taxonomy_types', function($taxonomyTypes)
+{
+	if ( is_numeric( $taxonomyTypes ) )
+		$taxonomyTypes = TaxonomyType::find($taxonomyTypes);
+	else
+		$taxonomyTypes = TaxonomyType::where('slug', $taxonomyTypes)->first();
+
+	if ( !$taxonomyTypes )
+		\App::abort(404);
+
+	return $taxonomyTypes;
+});
+
+Route::bind('taxonomy', function($taxonomy)
+{
+	if ( is_numeric( $taxonomy ) )
+		$taxonomy = Taxonomy::find($taxonomy);
+	else
+		$taxonomy = Taxonomy::where('slug', $taxonomy)->first();
+
+	if ( !$taxonomy )
+		\App::abort(404);
+
+	return $taxonomy;
 });

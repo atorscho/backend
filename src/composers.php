@@ -3,6 +3,7 @@
 use Atorscho\Backend\Models\ContentType;
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
+use Atorscho\Backend\Models\TaxonomyType;
 use Atorscho\Backend\Models\User;
 use Atorscho\Backend\Models\UserFieldGroup;
 
@@ -26,9 +27,13 @@ View::composer('backend::partials.users._fields_sidebar', function ( $view )
 });
 
 /**
- * Sidebar on Content Types index page
+ * Sidebar on Content & Taxonomy Types index page
  */
 View::composer('backend::partials.contents._sidebar', function ( $view )
 {
 	$view->with('types', ContentType::orderBy('name')->get());
+});
+View::composer('backend::partials.taxonomies._sidebar', function ( $view )
+{
+	$view->with('types', TaxonomyType::orderBy('name')->get());
 });

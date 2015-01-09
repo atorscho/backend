@@ -20,6 +20,7 @@
 					<td>{{ $counter++ }}</td>
 					<td data-href="{{ route('admin.content-types.edit', $contentType->slug) }}">
 						<div class="tip" title="{{{ $contentType->title }}}">
+							<i class="fa fa-fw fa-{{ $contentType->icon }}"></i>
 							{{{ $contentType->name }}}
 						</div>
 					</td>

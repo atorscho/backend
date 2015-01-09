@@ -2,8 +2,6 @@
 
 use Illuminate\Database\Seeder;
 
-// todo - improve permissions. let reseed.
-
 class BackendSeeder extends Seeder {
 
 	/**
@@ -15,11 +13,12 @@ class BackendSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		$this->call('SettingsSeeder');
-		$this->call('GroupsSeeder');
-		$this->call('PermissionsSeeder');
-		$this->call('UserFieldsSeeder');
-		$this->call('ContentsSeeder');
+		$this->call('BackendSettingsSeeder');
+		$this->call('BackendGroupsSeeder');
+		$this->call('BackendPermissionsSeeder');
+		$this->call('BackendUserFieldsSeeder');
+		$this->call('BackendContentsSeeder');
+		$this->call('BackendTaxonomiesSeeder');
 	}
 
 }

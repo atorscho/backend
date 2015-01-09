@@ -1,6 +1,23 @@
+<?php // todo - translate ?>
+
 {{ Template::openColBlok() }}
 
 {{ Template::blokHeading('infoMain') }}
+
+<div class="form-group">
+	{{ Form::label('categories', 'Categories') }}
+	{{ $errors->first('categories', '<span class="text-danger">:message</span>') }}
+	@if($categories->count())
+		{{ Form::select('categories', $categories, null, [
+			'class' => 'select',
+			'multiple' => true,
+			'title' => 'Choose Categories',
+			'tabindex' => index()
+		]) }}
+	@else
+		<p class="form-control-static">No categories found.</p>
+	@endif
+</div>
 
 @if($contentType->hierarchical)
 	<div class="form-group">

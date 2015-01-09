@@ -127,9 +127,9 @@ if ( !function_exists('saveUserField') )
 		foreach ( $fieldsUpdate as $key => $value )
 		{
 			if ( $type == 'user' )
-				$field = UserField::where('handle', $key)->first();
+				$field = UserField::findHandle($key);
 			else
-				$field = ContentField::findHandle($key)->first();
+				$field = ContentField::findHandle($key);
 
 			if ( $field->required )
 				$rules["fields.{$field->handle}"][] = 'required';

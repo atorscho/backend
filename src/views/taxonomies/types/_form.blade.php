@@ -46,7 +46,7 @@
 	{{ $errors->first('icon', '<span class="text-danger">:message</span>') }}
 	<select class="select" id="icon" name="icon" title="Icon" tabindex="{{ index() }}">
 		@foreach($icons as $icon)
-			<option value="{{ $icon }}" data-icon="fa-fw fa-{{ $icon }}" {{ (isset($contentType->icon) ? ($contentType->icon == $icon ? 'selected="true"' : '') : '') }}>{{ $icon }}</option>
+			<option value="{{ $icon }}" data-icon="fa-fw fa-{{ $icon }}" {{ (isset($taxonomyType->icon) ? ($taxonomyType->icon == $icon ? 'selected="true"' : '') : '') }}>{{ $icon }}</option>
 		@endforeach
 	</select>
 </div>
@@ -58,15 +58,15 @@
 	</div>
 	<div>
 		<div class="btn-group" data-toggle="buttons">
-			<label class="btn btn-default {{ (isset($contentType) && $contentType->hierarchical) ? 'active' : '' }}">
+			<label class="btn btn-default {{ (isset($taxonomyType) && $taxonomyType->hierarchical) ? 'active' : '' }}">
 				{{ Form::radio('hierarchical', 1, null) }} @lang('backend::labels.yes')
 			</label>
-			<label class="btn btn-default {{ (isset($contentType) && !$contentType->hierarchical) ? 'active' : '' }}">
+			<label class="btn btn-default {{ (isset($taxonomyType) && !$taxonomyType->hierarchical) ? 'active' : '' }}">
 				{{ Form::radio('hierarchical', 0, true) }} @lang('backend::labels.no')
 			</label>
 		</div>
 	</div>
-	<span class="help-block">Let the content type be hierarchical like Pages or not, like Articles.</span>
+	<span class="help-block">Let the taxonomy type be hierarchical like Categories or not, like Tags.</span>
 </div>
 
 {{ Template::controlsColBlok() }}
@@ -86,7 +86,7 @@
 		'value'    => 'save_new',
 		'tabindex' => index()
 	]) }}
-	<a class="btn btn-default" href="{{ route('admin.content-types.index') }}"><i class="fa fa-times-circle"></i></a>
+	<a class="btn btn-default" href="{{ route('admin.taxonomy-types.index') }}"><i class="fa fa-times-circle"></i></a>
 </div>
 
 {{ Template::closeColBlok() }}

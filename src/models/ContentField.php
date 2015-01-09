@@ -4,6 +4,8 @@ use Atorscho\Backend\Traits\HandleAttributeTrait;
 use Atorscho\Backend\Traits\OrderAttributeTrait;
 use Atorscho\Backend\Traits\TypeNameAttributeTrait;
 
+// todo - add image type
+
 class ContentField extends BaseModel {
 
 	use HandleAttributeTrait, OrderAttributeTrait, TypeNameAttributeTrait;

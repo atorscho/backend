@@ -4,8 +4,11 @@ return [
 
 	'contentCreated'        => 'Content has been created.',
 	'contentDeleted'        => 'Content has been deleted.',
-	'contentStatusUpdate'   => 'Status of the content has been changed.',
 	'contentUpdated'        => 'Content has been updated.',
+	'contentUpdatedStatus'  => 'Status of the content has been changed.',
+	'taxonomyCreated'       => 'Taxonomy has been created.',
+	'taxonomyDeleted'       => 'Taxonomy has been deleted.',
+	'taxonomyUpdated'       => 'Taxonomy has been updated.',
 	'copyright'             => 'Designed and Developed by <a href="//alextorscho.com">Alex Torscho</a>',
 	'groupCreated'          => 'Group has been created.',
 	'groupDeleted'          => 'Group has been deleted.',
