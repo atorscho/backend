@@ -20,6 +20,7 @@ return [
 	'contentType'             => 'Content Type',
 	'contentTypes'            => 'Content Types',
 	'contentTypesNew'         => 'New Content Type',
+	'contentTypesEditName'    => 'Edit Type: :name',
 	'contentTypesNewShort'    => 'New Type',
 	'dashboard'               => 'Dashboard',
 	'dashboardHome'           => 'Backend Dashboard',

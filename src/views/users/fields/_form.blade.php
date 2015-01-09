@@ -86,7 +86,7 @@
 	</div>
 </div>
 
-{{ Template::middleColBlok() }}
+{{ Template::sidebarColBlok() }}
 {{ Template::blokHeading('misc') }}
 
 <div class="form-group">

@@ -22,12 +22,12 @@
 					<td>{{ $counter++ }}</td>
 					<td data-href="{{ route('admin.contents.edit', [$contentType->slug, $content->id]) }}">
 						<div class="tip" title="{{{ $content->title }}}">
-							{{{ Str::limit($content->title, 30) }}}
+							{{ str_limit($content->title, 30) }}
 						</div>
 					</td>
 					<td>
 						<div class="tip" title="{{{ $content->slug }}}">
-							{{ Str::limit($content->slug, 30) }}
+							{{ str_limit($contentType->slug, 30) }}
 						</div>
 					</td>
 					<td class="text-center">

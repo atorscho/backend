@@ -20,43 +20,30 @@
 					<td>{{ $counter++ }}</td>
 					<td data-href="{{ route('admin.content-types.edit', $contentType->slug) }}">
 						<div class="tip" title="{{{ $contentType->title }}}">
-							{{{ Str::limit($contentType->title, 30) }}}
+							{{{ $contentType->name }}}
 						</div>
 					</td>
 					<td>
 						<div class="tip" title="{{{ $contentType->slug }}}">
-							{{ Str::limit($contentType->slug, 30) }}
+							{{ $contentType->slug }}
 						</div>
 					</td>
 					<td class="text-center">
-						@if(!$contentType->deleted_at)
-							{{ Form::open(['route' => ['admin.contents.toggleStatus', $contentType->id], 'id' => 'toggleStatus-' . $contentType->id, 'method' => 'PUT']) }}
-						@endif
-						<button type="submit" class="btn btn-xs btn-{{ $contentType->published ? 'success' : 'danger' }}" name="published" value="{{ $contentType->published ? 0 : 1 }}">
-							<i class="fa fa-fw fa-{{ $contentType->published ? 'check' : 'ban' }}"></i>
-						</button>
-						@if(!$contentType->deleted_at)
-							{{ Form::close() }}
-						@endif
+						<span class="text-{{ $contentType->hierarchical ? 'success' : 'danger' }}">
+							<i class="fa fa-fw fa-2x fa-toggle-{{ $contentType->hierarchical ? 'on' : 'off' }}"></i>
+						</span>
 					</td>
-					<td class="text-center">{{ $contentType->creator->username }}</td>
 					<td class="text-center">{{ $contentType->id }}</td>
 					<td class="text-center">
-						@if($contentType->deleted_at)
-							{{ Form::open(['route' => ['admin.contents.forceDestroy', $contentType->id], 'method' => 'DELETE']) }}
-						@else
-							{{ Form::open(['route' => ['admin.contents.destroy', $contentType->id], 'method' => 'DELETE']) }}
-						@endif
-						<div class="btn-group btn-group-sm">
-							@if(!$contentType->deleted_at)
-								<a class="btn btn-primary" href="{{ route('admin.contents.edit', [$contentTypeType->slug, $contentType->id]) }}">
+						{{ Form::open(['route' => ['admin.content-types.destroy', $contentType->id], 'method' => 'DELETE']) }}
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-primary" href="{{ route('admin.content-types.edit', $contentType->slug) }}">
 									<i class="fa fa-fw fa-edit"></i>
 								</a>
-							@endif
-							<button type="submit" class="btn btn-primary">
-								<i class="fa fa-fw fa-times"></i>
-							</button>
-						</div>
+								<button type="submit" class="btn btn-primary {{ in_array($contentType->slug, ['pages', 'articles']) ? 'disabled' : '' }}" {{ in_array($contentType->slug, ['pages', 'articles']) ? 'disabled="true"' : '' }}>
+									<i class="fa fa-fw fa-times"></i>
+								</button>
+							</div>
 						{{ Form::close() }}
 					</td>
 				</tr>
@@ -71,7 +58,7 @@
 		</table>
 	</div>
 
-	{{ $contentTypeTypes->appends(Input::all())->links() }}
+	{{ $contentTypes->appends(Input::all())->links() }}
 
 	{{ Template::closeBlokContent() }}
 	{{ Template::closeBlok() }}

@@ -47,7 +47,7 @@
 	</div>
 @endforeach
 
-{{ Template::middleColBlok() }}
+{{ Template::sidebarColBlok() }}
 
 {{ Template::blokHeading('misc') }}
 
@@ -86,7 +86,7 @@
 		'value'    => 'save_new',
 		'tabindex' => index()
 	]) }}
-	<a class="btn btn-default" href="{{ route('admin.users.index') }}"><i class="fa fa-times-circle"></i></a>
+	<a class="btn btn-default" href="{{ route('admin.content-types.show', $contentType->slug) }}"><i class="fa fa-times-circle"></i></a>
 </div>
 
 {{ Template::closeColBlok() }}

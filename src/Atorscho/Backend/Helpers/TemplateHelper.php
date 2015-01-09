@@ -95,7 +95,7 @@ class TemplateHelper {
 	 *
 	 * @return string
 	 */
-	public function middleColBlok()
+	public function sidebarColBlok()
 	{
 		return '</div></div><div class="col-md-3"><div class="blok">';
 	}
