@@ -24,7 +24,7 @@ class Taxonomy extends BaseModel {
 	 */
 	public function contents()
 	{
-		return $this->belongsToMany('Atorscho\Backend\Models\Content');
+		return $this->belongsToMany('Atorscho\Backend\Models\Content', 'content_taxonomies');
 	}
 
 	/**

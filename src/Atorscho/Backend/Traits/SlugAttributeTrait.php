@@ -5,14 +5,18 @@ trait SlugAttributeTrait {
 	/**
 	 * Find a record by its slug.
 	 *
-	 * @param $query
-	 * @param $slug
+	 * @param string $query
+	 * @param string $slug
+	 * @param string $with
 	 *
 	 * @return mixed
 	 */
-	public function scopeFindSlug( $query, $slug )
+	public function scopeFindSlug( $query, $slug, $with = '' )
 	{
-		return $query->where('slug', $slug);
+		if ( $with )
+			return $query->where('slug', $slug)->with($with)->first();
+
+		return $query->where('slug', $slug)->first();
 	}
 
 	/**

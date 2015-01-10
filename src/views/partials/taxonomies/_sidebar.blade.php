@@ -15,6 +15,7 @@
 	<a class="btn btn-sm btn-primary" href="{{{ route('admin.taxonomy-types.create') }}}">
 		<i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.taxonomyTypesNewShort')
 	</a>
+	<?php // todo - use taxonomy singular name. e.g. "New Category" instead of "New Taxonomy" ?>
 	@if(isset($taxonomyType->slug))
 		<a class="btn btn-sm btn-primary" href="{{{ route('admin.taxonomies.create', $taxonomyType->slug) }}}">
 			<i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.taxonomiesNew')

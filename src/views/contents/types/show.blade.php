@@ -27,7 +27,7 @@
 					</td>
 					<td>
 						<div class="tip" title="{{{ $content->slug }}}">
-							{{ str_limit($contentType->slug, 30) }}
+							{{ str_limit($content->slug, 30) }}
 						</div>
 					</td>
 					<td class="text-center">

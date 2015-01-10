@@ -18,11 +18,12 @@ use View;
 class ContentController extends BaseController {
 
 	protected $rules = [
-		'type_id'   => 'integer',
-		'title'     => 'required|max:100',
-		'slug'      => 'max:100|unique:contents',
-		'published' => 'required|boolean',
-		'order'     => 'integer'
+		'categories' => 'required',
+		'type_id'    => 'integer',
+		'title'      => 'required|max:100',
+		'slug'       => 'max:100|unique:contents',
+		'published'  => 'required|boolean',
+		'order'      => 'integer'
 	];
 
 	protected $ruleFields = [ ];
@@ -48,11 +49,11 @@ class ContentController extends BaseController {
 
 	public function create( ContentType $contentType )
 	{
-		$categories = TaxonomyType::findSlug('categories')->first()->taxonomies;
+		$categories = TaxonomyType::findSlug('categories', 'taxonomies')->taxonomies->lists('title', 'id');
 
 		$parent = '';
 		if ( $contentType->hierarchical )
-			$parent = ['none' => trans('backend::labels.noParent')] + $contentType->contents()->orderBy('title')->lists('title', 'id');
+			$parent = [ 'none' => trans('backend::labels.noParent') ] + $contentType->contents()->orderBy('title')->lists('title', 'id');
 
 		$title = trans('backend::labels.contentsNew');
 
@@ -79,9 +80,12 @@ class ContentController extends BaseController {
 		if ( $validator->fails() )
 			return Redirect::back()->withErrors($validator)->withInput();
 
-		$data            = (Input::get('parent_id') == 'none') ? Input::except('parent_id') : Input::all();
+		$data            = ( Input::get('parent_id') == 'none' ) ? Input::except('parent_id') : Input::all();
 		$data['type_id'] = $contentType->id;
 		$content         = Content::create($data);
+
+		// Attach taxonomies to the content vie `content_taxonomies` pivot table.
+		$content->taxonomies()->sync((array) Input::get('categories'));
 
 		// Synchronize custom content fields
 		$content->fields()->sync($fieldsUpdate);
@@ -96,15 +100,22 @@ class ContentController extends BaseController {
 
 	public function edit( ContentType $contentType, Content $content )
 	{
+		$categories = TaxonomyType::findSlug('categories', 'taxonomies')->taxonomies()->lists('title', 'id');
+
+		$contentCategories = $content->taxonomies()->lists('id');
+
 		$content = $content->with('fields')->find($content->id);
 
 		Crumbs::addRoute('admin.content-types.index', 'Content Types');
 		Crumbs::addRoute('admin.content-types.show', $contentType->name, $contentType->slug);
 		Crumbs::add('#', Str::limit($content->title, 30));
-		Crumbs::addRoute('admin.contents.edit', trans('backend::labels.edit'), [ $contentType->slug, $content->id ]);
+		Crumbs::addRoute('admin.contents.edit', trans('backend::labels.edit'), [
+			$contentType->slug,
+			$content->id
+		]);
 
 		$this->layout->title   = trans('backend::labels.editName', [ 'name' => $content->title ]);
-		$this->layout->content = View::make('backend::contents.edit', compact('contentType', 'content'));
+		$this->layout->content = View::make('backend::contents.edit', compact('contentType', 'content', 'categories', 'contentCategories'));
 	}
 
 	public function update( ContentType $contentType, Content $content )

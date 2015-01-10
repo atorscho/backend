@@ -7,8 +7,8 @@
 <div class="form-group">
 	{{ Form::label('categories', 'Categories') }}
 	{{ $errors->first('categories', '<span class="text-danger">:message</span>') }}
-	@if($categories->count())
-		{{ Form::select('categories', $categories, null, [
+	@if($categories)
+		{{ Form::select('categories', $categories, isset($contentCategories) ? $contentCategories : null, [
 			'class' => 'select',
 			'multiple' => true,
 			'title' => 'Choose Categories',
@@ -53,7 +53,7 @@
 </div>
 
 <?php // todo - does not repopulate custom fields ?>
-@foreach($contentType->fields as $field)
+@foreach((isset($content->fields) ? $content->fields : $contentType->fields) as $field)
 	<div class="form-group">
 		{{ Form::label("fields[{$field->handle}]", $field->name) }}
 		{{ $errors->first("fields.{$field->handle}", '<span class="text-danger">:message</span>') }}

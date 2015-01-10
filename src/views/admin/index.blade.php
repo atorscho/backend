@@ -11,8 +11,8 @@
 				<a class="box tip" href="{{ route('admin.content-types.show', $page->slug) }}" title="@lang('backend::labels.pages')">
 					<i class="fa fa-fw fa-{{ $page->icon }}"></i>
 				</a>
-				<a class="box tip" href="{{ route('admin.content-types.index') }}" title="@lang('backend::labels.contentTypes')">
-					<i class="fa fa-fw fa-cube"></i>
+				<a class="box tip" href="{{ route('admin.taxonomy-types.show', $category->slug) }}" title="@lang('backend::labels.categories')">
+					<i class="fa fa-fw fa-{{ $category->icon }}"></i>
 				</a>
 				<a class="box tip" href="{{ route('admin.users.fields.groups.index') }}" title="@lang('backend::labels.userFields')">
 					<i class="fa fa-fw fa-sliders"></i>

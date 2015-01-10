@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 // todo - wysiwyg field
 
+// todo - taxonomies field. only show taxonomies from specified taxonomy types.
+
 class Content extends BaseModel {
 
 	use OrderAttributeTrait, SlugAttributeTrait, SoftDeletingTrait;
@@ -106,7 +108,7 @@ class Content extends BaseModel {
 	 */
 	public function taxonomies()
 	{
-		return $this->belongsToMany('Atorscho\Backend\Models\Taxonomy');
+		return $this->belongsToMany('Atorscho\Backend\Models\Taxonomy', 'content_taxonomies');
 	}
 
 	/**

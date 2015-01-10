@@ -22,7 +22,7 @@
 						{{ $taxonomy->title }}
 					</td>
 					<td>
-						{{ $taxonomyType->slug }}
+						{{ $taxonomy->slug }}
 					</td>
 					<td class="text-center">{{ $taxonomy->id }}</td>
 					<td class="text-center">
