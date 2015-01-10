@@ -4,7 +4,7 @@ use Atorscho\Backend\Traits\HandleAttributeTrait;
 use Atorscho\Backend\Traits\OrderAttributeTrait;
 use Atorscho\Backend\Traits\TypeNameAttributeTrait;
 
-// todo - add select support
+// todo - add <select> support
 
 class UserField extends BaseModel {
 

@@ -8,8 +8,6 @@ use Redirect;
 use Validator;
 use View;
 
-// todo - translate
-
 class TaxonomyTypeController extends BaseController {
 
 	protected $rules = [
@@ -20,17 +18,19 @@ class TaxonomyTypeController extends BaseController {
 		'hierarchical' => 'boolean'
 	];
 
-	protected $ruleFields = [
-		'name'         => 'Name',
-		'slug'         => 'Slug',
-		'description'  => 'Description',
-		'icon'         => 'Icon',
-		'hierarchical' => 'Hierarchical'
-	];
+	protected $ruleFields = [];
 
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this->ruleFields = [
+			'name'         => trans('backend::labels.name'),
+			'slug'         => trans('backend::labels.slug'),
+			'description'  => trans('backend::labels.description'),
+			'icon'         => trans('backend::labels.icon'),
+			'hierarchical' => trans('backend::labels.hierarchical')
+		];
 
 		// todo - access permissions
 	}
@@ -43,20 +43,10 @@ class TaxonomyTypeController extends BaseController {
 
 		$title = trans('backend::labels.taxonomyTypes');
 
-		// Table Heading Rows
-		$rows = [
-			'#'            => 'width-50',
-			'Name',
-			'Slug',
-			'Hierarchical' => 'text-center width-50',
-			'ID'           => 'text-center width-80',
-			'Actions'      => 'text-center width-90'
-		];
-
 		Crumbs::addRoute('admin.taxonomy-types.index', $title);
 
 		$this->layout->title    = $title;
-		$this->layout->taxonomy = View::make('backend::taxonomies.types.index', compact('taxonomyTypes', 'rows', 'counter'));
+		$this->layout->taxonomy = View::make('backend::taxonomies.types.index', compact('taxonomyTypes', 'counter'));
 	}
 
 	public function create()
@@ -82,7 +72,7 @@ class TaxonomyTypeController extends BaseController {
 
 		TaxonomyType::create(Input::all());
 
-		Flash::success('Taxonomy type created.');
+		Flash::success('taxonomyTypeCreated');
 
 		if ( Input::get('submit') == 'save_new' )
 			return Redirect::route('admin.taxonomy-types.create');
@@ -99,20 +89,11 @@ class TaxonomyTypeController extends BaseController {
 
 		$counter = counter($perPage);
 
-		// Table Heading Rows
-		$rows = [
-			'#'         => 'width-50',
-			'Title',
-			'Slug',
-			'ID'        => 'text-center width-80',
-			'Actions'   => 'text-center width-90'
-		];
-
 		Crumbs::addRoute('admin.taxonomy-types.index', 'Taxonomy Types');
 		Crumbs::addRoute('admin.taxonomy-types.show', $taxonomyType->name, $taxonomyType->slug);
 
 		$this->layout->title = 'All ' . $taxonomyType->name;
-		$this->layout->taxonomy = View::make('backend::taxonomies.types.show', compact('taxonomyType', 'taxonomies', 'rows', 'counter'));
+		$this->layout->taxonomy = View::make('backend::taxonomies.types.show', compact('taxonomyType', 'taxonomies', 'counter'));
 	}
 
 	public function edit( TaxonomyType $taxonomyType )

@@ -1,21 +1,19 @@
-<?php // todo - translate ?>
-
 {{ Template::openColBlok() }}
 
 {{ Template::blokHeading('infoMain') }}
 
 <div class="form-group">
-	{{ Form::label('categories', 'Categories') }}
+	{{ Form::label('categories', trans('backend::labels.categories')) }}
 	{{ $errors->first('categories', '<span class="text-danger">:message</span>') }}
 	@if($categories)
 		{{ Form::select('categories', $categories, isset($contentCategories) ? $contentCategories : null, [
 			'class' => 'select',
 			'multiple' => true,
-			'title' => 'Choose Categories',
+			'title' => trans('backend::labels.categoriesChoose'),
 			'tabindex' => index()
 		]) }}
 	@else
-		<p class="form-control-static">No categories found.</p>
+		<p class="form-control-static">@lang('backend::messages.noCategories')</p>
 	@endif
 </div>
 
@@ -32,22 +30,22 @@
 @endif
 
 <div class="form-group">
-	{{ Form::label('title', 'Title') }}
+	{{ Form::label('title', trans('backend::labels.title')) }}
 	{{ $errors->first('title', '<span class="text-danger">:message</span>') }}
 	{{ Form::text('title', null, [
 		'class' => 'form-control',
-		'placeholder' => 'Title',
+		'placeholder' => trans('backend::labels.title'),
 		'data-slug' => 'slug',
 		'tabindex' => index()
 	]) }}
 </div>
 
 <div class="form-group">
-	{{ Form::label('slug', 'Slug') }}
+	{{ Form::label('slug', trans('backend::labels.slug')) }}
 	{{ $errors->first('slug', '<span class="text-danger">:message</span>') }}
 	{{ Form::text('slug', null, [
 		'class' => 'form-control',
-		'placeholder' => 'Slug',
+		'placeholder' => trans('backend::labels.slug'),
 		'tabindex' => index()
 	]) }}
 </div>

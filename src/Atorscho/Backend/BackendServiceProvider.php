@@ -3,8 +3,6 @@
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
-// todo - change current page menu item (.active) to something simpler.
-
 class BackendServiceProvider extends ServiceProvider {
 
 	/**

@@ -74,6 +74,7 @@ class BackendController extends BaseController {
 		return Redirect::route('admin.login');
 	}
 
+	// todo - Possibility to change the locale
 	public function lang( $locale = null )
 	{
 		Session::put('lang', $locale);

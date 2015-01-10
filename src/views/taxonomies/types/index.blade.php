@@ -13,7 +13,14 @@
 
 	<div class="table-responsive">
 		<table class="table table-striped">
-			{{ Template::tableHeadings($rows) }}
+			{{ Template::tableHeadings([
+				'#'            => 'width-50',
+				trans('backend::labels.name'),
+				trans('backend::labels.slug'),
+				trans('backend::labels.hierarchical') => 'text-center width-50',
+				trans('backend::labels.id')           => 'text-center width-80',
+				trans('backend::labels.actions')      => 'text-center width-90'
+			]) }}
 			<tbody>
 			@forelse($taxonomyTypes as $taxonomyType)
 				<tr>
@@ -50,8 +57,8 @@
 				</tr>
 			@empty
 				<tr>
-					<td colspan="{{ count($rows) }}">
-						@lang('backend::messages.noContents')
+					<td colspan="6">
+						@lang('backend::messages.noTaxonomyTypes')
 					</td>
 				</tr>
 			@endforelse

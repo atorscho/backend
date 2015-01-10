@@ -105,6 +105,26 @@ Route::group([
 		'as'   => 'admin.content-types.fields.index',
 		'uses' => 'ContentFieldController@index'
 	]);
+	Route::get('{content_types}/fields/create', [
+		'as'   => 'admin.content-types.fields.create',
+		'uses' => 'ContentFieldController@create'
+	]);
+	Route::post('{content_types}/fields', [
+		'as'   => 'admin.content-types.fields.store',
+		'uses' => 'ContentFieldController@store'
+	]);
+	Route::get('{content_types}/fields/{contentField}/edit', [
+		'as'   => 'admin.content-types.fields.edit',
+		'uses' => 'ContentFieldController@edit'
+	]);
+	Route::put('{content_types}/fields/{contentField}', [
+		'as'   => 'admin.content-types.fields.update',
+		'uses' => 'ContentFieldController@update'
+	]);
+	Route::delete('{content_types}/fields/{contentField}', [
+		'as'   => 'admin.content-types.fields.destroy',
+		'uses' => 'ContentFieldController@destroy'
+	]);
 
 	// Taxonomy Types
 	// ===================================

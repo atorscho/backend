@@ -4,8 +4,6 @@ use Atorscho\Backend\Models\Permission;
 use Atorscho\Backend\Models\Taxonomy;
 use Atorscho\Backend\Models\TaxonomyType;
 
-// todo - add settings. e.g. taxonomy per page
-
 class BackendTaxonomiesSeeder extends Seeder {
 
 	protected $permissions;

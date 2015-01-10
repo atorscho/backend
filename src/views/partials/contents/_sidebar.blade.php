@@ -1,7 +1,7 @@
 @if(Auth::user()->can('showContentTypes'))
 	<ul class="nav">
 		@foreach($types as $type)
-			<li {{ (isset(Route::current()->getParameter('content_types')->slug) ? (Route::current()->getParameter('content_types')->slug == $type->slug && Route::currentRouteName() == 'admin.content-types.show') ? 'class="active"' : '' : '') }}>
+			<li {{ (URL::current() == route('admin.content-types.show', $type->slug)) ? 'class="active"' : '' }}>
 				<a href="{{ route('admin.content-types.show', $type->slug) }}">
 					<span class="badge pull-right">{{ $type->contents->count() }}</span>
 					{{ $type->name }}

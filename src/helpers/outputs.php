@@ -43,20 +43,13 @@ if ( !function_exists('userFieldInput') )
 
 		if ( $field->type == 'textarea' )
 		{
-			// todo - <textarea> case
 			$rows = $field->rows ? 'rows="' . $field->rows . '"' : 'rows="5"';
 			$cols = $field->cols ? 'cols="' . $field->cols . '"' : '';
 
 			$output = "<textarea $class id=\"$id\" name=\"$id\" placeholder=\"$title\" $rows $cols $tabindex $maxlength $required $pattern>$value</textarea>";
 		}
-		elseif ( $field->type == 'select' )
-		{
-			// todo - <select> case
-			$class = 'class="select"';
-		}
 		else
 		{
-			// todo - <input> cases
 			$type = 'type="' . $field->type . '"';
 
 			$output = "<input $type $class id=\"$id\" name=\"$id\" placeholder=\"$title\" value=\"$value\" $tabindex $min $max $step $maxlength $required $pattern />";

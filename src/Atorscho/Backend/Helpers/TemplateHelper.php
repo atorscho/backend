@@ -1,6 +1,5 @@
 <?php namespace Atorscho\Backend\Helpers;
 
-// todo - replace table headings by proper method
 use Input;
 use Route;
 

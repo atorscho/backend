@@ -1,46 +1,44 @@
-<?php // todo - translate ?>
-
 {{ Template::openColBlok() }}
 
 {{ Template::blokHeading('infoRequired') }}
 
 <div class="form-group">
-	{{ Form::label('name', 'Name') }}
+	{{ Form::label('name', trans('backend::labels.name')) }}
 	{{ $errors->first('name', '<span class="text-danger">:message</span>') }}
 	{{ Form::text('name', null, [
 		'class' => 'form-control',
-		'placeholder' => 'Name',
+		'placeholder' => trans('backend::labels.name'),
 		'tabindex' => index()
 	]) }}
 </div>
 
 <div class="form-group">
-	{{ Form::label('name_sg', 'Singular Name') }}
+	{{ Form::label('name_sg', trans('backend::labels.name_sg')) }}
 	{{ $errors->first('name_sg', '<span class="text-danger">:message</span>') }}
 	{{ Form::text('name_sg', null, [
 		'class' => 'form-control',
-		'placeholder' => 'Singular Name',
+		'placeholder' => trans('backend::labels.name_sg'),
 		'tabindex' => index()
 	]) }}
 </div>
 
 <div class="form-group">
-	{{ Form::label('slug', 'Slug') }}
+	{{ Form::label('slug', trans('backend::labels.slug')) }}
 	{{ $errors->first('slug', '<span class="text-danger">:message</span>') }}
 	{{ Form::text('slug', null, [
 		'class' => 'form-control',
-		'placeholder' => 'Slug',
+		'placeholder' => trans('backend::labels.slug'),
 		'data-slug' => 'name',
 		'tabindex' => index()
 	]) }}
 </div>
 
 <div class="form-group">
-	{{ Form::label('description', 'Description') }}
+	{{ Form::label('description', trans('backend::labels.description')) }}
 	{{ $errors->first('description', '<span class="text-danger">:message</span>') }}
 	{{ Form::textarea('description', null, [
 		'class' => 'form-control',
-		'placeholder' => 'Description',
+		'placeholder' => trans('backend::labels.description'),
 		'rows' => 3,
 		'maxlength' => 255,
 		'tabindex' => index()
@@ -52,7 +50,7 @@
 {{ Template::blokHeading('misc') }}
 
 <div class="form-group">
-	{{ Form::label('icon', 'Icon') }}
+	{{ Form::label('icon', trans('backend::labels.icon')) }}
 	{{ $errors->first('icon', '<span class="text-danger">:message</span>') }}
 	<select class="select" id="icon" name="icon" title="Icon" tabindex="{{ index() }}">
 		@foreach($icons as $icon)
@@ -63,7 +61,7 @@
 
 <div class="form-group">
 	<div>
-		{{ Form::label('hierarchical', 'Hierarchical') }}
+		{{ Form::label('hierarchical', trans('backend::labels.hierarchical')) }}
 		{{ $errors->first('hierarchical', '<span class="text-danger">:message</span>') }}
 	</div>
 	<div>
@@ -76,7 +74,7 @@
 			</label>
 		</div>
 	</div>
-	<span class="help-block">Let the content type be hierarchical like Pages or not, like Articles.</span>
+	<span class="help-block">@lang('backend::messages.hierarchicalDesc')</span>
 </div>
 
 {{ Template::controlsColBlok() }}

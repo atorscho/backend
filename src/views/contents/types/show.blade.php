@@ -9,7 +9,6 @@
 @stop
 
 @section('content')
-
 	{{ Template::openBlok() }}
 	{{ Template::openBlokSidebar() }}
 
@@ -97,25 +96,3 @@
 	{{ Template::closeBlokContent() }}
 	{{ Template::closeBlok() }}
 @stop
-
-{{--@section('js')
-	<script>
-		$(document).ready(function () {
-			$('#toggleStatus-12').on('submit', function (e) {
-				e.preventDefault();
-
-				var data = {
-					"_token": $(this).find('input[name=_token]').val(),
-					"value": $(this).find('[name=published]').val()
-				};
-
-				console.log(data);
-
-				$.post(
-					$(this).prop('action'),
-					data
-				);
-			});
-		});
-	</script>
-@stop--}}

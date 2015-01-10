@@ -15,11 +15,11 @@
 		<table class="table table-striped">
 			{{ Template::tableHeadings([
 				'#'            => 'width-50',
-				'Name',
-				'Slug',
-				'Hierarchical' => 'text-center width-50',
-				'ID'           => 'text-center width-80',
-				'Actions'      => 'text-center width-90'
+				trans('backend::labels.name'),
+				trans('backend::labels.slug'),
+				trans('backend::labels.hierarchical') => 'text-center width-50',
+				trans('backend::labels.id')           => 'text-center width-80',
+				trans('backend::labels.actions')      => 'text-center width-90'
 			]) }}
 			<tbody>
 			@forelse($contentTypes as $contentType)
@@ -58,7 +58,7 @@
 			@empty
 				<tr>
 					<td colspan="6">
-						@lang('backend::messages.noContents')
+						@lang('backend::messages.noContentTypes')
 					</td>
 				</tr>
 			@endforelse

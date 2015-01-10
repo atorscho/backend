@@ -1,6 +1,7 @@
 <?php
 
 use Atorscho\Backend\Models\Content;
+use Atorscho\Backend\Models\ContentField;
 use Atorscho\Backend\Models\ContentType;
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\SettingsGroup;
@@ -79,8 +80,8 @@ Route::bind('content_types', function($contentTypes)
 	else
 		$contentTypes = ContentType::where('slug', $contentTypes)->first();
 
-//	if ( !$contentTypes )
-//		\App::abort(404);
+	if ( !$contentTypes )
+		\App::abort(404);
 
 	return $contentTypes;
 });
@@ -92,8 +93,8 @@ Route::bind('content', function($content)
 	else
 		$content = Content::where('slug', $content)->first();
 
-//	if ( !$content )
-//		\App::abort(404);
+	if ( !$content )
+		\App::abort(404);
 
 	return $content;
 });
@@ -122,4 +123,17 @@ Route::bind('taxonomy', function($taxonomy)
 		\App::abort(404);
 
 	return $taxonomy;
+});
+
+Route::bind('contentField', function($contentField)
+{
+	if ( is_numeric( $contentField ) )
+		$contentField = ContentField::find($contentField);
+	else
+		$contentField = ContentField::where('handle', $contentField)->first();
+
+	if ( !$contentField )
+		\App::abort(404);
+
+	return $contentField;
 });

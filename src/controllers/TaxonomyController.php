@@ -10,8 +10,6 @@ use Str;
 use Validator;
 use View;
 
-// todo - translate
-
 class TaxonomyController extends BaseController {
 
 	protected $rules = [
@@ -27,13 +25,12 @@ class TaxonomyController extends BaseController {
 	{
 		parent::__construct();
 
-		// todo - translate
 		$this->ruleFields = [
-			'type_id'    => 'Taxonomy Type',
-			'parent_id'  => 'Parent',
-			'title'      => 'Title',
-			'slug'       => 'slug',
-			'order'      => 'Order',
+			'type_id'    => trans('backend::labels.taxonomyType'),
+			'parent_id'  => trans('backend::labels.parent'),
+			'title'      => trans('backend::labels.title'),
+			'slug'       => trans('backend::labels.slug'),
+			'order'      => trans('backend::labels.order'),
 		];
 
 		// todo - access permissions
@@ -47,7 +44,7 @@ class TaxonomyController extends BaseController {
 
 		$title = trans('backend::labels.taxonomiesNew');
 
-		Crumbs::addRoute('admin.taxonomy-types.index', 'Taxonomy Types');
+		Crumbs::addRoute('admin.taxonomy-types.index', trans('backend::labels.taxonomyTypes'));
 		Crumbs::addRoute('admin.taxonomy-types.show', $taxonomyType->name, $taxonomyType->slug);
 		Crumbs::addRoute('admin.taxonomies.create', $title, $taxonomyType->slug);
 
@@ -57,8 +54,6 @@ class TaxonomyController extends BaseController {
 
 	public function store( TaxonomyType $taxonomyType )
 	{
-		$rules = $this->rules;
-
 		$validator = Validator::make(Input::all(), $this->rules);
 		$validator->setAttributeNames($this->ruleFields);
 
@@ -83,7 +78,7 @@ class TaxonomyController extends BaseController {
 		if ( $taxonomyType->hierarchical )
 			$parent = ['none' => trans('backend::labels.noParent')] + $taxonomyType->taxonomies()->orderBy('title')->lists('title', 'id');
 
-		Crumbs::addRoute('admin.taxonomy-types.index', 'Taxonomy Types');
+		Crumbs::addRoute('admin.taxonomy-types.index', trans('backend::labels.taxonomyTypes'));
 		Crumbs::addRoute('admin.taxonomy-types.show', $taxonomyType->name, $taxonomyType->slug);
 		Crumbs::add('#', str_limit($taxonomy->title, 30));
 		Crumbs::addRoute('admin.taxonomies.edit', trans('backend::labels.edit'), [ $taxonomyType->slug, $taxonomy->id ]);
@@ -115,13 +110,6 @@ class TaxonomyController extends BaseController {
 			return Redirect::route('admin.taxonomy-types.show', $taxonomyType->slug);
 	}
 
-	/**
-	 * Soft delete the taxonomy.
-	 *
-	 * @param Taxonomy $taxonomy
-	 *
-	 * @return \Illuminate\Http\RedirectResponse
-	 */
 	public function destroy( Taxonomy $taxonomy )
 	{
 		$taxonomy->delete();

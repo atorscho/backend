@@ -1,6 +1,6 @@
 <ul class="nav">
 	@if(Auth::user()->can('showUsers'))
-		<li {{ Route::currentRouteName() == 'admin.users.index' ? 'class="active"' : '' }}>
+		<li {{ URL::current() == route('admin.users.index') ? 'class="active"' : '' }}>
 			<a href="{{ route('admin.users.index') }}">
 				<span class="badge pull-right">{{ $usersCount }}</span>
 				@lang('backend::labels.users')
@@ -8,7 +8,7 @@
 		</li>
 	@endif
 	@if(Auth::user()->can('showGroups'))
-		<li {{ Route::currentRouteName() == 'admin.users.groups.index' ? 'class="active"' : '' }}>
+		<li {{ URL::current() == route('admin.users.groups.index') ? 'class="active"' : '' }}>
 			<a href="{{ route('admin.users.groups.index') }}">
 		        <span class="badge pull-right">{{ $groupsCount }}</span>
 		        @lang('backend::labels.groups')
@@ -16,7 +16,7 @@
 		</li>
 	@endif
 	@if(Auth::user()->can('showPermissions'))
-		<li {{ Route::currentRouteName() == 'admin.users.permissions.index' ? 'class="active"' : '' }}>
+		<li {{ URL::current() == route('admin.users.permissions.index') ? 'class="active"' : '' }}>
 	        <a href="{{ route('admin.users.permissions.index') }}">
 	            <span class="badge pull-right">{{ $permissionsCount }}</span>
 	            @lang('backend::labels.permissions')
@@ -32,3 +32,9 @@
 		</li>
 	@endif
 </ul>
+
+@if(Auth::user()->can('createUsers'))
+	<div class="text-center">
+		<a class="btn btn-primary" href="{{{ route('admin.users.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.usersNew')</a>
+	</div>
+@endif

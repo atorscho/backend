@@ -8,8 +8,6 @@ use Redirect;
 use Validator;
 use View;
 
-// todo - translate
-
 class ContentTypeController extends BaseController {
 
 	protected $rules = [
@@ -20,17 +18,19 @@ class ContentTypeController extends BaseController {
 		'hierarchical' => 'boolean'
 	];
 
-	protected $ruleFields = [
-		'name'         => 'Name',
-		'slug'         => 'Slug',
-		'description'  => 'Description',
-		'icon'         => 'Icon',
-		'hierarchical' => 'Hierarchical'
-	];
+	protected $ruleFields = [ ];
 
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this->ruleFields = [
+			'name'         => trans('backend::labels.name'),
+			'slug'         => trans('backend::labels.slug'),
+			'description'  => trans('backend::labels.description'),
+			'icon'         => trans('backend::labels.icon'),
+			'hierarchical' => trans('backend::labels.hierarchical')
+		];
 
 		// todo - access permissions
 	}
@@ -72,7 +72,7 @@ class ContentTypeController extends BaseController {
 
 		ContentType::create(Input::all());
 
-		Flash::success('Content type created.');
+		Flash::success('contentTypeCreated');
 
 		if ( Input::get('submit') == 'save_new' )
 			return Redirect::route('admin.content-types.create');
@@ -93,7 +93,7 @@ class ContentTypeController extends BaseController {
 
 		$counter = counter($perPage);
 
-		Crumbs::addRoute('admin.content-types.index', 'Content Types');
+		Crumbs::addRoute('admin.content-types.index', trans('backend::labels.contentTypes'));
 		Crumbs::addRoute('admin.content-types.show', $contentType->name, $contentType->slug);
 
 		if ( Input::get('trashed') == 'yes' )
@@ -109,7 +109,7 @@ class ContentTypeController extends BaseController {
 
 		Crumbs::addRoute('admin.content-types.index', trans('backend::labels.contentTypes'));
 		Crumbs::addRoute('admin.content-types.show', $contentType->name, $contentType->slug);
-		Crumbs::addRoute('admin.content-types.edit', 'Edit', $contentType->slug);
+		Crumbs::addRoute('admin.content-types.edit', trans('backend::labels.edit'), $contentType->slug);
 
 		$this->layout->title   = trans('backend::labels.contentTypesEditName', [ 'name' => $contentType->name ]);
 		$this->layout->content = View::make('backend::contents.types.edit', compact('contentType', 'icons'));
@@ -129,7 +129,7 @@ class ContentTypeController extends BaseController {
 		$contentType->fill(Input::all());
 		$contentType->save();
 
-		Flash::success('Content type updated.');
+		Flash::success('contentTypeUpdated');
 
 		if ( Input::get('submit') == 'save_new' )
 			return Redirect::route('admin.content-types.create');
@@ -139,16 +139,13 @@ class ContentTypeController extends BaseController {
 
 	public function destroy( ContentType $contentType )
 	{
-		if ( in_array($contentType->slug, [
-			'pages',
-			'articles'
-		]) )
+		if ( in_array($contentType->slug, ['pages', 'articles']) )
 		{
-			Flash::warning('This content type is protected. You cannot delete it.');
+			Flash::warning('contentTypeProtected');
 		}
 		else
 		{
-			Flash::success('Content type deleted.');
+			Flash::success('contentTypeDeleted');
 			$contentType->delete();
 		}
 

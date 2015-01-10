@@ -11,9 +11,7 @@ use Str;
 use Validator;
 use View;
 
-// todo - translate
-
-// todo - creator and published date inputs in forms
+// todo - Let admin modify creator and published date
 
 class ContentController extends BaseController {
 
@@ -32,16 +30,15 @@ class ContentController extends BaseController {
 	{
 		parent::__construct();
 
-		// todo - translate
 		$this->ruleFields = [
-			'type_id'    => 'Content Type',
-			'parent_id'  => 'Parent',
-			'title'      => 'Title',
-			'slug'       => 'slug',
-			'published'  => 'Published',
-			'order'      => 'Order',
-			'created_by' => 'Creator',
-			'created_at' => 'Created at'
+			'type_id'    => trans('backend::labels.contentType'),
+			'parent_id'  => trans('backend::labels.parent'),
+			'title'      => trans('backend::labels.title'),
+			'slug'       => trans('backend::labels.slug'),
+			'published'  => trans('backend::labels.published'),
+			'order'      => trans('backend::labels.order'),
+			'created_by' => trans('backend::labels.creator'),
+			'created_at' => trans('backend::labels.createdAt')
 		];
 
 		// todo - access permissions
@@ -57,7 +54,7 @@ class ContentController extends BaseController {
 
 		$title = trans('backend::labels.contentsNew');
 
-		Crumbs::addRoute('admin.content-types.index', 'Content Types');
+		Crumbs::addRoute('admin.content-types.index', trans('backend::labels.contentTypes'));
 		Crumbs::addRoute('admin.content-types.show', $contentType->name, $contentType->slug);
 		Crumbs::addRoute('admin.contents.create', $title, $contentType->slug);
 
@@ -110,13 +107,10 @@ class ContentController extends BaseController {
 
 		$content = $content->with('fields')->find($content->id);
 
-		Crumbs::addRoute('admin.content-types.index', 'Content Types');
+		Crumbs::addRoute('admin.content-types.index', trans('backend::labels.contentTypes'));
 		Crumbs::addRoute('admin.content-types.show', $contentType->name, $contentType->slug);
 		Crumbs::add('#', Str::limit($content->title, 30));
-		Crumbs::addRoute('admin.contents.edit', trans('backend::labels.edit'), [
-			$contentType->slug,
-			$content->id
-		]);
+		Crumbs::addRoute('admin.contents.edit', trans('backend::labels.edit'), [$contentType->slug, $content->id]);
 
 		$this->layout->title   = trans('backend::labels.editName', [ 'name' => $content->title ]);
 		$this->layout->content = View::make('backend::contents.edit', compact('contentType', 'content', 'categories', 'contentCategories', 'parent'));
@@ -190,7 +184,7 @@ class ContentController extends BaseController {
 		return Redirect::back();
 	}
 
-	// todo - make an ajax update
+	// todo - Make an ajax update
 	public function toggleStatus( Content $content )
 	{
 		$validator = Validator::make(Input::all(), [

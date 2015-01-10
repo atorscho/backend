@@ -1,17 +1,9 @@
-<?php // todo - translate ?>
-
 @section('content')
 	<div class="blok">
 		<div class="row">
 			<div class="col-md-3">
 				<aside class="sidebar">
                 	@include('backend::partials.users._sidebar')
-
-					@if(Auth::user()->can('createUsers'))
-						<div class="text-center">
-							<a class="btn btn-primary" href="{{{ route('admin.users.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.usersNew')</a>
-						</div>
-					@endif
 
 					<br />
 
@@ -55,8 +47,7 @@
 											<a class="btn btn-default" href="mailto:{{ HTML::email($user->email) }}" title="@lang('backend::labels.emailSend')">
 												<i class="fa fa-envelope-o"></i>
 											</a>
-											<?php // todo - specify a link ?>
-											<a class="btn btn-primary" href="#" title="@lang('backend::labels.viewUserProfile')">
+											<a class="btn btn-primary" href="{{ route('admin.users.show', $user->id) }}" title="@lang('backend::labels.viewUserProfile')">
 												<i class="fa fa-user"></i>
 											</a>
 											<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
@@ -94,7 +85,6 @@
 					</table>
 				</div>
 
-				<?php // todo - customize pagination style ?>
 				{{ $users->appends(Input::all())->links() }}
 			</div>
 		</div>

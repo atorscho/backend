@@ -1,5 +1,3 @@
-<?php // todo - translate ?>
-
 {{ Template::openColBlok() }}
 
 {{ Template::blokHeading('infoMain') }}
@@ -17,22 +15,22 @@
 @endif
 
 <div class="form-group">
-	{{ Form::label('title', 'Title') }}
+	{{ Form::label('title', trans('backend::labels.title')) }}
 	{{ $errors->first('title', '<span class="text-danger">:message</span>') }}
 	{{ Form::text('title', null, [
 		'class' => 'form-control',
-		'placeholder' => 'Title',
+		'placeholder' => trans('backend::labels.title'),
 		'data-slug' => 'slug',
 		'tabindex' => index()
 	]) }}
 </div>
 
 <div class="form-group">
-	{{ Form::label('slug', 'Slug') }}
+	{{ Form::label('slug', trans('backend::labels.slug')) }}
 	{{ $errors->first('slug', '<span class="text-danger">:message</span>') }}
 	{{ Form::text('slug', null, [
 		'class' => 'form-control',
-		'placeholder' => 'Slug',
+		'placeholder' => trans('backend::labels.slug'),
 		'tabindex' => index()
 	]) }}
 </div>
@@ -42,11 +40,11 @@
 {{ Template::blokHeading('misc') }}
 
 <div class="form-group">
-	{{ Form::label('order', 'Order') }}
+	{{ Form::label('order', trans('backend::labels.order')) }}
 	{{ $errors->first('order', '<span class="text-danger">:message</span>') }}
 	{{ Form::text('order', null, [
 		'class' => 'form-control',
-		'placeholder' => 'Order',
+		'placeholder' => trans('backend::labels.order'),
 		'tabindex' => index()
 	]) }}
 </div>
