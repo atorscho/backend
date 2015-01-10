@@ -225,7 +225,7 @@ class BackendFakerCommand extends Command {
 		{
 			Taxonomy::create([
 				'type_id' => TaxonomyType::findSlug('tags')->id,
-				'title'   => $title = trim($this->faker->word, '.'),
+				'title'   => $title = ucfirst(trim($this->faker->word, '.')),
 				'slug'    => $title,
 				'order'   => ''
 			]);
