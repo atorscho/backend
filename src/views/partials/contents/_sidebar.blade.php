@@ -17,7 +17,7 @@
 	</a>
 	@if(isset($contentType->slug))
 		<a class="btn btn-sm btn-primary" href="{{{ route('admin.contents.create', $contentType->slug) }}}">
-			<i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.contentsNew')
+			<i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.newParam', ['param' => $contentType->name_sg])
 		</a>
 	@endif
 </div>

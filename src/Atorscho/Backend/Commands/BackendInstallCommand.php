@@ -158,7 +158,7 @@ class BackendInstallCommand extends Command {
 	{
 		// Sample Page
 		$content = Content::create([
-			'type_id'    => ContentType::findSlug('pages')->first()->id,
+			'type_id'    => ContentType::findSlug('pages')->id,
 			'title'      => 'Sample Page',
 			'slug'       => 'sample-page',
 			'published'  => 1,
@@ -170,7 +170,7 @@ class BackendInstallCommand extends Command {
 
 		// Sample Article
 		$content = Content::create([
-			'type_id'    => ContentType::findSlug('articles')->first()->id,
+			'type_id'    => ContentType::findSlug('articles')->id,
 			'title'      => 'The Backend is Installed!',
 			'slug'       => 'backend-installed',
 			'published'  => 1,

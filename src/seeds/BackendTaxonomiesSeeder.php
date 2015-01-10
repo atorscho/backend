@@ -91,7 +91,7 @@ class BackendTaxonomiesSeeder extends Seeder {
 
 		// Sample Category
 		Taxonomy::create([
-			'type_id' => TaxonomyType::findSlug('categories')->first()->id,
+			'type_id' => TaxonomyType::findSlug('categories')->id,
 			'title'   => 'Base Category',
 			'slug'    => 'base-category',
 			'order'   => ''
