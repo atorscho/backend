@@ -136,6 +136,7 @@ return [
 	'usersNew'                => 'New User',
 	'viewUserProfile'         => "View User's Profile",
 	'yes'                     => 'Yes',
-	'categories' => 'Categories'
+	'categories' => 'Categories',
+	'newParam' => 'New :param'
 
 ];

@@ -50,7 +50,7 @@ class BackendTaxonomiesSeeder extends Seeder {
 
 	public function run()
 	{
-		$permHandles = array_map(function ($item)
+		$permHandles = array_map(function ( $item )
 		{
 			return $item['handle'];
 		}, $this->permissions);
@@ -67,6 +67,7 @@ class BackendTaxonomiesSeeder extends Seeder {
 		$types = [
 			[
 				'name'         => 'Categories',
+				'name_sg'      => 'Category',
 				'slug'         => '',
 				'description'  => 'Some sort of folders for your content.',
 				'icon'         => 'folder',
@@ -74,6 +75,7 @@ class BackendTaxonomiesSeeder extends Seeder {
 			],
 			[
 				'name'         => 'Tags',
+				'name_sg'      => 'Tag',
 				'slug'         => '',
 				'description'  => 'Labels for the content.',
 				'icon'         => 'tags',
@@ -89,10 +91,10 @@ class BackendTaxonomiesSeeder extends Seeder {
 
 		// Sample Category
 		Taxonomy::create([
-			'type_id'    => TaxonomyType::findSlug('categories')->first()->id,
-			'title'      => 'Base Category',
-			'slug'       => 'base-category',
-			'order'      => ''
+			'type_id' => TaxonomyType::findSlug('categories')->first()->id,
+			'title'   => 'Base Category',
+			'slug'    => 'base-category',
+			'order'   => ''
 		]);
 
 		$this->permissions();
@@ -105,9 +107,28 @@ class BackendTaxonomiesSeeder extends Seeder {
 
 		addPermissionsToGroup('members', 'showTaxonomies');
 		addPermissionsToGroup('moderators', 'showTaxonomies');
-		addPermissionsToGroup('supermods', ['showTaxonomies', 'editTaxonomies']);
-		addPermissionsToGroup('admins', ['createTaxonomies', 'showTaxonomies', 'editTaxonomies', 'deleteTaxonomies', 'showTaxonomyTypes', 'editTaxonomyTypes']);
-		addPermissionsToGroup('superadmins', ['createTaxonomies', 'showTaxonomies', 'editTaxonomies', 'deleteTaxonomies', 'createTaxonomyTypes', 'showTaxonomyTypes', 'editTaxonomyTypes', 'deleteTaxonomyTypes']);
+		addPermissionsToGroup('supermods', [
+			'showTaxonomies',
+			'editTaxonomies'
+		]);
+		addPermissionsToGroup('admins', [
+			'createTaxonomies',
+			'showTaxonomies',
+			'editTaxonomies',
+			'deleteTaxonomies',
+			'showTaxonomyTypes',
+			'editTaxonomyTypes'
+		]);
+		addPermissionsToGroup('superadmins', [
+			'createTaxonomies',
+			'showTaxonomies',
+			'editTaxonomies',
+			'deleteTaxonomies',
+			'createTaxonomyTypes',
+			'showTaxonomyTypes',
+			'editTaxonomyTypes',
+			'deleteTaxonomyTypes'
+		]);
 	}
 
 }
