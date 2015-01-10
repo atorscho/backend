@@ -14,22 +14,7 @@
 				<a class="box tip" href="{{ route('admin.taxonomy-types.show', $category->slug) }}" title="@lang('backend::labels.categories')">
 					<i class="fa fa-fw fa-{{ $category->icon }}"></i>
 				</a>
-				<a class="box tip" href="{{ route('admin.users.fields.groups.index') }}" title="@lang('backend::labels.userFields')">
-					<i class="fa fa-fw fa-sliders"></i>
-				</a>
 				<a class="box tip" href="{{{ route('admin.settings.index') }}}" title="@lang('backend::labels.settings')">
-					<i class="fa fa-fw fa-cogs"></i>
-				</a>
-				<a class="box tip" href="{{ route('admin.users.index') }}" title="Users and Groups">
-					<i class="fa fa-fw fa-group"></i>
-				</a>
-				<a class="box tip" href="{{ route('admin.users.fields.groups.index') }}" title="User Fields">
-					<i class="fa fa-fw fa-sliders"></i>
-				</a>
-				<a class="box tip" href="#" title="Menu Manager">
-					<i class="fa fa-fw fa-navicon"></i>
-				</a>
-				<a class="box tip" href="{{{ route('admin.settings.index') }}}" title="Settings">
 					<i class="fa fa-fw fa-cogs"></i>
 				</a>
 			</div>
@@ -73,7 +58,8 @@
 					<div class="form-group">
 						{{ Form::textarea('body', null, [
 							'class' => 'form-control',
-							'style' => 'height:96px'
+							'style' => 'height:96px',
+							'placeholder' => trans('backend::messages.adminNoteDesc')
 						]) }}
 					</div>
 					<div class="form-group clearfix">

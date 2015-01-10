@@ -2,6 +2,7 @@
 
 return [
 
+	'adminNoteDesc'         => "This is a note that will appear on every admin's Backend page.",
 	'clickToCreate'         => '<a href=":link">Click here</a> to create one.',
 	'contentCreated'        => 'Content has been created.',
 	'contentDeleted'        => 'Content has been deleted.',
