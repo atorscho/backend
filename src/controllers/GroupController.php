@@ -3,6 +3,7 @@
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Permission;
 use Crumbs;
+use Flash;
 use Input;
 use Redirect;
 use Validator;
@@ -114,10 +115,12 @@ class GroupController extends BaseController {
 		$group = Group::create(Input::except('permissions'));
 		$group->permissions()->sync(Input::get('permissions'));
 
+		Flash::success('groupCreated');
+
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.groups.create')->with('success', trans('backend::messages.groupCreated'));
+			return Redirect::route('admin.users.groups.create');
 		else
-			return Redirect::route('admin.users.groups.index')->with('success', trans('backend::messages.groupCreated'));
+			return Redirect::route('admin.users.groups.index');
 	}
 
 	/**
@@ -187,10 +190,12 @@ class GroupController extends BaseController {
 		$group->save();
 		$group->permissions()->sync(Input::get('permissions'));
 
+		Flash::success('groupUpdated');
+
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.groups.create')->with('success', trans('backend::messages.groupUpdated'));
+			return Redirect::route('admin.users.groups.create');
 		else
-			return Redirect::route('admin.users.groups.index')->with('success', trans('backend::messages.groupUpdated'));
+			return Redirect::route('admin.users.groups.index');
 	}
 
 	/**
@@ -214,7 +219,9 @@ class GroupController extends BaseController {
 		// Now delete that group
 		$group->delete();
 
-		return Redirect::route('admin.users.groups.index')->with('success', trans('backend::messages.groupDeleted'));
+		Flash::success('groupDeleted');
+
+		return Redirect::route('admin.users.groups.index');
 	}
 
 }

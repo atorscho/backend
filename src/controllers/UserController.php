@@ -5,6 +5,7 @@ use Atorscho\Backend\Models\User;
 use Atorscho\Backend\Models\UserField;
 use Atorscho\Backend\Models\UserFieldGroup;
 use Crumbs;
+use Flash;
 use Input;
 use Redirect;
 use Validator;
@@ -68,11 +69,6 @@ class UserController extends BaseController {
 		$this->beforeFilter('admin.perm:deleteUsers', [ 'only' => [ 'destroy' ] ]);
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		$perPage = Input::get('perPage', 10);
@@ -88,11 +84,6 @@ class UserController extends BaseController {
 		$this->layout->content = View::make('backend::users.index', compact('users', 'counter'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
 	public function create()
 	{
 		$title = trans('backend::labels.usersNew');
@@ -117,12 +108,6 @@ class UserController extends BaseController {
 		$this->layout->content = View::make('backend::users.create', compact('groups', 'gender', 'fieldGroups'));
 	}
 
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
 	public function store()
 	{
 		$rules             = $this->rules;
@@ -146,30 +131,14 @@ class UserController extends BaseController {
 		// Synchronize custom user fields
 		$user->fields()->sync($fieldsUpdate);
 
+		Flash::success('userCreated');
+
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.create')->with('success', trans('backend::labels.userCreated'));
+			return Redirect::route('admin.users.create');
 		else
-			return Redirect::route('admin.users.index')->with('success', trans('backend::labels.userCreated'));
+			return Redirect::route('admin.users.index');
 	}
 
-
-	public function show( User $user )
-	{
-		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
-		Crumbs::addRoute('admin.users.show', $user->username, $user->id);
-
-		$this->layout->title   = trans('backend::labels.usersName', [ 'name' => $user->username ]);
-		$this->layout->content = View::make('backend::users.show', compact('user'));
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param User $user
-	 *
-	 * @return User
-	 */
 	public function edit( User $user )
 	{
 		// Eager-loading
@@ -187,21 +156,13 @@ class UserController extends BaseController {
 		];
 
 		Crumbs::addRoute('admin.users.index', trans('backend::labels.users'));
-		Crumbs::addRoute('admin.users.show', $user->username, $user->id);
+		Crumbs::add('#', $user->username);
 		Crumbs::addRoute('admin.users.edit', trans('backend::labels.edit'), $user->id);
 
 		$this->layout->title   = trans('backend::labels.usersEditName', [ 'name' => $user->username ]);
 		$this->layout->content = View::make('backend::users.edit', compact('user', 'groups', 'usergroups', 'gender', 'fieldGroups'));
 	}
 
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  User $user
-	 *
-	 * @return Response
-	 */
 	public function update( User $user )
 	{
 		$rules = $this->rules;
@@ -234,27 +195,22 @@ class UserController extends BaseController {
 		// Synchronize custom user fields
 		$user->fields()->sync($fieldsUpdate);
 
+		Flash::success('userUpdated');
+
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.create')->with('success', trans('backend::messages.userUpdated'));
+			return Redirect::route('admin.users.create');
 		else
-			return Redirect::route('admin.users.show', $user->id)->with('success', trans('backend::messages.userUpdated'));
+			return Redirect::route('admin.users.index');
 	}
 
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  User $user
-	 *
-	 * @return Response
-	 */
 	public function destroy( User $user )
 	{
 		if ( $user->id != 1 )
 			$user->delete();
 
-		return Redirect::route('admin.users.index')->with('success', trans('backend::messages.userDeactivated'));
-	}
+		Flash::success('userDeactivated');
 
+		return Redirect::route('admin.users.index');
+	}
 
 }

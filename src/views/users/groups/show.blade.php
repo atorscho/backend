@@ -14,7 +14,7 @@
 
 		<div class="list-group">
 			@foreach($groupUsers as $user)
-				 <a href="{{ route('admin.users.show', $user->id) }}" class="list-group-item">{{ $user->username }}</a>
+				 <a href="{{ route('admin.users.edit', $user->id) }}" class="list-group-item">{{ $user->username }}</a>
 			@endforeach
 		</div>
 	</div>

@@ -95,7 +95,6 @@ jQuery(document).ready(function ($)
 	{
 		return string.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
 	}
-
 	function toCamelCase(s)
 	{
 		// remove all characters that should not be in a variable name
@@ -113,15 +112,27 @@ jQuery(document).ready(function ($)
 		});
 		return s;
 	}
-
 	$('input[name="name"]').bind('keypress keyup blur', function ()
 	{
 		$('input[name="handle"]').val(toCamelCase($(this).val()));
 	});
 
+	// Bind an input to another one
+	$('input[data-handle]').bind('keypress keyup blur', function ()
+	{
+		var bindedTo = $(this).attr('data-handle');
+		$('input[name="' + bindedTo + '"]').val(toCamelCase($(this).val()));
+	});
+	$('input[data-slug]').bind('keypress keyup blur', function ()
+	{
+		var bindedTo = $(this).attr('data-slug');
+		$('input[name="' + bindedTo + '"]').val(slug($(this).val()));
+	});
+
 	/*
 	 * Count characters left for a textarea.
 	 */
+	// todo - bind to an input name does not work.
 	$.fn.countChars = function ()
 	{
 		var $data = this,

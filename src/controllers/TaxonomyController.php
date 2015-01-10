@@ -33,7 +33,20 @@ class TaxonomyController extends BaseController {
 			'order'      => trans('backend::labels.order'),
 		];
 
-		// todo - access permissions
+		// Access Filters
+		$this->beforeFilter('admin.perm:createTaxonomy', [
+			'only' => [
+				'create',
+				'store'
+			]
+		]);
+		$this->beforeFilter('admin.perm:editTaxonomy', [
+			'only' => [
+				'edit',
+				'update'
+			]
+		]);
+		$this->beforeFilter('admin.perm:deleteTaxonomy', [ 'only' => 'destroy' ]);
 	}
 
 	public function create( TaxonomyType $taxonomyType )

@@ -292,14 +292,20 @@ label {
 
 // Pagination
 // ===================================
-// todo - customize style
 .pagination {
 	.border-radius();
 
 	li {
-		> a, > span {
+		> a {
 			border-color: @fadeBlack7;
 			color: @textColor;
+			position: relative;
+
+			&:hover {
+				background: @fadeBlack3;
+				color: @brandPrimary;
+				z-index: 5;
+			}
 		}
 
 		&.disabled {
@@ -308,8 +314,9 @@ label {
 				color: @fadeBlack7;
 
 				&:hover {
-					background: @fadeBlack3;
-					color: @textColor;
+					background: #fff;
+					border-color: @fadeBlack3;
+					color: @fadeBlack7;
 				}
 			}
 		}
@@ -400,6 +407,35 @@ small {
 		color:        #fff;
 		text-shadow:  0 1px @thumbnailTextShadow;
 	}
+}
+
+// Tooltip
+// ===================================
+.tooltip {
+	&.top .tooltip-arrow {
+		.opacity(.95);
+		border-top-color: @bodyBackground;
+	}
+	&.right .tooltip-arrow {
+		.opacity(.95);
+		border-right-color: @bodyBackground;
+	}
+	&.bottom .tooltip-arrow {
+		.opacity(.95);
+		border-bottom-color: @bodyBackground;
+	}
+	&.left .tooltip-arrow {
+		.opacity(.95);
+		border-left-color: @bodyBackground;
+	}
+
+	&.in {
+		.opacity(.95);
+	}
+}
+.tooltip-inner {
+	background: @bodyBackground;
+	text-shadow: none;
 }
 
 // REWRITING PLUGINS

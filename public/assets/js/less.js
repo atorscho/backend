@@ -87,6 +87,7 @@ module.exports = function(window, options, logger) {
                     cache.setItem(path, styles);
                     cache.setItem(path + ':timestamp', lastModified);
                 } catch(e) {
+                    //TODO - could do with adding more robust error handling
                     logger.error('failed to save');
                 }
             }
@@ -287,6 +288,7 @@ var PromiseConstructor = typeof Promise === 'undefined' ? require('promise') : P
 
 var fileCache = {};
 
+//TODOS - move log somewhere. pathDiff and doing something similar in node. use pathDiff in the other browser file for the initial load
 //        isFileProtocol is global
 
 function getXMLHttpRequest() {
@@ -407,6 +409,7 @@ var less;
 var addDataAttr = require("./utils").addDataAttr;
 
 /*
+  TODO - options is now hidden - we should expose it on the less object, but not have it "as" the less object
          less = { fileAsync: true }
          then access as less.environment.options.fileAsync ?
  */
@@ -568,6 +571,7 @@ function loadStyleSheet(sheet, callback, reload, remaining, modifyVars) {
             }
         }
 
+        //TODO add tests around how this behaves when reloading
         errors.remove(path);
 
         instanceOptions.rootFileInfo = newFileInfo;
@@ -870,6 +874,9 @@ contexts.Eval.prototype.normalizePath = function( path ) {
 
     return path.join("/");
 };
+
+//todo - do the same for the toCSS ?
+
 
 },{}],9:[function(require,module,exports){
 module.exports = {
@@ -1698,6 +1705,7 @@ module.exports = {
     _data: {},
     add: function(name, func) {
         if (this._data.hasOwnProperty(name)) {
+            //TODO warn
         }
         this._data[name] = func;
     },
@@ -2623,6 +2631,7 @@ module.exports = function() {
     };
 
     // Specialization of peek()
+    // TODO remove or change some currentChar calls to peekChar
     parserInput.peekChar = function(tok) {
         return input.charAt(parserInput.i) === tok;
     };
@@ -5658,6 +5667,7 @@ Extend.prototype.findSelfSelectors = function (selectors) {
     for(i = 0; i < selectors.length; i++) {
         selectorElements = selectors[i].elements;
         // duplicate the logic in genCSS function inside the selector node.
+        // future TODO - move both logics into the selector joiner visitor
         if (i > 0 && selectorElements.length && selectorElements[0].combinator.value === "") {
             selectorElements[0].combinator.value = ' ';
         }
@@ -6033,6 +6043,7 @@ Media.prototype.eval = function (context) {
     return context.mediaPath.length === 0 ? media.evalTop(context) :
                 media.evalNested(context);
 };
+//TODO merge with directive
 Media.prototype.variable = function (name) { return Ruleset.prototype.variable.call(this.rules[0], name); };
 Media.prototype.find = function () { return Ruleset.prototype.find.apply(this.rules[0], arguments); };
 Media.prototype.rulesets = function () { return Ruleset.prototype.rulesets.apply(this.rules[0]); };
@@ -7485,6 +7496,7 @@ Selector.prototype.genCSS = function (context, output) {
         output.add(' ', this.currentFileInfo, this.index);
     }
     if (!this._css) {
+        //TODO caching? speed comparison?
         for(i = 0; i < this.elements.length; i++) {
             element = this.elements[i];
             element.genCSS(context, output);
@@ -8988,6 +9000,7 @@ process.binding = function (name) {
     throw new Error('process.binding is not supported');
 };
 
+// TODO(shtylman)
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');

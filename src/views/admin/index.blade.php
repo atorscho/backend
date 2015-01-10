@@ -90,7 +90,7 @@
 					<ul class="list">
 						@foreach($users as $user)
 							<li>
-								{{ link_to_route('admin.users.show', $user->username, [$user->id]) }}
+								{{ link_to_route('admin.users.edit', $user->username, [$user->id]) }}
 								<span class="label label-default pull-right">{{ getDateTimeFormat($user->created_at) }}</span>
 							</li>
 						@endforeach
@@ -101,7 +101,7 @@
 						@forelse($latestArticles as $content)
 							<li>
 								{{ link_to_route('admin.contents.edit', Str::limit($content->title, 30), ['articles', $content->id]) }}
-								<small>(@lang('backend::labels.contentAuthor', ['link' => route('admin.users.show', $content->created_by), 'username' => $content->creator->username]))</small>
+								<small>(@lang('backend::labels.contentAuthor', ['link' => route('admin.users.edit', $content->created_by), 'username' => $content->creator->username]))</small>
 								<span class="label label-default pull-right">{{ getDateTimeFormat($content->created_at) }}</span>
 							</li>
 						@empty
@@ -114,7 +114,7 @@
 						@forelse($latestPages as $content)
 							<li>
 								{{ link_to_route('admin.contents.edit', Str::limit($content->title, 30), ['articles', $content->id]) }}
-								<small>(@lang('backend::labels.contentAuthor', ['link' => route('admin.users.show', $content->created_by), 'username' => $content->creator->username]))</small>
+								<small>(@lang('backend::labels.contentAuthor', ['link' => route('admin.users.edit', $content->created_by), 'username' => $content->creator->username]))</small>
 								<span class="label label-default pull-right">{{ getDateTimeFormat($content->created_at) }}</span>
 							</li>
 						@empty

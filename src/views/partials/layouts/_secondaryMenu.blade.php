@@ -30,11 +30,9 @@
 				<div class="avatar-holder">
 					<div class="welcome">
 						<?php // todo - link to user's profile ?>
-
 						{{{ Auth::user()->username }}}
 					</div>
 					<div class="avatar">
-						<?php // todo - link to user's profile ?>
 						<img src="{{ asset('packages/atorscho/backend/assets/img/misc/noavatar.png') }}" alt="@lang('backend::labels.userAvatar')" />
 					</div>
 				</div>

@@ -41,7 +41,22 @@ class ContentController extends BaseController {
 			'created_at' => trans('backend::labels.createdAt')
 		];
 
-		// todo - access permissions
+		// Access Filters
+		$this->beforeFilter('admin.perm:showContents', ['only' => 'index']);
+		$this->beforeFilter('admin.perm:createContents', [
+			'only' => [
+				'create',
+				'store'
+			]
+		]);
+		$this->beforeFilter('admin.perm:editContents', [
+			'only' => [
+				'edit',
+				'update',
+				'toggleStatus'
+			]
+		]);
+		$this->beforeFilter('admin.perm:deleteContents', [ 'only' => [ 'destroy', 'forceDestroy' ] ]);
 	}
 
 	public function create( ContentType $contentType )

@@ -32,7 +32,26 @@ class TaxonomyTypeController extends BaseController {
 			'hierarchical' => trans('backend::labels.hierarchical')
 		];
 
-		// todo - access permissions
+		// Access Filters
+		$this->beforeFilter('admin.perm:showTaxonomyTypes', [
+			'only' => [
+				'index',
+				'show'
+			]
+		]);
+		$this->beforeFilter('admin.perm:createTaxonomyTypes', [
+			'only' => [
+				'create',
+				'store'
+			]
+		]);
+		$this->beforeFilter('admin.perm:editTaxonomyTypes', [
+			'only' => [
+				'edit',
+				'update'
+			]
+		]);
+		$this->beforeFilter('admin.perm:deleteTaxonomyTypes', [ 'only' => 'destroy' ]);
 	}
 
 	public function index()

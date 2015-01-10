@@ -4,6 +4,7 @@ use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Setting;
 use Atorscho\Backend\Models\SettingsGroup;
 use Crumbs;
+use Flash;
 use Redirect;
 use View;
 use Input;
@@ -48,7 +49,9 @@ class SettingController extends BaseController {
 			$setting->save();
 		}
 
-		return Redirect::back()->with('success', trans('backend::messages.settingsUpdated'));
+		Flash::success('settingsUpdated');
+
+		return Redirect::back();
 	}
 
 }

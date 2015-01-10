@@ -164,17 +164,21 @@ class UserFieldController extends BaseController {
 		$field->fill(Input::all());
 		$field->save();
 
+		Flash::success('userFieldUpdated');
+
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.fields.create')->with('success', trans('backend::messages.userFieldUpdated'));
+			return Redirect::route('admin.users.fields.create');
 		else
-			return Redirect::route('admin.users.fields.index')->with('success', trans('backend::messages.userFieldUpdated'));
+			return Redirect::route('admin.users.fields.index');
 	}
 
 	public function destroy( UserField $field )
 	{
 		$field->delete();
 
-		return Redirect::route('admin.users.fields.index')->with('success', trans('backend::messages.userFieldDeleted'));
+		Flash::success('userFieldDeleted');
+
+		return Redirect::route('admin.users.fields.index');
 	}
 
 }

@@ -8,8 +8,6 @@ use View;
 use Input;
 use Atorscho\Crumbs\Facades\Crumbs;
 
-// todo - add extension manager to settings page
-
 class EcommerceController extends BaseController {
 
 	public function index()

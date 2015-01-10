@@ -28,6 +28,10 @@ a {
 	&:hover {
 		color: @linkColorHover;
 	}
+	&:focus {
+		color: @linkColorHover;
+		text-decoration: underline;
+	}
 }
 
 // Headings
@@ -88,9 +92,14 @@ h1, h2, h3 {
 	}
 }
 
+// Margins
+.margin-t-10 { margin-top: 10px !important; }
+.margin-t-5 { margin-top: 5px !important; }
+
 // Widths
 .width-50  { width: 50px  !important; }
 .width-80  { width: 80px  !important; }
+.width-90  { width: 90px  !important; }
 .width-100 { width: 100px !important; }
 .width-140 { width: 140px !important; }
 .width-150 { width: 150px !important; }

@@ -2,6 +2,7 @@
 
 use Atorscho\Backend\Models\UserFieldGroup;
 use Crumbs;
+use Flash;
 use Input;
 use Redirect;
 use Validator;
@@ -82,10 +83,12 @@ class UserFieldGroupController extends BaseController {
 
 		UserFieldGroup::create(Input::all());
 
+		Flash::success('userFieldGroupCreated');
+
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.fields.groups.create')->with('success', trans('backend::messages.userFieldGroupCreated'));
+			return Redirect::route('admin.users.fields.groups.create');
 		else
-			return Redirect::route('admin.users.fields.groups.index')->with('success', trans('backend::messages.userFieldGroupCreated'));
+			return Redirect::route('admin.users.fields.groups.index');
 	}
 
 	public function show( UserFieldGroup $fieldGroup )
@@ -128,17 +131,21 @@ class UserFieldGroupController extends BaseController {
 		$fieldGroup->fill(Input::all());
 		$fieldGroup->save();
 
+		Flash::success('userFieldGroupUpdated');
+
 		if ( Input::get('submit') == 'save_new' )
-			return Redirect::route('admin.users.fields.groups.create')->with('success', trans('backend::messages.userFieldGroupUpdated'));
+			return Redirect::route('admin.users.fields.groups.create');
 		else
-			return Redirect::route('admin.users.fields.groups.show', $fieldGroup->id)->with('success', trans('backend::messages.userFieldGroupUpdated'));
+			return Redirect::route('admin.users.fields.groups.show', $fieldGroup->id);
 	}
 
 	public function destroy( UserFieldGroup $fieldGroup )
 	{
 		$fieldGroup->delete();
 
-		return Redirect::route('admin.users.fields.groups.index')->with('success', trans('backend::messages.userFieldGroupDeleted'));
+		Flash::success('userFieldGroupDeleted');
+
+		return Redirect::route('admin.users.fields.groups.index');
 	}
 
 }

@@ -32,7 +32,26 @@ class ContentTypeController extends BaseController {
 			'hierarchical' => trans('backend::labels.hierarchical')
 		];
 
-		// todo - access permissions
+		// Access Filters
+		$this->beforeFilter('admin.perm:showContentTypes', [
+			'only' => [
+				'index',
+				'show'
+			]
+		]);
+		$this->beforeFilter('admin.perm:createContentTypes', [
+			'only' => [
+				'create',
+				'store'
+			]
+		]);
+		$this->beforeFilter('admin.perm:editContentTypes', [
+			'only' => [
+				'edit',
+				'update'
+			]
+		]);
+		$this->beforeFilter('admin.perm:deleteContentTypes', [ 'only' => 'destroy' ]);
 	}
 
 	public function index()
@@ -139,7 +158,10 @@ class ContentTypeController extends BaseController {
 
 	public function destroy( ContentType $contentType )
 	{
-		if ( in_array($contentType->slug, ['pages', 'articles']) )
+		if ( in_array($contentType->slug, [
+			'pages',
+			'articles'
+		]) )
 		{
 			Flash::warning('contentTypeProtected');
 		}

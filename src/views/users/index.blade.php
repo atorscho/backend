@@ -37,7 +37,7 @@
 						@forelse($users as $user)
 							<tr>
 								<td>{{{ $counter++ }}}</td>
-								<td data-href="{{{ route('admin.users.show', $user->id) }}}">{{ $user->username }}</td>
+								<td data-href="{{{ route('admin.users.edit', $user->id) }}}">{{ $user->username }}</td>
 								<td>{{ $user->groupsAnchorList() }}</td>
 								<td>{{{ getDateTimeFormat($user->created_at) }}}</td>
 								<td class="text-center">{{ $user->id }}</td>
@@ -47,7 +47,7 @@
 											<a class="btn btn-default" href="mailto:{{ HTML::email($user->email) }}" title="@lang('backend::labels.emailSend')">
 												<i class="fa fa-envelope-o"></i>
 											</a>
-											<a class="btn btn-primary" href="{{ route('admin.users.show', $user->id) }}" title="@lang('backend::labels.viewUserProfile')">
+											<a class="btn btn-primary" href="{{ route('admin.users.edit', $user->id) }}" title="@lang('backend::labels.viewUserProfile')">
 												<i class="fa fa-user"></i>
 											</a>
 											<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
@@ -65,7 +65,7 @@
 														<i class="fa fa-fw fa-times-circle-o"></i> @lang('backend::labels.deactivate')
 													</button>
 												</li>
-												<?php // todo - add links to user content ?>
+												<?php // todo - Add links to user's content. ?>
 												{{--<li class="dropdown-header">User's Content</li>
 												<li><a href="#"><i class="fa fa-fw fa-file-text"></i> Posts</a></li>
 												<li><a href="#"><i class="fa fa-fw fa-tags"></i> Tickets</a></li>--}}

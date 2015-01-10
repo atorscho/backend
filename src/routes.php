@@ -58,7 +58,7 @@ Route::group([
 	Route::resource('users/fields', 'UserFieldController');
 	Route::resource('users/groups', 'GroupController');
 	Route::resource('users/permissions', 'PermissionController', [ 'only' => 'index' ]);
-	Route::resource('users', 'UserController');
+	Route::resource('users', 'UserController', ['except' => 'show']);
 
 	// Content Types
 	// ===================================
