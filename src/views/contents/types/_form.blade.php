@@ -15,6 +15,16 @@
 </div>
 
 <div class="form-group">
+	{{ Form::label('name_sg', 'Singular Name') }}
+	{{ $errors->first('name_sg', '<span class="text-danger">:message</span>') }}
+	{{ Form::text('name_sg', null, [
+		'class' => 'form-control',
+		'placeholder' => 'Singular Name',
+		'tabindex' => index()
+	]) }}
+</div>
+
+<div class="form-group">
 	{{ Form::label('slug', 'Slug') }}
 	{{ $errors->first('slug', '<span class="text-danger">:message</span>') }}
 	{{ Form::text('slug', null, [

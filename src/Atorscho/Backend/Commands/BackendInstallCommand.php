@@ -1,6 +1,8 @@
 <?php namespace Atorscho\Backend\Commands;
 
 use Artisan;
+use Atorscho\Backend\Models\Content;
+use Atorscho\Backend\Models\ContentType;
 use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\User;
 use Illuminate\Console\Command;
@@ -68,11 +70,9 @@ class BackendInstallCommand extends Command {
 
 		$this->createSuperAdmin();
 
-		// 3. Demo content
-		// todo - Demo content seeder
-		if ( $this->option('resources') )
+		if ( $this->option('sample-data') )
 		{
-
+			$this->sampleData();
 		}
 	}
 
@@ -84,7 +84,7 @@ class BackendInstallCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			array('resources', 'r', InputOption::VALUE_NONE, 'Also install all demo content for testing purposes.', null),
+			array('sample-data', 's', InputOption::VALUE_NONE, 'Also create all sample data for testing purposes.'),
 		);
 	}
 
@@ -93,7 +93,7 @@ class BackendInstallCommand extends Command {
 	 */
 	protected function installBaseSystems()
 	{
-		// todo - ensure that this functions for package
+		// todo - ensure that this works for package
 
 		// 1. Run migrations first.
 		$this->artisan->call('migrate', [ '--bench' => 'atorscho/backend' ]);
@@ -118,6 +118,10 @@ class BackendInstallCommand extends Command {
 		$this->artisan->call('db:seed', [ '--class' => 'BackendContentsSeeder' ]);
 		$this->output->write('<comment>.</comment>');
 
+		// 2.3 Taxonomy Types
+		$this->artisan->call('db:seed', [ '--class' => 'BackendTaxonomiesSeeder' ]);
+		$this->output->write('<comment>.</comment>');
+
 		// End with a newline.
 		$this->output->write("\n");
 
@@ -133,6 +137,57 @@ class BackendInstallCommand extends Command {
 		$this->comment('Create Super-Administrator');
 		$this->line('----------');
 
+		list( $username, $email, $password ) = $this->askAdminCredentials();
+
+		// Add to DB
+		$this->user->username = $username;
+		$this->user->email    = $email;
+		$this->user->password = $password;
+		$this->user->save();
+
+		// Add to the Super-admins group
+		$this->user->groups()->attach($this->group->findHandle('superadmins')->id);
+
+		$this->info('2. You have successfully created a new super-admin account.');
+	}
+
+	/**
+	 * Create sample data for testing purposes.
+	 */
+	protected function sampleData()
+	{
+		// Sample Page
+		$content = Content::create([
+			'type_id'    => ContentType::findSlug('pages')->first()->id,
+			'title'      => 'Sample Page',
+			'slug'       => 'sample-page',
+			'published'  => 1,
+			'order'      => '',
+			'created_by' => User::first()->id,
+			'updated_by' => User::first()->id
+		]);
+		$content->fields()->attach($content->contentType->fields->first()->id, [ 'value' => 'This is a sample page that you can create from The Backend. It is only a content type with a content text.' ]);
+
+		// Sample Article
+		$content = Content::create([
+			'type_id'    => ContentType::findSlug('articles')->first()->id,
+			'title'      => 'The Backend is Installed!',
+			'slug'       => 'backend-installed',
+			'published'  => 1,
+			'order'      => '',
+			'created_by' => User::first()->id,
+			'updated_by' => User::first()->id
+		]);
+		$content->fields()->attach($content->contentType->fields->first()->id, [ 'value' => 'Congratulations! You successfully installed The Backend with all its default content.' ]);
+
+		$this->info('3. All sample data has been created.');
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function askAdminCredentials()
+	{
 		$username  = $this->ask('Choose a username:');
 		$email     = $this->ask('Enter your valid email address:');
 		$password  = $this->secret('And now your password:');
@@ -157,18 +212,15 @@ class BackendInstallCommand extends Command {
 				$this->error('Several errors occurred:');
 			foreach ( $validator->errors()->all() as $error )
 				$this->line('    - ' . $error);
+
+			list( $username, $email, $password ) = $this->askAdminCredentials();
 		}
 
-		// Add to DB
-		$this->user->username = $username;
-		$this->user->email    = $email;
-		$this->user->password = $password;
-		$this->user->save();
-
-		// Add to the Super-admins group
-		$this->user->groups()->attach($this->group->findHandle('superadmins')->id);
-
-		$this->info('2. You have successfully created a new super-admin account.');
+		return [
+			$username,
+			$email,
+			$password
+		];
 	}
 
 }

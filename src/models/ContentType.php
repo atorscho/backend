@@ -10,6 +10,7 @@ class ContentType extends BaseModel {
 
 	protected $fillable = [
 		'name',
+		'name_sg',
 		'description',
 		'slug',
 		'icon',

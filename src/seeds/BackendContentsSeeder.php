@@ -71,6 +71,7 @@ class BackendContentsSeeder extends Seeder {
 		$types = [
 			[
 				'name'         => 'Pages',
+				'name_sg'      => 'Page',
 				'description'  => 'List of all static pages.',
 				'icon'         => 'file-text',
 				'hierarchical' => 1,
@@ -85,6 +86,7 @@ class BackendContentsSeeder extends Seeder {
 			],
 			[
 				'name'         => 'Articles',
+				'name_sg'      => 'Article',
 				'description'  => 'Site news, articles and posts.',
 				'icon'         => 'file-image-o',
 				'hierarchical' => 0,
@@ -124,42 +126,6 @@ class BackendContentsSeeder extends Seeder {
 				]);
 			}
 		}
-
-		// Seed Pages with some fake data.
-		/*foreach ( range(1, 10) as $i )
-		{
-			$userID = User::orderByRaw("RAND()")->first()->id;
-
-			$content = Content::create([
-				'type_id'    => ContentType::findSlug('pages')->first()->id,
-				'title'      => $name = $faker->sentence(4),
-				'slug'       => $name,
-				'published'  => rand(0, 1),
-				'order'      => '',
-				'created_by' => $userID,
-				'updated_by' => $userID
-			]);
-
-			$content->fields()->attach($contentField['pages.body']->id, [ 'value' => $faker->paragraph(4) ]);
-		}*/
-
-		// Seed Articles with some fake data.
-		/*foreach ( range(1, 10) as $i )
-		{
-			$userID = User::orderByRaw("RAND()")->first()->id;
-
-			$content = Content::create([
-				'type_id'    => ContentType::findSlug('articles')->first()->id,
-				'title'      => $name = $faker->sentence(4),
-				'slug'       => $name,
-				'published'  => rand(0, 1),
-				'order'      => '',
-				'created_by' => $userID,
-				'updated_by' => $userID
-			]);
-
-			$content->fields()->attach($contentField['articles.body']->id, [ 'value' => $faker->paragraph(4) ]);
-		}*/
 
 		$this->permissions();
 	}
