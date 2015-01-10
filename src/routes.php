@@ -36,6 +36,10 @@ Route::group([
 		'as'   => 'admin.lang',
 		'uses' => 'BackendController@lang'
 	]);
+	Route::post('note', [
+		'as'   => 'admin.note.save',
+		'uses' => 'BackendController@note'
+	]);
 
 	// Settings
 	// ===================================
@@ -58,7 +62,7 @@ Route::group([
 	Route::resource('users/fields', 'UserFieldController');
 	Route::resource('users/groups', 'GroupController');
 	Route::resource('users/permissions', 'PermissionController', [ 'only' => 'index' ]);
-	Route::resource('users', 'UserController', ['except' => 'show']);
+	Route::resource('users', 'UserController', [ 'except' => 'show' ]);
 
 	// Content Types
 	// ===================================

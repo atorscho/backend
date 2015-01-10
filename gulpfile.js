@@ -27,12 +27,12 @@ gulp.task('less', function () {
  */
 gulp.task('unite', function () {
 	// CSS
-	gulp.src(cssDir + '**/*.css')
+	gulp.src(cssDir + '**/!(*.min.css).css')
 		.pipe(concat('united.css'))
 		.pipe(gulp.dest(cssDir));
 
 	// JS
-	gulp.src(jsDir + '**/*.js')
+	gulp.src(jsDir + '**/!(*.min.js).js')
 		.pipe(concat('united.js'))
 		.pipe(gulp.dest(jsDir));
 });

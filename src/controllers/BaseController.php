@@ -16,13 +16,30 @@ class BaseController extends Controller {
 			[
 				'title' => trans('backend::labels.dashboard'),
 				'route' => 'admin.index',
+				'param' => null,
 				'group' => '',
 				'perm'  => ''
 			],
 			[
 				'title' => trans('backend::labels.users'),
 				'route' => 'admin.users.index',
+				'param' => null,
 				'perm'  => 'showUsers'
+			],
+			[
+				'title' => trans('backend::labels.articles'),
+				'route' => 'admin.content-types.show',
+				'param' => 'articles'
+			],
+			[
+				'title' => trans('backend::labels.pages'),
+				'route' => 'admin.content-types.show',
+				'param' => 'pages'
+			],
+			[
+				'title' => trans('backend::labels.categories'),
+				'route' => 'admin.taxonomy-types.show',
+				'param' => 'categories'
 			]
 		];
 

@@ -1,12 +1,12 @@
 <?php namespace Atorscho\Backend\Controllers;
 
+use Atorscho\Backend\Models\AdminNote;
 use Atorscho\Backend\Models\ContentType;
 use Atorscho\Backend\Models\TaxonomyType;
 use Atorscho\Backend\Models\User;
 use Auth;
 use Flash;
 use Input;
-use LaravelGettext;
 use Redirect;
 use Session;
 use Validator;
@@ -16,19 +16,20 @@ class BackendController extends BaseController {
 
 	public function index()
 	{
+		$note      = AdminNote::orderBy('created_at', 'desc')->first();
 		$users     = User::orderBy('id', 'desc')->take(5)->get();
 		$userCount = User::all()->count();
 
 		// Default Content & Taxonomy Types
-		$category = TaxonomyType::findSlug('categories');
-		$article = ContentType::findSlug('articles', 'contents');
-		$page    = ContentType::findSlug('pages', 'contents');
+		$category       = TaxonomyType::findSlug('categories');
+		$article        = ContentType::findSlug('articles', 'contents');
+		$page           = ContentType::findSlug('pages', 'contents');
 		$latestArticles = $article->contents()->orderBy('id', 'desc')->take(5)->get();
-		$latestPages = $page->contents()->orderBy('id', 'desc')->take(5)->get();
+		$latestPages    = $page->contents()->orderBy('id', 'desc')->take(5)->get();
 
 		$this->layout->title   = trans('backend::labels.dashboardHome');
 		$this->layout->desc    = trans('backend::labels.adminCP');
-		$this->layout->content = View::make('backend::admin.index', compact('users', 'userCount', 'category', 'article', 'page', 'latestArticles', 'latestPages'));
+		$this->layout->content = View::make('backend::admin.index', compact('note', 'users', 'userCount', 'category', 'article', 'page', 'latestArticles', 'latestPages'));
 	}
 
 	public function login()
@@ -82,7 +83,28 @@ class BackendController extends BaseController {
 		Flash::success('langSwitched', [ 'lang' => trans("backend::locales.$locale") ]);
 
 		return Redirect::route('admin.login');
+	}
 
+	/**
+	 * Save a note for admins.
+	 *
+	 * @return $this|\Illuminate\Http\RedirectResponse
+	 */
+	// todo - Create an archive for old notes.
+	public function note()
+	{
+		$validator = Validator::make(Input::all(), [
+			'body' => 'required'
+		]);
+
+		if ( $validator->fails() )
+			return Redirect::back()->withInput();
+
+		AdminNote::create(Input::all());
+
+		Flash::success('noteSaved');
+
+		return Redirect::route('admin.index');
 	}
 
 }

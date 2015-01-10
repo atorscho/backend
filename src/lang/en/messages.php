@@ -14,7 +14,7 @@ return [
 	'contentTypeUpdated'    => 'Content type has been updated.',
 	'contentUpdated'        => 'Content has been updated.',
 	'contentUpdatedStatus'  => 'Status of the content has been changed.',
-	'copyright'             => 'Designed and Developed by <a href="//alextorscho.com">Alex Torscho</a>',
+	'copyright'             => 'Designed and Developed by <a href="http://alextorscho.com">Alex Torscho</a>',
 	'groupCreated'          => 'Group has been created.',
 	'groupDeleted'          => 'Group has been deleted.',
 	'groupsPrefixesDesc'    => 'HTML wrappers of the group name. Opening and closing tags.',
@@ -34,6 +34,7 @@ return [
 	'noPages'               => 'No pages found.',
 	'noTaxonomies'          => 'No taxonomies found.',
 	'noTaxonomyTypes'       => 'No taxonomy types found.',
+	'noteSaved'             => 'Note has been saved.',
 	'noUserFieldGroups'     => 'There is no custom field groups.',
 	'noUserFields'          => 'Field Group does not have any custom fields.',
 	'noUsers'               => 'No users found.',
@@ -58,6 +59,5 @@ return [
 	'userFieldUpdated'      => 'Custom user field has been updated.',
 	'userNotFound'          => 'Username with such credentials does not exist.',
 	'userUpdated'           => 'User has been updated.',
-
 
 ];

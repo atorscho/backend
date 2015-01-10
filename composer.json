@@ -15,7 +15,8 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "4.2.*",
-		"fzaninotto/faker": "1.*"
+		"fzaninotto/faker": "1.*",
+        "erusev/parsedown": "~1.2"
     },
     "autoload": {
         "classmap": [

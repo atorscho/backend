@@ -45,6 +45,9 @@ jQuery(document).ready(function ($)
 			down: "fa fa-arrow-down"
 		}
 	});
+	$('.markdown').markdown({
+		iconlibrary: 'fa'
+	});
 
 	/*
 	 * Dropdown Box

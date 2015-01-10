@@ -13,10 +13,8 @@
 	==================================================== -->
 	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 	@foreach($template->stylesheets as $css)
-		{{ HTML::style($template->assetsCss . $css . '.css') }}
+		{{ HTML::style($template->assetsCss . $css . '.min.css') }}
 	@endforeach
-	<?php // todo - remove ?>
-	<link rel="stylesheet/less" href="{{ asset('packages/atorscho/backend/assets/less/' . 'master.less') }}" />
 </head>
 <body>
 
@@ -90,7 +88,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 @foreach($template->scripts as $js)
-	{{ HTML::script($template->assetsJs . $js . '.js') }}
+	{{ HTML::script($template->assetsJs . $js . '.min.js') }}
 @endforeach
 @yield('js')
 </body>

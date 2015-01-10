@@ -69,14 +69,18 @@
 					<h3>@lang('backend::labels.adminNotes')</h3>
 				</header>
 
-				<form action="">
+				{{ Form::model($note, ['route' => 'admin.note.save']) }}
 					<div class="form-group">
-						<textarea class="form-control" id="text" name="text" title="@lang('backend::labels.text')" style="height:96px"></textarea>
+						{{ Form::textarea('body', null, [
+							'class' => 'form-control',
+							'style' => 'height:96px'
+						]) }}
 					</div>
 					<div class="form-group clearfix">
-						<button type="submit" class="btn btn-primary pull-right">@lang('backend::labels.adminNotesSave')</button>
+						{{ $errors->first('body', '<span class="text-danger pull-left">:message</span>') }}
+						{{ Form::submit(trans('backend::labels.adminNotesSave'), ['class' => 'btn btn-primary pull-right']) }}
 					</div>
-				</form>
+				{{ Form::close() }}
 			</div>
 		</div>
 		<div class="col-md-6">

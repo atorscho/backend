@@ -27,19 +27,18 @@ return array(
 		'bootstrap',
 		'bootstrap-datetimepicker',
 		'bootstrap-select',
-		'jquery.switchButton',
+		'bootstrap-markdown',
 		'font-awesome',
-//		'master' todo - bring back the master.css
+		'master'
 	],
 	'scripts' => [
 		'moment',
+		'markdown',
+		'to-markdown',
 		'bootstrap',
 		'bootstrap-datetimepicker',
 		'bootstrap-select',
-		'jquery.switchButton',
-//		'angular',
-//		'angular-resource',
-		'less',
+		'bootstrap-markdown',
 		'brand'
 	]
 

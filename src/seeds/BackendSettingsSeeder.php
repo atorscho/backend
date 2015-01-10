@@ -30,8 +30,8 @@ class BackendSettingsSeeder extends Seeder {
 					[
 						'name'        => 'Site Name',
 						'handle'      => 'siteName',
-						'value'       => 'Verge',
-						'default'     => 'Verge',
+						'value'       => 'Backend',
+						'default'     => 'Backend',
 						'description' => 'Will be used in "title" tag and headings.'
 					],
 					[
