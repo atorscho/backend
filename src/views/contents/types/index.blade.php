@@ -13,7 +13,14 @@
 
 	<div class="table-responsive">
 		<table class="table table-striped">
-			{{ Template::tableHeadings($rows) }}
+			{{ Template::tableHeadings([
+				'#'            => 'width-50',
+				'Name',
+				'Slug',
+				'Hierarchical' => 'text-center width-50',
+				'ID'           => 'text-center width-80',
+				'Actions'      => 'text-center width-90'
+			]) }}
 			<tbody>
 			@forelse($contentTypes as $contentType)
 				<tr>
@@ -50,7 +57,7 @@
 				</tr>
 			@empty
 				<tr>
-					<td colspan="{{ count($rows) }}">
+					<td colspan="6">
 						@lang('backend::messages.noContents')
 					</td>
 				</tr>

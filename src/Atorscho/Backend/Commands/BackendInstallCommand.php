@@ -4,6 +4,7 @@ use Artisan;
 use Atorscho\Backend\Models\Content;
 use Atorscho\Backend\Models\ContentType;
 use Atorscho\Backend\Models\Group;
+use Atorscho\Backend\Models\Taxonomy;
 use Atorscho\Backend\Models\User;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -84,7 +85,12 @@ class BackendInstallCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			array('sample-data', 's', InputOption::VALUE_NONE, 'Also create all sample data for testing purposes.'),
+			array(
+				'sample-data',
+				's',
+				InputOption::VALUE_NONE,
+				'Also create all sample data for testing purposes.'
+			),
 		);
 	}
 
@@ -100,8 +106,6 @@ class BackendInstallCommand extends Command {
 		$this->output->write('<comment>.</comment>');
 
 		// 2. Seed most important DB tables.
-		$this->output->write('<comment>.</comment>');
-
 		// 2.1 Settings and Setting Groups
 		$this->artisan->call('db:seed', [ '--class' => 'BackendSettingsSeeder' ]);
 		$this->output->write('<comment>.</comment>');
@@ -114,12 +118,12 @@ class BackendInstallCommand extends Command {
 		$this->artisan->call('db:seed', [ '--class' => 'BackendUserFieldsSeeder' ]);
 		$this->output->write('<comment>.</comment>');
 
-		// 2.3 Content Types & Content Fields
-		$this->artisan->call('db:seed', [ '--class' => 'BackendContentsSeeder' ]);
-		$this->output->write('<comment>.</comment>');
-
 		// 2.3 Taxonomy Types
 		$this->artisan->call('db:seed', [ '--class' => 'BackendTaxonomiesSeeder' ]);
+		$this->output->write('<comment>.</comment>');
+
+		// 2.4 Content Types & Content Fields
+		$this->artisan->call('db:seed', [ '--class' => 'BackendContentsSeeder' ]);
 		$this->output->write('<comment>.</comment>');
 
 		// End with a newline.
@@ -171,6 +175,7 @@ class BackendInstallCommand extends Command {
 		// Sample Article
 		$content = Content::create([
 			'type_id'    => ContentType::findSlug('articles')->id,
+			'parent_id'  => Taxonomy::first()->id,
 			'title'      => 'The Backend is Installed!',
 			'slug'       => 'backend-installed',
 			'published'  => 1,

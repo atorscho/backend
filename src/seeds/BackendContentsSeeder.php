@@ -46,13 +46,29 @@ class BackendContentsSeeder extends Seeder {
 			[
 				'name'   => 'Delete Content Types',
 				'handle' => 'deleteContentTypes'
+			],
+			[
+				'name'   => 'Create Content Fields',
+				'handle' => 'createContentFields'
+			],
+			[
+				'name'   => 'Show Content Fields',
+				'handle' => 'showContentFields'
+			],
+			[
+				'name'   => 'Edit Content Fields',
+				'handle' => 'editContentFields'
+			],
+			[
+				'name'   => 'Delete Content Fields',
+				'handle' => 'deleteContentFields'
 			]
 		];
 	}
 
 	public function run()
 	{
-		$permHandles = array_map(function ($item)
+		$permHandles = array_map(function ( $item )
 		{
 			return $item['handle'];
 		}, $this->permissions);
@@ -79,7 +95,7 @@ class BackendContentsSeeder extends Seeder {
 					[
 						'type'     => 'textarea',
 						'name'     => 'Body',
-						'handle'     => 'body',
+						'handle'   => 'body',
 						'required' => 1,
 					]
 				]
@@ -94,7 +110,7 @@ class BackendContentsSeeder extends Seeder {
 					[
 						'type'     => 'textarea',
 						'name'     => 'Body',
-						'handle'     => 'body',
+						'handle'   => 'body',
 						'required' => 1,
 					]
 				]
@@ -119,7 +135,7 @@ class BackendContentsSeeder extends Seeder {
 					'type_id'     => $contentType->id,
 					'type'        => $field['type'],
 					'name'        => $field['name'],
-					'handle'        => $field['handle'],
+					'handle'      => $field['handle'],
 					'placeholder' => '',
 					'required'    => $field['required'],
 					'order'       => ''
@@ -137,9 +153,36 @@ class BackendContentsSeeder extends Seeder {
 
 		addPermissionsToGroup('members', 'showContents');
 		addPermissionsToGroup('moderators', 'showContents');
-		addPermissionsToGroup('supermods', ['showContents', 'editContents']);
-		addPermissionsToGroup('admins', ['createContents', 'showContents', 'editContents', 'deleteContents', 'showContentTypes', 'editContentTypes']);
-		addPermissionsToGroup('superadmins', ['createContents', 'showContents', 'editContents', 'deleteContents', 'createContentTypes', 'showContentTypes', 'editContentTypes', 'deleteContentTypes']);
+		addPermissionsToGroup('supermods', [
+			'showContents',
+			'editContents'
+		]);
+		addPermissionsToGroup('admins', [
+			'createContents',
+			'showContents',
+			'editContents',
+			'deleteContents',
+			'showContentTypes',
+			'editContentTypes',
+			'showContentFields',
+			'createContentFields',
+			'editContentFields',
+			'deleteContentFields'
+		]);
+		addPermissionsToGroup('superadmins', [
+			'createContents',
+			'showContents',
+			'editContents',
+			'deleteContents',
+			'createContentTypes',
+			'showContentTypes',
+			'editContentTypes',
+			'deleteContentTypes',
+			'showContentFields',
+			'createContentFields',
+			'editContentFields',
+			'deleteContentFields'
+		]);
 	}
 
 }

@@ -146,6 +146,7 @@ class BackendFakerCommand extends Command {
 
 			$content = Content::create([
 				'type_id'    => ContentType::findSlug('articles')->id,
+				'parent_id'  => Taxonomy::first()->id,
 				'title'      => $title = trim($this->faker->sentence(4), '.'),
 				'slug'       => $title,
 				'published'  => rand(0, 1),

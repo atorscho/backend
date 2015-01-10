@@ -49,7 +49,7 @@ class ContentController extends BaseController {
 
 	public function create( ContentType $contentType )
 	{
-		$categories = TaxonomyType::findSlug('categories', 'taxonomies')->taxonomies->lists('title', 'id');
+		$categories = TaxonomyType::findSlug('categories', 'taxonomies')->taxonomies()->lists('title', 'id');
 
 		$parent = '';
 		if ( $contentType->hierarchical )
@@ -102,6 +102,10 @@ class ContentController extends BaseController {
 	{
 		$categories = TaxonomyType::findSlug('categories', 'taxonomies')->taxonomies()->lists('title', 'id');
 
+		$parent = '';
+		if ( $contentType->hierarchical )
+			$parent = [ 'none' => trans('backend::labels.noParent') ] + $contentType->contents()->orderBy('title')->lists('title', 'id');
+
 		$contentCategories = $content->taxonomies()->lists('id');
 
 		$content = $content->with('fields')->find($content->id);
@@ -115,7 +119,7 @@ class ContentController extends BaseController {
 		]);
 
 		$this->layout->title   = trans('backend::labels.editName', [ 'name' => $content->title ]);
-		$this->layout->content = View::make('backend::contents.edit', compact('contentType', 'content', 'categories', 'contentCategories'));
+		$this->layout->content = View::make('backend::contents.edit', compact('contentType', 'content', 'categories', 'contentCategories', 'parent'));
 	}
 
 	public function update( ContentType $contentType, Content $content )
@@ -137,6 +141,9 @@ class ContentController extends BaseController {
 		$content->fill(Input::all());
 		$content->updated_at = time();
 		$content->save();
+
+		// Attach taxonomies to the content vie `content_taxonomies` pivot table.
+		$content->taxonomies()->sync((array) Input::get('categories'));
 
 		// Synchronize custom content fields
 		$content->fields()->sync($fieldsUpdate);

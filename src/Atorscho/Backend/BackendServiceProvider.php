@@ -58,13 +58,6 @@ class BackendServiceProvider extends ServiceProvider {
 	 */
 	private function registerCommands()
 	{
-		// Create New Super-Admin Command
-		$this->app['backend.backend.admin'] = $this->app->share(function ( $app )
-		{
-			return $app->make('Atorscho\Backend\Commands\BackendAdminCommand');
-		});
-		$this->commands('backend.backend.admin');
-
 		// Faker Command
 		$this->app['backend.backend.faker'] = $this->app->share(function ( $app )
 		{

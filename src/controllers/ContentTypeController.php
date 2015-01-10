@@ -43,20 +43,10 @@ class ContentTypeController extends BaseController {
 
 		$title = trans('backend::labels.contentTypes');
 
-		// Table Heading Rows
-		$rows = [
-			'#'            => 'width-50',
-			'Name',
-			'Slug',
-			'Hierarchical' => 'text-center width-50',
-			'ID'           => 'text-center width-80',
-			'Actions'      => 'text-center width-90'
-		];
-
 		Crumbs::addRoute('admin.content-types.index', $title);
 
 		$this->layout->title   = $title;
-		$this->layout->content = View::make('backend::contents.types.index', compact('contentTypes', 'rows', 'counter'));
+		$this->layout->content = View::make('backend::contents.types.index', compact('contentTypes', 'counter'));
 	}
 
 	public function create()
@@ -103,17 +93,6 @@ class ContentTypeController extends BaseController {
 
 		$counter = counter($perPage);
 
-		// Table Heading Rows
-		$rows = [
-			'#'         => 'width-50',
-			'Title',
-			'Slug',
-			'Published' => 'text-center width-50',
-			'Author'    => 'text-center width-100',
-			'ID'        => 'text-center width-80',
-			'Actions'   => 'text-center width-90'
-		];
-
 		Crumbs::addRoute('admin.content-types.index', 'Content Types');
 		Crumbs::addRoute('admin.content-types.show', $contentType->name, $contentType->slug);
 
@@ -121,7 +100,7 @@ class ContentTypeController extends BaseController {
 			$this->layout->title = 'All ' . $contentType->name . ': ' . trans('backend::labels.trashedOnly');
 		else
 			$this->layout->title = 'All ' . $contentType->name;
-		$this->layout->content = View::make('backend::contents.types.show', compact('contentType', 'contents', 'rows', 'counter'));
+		$this->layout->content = View::make('backend::contents.types.show', compact('contentType', 'contents', 'counter'));
 	}
 
 	public function edit( ContentType $contentType )

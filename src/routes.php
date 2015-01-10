@@ -99,6 +99,13 @@ Route::group([
 		'uses' => 'ContentController@toggleStatus'
 	]);
 
+	// Content Fields
+	// ===================================
+	Route::get('{content_types}/fields', [
+		'as'   => 'admin.content-types.fields.index',
+		'uses' => 'ContentFieldController@index'
+	]);
+
 	// Taxonomy Types
 	// ===================================
 	Route::resource('taxonomies/taxonomy-types', 'TaxonomyTypeController', [

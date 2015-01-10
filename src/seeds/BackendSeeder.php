@@ -17,8 +17,8 @@ class BackendSeeder extends Seeder {
 		$this->call('BackendGroupsSeeder');
 		$this->call('BackendPermissionsSeeder');
 		$this->call('BackendUserFieldsSeeder');
-		$this->call('BackendContentsSeeder');
 		$this->call('BackendTaxonomiesSeeder');
+		$this->call('BackendContentsSeeder');
 	}
 
 }

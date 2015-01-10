@@ -1,4 +1,15 @@
+@section('controls')
+	@if(Auth::user()->can('showContentFields'))
+		<div class="btn-group btn-group-sm">
+			<a class="btn btn-default" href="{{ route('admin.content-types.fields.index', $contentType->slug) }}">
+				<i class="fa fa-fw fa-sliders"></i>
+			</a>
+		</div>
+	@endif
+@stop
+
 @section('content')
+
 	{{ Template::openBlok() }}
 	{{ Template::openBlokSidebar() }}
 
@@ -15,7 +26,15 @@
 
 	<div class="table-responsive">
 		<table class="table table-striped">
-			{{ Template::tableHeadings($rows) }}
+			{{ Template::tableHeadings([
+				'#'         => 'width-50',
+				'Title',
+				'Slug',
+				'Published' => 'text-center width-50',
+				'Author'    => 'text-center width-100',
+				'ID'        => 'text-center width-80',
+				'Actions'   => 'text-center width-90'
+			]) }}
 			<tbody>
 			@forelse($contents as $content)
 				<tr>
@@ -64,7 +83,7 @@
 				</tr>
 			@empty
 				<tr>
-					<td colspan="{{ count($rows) }}">
+					<td colspan="7">
 						@lang('backend::messages.noContents')
 					</td>
 				</tr>
