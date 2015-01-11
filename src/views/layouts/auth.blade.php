@@ -14,8 +14,6 @@
 	@foreach($template->stylesheets as $css)
 		{{ HTML::style($template->assetsCss . $css . '.min.css') }}
 	@endforeach
-	<?php // todo - remove ?>
-	<link rel="stylesheet/less" href="{{ asset('packages/atorscho/backend/assets/less/' . 'master.less') }}"/>
 </head>
 <body id="page-auth">
 
@@ -47,7 +45,7 @@
 ==================================================== -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 @foreach($template->scripts as $js)
-	{{ HTML::script($template->assetsJs . $js . '.js') }}
+	{{ HTML::script($template->assetsJs . $js . '.min.js') }}
 @endforeach
 </body>
 </html>
