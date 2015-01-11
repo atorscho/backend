@@ -1,4 +1,4 @@
-@if(Auth::user()->can('showTaxonomyTypes'))
+@if(can('showTaxonomyTypes'))
 	<ul class="nav">
 		@foreach($types as $type)
 			<li {{ (isset(Route::current()->getParameter('taxonomy_types')->slug) ? (Route::current()->getParameter('taxonomy_types')->slug == $type->slug && Route::currentRouteName() == 'admin.taxonomy-types.show') ? 'class="active"' : '' : '') }}>

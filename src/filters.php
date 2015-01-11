@@ -32,7 +32,7 @@ Route::filter('admin.auth', function ()
 Route::filter('admin.group', function($route, $request, $group) {
 	if ( !in_array(Route::currentRouteName(), ['admin.login', 'admin.login.post', 'admin.logout']) && Auth::check() )
 	{
-		if ( !Auth::user()->in($group) )
+		if ( !in($group) )
 		{
 			Flash::danger('noPageAccess');
 
@@ -52,7 +52,7 @@ Route::filter('admin.group', function($route, $request, $group) {
 Route::filter('admin.perm', function($route, $request, $perm) {
 	if ( !in_array(Route::currentRouteName(), ['admin.login', 'admin.login.post', 'admin.logout']) && Auth::check() )
 	{
-		if ( !Auth::user()->can($perm) )
+		if ( !can($perm) )
 		{
 			Flash::danger('noPageAccess');
 

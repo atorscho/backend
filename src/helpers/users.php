@@ -42,3 +42,33 @@ if ( !function_exists('addPermissionsToGroup') )
 		return true;
 	}
 }
+
+if ( !function_exists('can') )
+{
+	/**
+	 * A helper function to check for a permission.
+	 *
+	 * @param integer|string $perm
+	 *
+	 * @return bool
+	 */
+	function can( $perm )
+	{
+		return Auth::user()->can($perm);
+	}
+}
+
+if ( !function_exists('in') )
+{
+	/**
+	 * A helper function to check if a user is a member of the specified group.
+	 *
+	 * @param integer|string $group
+	 *
+	 * @return bool
+	 */
+	function in( $group )
+	{
+		return Auth::user()->in($group);
+	}
+}

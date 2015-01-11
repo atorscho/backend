@@ -9,15 +9,15 @@
 	@endforeach
 </ul>
 
-@if(Auth::user()->can('createFields') || Auth::user()->can('createFieldGroups'))
+@if(can('createFields') || can('createFieldGroups'))
 	<div class="text-center">
 		<div class="btn-group btn-group-sm">
-			@if(Auth::user()->can('createFieldGroups'))
+			@if(can('createFieldGroups'))
 				<a class="btn btn-primary" href="{{ route('admin.users.fields.groups.create') }}">
 					<i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.groupsNew')
 				</a>
 			@endif
-			@if(Auth::user()->can('createFields'))
+			@if(can('createFields'))
 				<a class="btn btn-primary" href="{{ route('admin.users.fields.create') . (isset(Route::current()->getParameter('groups')->id) ? '?group=' . Route::current()->getParameter('groups')->id : '') }}">
 					<i class="fa fa-fw fa-edit"></i> @lang('backend::labels.userFieldsNew')
 				</a>

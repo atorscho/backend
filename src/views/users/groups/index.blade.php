@@ -5,7 +5,7 @@
 				<aside class="sidebar">
                 	@include('backend::partials.users._sidebar')
 
-                    @if(Auth::user()->can('createGroups'))
+                    @if(can('createGroups'))
                         <div class="text-center">
                             <a class="btn btn-primary" href="{{{ route('admin.users.groups.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.groupsNew')</a>
                         </div>

@@ -1,4 +1,4 @@
-@if(Auth::user()->can('showContentTypes'))
+@if(can('showContentTypes'))
 	<ul class="nav">
 		@foreach($types as $type)
 			<li {{ (URL::current() == route('admin.content-types.show', $type->slug)) ? 'class="active"' : '' }}>

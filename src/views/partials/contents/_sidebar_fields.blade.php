@@ -1,4 +1,4 @@
-@if(Auth::user()->can('showContentFields'))
+@if(can('showContentFields'))
 	<ul class="nav">
 		@foreach($types as $type)
 			<li {{ (URL::current() == route('admin.content-types.fields.index', $type->slug)) ? 'class="active"' : '' }}>
@@ -12,7 +12,7 @@
 @endif
 
 <div class="text-center">
-	@if(isset($contentType) && Auth::user()->can('createContentFields'))
+	@if(isset($contentType) && can('createContentFields'))
 		<a class="btn btn-primary" href="{{{ route('admin.content-types.fields.create', $contentType->slug) }}}">
 			<i class="fa fa-fw fa-plus-circle"></i> New Field
 		</a>

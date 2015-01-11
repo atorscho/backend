@@ -1,5 +1,5 @@
 @section('controls')
-	@if(Auth::user()->can('showContentFields'))
+	@if(can('showContentFields'))
 		<div class="btn-group btn-group-sm">
 			<a class="btn btn-default" href="{{ route('admin.content-types.fields.index', $contentType->slug) }}">
 				<i class="fa fa-fw fa-sliders"></i>

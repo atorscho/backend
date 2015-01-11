@@ -1,7 +1,7 @@
 <?php // todo - complete view ?>
 
 @section('controls')
-	@if(Auth::user()->can('editUsers'))
+	@if(can('editUsers'))
 		<div class="btn-group btn-group-sm">
 			<a class="btn btn-default" href="{{ route('admin.users.edit', $user->id) }}"><i class="fa fa-fw fa-edit"></i></a>
 		</div>

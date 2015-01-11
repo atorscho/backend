@@ -5,6 +5,12 @@
 				<aside class="sidebar">
                 	@include('backend::partials.users._sidebar')
 
+					@if(can('createUsers'))
+						<div class="text-center">
+							<a class="btn btn-primary" href="{{{ route('admin.users.create') }}}"><i class="fa fa-fw fa-plus-circle"></i> @lang('backend::labels.usersNew')</a>
+						</div>
+					@endif
+
 					<br />
 
 					{{ Template::perPageRecordsParams() }}
