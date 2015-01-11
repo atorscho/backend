@@ -99,10 +99,8 @@ class BackendInstallCommand extends Command {
 	 */
 	protected function installBaseSystems()
 	{
-		// todo - ensure that this works for package
-
 		// 1. Run migrations first.
-		$this->artisan->call('migrate', [ '--bench' => 'atorscho/backend' ]);
+		$this->artisan->call('migrate', [ '--package' => 'atorscho/backend' ]);
 		$this->output->write('<comment>.</comment>');
 
 		// 2. Seed most important DB tables.
