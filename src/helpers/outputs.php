@@ -13,20 +13,18 @@ if ( !function_exists('flash') )
 	}
 }
 
-if ( !function_exists('userFieldInput') )
+if ( !function_exists('customFieldInput') )
 {
 	/**
 	 * Outputs the proper input depending on field type.
 	 *
-	 * @param \Atorscho\Backend\Models\UserField $field
+	 * @param object $field
 	 * @param object $record
 	 *
 	 * @return string
 	 */
-	function userFieldInput( $field, $record = null )
+	function customFieldInput( $field, $record = null )
 	{
-		$output = '';
-
 		$id       = 'fields[' . $field->handle . ']';
 		$tabindex = 'tabindex="' . index() . '"';
 
