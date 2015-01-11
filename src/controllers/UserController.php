@@ -117,7 +117,7 @@ class UserController extends BaseController {
 		// Setting up custom fields rules
 		$fieldsUpdate = Input::get('fields');
 		$ruleFields  = $this->ruleFields;
-		$fieldsUpdate = saveUserField($rules, $ruleFields, $fieldsUpdate);
+		$fieldsUpdate = saveCustomField($rules, $ruleFields, $fieldsUpdate);
 
 		$validator = Validator::make(Input::all(), $rules);
 		$validator->setAttributeNames($ruleFields);
@@ -173,7 +173,7 @@ class UserController extends BaseController {
 		// Setting up custom fields rules
 		$fieldsUpdate = Input::get('fields');
 		$ruleFields  = $this->ruleFields;
-		$fieldsUpdate = saveUserField($rules, $ruleFields, $fieldsUpdate);
+		$fieldsUpdate = saveCustomField($rules, $ruleFields, $fieldsUpdate);
 
 		$validator = Validator::make(Input::all(), $rules);
 		$validator->setAttributeNames($ruleFields);

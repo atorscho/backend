@@ -110,19 +110,19 @@ if ( !function_exists('datetimePicker') )
 	}
 }
 
-if ( !function_exists('saveUserField') )
+if ( !function_exists('saveCustomField') )
 {
 	/**
-	 * Save User Field.
+	 * Save Custom Field.
 	 *
-	 * @param array  $rules
-	 * @param array  $ruleFields
-	 * @param array  $fieldsUpdate
-	 * @param string $type
+	 * @param array  $rules        Array of current rules.
+	 * @param array  $ruleFields   Array of form field names.
+	 * @param array  $fieldsUpdate Fields input array.
+	 * @param string $type         'user' or 'content'.
 	 *
 	 * @return array
 	 */
-	function saveUserField( &$rules, &$ruleFields, $fieldsUpdate, $type = 'user' )
+	function saveCustomField( &$rules, &$ruleFields, $fieldsUpdate, $type = 'user' )
 	{
 		foreach ( $fieldsUpdate as $key => $value )
 		{
