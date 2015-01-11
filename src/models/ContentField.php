@@ -4,7 +4,8 @@ use Atorscho\Backend\Traits\HandleAttributeTrait;
 use Atorscho\Backend\Traits\OrderAttributeTrait;
 use Atorscho\Backend\Traits\TypeNameAttributeTrait;
 
-// todo - add image type
+// todo - Add image type
+// todo - Add date type
 
 class ContentField extends BaseModel {
 
