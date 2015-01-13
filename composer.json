@@ -1,7 +1,6 @@
 {
     "name": "atorscho/backend",
     "description": "Backend Package for Laravel Framework.",
-	"version": "1.0.1",
 	"type": "project",
 	"keywords": ["laravel", "backend", "admin", "cp", "control panel", "administration"],
 	"homepage": "http://alextorscho.com",
