@@ -7,10 +7,8 @@ use Atorscho\Backend\Models\Group;
 use Atorscho\Backend\Models\Taxonomy;
 use Atorscho\Backend\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Foundation\Application;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\OutputInterface;
 use Validator;
 
 class BackendInstallCommand extends Command {
@@ -45,19 +43,26 @@ class BackendInstallCommand extends Command {
 	private $group;
 
 	/**
+	 * @var Application
+	 */
+	private $app;
+
+	/**
 	 * Create a new command instance.
 	 *
 	 * @param \Illuminate\Foundation\Artisan $artisan
+	 * @param Application                    $app
 	 * @param User                           $user
 	 * @param Group                          $group
 	 */
-	public function __construct( \Illuminate\Foundation\Artisan $artisan, User $user, Group $group )
+	public function __construct( \Illuminate\Foundation\Artisan $artisan, Application $app, User $user, Group $group )
 	{
 		parent::__construct();
 
 		$this->artisan = $artisan;
 		$this->user    = $user;
 		$this->group   = $group;
+		$this->app     = $app;
 	}
 
 	/**
@@ -85,12 +90,7 @@ class BackendInstallCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			array(
-				'sample-data',
-				's',
-				InputOption::VALUE_NONE,
-				'Also create all sample data for testing purposes.'
-			),
+			array( 'sample-data', 's', InputOption::VALUE_NONE, 'Also create all sample data for testing purposes.' ),
 		);
 	}
 
@@ -99,6 +99,12 @@ class BackendInstallCommand extends Command {
 	 */
 	protected function installBaseSystems()
 	{
+		if ( $this->app->environment() == 'production' )
+		{
+			$this->error('Your application is in production mode. Install process has been cancelled.');
+			die;
+		}
+
 		// 1. Run migrations first.
 		$this->artisan->call('migrate', [ '--package' => 'atorscho/backend' ]);
 		$this->output->write('<comment>.</comment>');
