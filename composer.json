@@ -1,39 +1,39 @@
 {
-    "name": "atorscho/backend",
-    "description": "Backend Package for Laravel Framework.",
+	"name": "atorscho/backend",
+	"description": "Backend Package for Laravel Framework.",
 	"type": "project",
 	"keywords": ["laravel", "backend", "admin", "cp", "control panel", "administration"],
 	"homepage": "http://alextorscho.com",
 	"license": "MIT",
-    "authors": [
-        {
-            "name": "Alex Torscho",
-            "email": "contact@alextorscho.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "4.2.*",
-        "atorscho/crumbs": "~1.0.0",
-	"fzaninotto/faker": "1.*",
-        "erusev/parsedown": "~1.2"
-    },
-    "autoload": {
-        "classmap": [
-            "src/migrations",
-            "src/seeds"
-        ],
+	"authors": [
+		{
+			"name": "Alex Torscho",
+			"email": "contact@alextorscho.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"illuminate/support": "4.2.*",
+		"atorscho/crumbs": "~1.0.0",
+		"fzaninotto/faker": "1.*",
+		"erusev/parsedown": "~1.2"
+	},
+	"autoload": {
+		"classmap": [
+			"src/migrations",
+			"src/seeds"
+		],
 		"files": [
 			"src/helpers/misc.php",
-            "src/helpers/outputs.php",
-            "src/helpers/users.php"
+			"src/helpers/outputs.php",
+			"src/helpers/users.php"
 		],
-        "psr-0": {
-            "Atorscho\\Backend\\": "src/"
-        },
-        "psr-4": {
-            "Atorscho\\Backend\\": "src/"
-        }
-    },
-    "minimum-stability": "stable"
+		"psr-0": {
+			"Atorscho\\Backend\\": "src/"
+		},
+		"psr-4": {
+			"Atorscho\\Backend\\": "src/"
+		}
+	},
+	"minimum-stability": "stable"
 }
