@@ -1,4 +1,4 @@
-<?php namespace Atorscho\Backend\Extensions;
+<?php namespace Atorscho\Backend;
 
 class Extension {
 
@@ -17,15 +17,6 @@ class Extension {
 	 * @var string
 	 */
 	protected $name = '';
-
-	/**
-	 * Service Provider of the extension.
-	 *
-	 * e.g. 'Atorscho\Backend\BackendServiceProvider' for this Backend package.
-	 *
-	 * @var string|null
-	 */
-	protected $service = null;
 
 	/**
 	 * URI to extension's home page.
@@ -103,7 +94,7 @@ class Extension {
 	 */
 	public function setEnabled( $enabled )
 	{
-		$this->enabled = $enabled;
+		$this->enabled = (bool) $enabled;
 	}
 
 }

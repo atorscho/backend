@@ -10,71 +10,40 @@ class Backend {
 	private $extensions = [ ];
 
 	/**
-	 * Get an array of all extensions objects.
+	 * Get an array of all extension objects.
 	 *
 	 * @return array
 	 */
 	public function getExtensions()
 	{
-		// Get all files in Extensions folder.
-		$files = scandir(__DIR__ . DIRECTORY_SEPARATOR . 'Extensions');
-
-		$extensions = [ ];
-
-		// Filter through the directory to get only .php files.
-		array_map(function ( $value ) use ( &$extensions )
+		foreach ( get_declared_classes() as $class )
 		{
-			if ( !preg_match('/^.+\.php$/i', $value) || $value == 'Extension.php' )
-				return;
+			if ( !preg_match('/(Extension)$/', $class) || !is_subclass_of($class, 'Atorscho\Backend\Extension') )
+				continue;
 
-			$value = str_replace('.php', '', $value);
+			$extension = new $class;
 
-			if ( $extension = $this->addExtension($value, true) )
-				$extensions[] = $extension;
-		}, $files);
+			if ( !$extension->enabled )
+				continue;
 
-		return $this->extensions = $extensions;
+			$this->extensions[] = $extension;
+		}
+
+		return $this->extensions;
 	}
 
 	/**
-	 * Return extension's object instance if it exists and is enabled.
+	 * Find specified extension by its in the `extensions` property and then return it.
 	 *
-	 * @param string $name      Extension's name. e.g. 'ecommerce'
-	 * @param bool   $className Whether the name parameter is a class name or extension's name.
+	 * @param string $name
 	 *
-	 * @return bool|object
-	 */
-	public function addExtension( $name, $className = false )
-	{
-		$this->extensions[] = $name;
-
-		// Get proper extension class
-		$class = 'Atorscho\Backend\Extensions\\' . ucfirst($name) . ( $className ? '' : 'Extension' );
-
-		// Create a new instance of extension class
-		$instance = new $class;
-
-		// If extension is disabled or it does not exist, return false
-		if ( !$instance->enabled || !class_exists($instance->service) )
-			return false;
-
-		return $instance;
-	}
-
-	/**
-	 * Get specified extension from the `extensions` property.
-	 *
-	 * @param $name
-	 *
-	 * @return bool
+	 * @return object|bool
 	 */
 	public function getExtension( $name )
 	{
-		$class = 'Atorscho\Backend\Extensions\\' . ucfirst($name) . 'Extension';
-
 		foreach ( $this->extensions as $extension )
 		{
-			if ( $extension instanceof $class )
+			if ( strstr(strtolower($extension), strtolower($name)) )
 			{
 				return $extension;
 			}

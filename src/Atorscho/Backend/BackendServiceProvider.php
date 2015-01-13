@@ -39,6 +39,9 @@ class BackendServiceProvider extends ServiceProvider {
 		$this->registerFacades();
 
 		$this->registerAliases();
+
+		// Resolve Extension class
+		$this->app->make('Atorscho\Backend\Extension');
 	}
 
 	/**
