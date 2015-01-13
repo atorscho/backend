@@ -72,6 +72,12 @@ class BackendInstallCommand extends Command {
 	 */
 	public function fire()
 	{
+		if ( $this->app->environment() == 'production' )
+		{
+			$this->error('Your application is in production mode. Install process has been cancelled.');
+			die;
+		}
+
 		$this->installBaseSystems();
 
 		$this->createSuperAdmin();
@@ -99,12 +105,6 @@ class BackendInstallCommand extends Command {
 	 */
 	protected function installBaseSystems()
 	{
-		if ( $this->app->environment() == 'production' )
-		{
-			$this->error('Your application is in production mode. Install process has been cancelled.');
-			die;
-		}
-
 		// 1. Run migrations first.
 		$this->artisan->call('migrate', [ '--package' => 'atorscho/backend' ]);
 		$this->output->write('<comment>.</comment>');
