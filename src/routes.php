@@ -70,62 +70,62 @@ Route::group([
 
 	// Contents
 	// ===================================
-	Route::get('{content_types}', [
+	Route::get('contents/{content_types}', [
 		'as'   => 'admin.content-types.show',
 		'uses' => 'ContentTypeController@show'
 	]);
-	Route::get('{content_types}/create', [
+	Route::get('contents/{content_types}/create', [
 		'as'   => 'admin.contents.create',
 		'uses' => 'ContentController@create'
 	]);
-	Route::post('{content_types}', [
+	Route::post('contents/{content_types}', [
 		'as'   => 'admin.contents.store',
 		'uses' => 'ContentController@store'
 	]);
-	Route::get('{content_types}/{content}/edit', [
+	Route::get('contents/{content_types}/{content}/edit', [
 		'as'   => 'admin.contents.edit',
 		'uses' => 'ContentController@edit'
 	]);
-	Route::put('{content_types}/{content}', [
+	Route::put('contents/{content_types}/{content}', [
 		'as'   => 'admin.contents.update',
 		'uses' => 'ContentController@update'
 	]);
-	Route::delete('{content}', [
+	Route::delete('contents/{content}', [
 		'as'   => 'admin.contents.destroy',
 		'uses' => 'ContentController@destroy'
 	]);
-	Route::delete('{content}', [
+	Route::delete('contents/{content}', [
 		'as'   => 'admin.contents.forceDestroy',
 		'uses' => 'ContentController@forceDestroy'
 	]);
-	Route::put('{content}', [
+	Route::put('contents/{content}', [
 		'as'   => 'admin.contents.toggleStatus',
 		'uses' => 'ContentController@toggleStatus'
 	]);
 
 	// Content Fields
 	// ===================================
-	Route::get('{content_types}/fields', [
+	Route::get('contents/{content_types}/fields', [
 		'as'   => 'admin.content-types.fields.index',
 		'uses' => 'ContentFieldController@index'
 	]);
-	Route::get('{content_types}/fields/create', [
+	Route::get('contents/{content_types}/fields/create', [
 		'as'   => 'admin.content-types.fields.create',
 		'uses' => 'ContentFieldController@create'
 	]);
-	Route::post('{content_types}/fields', [
+	Route::post('contents/{content_types}/fields', [
 		'as'   => 'admin.content-types.fields.store',
 		'uses' => 'ContentFieldController@store'
 	]);
-	Route::get('{content_types}/fields/{contentField}/edit', [
+	Route::get('contents/{content_types}/fields/{contentField}/edit', [
 		'as'   => 'admin.content-types.fields.edit',
 		'uses' => 'ContentFieldController@edit'
 	]);
-	Route::put('{content_types}/fields/{contentField}', [
+	Route::put('contents/{content_types}/fields/{contentField}', [
 		'as'   => 'admin.content-types.fields.update',
 		'uses' => 'ContentFieldController@update'
 	]);
-	Route::delete('{content_types}/fields/{contentField}', [
+	Route::delete('contents/{content_types}/fields/{contentField}', [
 		'as'   => 'admin.content-types.fields.destroy',
 		'uses' => 'ContentFieldController@destroy'
 	]);
@@ -177,12 +177,5 @@ Route::group([
 	Route::put('taxonomies/{taxonomy}', [
 		'as'   => 'admin.taxonomies.toggleStatus',
 		'uses' => 'TaxonomyController@toggleStatus'
-	]);
-
-	// Ecommerce
-	// ===================================
-	Route::get('ecommerce', [
-		'as'   => 'ecommerce.index',
-		'uses' => 'EcommerceController@index'
 	]);
 });

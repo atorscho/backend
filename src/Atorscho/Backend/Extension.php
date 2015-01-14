@@ -4,7 +4,6 @@ class Extension {
 
 	/**
 	 * To enable the extension set property to true.
-	 *
 	 * By default: false.
 	 *
 	 * @var bool True to enable the extension, false to disable.
@@ -34,7 +33,6 @@ class Extension {
 
 	/**
 	 * Any Font-Awesome icon to represent the extension.
-	 *
 	 * e.g. 'comments' for 'fa fa-comments'
 	 *
 	 * @var string
@@ -49,40 +47,34 @@ class Extension {
 	protected $settings = '';
 
 	/**
-	 * Return array of fields as JSON when casting the class to a string.
+	 * Prefix the URI with 'admin/'.
 	 *
 	 * @return string
 	 */
-	public function __toString()
+	public function getURI()
 	{
-		$fields = [
-			'enabled'  => $this->enabled,
-			'name'     => $this->name,
-			'service'  => $this->service,
-			'uri'      => $this->uri,
-			'route'    => $this->route,
-			'icon'     => $this->icon,
-			'settings' => $this->settings,
-		];
-
-		return json_encode($fields);
+		return 'admin/' . ($this->uri ?: strtolower($this->name));
 	}
 
 	/**
 	 * Let only get values from properties.
 	 *
-	 * @param $name
+	 * @param $property
 	 *
 	 * @return bool|string
 	 */
-	public function __get( $name )
+	public function __get( $property )
 	{
-		if ( in_array($name, array_keys(get_class_vars(__CLASS__))) )
+		if ( $property == 'uri' )
 		{
-			return $this->$name;
+			return $this->getURI();
+		}
+		elseif ( $property == 'settings' && !$this->$property )
+		{
+			return strtolower($this->name);
 		}
 
-		return false;
+		return $this->$property;
 	}
 
 	/**
@@ -95,6 +87,25 @@ class Extension {
 	public function setEnabled( $enabled )
 	{
 		$this->enabled = (bool) $enabled;
+	}
+
+	/**
+	 * Return array of fields as JSON when casting the class to a string.
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		$fields = [
+			'enabled'  => $this->enabled,
+			'name'     => $this->name,
+			'uri'      => $this->uri,
+			'route'    => $this->route,
+			'icon'     => $this->icon,
+			'settings' => $this->settings,
+		];
+
+		return json_encode($fields);
 	}
 
 }
