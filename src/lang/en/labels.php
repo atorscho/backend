@@ -57,6 +57,8 @@ return [
 	'hierarchical'            => 'Hierarchical',
 	'icon'                    => 'Icon',
 	'id'                      => 'ID',
+	'image'                   => 'Image',
+	'images'                  => 'Images',
 	'infoAdditional'          => 'Additional Information',
 	'infoMain'                => 'Main Information',
 	'infoRequired'            => 'Required Information',
