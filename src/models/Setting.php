@@ -7,6 +7,19 @@ class Setting extends BaseModel {
 	public $timestamps = false;
 
 	/**
+	 * When creating a setting, fill up the 'default' column with 'value'.
+	 */
+	protected static function boot()
+	{
+		parent::boot();
+
+		static::creating(function ( $setting )
+		{
+			$setting->default = $setting->value;
+		});
+	}
+
+	/**
 	 * Get the setting by its handle.
 	 *
 	 * @param $handle

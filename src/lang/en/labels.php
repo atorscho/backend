@@ -149,6 +149,7 @@ return [
 	'usersName'               => 'User Profile: :name',
 	'usersNew'                => 'New User',
 	'viewUserProfile'         => "View User's Profile",
+	'website'                 => 'Website',
 	'yes'                     => 'Yes',
 
 ];
