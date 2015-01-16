@@ -66,35 +66,40 @@ class BaseModel extends \Eloquent {
 		return ( $this->stiClassField && $this->stiBaseClass );
 	}
 
+	/**
+	 * Validate the Model fields.
+	 *
+	 * @param $input
+	 *
+	 * @return \Illuminate\Validation\Validator
+	 */
 	public function validates( $input )
 	{
-		foreach ( $this->rules as $i => $rule )
+		if ( isset( $this->id ) )
 		{
-			if ( !strpos($rule, 'unique') )
-				continue;
-
-			$rule = explode('|', $rule);
-
-			foreach ( $rule as $j => $str )
+			// todo - Support array rules
+			foreach ( $this->rules as $i => $rule )
 			{
-				if ( strpos($str, 'unique') >= 1 )
+				if ( is_string($rule) && strpos($rule, 'unique') === false )
+					continue;
+
+				if ( is_string($rule) )
+					$rule = explode('|', $rule);
+
+				foreach ( $rule as $j => $str )
 				{
-					if ( substr_count($str, '.') == 0 )
-						$str .= ', ' . $i;
+					if ( strpos($str, 'unique') !== false )
+					{
+						if ( substr_count($str, ',') === 0 )
+							$str .= ',' . $i;
 
-					$rule[$j] = $str . ',' . $this->id;
+						$rule[$j] = $str . ',' . $this->id;
+					}
 				}
+
+				$this->rules[$i] = $rule;
 			}
-
-			$this->rules[$i] = $rule;
 		}
-
-		var_dump($this->rules);
-
-		die;
-
-
-		dd($this->rules);
 
 		return \Validator::make($input, $this->rules);
 	}

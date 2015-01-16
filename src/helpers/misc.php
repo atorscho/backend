@@ -190,5 +190,3 @@ if ( !function_exists('transIfExists') )
 		return $text;
 	}
 }
-
-
