@@ -85,3 +85,27 @@ if ( !function_exists('iconList') )
 			'user-md', 'users', 'video-camera', 'vimeo-square', 'vine', 'vk', 'volume-down', 'volume-off', 'volume-up', 'warning', 'wechat', 'weibo', 'weixin', 'wheelchair', 'wifi', 'windows', 'won', 'wordpress', 'wrench', 'xing', 'xing-square', 'yahoo', 'yelp', 'yen', 'youtube', 'youtube-play', 'youtube-square'];
 	}
 }
+
+if ( !function_exists('currentPageClass') )
+{
+	/**
+	 * Highlight current page.
+	 *
+	 * @param string $url
+	 * @param bool   $htmlAttr
+	 * @param string $class
+	 *
+	 * @return bool|string
+	 */
+	function currentPageClass($url, $htmlAttr = true, $class = 'active')
+	{
+		$url = trim(str_replace(Request::root(), '', $url), '/');
+
+		if ( Request::is($url) )
+		{
+			return $htmlAttr ? 'class="' . $class . '"' : $class;
+		}
+
+		return false;
+	}
+}

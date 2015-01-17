@@ -69,7 +69,7 @@ class BaseModel extends \Eloquent {
 	/**
 	 * Validate the Model fields.
 	 *
-	 * @param $input
+	 * @param array $input
 	 *
 	 * @return \Illuminate\Validation\Validator
 	 */
@@ -77,7 +77,6 @@ class BaseModel extends \Eloquent {
 	{
 		if ( isset( $this->id ) )
 		{
-			// todo - Support array rules
 			foreach ( $this->rules as $i => $rule )
 			{
 				if ( is_string($rule) && strpos($rule, 'unique') === false )

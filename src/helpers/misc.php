@@ -34,7 +34,7 @@ if ( !function_exists('getSetting') )
 	 *
 	 * @param $handle
 	 *
-	 * @return \Illuminate\Database\Eloquent\Model|null|static
+	 * @return int|string
 	 */
 	function getSetting( $handle )
 	{
@@ -161,7 +161,7 @@ if ( !function_exists('counter') )
 	/**
 	 * Creates a counter for Pagination.
 	 *
-	 * @param $perPage
+	 * @param int $perPage
 	 *
 	 * @return mixed
 	 */
@@ -176,9 +176,9 @@ if ( !function_exists('transIfExists') )
 	/**
 	 * If a translation exists, use it, otherwise return the actual string.
 	 *
-	 * @param        $text         String or a translation to return.
-	 * @param array  $parameters   Parameters for the translation.
-	 * @param string $type         Which file to use: labels.php or messages.php. Use `labels` or `messages`.
+	 * @param string $text       String or a translation to return.
+	 * @param array  $parameters Parameters for the translation.
+	 * @param string $type       Which file to use: labels.php or messages.php. Use `labels` or `messages`.
 	 *
 	 * @return string
 	 */
@@ -188,5 +188,20 @@ if ( !function_exists('transIfExists') )
 			$text = trans("backend::{$type}.{$text}", $parameters);
 
 		return $text;
+	}
+}
+
+if ( !function_exists('uploads_path') )
+{
+	/**
+	 * Uploads folder path.
+	 *
+	 * @param string $path
+	 *
+	 * @return string
+	 */
+	function uploads_path($path = '')
+	{
+		return public_path('uploads/' . $path);
 	}
 }
