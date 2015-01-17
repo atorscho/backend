@@ -200,8 +200,26 @@ if ( !function_exists('uploads_path') )
 	 *
 	 * @return string
 	 */
-	function uploads_path($path = '')
+	function uploads_path( $path = '' )
 	{
 		return public_path('uploads/' . $path);
+	}
+}
+
+if ( !function_exists('newFileName') )
+{
+	/**
+	 * Return a new name for uploaded file.
+	 *
+	 * @param \Symfony\Component\HttpFoundation\File\UploadedFile|array $file
+	 *
+	 * @return string
+	 */
+	function newFileName( $file )
+	{
+		$extension = '.' . $file->getClientOriginalExtension();
+		$filename  = time() . '_' . \Str::slug(str_replace($extension, '', $file->getClientOriginalName())) . $extension;
+
+		return $filename;
 	}
 }
