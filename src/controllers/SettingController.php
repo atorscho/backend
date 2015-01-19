@@ -9,6 +9,8 @@ use Redirect;
 use View;
 use Input;
 
+// todo - Access permissions
+
 class SettingController extends BaseController {
 
 	public function index()

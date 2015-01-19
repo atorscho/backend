@@ -75,7 +75,7 @@
 	<!-- FOOTER -->
 	<footer id="footer">
 		<div class="container">
-			&copy; {{{ $settings->established }}} {{{ $settings->siteName }}} &bull; {{ $settings->copyright }} &bull; @lang('backend::messages.copyright')
+			&copy; {{{ $settings->established }}} {{{ $settings->siteName }}} &bull; {{ $settings->copyright }} &bull; @lang('backend::messages.copyright') &bull; @choice('backend::messages.execTime', round(execTime(), 2))
 		</div>
 	</footer>
 	<!-- / FOOTER -->

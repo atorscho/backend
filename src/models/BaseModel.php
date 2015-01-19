@@ -1,6 +1,10 @@
 <?php namespace Atorscho\Backend\Models;
 
+use Atorscho\Backend\Traits\ModelValidationTrait;
+
 class BaseModel extends \Eloquent {
+
+	use ModelValidationTrait;
 
 	protected $stiClassField = null;
 

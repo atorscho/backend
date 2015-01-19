@@ -16,6 +16,7 @@ return [
 	'contentUpdated'        => 'Content has been updated.',
 	'contentUpdatedStatus'  => 'Status of the content has been changed.',
 	'copyright'             => 'Designed and Developed by <a href="http://alextorscho.com">Alex Torscho</a>',
+	'execTime'              => 'Page loaded in :count second.|Page loaded in :count seconds.',
 	'groupCreated'          => 'Group has been created.',
 	'groupDeleted'          => 'Group has been deleted.',
 	'groupsPrefixesDesc'    => 'HTML wrappers of the group name. Opening and closing tags.',

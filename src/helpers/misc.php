@@ -223,3 +223,16 @@ if ( !function_exists('newFileName') )
 		return $filename;
 	}
 }
+
+if ( !function_exists('execTime') )
+{
+	/**
+	 * Calculate the page load time.
+	 *
+	 * @return mixed
+	 */
+	function execTime()
+	{
+		return microtime(true) - LARAVEL_START;
+	}
+}
