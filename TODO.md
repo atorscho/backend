@@ -1,6 +1,9 @@
 # TODO
 List of tasks to complete for next releases of The Backend
 
+## Permissions
+- [ ] Can access Backend
+
 ## Settings
 - [ ] Send an email to unregistered user (yes-no)
 - [ ] Turn off registering (yes-no)
