@@ -177,15 +177,16 @@ if ( !function_exists('transIfExists') )
 	 * If a translation exists, use it, otherwise return the actual string.
 	 *
 	 * @param string $text       String or a translation to return.
+	 * @param string $package    Package name to which the translation belongs to. Empty string for no package.
 	 * @param array  $parameters Parameters for the translation.
 	 * @param string $type       Which file to use: labels.php or messages.php. Use `labels` or `messages`.
 	 *
 	 * @return string
 	 */
-	function transIfExists( $text, $parameters = array(), $type = 'labels' )
+	function transIfExists( $text, $package = 'backend', $parameters = array(), $type = 'labels' )
 	{
-		if ( Lang::has("backend::{$type}.{$text}") )
-			$text = trans("backend::{$type}.{$text}", $parameters);
+		if ( Lang::has(($package ? $package . '::' : '') . $type . '.' . $text) )
+			$text = trans(($package ? $package . '::' : '') . $type . '.' . $text, $parameters);
 
 		return $text;
 	}

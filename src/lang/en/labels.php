@@ -78,6 +78,7 @@ return [
 	'newestUsers'             => 'Newest Users',
 	'newParam'                => 'New :param',
 	'no'                      => 'No',
+	'noLink'                  => 'No Link',
 	'noParent'                => 'No Parent',
 	'options'                 => 'Options',
 	'order'                   => 'Order',

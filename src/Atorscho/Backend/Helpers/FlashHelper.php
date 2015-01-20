@@ -28,45 +28,50 @@ class FlashHelper {
 	/**
 	 * Success Flash Message.
 	 *
-	 * @param string $text
-	 * @param array  $parameters
+	 * @param string $text       Translation key or the actual message text.
+	 * @param string $package    Package to which the translation belongs to. Empty for no package.
+	 * @param array  $parameters Array of translation parameters.
 	 */
-	public function success( $text, $parameters = array() )
+	public function success( $text, $package = 'backend', $parameters = array() )
 	{
-		$this->flash($text, 'success', 'check', $parameters);
+		$this->flash($text, 'success', 'check', $package, $parameters);
 	}
 
 	/**
 	 * Information Flash Message.
 	 *
-	 * @param string $text
-	 * @param array  $parameters
+	 * @param string $text       Translation key or the actual message text.
+	 * @param string $package    Package to which the translation belongs to. Empty for no package.
+	 * @param array  $parameters Array of translation parameters.
 	 */
-	public function info( $text, $parameters = array() )
+	public function info( $text, $package = 'backend', $parameters = array() )
 	{
-		$this->flash($text, 'info', 'info', $parameters);
+		$this->flash($text, 'info', 'info', $package, $parameters);
 	}
 
 	/**
 	 * Warning Flash Message.
 	 *
-	 * @param string $text
-	 * @param array  $parameters
+	 * @param string $text       Translation key or the actual message text.
+	 * @param string $package    Package to which the translation belongs to. Empty for no package.
+	 * @param array  $parameters Array of translation parameters.
 	 */
-	public function warning( $text, $parameters = array() )
+	public function warning( $text, $package = 'backend', $parameters = array() )
 	{
-		$this->flash($text, 'warning', 'warning', $parameters);
+		$this->flash($text, 'warning', 'warning', $package, $parameters);
 	}
 
 	/**
 	 * Danger Flash Message.
 	 *
-	 * @param string $text
-	 * @param array  $parameters
+	 * @param string $text       Translation key or the actual message text.
+	 * @param string $package
+	 * @param string $package    Package to which the translation belongs to. Empty for no package.
+	 * @param array  $parameters Array of translation parameters.
 	 */
-	public function danger( $text, $parameters = array() )
+	public function danger( $text, $package = 'backend', $parameters = array() )
 	{
-		$this->flash($text, 'danger', 'times-circle', $parameters);
+		$this->flash($text, 'danger', 'times-circle', $package, $parameters);
 	}
 
 	/**
@@ -88,14 +93,15 @@ class FlashHelper {
 	/**
 	 * Flash base.
 	 *
-	 * @param       $text
-	 * @param       $type
-	 * @param       $icon
-	 * @param array $parameters
+	 * @param string $text    Translation key or the actual message text.
+	 * @param string $type    May be: success, info, warning or danger.
+	 * @param string $icon    Any Font-Awesome icon. e.g. 'check' for 'fa fa-check'.
+	 * @param string $package Package to which the translation belongs to. Empty for no package.
+	 * @param array  $parameters
 	 */
-	private function flash( $text, $type, $icon, $parameters = array() )
+	private function flash( $text, $type, $icon, $package = 'backend', $parameters = array() )
 	{
-		$text = transIfExists($text, $parameters, 'messages');
+		$text = transIfExists($text, $package, $parameters, 'messages');
 
 		$this->session->flash('alert.type', $type);
 		$this->session->flash('alert.icon', $icon);
