@@ -16,3 +16,6 @@ List of tasks to complete for next releases of The Backend
 
 ## Wiki
 - [ ] Easy Model validation
+
+## Template
+- [ ] Collapsible sidebar
