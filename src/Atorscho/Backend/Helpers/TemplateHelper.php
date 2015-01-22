@@ -124,14 +124,15 @@ class TemplateHelper {
 	/**
 	 * Outputs a block heading.
 	 *
-	 * @param string $title Title string or a key from lang/labels.php
-	 * @param string $level A heading level. Choices: h1|h2|h3|h4|h5|h6
+	 * @param string $title   Title string or a key from lang/labels.php
+	 * @param string $package Translation package name. e.g. 'backend' for the Backend.
+	 * @param string $level   A heading level. Choices: h1|h2|h3|h4|h5|h6
 	 *
 	 * @return string
 	 */
-	public function blokHeading( $title, $level = 'h3' )
+	public function blokHeading( $title, $package = 'backend', $level = 'h3' )
 	{
-		$title = transIfExists($title);
+		$title = transIfExists($title, $package);
 
 		return "<header class=\"title\"><$level>{$title}</$level></header>";
 	}
