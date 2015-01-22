@@ -24,15 +24,14 @@ trait SlugAttributeTrait {
 	 * use name to create it.
 	 * Otherwise use the specified one.
 	 *
-	 * @param        $value
-	 * @param string $title This will be used to create a slug if it is empty.
+	 * @param string $value
 	 */
-	public function setSlugAttribute( $value, $title = 'name' )
+	public function setSlugAttribute( $value )
 	{
 		if ( $value )
 			$this->attributes['slug'] = \Str::slug($value);
 		else
-			$this->attributes['slug'] = \Str::slug($this->$title);
+			$this->attributes['slug'] = \Str::slug($this->title ?: $this->name);
 	}
 
 } 
