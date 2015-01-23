@@ -17,7 +17,8 @@
 		"atorscho/crumbs": "~1.0.0",
 		"fzaninotto/faker": "1.*",
 		"erusev/parsedown": "~1.2",
-		"baum/baum": "~1.0"
+		"baum/baum": "~1.0",
+		"intervention/image": "~2.0"
 	},
 	"autoload": {
 		"classmap": [

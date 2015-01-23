@@ -185,8 +185,8 @@ if ( !function_exists('transIfExists') )
 	 */
 	function transIfExists( $text, $package = 'backend', $parameters = array(), $type = 'labels' )
 	{
-		if ( Lang::has(($package ? $package . '::' : '') . $type . '.' . $text) )
-			$text = trans(($package ? $package . '::' : '') . $type . '.' . $text, $parameters);
+		if ( Lang::has(( $package ? $package . '::' : '' ) . $type . '.' . $text) )
+			$text = trans(( $package ? $package . '::' : '' ) . $type . '.' . $text, $parameters);
 
 		return $text;
 	}
@@ -222,6 +222,28 @@ if ( !function_exists('newFileName') )
 		$filename  = time() . '_' . \Str::slug(str_replace($extension, '', $file->getClientOriginalName())) . $extension;
 
 		return $filename;
+	}
+}
+
+if ( !function_exists('saveAndResizeFile') )
+{
+	/**
+	 * Save and resize the file with Image by Intervention.
+	 *
+	 * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file
+	 * @param integer                                             $size
+	 * @param string                                              $path
+	 * @param string                                              $filename
+	 */
+	function saveAndResizeFile( $file, $size, $path, $filename )
+	{
+		$img = Image::make($file);
+		if ( $img->width() > $img->height() )
+			$img->heighten($size);
+		else
+			$img->widen($size);
+		$img->resizeCanvas($size, $size);
+		$img->save(uploads_path($path . $filename));
 	}
 }
 
