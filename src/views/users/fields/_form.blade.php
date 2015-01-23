@@ -99,7 +99,7 @@
 			<label class="btn btn-default {{ (isset($field) && $field->required) ? 'active' : '' }}">
 				{{ Form::radio('required', 1, null) }} @lang('backend::labels.yes')
 			</label>
-			<label class="btn btn-default {{ (isset($field) && !$field->required) ? 'active' : '' }}">
+			<label class="btn btn-default {{ (!isset($field) || !$field->required) ? 'active' : '' }}">
 				{{ Form::radio('required', 0, true) }} @lang('backend::labels.no')
 			</label>
 		</div>
