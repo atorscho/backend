@@ -34,19 +34,19 @@ class TaxonomyController extends BaseController {
 		];
 
 		// Access Filters
-		$this->beforeFilter('admin.perm:createTaxonomy', [
+		$this->beforeFilter('admin.perm:createTaxonomies', [
 			'only' => [
 				'create',
 				'store'
 			]
 		]);
-		$this->beforeFilter('admin.perm:editTaxonomy', [
+		$this->beforeFilter('admin.perm:editTaxonomies', [
 			'only' => [
 				'edit',
 				'update'
 			]
 		]);
-		$this->beforeFilter('admin.perm:deleteTaxonomy', [ 'only' => 'destroy' ]);
+		$this->beforeFilter('admin.perm:deleteTaxonomies', [ 'only' => 'destroy' ]);
 	}
 
 	public function create( TaxonomyType $taxonomyType )
