@@ -1,42 +1,60 @@
 {
-	"name": "atorscho/backend",
-	"description": "Backend Package for Laravel Framework.",
-	"type": "project",
-	"keywords": ["laravel", "backend", "admin", "cp", "control panel", "administration"],
-	"homepage": "http://alextorscho.com",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Alex Torscho",
-			"email": "contact@alextorscho.com"
-		}
-	],
-	"require": {
-		"php": ">=5.4.0",
-		"illuminate/support": "4.2.*",
-		"atorscho/crumbs": "~1.0.0",
-		"fzaninotto/faker": "1.*",
-		"erusev/parsedown": "~1.2",
-		"baum/baum": "~1.0",
-		"intervention/image": "~2.0"
-	},
-	"autoload": {
-		"classmap": [
-			"src/migrations",
-			"src/seeds"
-		],
-		"files": [
-			"src/helpers/misc.php",
-			"src/helpers/outputs.php",
-			"src/helpers/shortcuts.php",
-			"src/helpers/users.php"
-		],
-		"psr-0": {
-			"Atorscho\\Backend\\": "src/"
-		},
-		"psr-4": {
-			"Atorscho\\Backend\\": "src/"
-		}
-	},
-	"minimum-stability": "stable"
+    "name": "atorscho/backend",
+    "description": "Administration Control Panel for Laravel 5.1+ projects.",
+    "keywords": [
+        "admin",
+        "admincp",
+        "administration",
+        "backend",
+        "control",
+        "cp",
+        "panel"
+    ],
+    "homepage": "https://github.com/atorscho/backend",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Torscho",
+            "email": "contact@alextorscho.com",
+            "homepage": "http://alextorscho.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : ">=5.5.9",
+        "laravel/framework": "5.1.*",
+        "atorscho/crumbs": "~2.1",
+        "atorscho/membership": "dev-master",
+        "atorscho/menus": "dev-master",
+        "cocur/slugify": "~1.2",
+        "intervention/image": "~2.3",
+        "laravelcollective/html": "^5.1"
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "~2.0",
+        "doctrine/dbal": "~2.3",
+        "fzaninotto/faker": "~1.4",
+        "laracasts/generators": "~1.1",
+        "mockery/mockery": "0.9.*",
+        "phpspec/phpspec": "~2.1",
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Atorscho\\Backend\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Atorscho\\Backend\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
 }
