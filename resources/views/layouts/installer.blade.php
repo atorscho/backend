@@ -6,7 +6,9 @@
 
 	<title>Document</title>
 </head>
-<body>
-
+<body id="installer">
+<div id="process">
+	Process
+</div>
 </body>
 </html>

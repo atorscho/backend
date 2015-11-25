@@ -11,6 +11,6 @@ class InstallerController extends Controller
 {
     public function step1()
     {
-        return 'it works';
+        return view('backend::step1');
     }
 }
