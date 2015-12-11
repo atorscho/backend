@@ -2,8 +2,6 @@
 
 namespace Atorscho\Backend\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use Doskaa\Http\Requests;
 use Doskaa\Http\Controllers\Controller;
 

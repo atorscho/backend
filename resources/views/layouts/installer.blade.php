@@ -8,7 +8,7 @@
 </head>
 <body id="installer">
 <div id="process">
-	Process
+	@yield('content')
 </div>
 </body>
 </html>

@@ -3,5 +3,7 @@
 @section('title', 'Title')
 
 @section('content')
-	
+
+	{!! Crumbs::render() !!}
+
 @stop

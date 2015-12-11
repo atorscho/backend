@@ -7,7 +7,6 @@ Route::group([
     /**
      * Install Process
      */
-    get('/backend/install.php', ['uses' => 'InstallerController@step1']);
-    //get('/backend/install.php', ['uses' => 'InstallerController@step2']);
+    get('/backend/install.php', 'InstallerController@step1');
 
 });
